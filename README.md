@@ -18,13 +18,15 @@
 
 ## 使い方
 
-Claude Code に指示するだけで動きます。
+Claude Code でも Codex でも、指示するだけで動きます。
+ルールは `CLAUDE.md`（Claude Code用）と `AGENTS.md`（Codex用）に同じ内容で置いてあるので、
+どちらに頼んでも同じ文体・同じ型で書きます。ルールを変えるときは両方を直してください。
 
 ```
 templates/melmaga.md の型で、「初心者が最初にやるべきこと」をテーマにメルマガを1通書いて
 ```
 
-Claude は自動的に `style/voice.md` を読み、その文体で書きます。
+AIは自動的に `style/voice.md` を読み、その文体で書きます。
 
 サムネもここから作れます。
 
