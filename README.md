@@ -11,10 +11,12 @@
 |---|---|
 | `style/voice.md` | 文体プロファイル本体。改行のリズム、語り口、演出記号、NG集まで。**すべての生成物の基準** |
 | `style/samples/` | 過去に自分で書いた原稿（お手本）。ここが厚いほどAIの再現度が上がる |
+| `style/ai-smell.md` | AI臭パターン集。添削で「AI臭」と言われた実例と直し方 |
 | `templates/` | コンテンツ種別ごとの「型」。メルマガ、ステップメール、LINE、セールスレター、ブログ、YouTube朗読、YouTube攻略（ノウハウ解説） |
 | `templates/` の `thumbnail-copy.md` | サムネのコピー案を出す型 |
 | `tools/thumbnail.mjs` | サムネ画像（1280×720 PNG）の生成ツール。詳細は `tools/README.md` |
-| `drafts/` | AIが生成した原稿・サムネの置き場所 |
+| `tools/ai-smell-check.mjs` | 台本のAI臭を行番号つきで拾うチェッカー。文字起こしとの照合もできる |
+| `drafts/` | AIが生成した原稿・サムネの置き場所。`drafts/raw/` は本人の録音の文字起こし（台本の照合元） |
 
 ## 使い方
 
