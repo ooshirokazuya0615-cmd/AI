@@ -1,0 +1,1298 @@
+# 著作権削除申請 チャンネル別URLシート（本数順・上位100チャンネル）
+# 1行 = 侵害動画URL <TAB> 元動画URL <TAB> 一致率 <TAB> 元タイトル
+# Studioの削除リクエストは1回の申請に複数動画を追加できるので、1チャンネル分をまとめて1申請にする。
+
+=== 1. 藤田 七海  70本  https://www.youtube.com/channel/UCe0KTxGVR84qUjkAHQb-wGg
+https://www.youtube.com/watch?v=H3NTQ4PrQQY	https://www.youtube.com/watch?v=dOy6I1JE_yY	100%	【スカッとする話】私の退職金をやたら気にする夫「いくら貰ったの？」私「口座に2000万入った！」翌日、カードを手に夫が失踪。私（計画通りw）
+https://www.youtube.com/watch?v=MCdA3DExAwI	https://www.youtube.com/watch?v=ZobJWKrmIzQ	100%	【スカッとする話】娘の結婚式に愛人と共に現れた夫「彼女にも座らせてあげて」私は黙って愛人に席を譲った直後、グループ10社を束ねる新郎父「会長
+https://www.youtube.com/watch?v=4wCL6JN8awg	https://www.youtube.com/watch?v=lw1jxku6xxo	100%	【スカッとする話】離婚した3日後に再婚した元夫「金持ちで若い嫁ゲットw」私「ごめん、笑いすぎて腹痛いwだって、その女は…w」真実を知った夫は
+https://www.youtube.com/watch?v=wrdB3yaai4M	https://www.youtube.com/watch?v=2t3thqCEE5U	100%	【スカッとする話】旦那が出張中、手土産を持って夫を亡くした親友を訪ねた私。しかし玄関のドアを開け、目の前の光景を見た瞬間、私「今までありがと
+https://www.youtube.com/watch?v=PMDTClN0lT8	https://www.youtube.com/watch?v=uSakJfqMq3Y	100%	【スカッとする話】お盆に親戚の集まりに行くと、親戚一同が私を無視…義母（うわw来たよ…）無言でその場を立ち去り4日後、親戚全員から大量着信が
+https://www.youtube.com/watch?v=FQOy31WsX70	https://www.youtube.com/watch?v=IOzGqAeYdYQ	100%	【スカッとする話】私がビル100棟のオーナーと知らず、私を捨て社長令嬢と再婚した夫「俺だけ金持ちなってごめんw」私「本当にそう思ってるの？」
+https://www.youtube.com/watch?v=rD8lL-lTo0A	https://www.youtube.com/watch?v=TUFznlJ6JeM	100%	【スカッとする話】私「正月に両親ウチ来るから」夫「新年から最悪の幕開けw来てる間は出てくわw」私「では私が出ていきます」離婚届を提出し永久に
+https://www.youtube.com/watch?v=vVqgyRmaiKY	https://www.youtube.com/watch?v=sTmob2uIaqg	100%	【スカッとする話】結婚挨拶から帰宅した息子「片親の貧乏人とは白紙って…」息子の頬にはビンタの痕が…キレた私は義家族に即電話→義家族全員が号泣
+https://www.youtube.com/watch?v=1xXNKv0BneY	https://www.youtube.com/watch?v=h7fUPWG2iGU	100%	【スカッとする話】娘がアスペルガーと診断されると、夫「離婚でw親権はお前なw」絶望の中、号泣する私に娘「ママ、これは何…？」娘が指差した紙を
+https://www.youtube.com/watch?v=lFRyvF4udC4	https://www.youtube.com/watch?v=VqAVQppeIsM	100%	【スカッとする話】私を嫌う義両親が私を無視。私「おやすみ」2人「…」ハワイ旅行当日に姿を消すと鬼電。義両親「今どこ？」私「…」無視して空港に
+https://www.youtube.com/watch?v=IgH2SYySqdI	https://www.youtube.com/watch?v=UMALXNxEZ8g	100%	【スカッとする話】息子のために貯めた800万の進学資金を勝手に義母に渡した夫「ママが家買うから渡したw文句あるなら離婚！」私「OK」息子「今
+https://www.youtube.com/watch?v=EE_JZnyJVgE	https://www.youtube.com/watch?v=InEluoUt8ik	100%	【スカッとする話】裕福な義家族と高級料亭に行くと、義兄嫁「その服で同席する気？お前とは格が違うんだよ」義母「ええ、あなたとは違うわね」義兄嫁
+https://www.youtube.com/watch?v=evdeFiuqmfY	https://www.youtube.com/watch?v=cJTBStbKuvI	100%	【スカッとする話】里帰り出産から帰ると、浮気夫「すまん、離婚してくれ…」愛人「金目当ての女は消えてw」私「OK（大丈夫かな？w借金1億あるけ
+https://www.youtube.com/watch?v=zYpM1pLm_7c	https://www.youtube.com/watch?v=W-rW5yUgXLY	100%	【スカッとする話】父を理由に夫に捨てられ5年後、若い女と子供を連れた元夫と再会。元夫「嫁はお前と違って完璧w」直後、私の新しい夫を見て、元夫
+https://www.youtube.com/watch?v=P6SlM3yAEx4	https://www.youtube.com/watch?v=Rt9GxXvlbY8	100%	【スカッとする話】夫の会社に弁当を届けると、夫「今日も忙しいから助かる！」直後、夫の鞄を見た瞬間、私「さようなら」夫「え？」【朗読】【スカッ
+https://www.youtube.com/watch?v=RGiw3iaWb0w	https://www.youtube.com/watch?v=YYnTTQ_3WI8	100%	【スカッとする話】妹の代わりに田舎の猟師に嫁いだ私「今日の夕飯は鹿肉？」夫「いや、これで好きな物食べて」10万円を手渡された私…→夫の正体を
+https://www.youtube.com/watch?v=wcYLnJMwl28	https://www.youtube.com/watch?v=6_DWl928MOQ	100%	【スカッとする話】私と離婚し愛人を選んだ元夫「ローン完済したよな？今日から俺たちが住むからw」私「何か勘違いしてない？」元夫「え？」実はw【
+https://www.youtube.com/watch?v=p4KgG7fcdMo	https://www.youtube.com/watch?v=k-xOabuttTE	100%	【スカッとする話】息子の3回忌で法事中、遺影に手を合わせていると、老婆「この子生きてるわよ。骨壷の中、見たことある？」骨壷を開けると私は恐怖
+https://www.youtube.com/watch?v=gAVgka5cVLA	https://www.youtube.com/watch?v=DPS_qm8jKlI	100%	【スカッとする話】私の年収が1000万と知らず夫と一緒に出ていった息子「毒親とは絶縁wバイバイw」私「じゃあ夫とも縁切るね」息子「勝手にどう
+https://www.youtube.com/watch?v=5JHOKlGIYIk	https://www.youtube.com/watch?v=K7QGPSQED7o	100%	【感動する話】離婚前夜、夫との最後の晩餐。料亭で夫を待ち続けたが、メールの返信もなく現れない。その時、突然私に声をかけた店主「実は、ご主人が
+https://www.youtube.com/watch?v=JPMhCqqKBqY	https://www.youtube.com/watch?v=pdhclv8SJrI	100%	【スカッとする話】昼休みに同僚とカフェに入ると、隣の席に夫と若い女性が…夫「妻は2年前に他界したからwこの後うち来ていいよw」先回りし最高の
+https://www.youtube.com/watch?v=88X9a7Yo_fk	https://www.youtube.com/watch?v=T3DS3QFl4gM	100%	【スカッとする話】不倫した夫と離婚して4日後、ホテルで豪遊する義母から電話。義母「カード使えなくなった！宿泊代30万振り込んでw」もう他人な
+https://www.youtube.com/watch?v=I9hXQqLRHbA	https://www.youtube.com/watch?v=blo_a56_T1U	100%	【スカッとする話】愛人に夫を奪われた私。2人「すまん、離婚してくれ…」離婚届が置かれた瞬間、即サインし夫を譲ると、相手弁護士がガタガタ震え出
+https://www.youtube.com/watch?v=v6zLtk3swMY	https://www.youtube.com/watch?v=qbv3oYHPVrc	100%	【スカッとする話】銀行のATMで入金中に突然、夫「今すぐ逃げよう、早く！」私の手を掴み全力疾走の夫…私「どうかしたの？」夫「後ろ見てみろ…」
+https://www.youtube.com/watch?v=RVCm1aUrERs	https://www.youtube.com/watch?v=tnmAzLT0aw0	100%	【スカッとする話】初恋の相手の結婚式に行くと、官僚「用務員の席はないwそこら辺に立っとけw」私が帰ろうとすると、海外VIP「会えて光栄です！
+https://www.youtube.com/watch?v=0OxjzwjcsE4	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=E1ESFVhhufk	https://www.youtube.com/watch?v=yf6Hd6ajnbc	100%	【スカッとする話】5年前に離婚した元夫と保育園で再会。元夫「そいつ俺の子？俺もう子供いるし認知しないよ」私「ん？お前種ナシじゃんwそっちも誰
+https://www.youtube.com/watch?v=eSqVlC_icow	https://www.youtube.com/watch?v=lRIrN83xkSc	100%	【スカッとする話】私の車のアクセルにこっそり手を加える夫。私（知らないふりしよw）翌日、車を義両親に貸し出すと、夫「ま、待ってくれ…」実はw
+https://www.youtube.com/watch?v=Hue9y3iiXb4	https://www.youtube.com/watch?v=1LqNLFoqHnE	100%	【スカッとする話】清掃員のおばちゃんの私に、社員「今日もありがとう！いつも綺麗で助かります！」私「君、今日で終わりね」社員「は？」実は…【朗
+https://www.youtube.com/watch?v=-J23KOz5FG8	https://www.youtube.com/watch?v=tK8KO9cLx0M	100%	【スカッとする話】老人ホームに捨てられた夫と私。息子夫婦「今日から施設でw」2人が車で去った直後、夫が鞄からある物を取り出し私は震えが止まら
+https://www.youtube.com/watch?v=Ha4H13c-Wik	https://www.youtube.com/watch?v=i4CX2w0EpjQ	100%	【スカッとする話】不倫され無一文で追い出された私。偶然見た大富豪の継母募集に応募。1ヶ月後、知らせを聞いた元夫がいきなり家の前に現れ…w【朗
+https://www.youtube.com/watch?v=RAkcPdv5H8Q	https://www.youtube.com/watch?v=jr7Od4teOoA	100%	【スカッとする話】7年間義母の介護を続けたのに、正月になると義姉には20万渡し、私にはボロ紙袋を投げつけた義母。悔しさをこらえて中を見た瞬間
+https://www.youtube.com/watch?v=jzKGPAYOqfY	https://www.youtube.com/watch?v=YXQf7LoG2gE	100%	【スカッとする話】夫の会社に身分を隠して入社した私。昼休み、夫のコップでお茶を飲むと女性秘書「私の夫のコップよ！言いつけてクビにする」呼び出
+https://www.youtube.com/watch?v=YE-RZXbNqh4	https://www.youtube.com/watch?v=p-yN-SVW_EU	100%	【スカッとする話】金のない私を見下しこき使う義家族。義母「還暦祝いよろしくねw」私が倒れ夫がコンビニ弁当を出すと義母「これで祝ったつもり？」
+https://www.youtube.com/watch?v=4zLBaJmct9Q	https://www.youtube.com/watch?v=JJC-tjTSPv8	100%	【スカッとする話】私が夫と離婚した日、夫についていくと言った息子が、別れ際に玄関で封筒を渡してきた。息子「僕が戻るまで開けないで」1年後、帰
+https://www.youtube.com/watch?v=ZIv2oFAVCeo	https://www.youtube.com/watch?v=TrK-PE4VKbI	100%	【スカッとする話】2人で11年経営した会社を知らない女に勝手に売った夫「金入ったしお前は用済み」女「会社と嫁引継ぎますw」社員を引き連れ全員
+https://www.youtube.com/watch?v=djXrx-nrSpc	https://www.youtube.com/watch?v=Q044CFIO2kM	100%	【スカッとする話】71歳で年金暮らしの私に息子「介護嫌だから絶縁w」息子嫁「遺産も入らないしねw」私「縁切って本当に困らない？」2人「困るわ
+https://www.youtube.com/watch?v=mocylnYRZQU	https://www.youtube.com/watch?v=K6Ok3cpMIXs	100%	【スカッとする話】車椅子の夫を5年看病する私。ある日、検査薬で妊娠が発覚…全てを諦め逃げようとした瞬間、夫「待ってくれ！実は…」夫が突然立ち
+https://www.youtube.com/watch?v=XlkI9UQN-vY	https://www.youtube.com/watch?v=SEynENllM3s	100%	【スカッとする話】残業で22時に帰宅すると、出されたのは食べかけのパン…義母「お前の面倒見るのやめた」私「OK、私は嫁をやめますw」【朗読】
+https://www.youtube.com/watch?v=8u1tbxxoP38	https://www.youtube.com/watch?v=QhxtczPE0cs	100%	【スカッとする話】亭主関白夫「生活費は1万で十分！節約できなければ離婚な」私「は？（まぁいっかw）」夫「女は文句言うなw」暖房も切り節約して
+https://www.youtube.com/watch?v=ZrQl-QgyX8M	https://www.youtube.com/watch?v=BwuYpXAl90I	100%	【スカッとする話】裕福な義両親の還暦祝い当日、高級寿司店で私を嫌う義姉「金目的の貧乏人は来んなw」一同「了解。じゃあ帰るか」全員が帰り出すと
+https://www.youtube.com/watch?v=JBtydRiUyFE	https://www.youtube.com/watch?v=u1Ga8VNwPE4	100%	【スカッとする話】夫が亡くなり8年経ったある日、納骨堂に写真を供えていると少年「隣に住んでるおじさんだ」詳しく話を聞くと背筋が凍り…【朗読】
+https://www.youtube.com/watch?v=9ZyPErNH4eU	https://www.youtube.com/watch?v=rNIrBwB8mno	100%	【スカッとする話】夫が入浴中、義妹から電話。義妹「妊娠しちゃいました…」私「誰の子？」義妹「…」全ての事情を察した私「夫には黙って家来て」実
+https://www.youtube.com/watch?v=0QCeWwfLLjE	https://www.youtube.com/watch?v=YomBGMDnCiE	100%	【スカッとする話】娘と入浴中だった夫が倒れた…私「すぐ病院連れていかないと！」娘「やめて！置いて逃げよう」私「何で…？」娘の一言で私はすぐに
+https://www.youtube.com/watch?v=s7MxipQlVCQ	https://www.youtube.com/watch?v=apu3YCoBeec	100%	【スカッとする話】私が早朝シフトに切り替え10年義母を介護し続けたのに、義母「別に頼んでないしwお前には遺産渡さないw」私「では明日から施設
+https://www.youtube.com/watch?v=HGtpfk9zwcA	https://www.youtube.com/watch?v=946JbIP0v8E	100%	【スカッとする話】高熱を出し夫に連絡した私「病院連れていってくれない？」夫「今飲み会中、連絡すんなw寝れば治るから大丈夫w」翌日、夫は自滅し
+https://www.youtube.com/watch?v=Or_7KJjAZxA	https://www.youtube.com/watch?v=VknR8hj0luw	100%	【スカッとする話】夫「お前の親に使う金はない！」母の治療費10万で本性を現した夫。3日後、義母も脳卒中で倒れると私「私にも義務はないから」直
+https://www.youtube.com/watch?v=tPMmMkBKMGE	https://www.youtube.com/watch?v=PWHztx9-bjo	100%	【スカッとする話】姉の結婚式に行くと私を見下す京大卒の義父「中卒の英語聞かせろw」私（アメリカの大学教授だけど、今は黙っとくかw）1時間後w
+https://www.youtube.com/watch?v=780xDy7VtvU	https://www.youtube.com/watch?v=KVKExhX2jn4	100%	【スカッとする話】財布を届けにきた私に気づかない夫「嫁は何も疑ってないよw今夜もまた会えるねw」夫の正体を知り私の愛は消滅しw【朗読】【スカ
+https://www.youtube.com/watch?v=pvT5lwjbiZU	https://www.youtube.com/watch?v=wWt0dqnPt6g	100%	【スカッとする話】38歳で両親に結婚を急かされ「相手はいる」と嘘をつくとイケメン上司「俺が恋人役するよ」1週間後、両親に会わせると父「まさか
+https://www.youtube.com/watch?v=aO11Hj7Yd8g	https://www.youtube.com/watch?v=qORErX-vqL8	100%	【スカッとする話】同窓会で東大卒のイケメン医師が中卒でバイトの私に難病症例を提示。医師「解けたら何でもするw」私「あ、それ難しくないよ」【朗
+https://www.youtube.com/watch?v=rsuKkOUkL2Q	https://www.youtube.com/watch?v=AW46gN91lmo	100%	【スカッとする話】孫の合格祝いで義実家に行くと私と夫だけわさびのみだった…義兄「もらえるだけ光栄だろw」私「ありがたく頂きますね」帰宅後、悶
+https://www.youtube.com/watch?v=Lr2kktW1Fhs	https://www.youtube.com/watch?v=KOdNAZcklk0	100%	【スカッとする話】4歳の娘を寝かしつけていると、急にベランダを指差し囁いた。娘「ママがお外行くと、そこから女の人が来るの」→出かける瞬間11
+https://www.youtube.com/watch?v=SfrDwqsbJU4	https://www.youtube.com/watch?v=_VNnKc5IcKc	100%	【スカッとする話】9年前に離別した息子が亡くなり、すぐに葬儀場へ足を運んだ私。祭壇の前に立つ男を見た直後、私「そんな、嘘でしょ…」実は【朗読
+https://www.youtube.com/watch?v=nWSoFCk937U	https://www.youtube.com/watch?v=00HSG0Knh3I	100%	【スカッとする話】70歳を過ぎ夫と別居中の私。40年もの間、夫は冷酷だった。ある日、夫の手帳を開いた瞬間、全てを理解し涙が溢れ…【朗読】【ス
+https://www.youtube.com/watch?v=2WxAw0mW7Ao	https://www.youtube.com/watch?v=-qfSnxAmUYM	100%	【スカッとする話】義姉が子供を連れて転がりこみ、一銭も払わず30日居座り続けた。義姉「何でそんな怒ってるの？w」夫「家族だし問題ないだろw」
+https://www.youtube.com/watch?v=sB5iG9fEM_E	https://www.youtube.com/watch?v=Lz3rc2N2XhM	100%	【スカッとする話】正月、帰省の新幹線で、妊娠中の私を立ち席にした夫は「腰が痛い」と1人グリーン車へ。愛人の元へ向かったと知った私は、何も告げ
+https://www.youtube.com/watch?v=xQD1fHQN9vU	https://www.youtube.com/watch?v=bUesKx2d9r8	100%	【スカッとする話】夫「3年間アメリカに赴任する」私「長すぎる！私も一緒に行く」夫「お前は家を守っててくれ」1年後、デパートで夫と妊婦を目撃→
+https://www.youtube.com/watch?v=TE0EyTLypAM	https://www.youtube.com/watch?v=iE-UD8P2GXA	98%	【スカッとする話】私がグループ24社の社長と知らず、私と赤ちゃんを捨て愛人と再婚した夫「ガキ増えて生活大丈夫そ？w」私「うんw（お前と違って
+https://www.youtube.com/watch?v=l8ZhITf14ww	https://www.youtube.com/watch?v=wLqe_KdEfS0	97%	【スカッとする話】車椅子の義母を1人で介護する私に夫「姉が俺の子妊娠した。離婚で」私「了解。介護と子供はよろしく」夫「は？女の責任果たせよw
+https://www.youtube.com/watch?v=nHAUMeiwlk8	https://www.youtube.com/watch?v=nlS5u4pCtI0	97%	【スカッとする話】警察官の弟の結婚式に出席した私。義母「中卒の姉は一族の恥ねw」直後、慌てた弟が義母に私の正体を伝えると、義母は顔面蒼白に
+https://www.youtube.com/watch?v=h8T-p7WDd-4	https://www.youtube.com/watch?v=XxaFsY1Peuo	97%	【スカッとする話】父を亡くし借金生活をする私。父の鞄に入っていた通帳から延滞金20万を振り込んだ直後、玄関前の光景を見た私は絶句し…【朗読
+https://www.youtube.com/watch?v=9uCKca7q7ss	https://www.youtube.com/watch?v=H-iBD-D6jz8	94%	【スカッとする話】父が急逝し社長になった私に30人分の退職届を投げつけた専務「全員連れて独立するわ！」私「いいの？wラッキー！」専務「え
+https://www.youtube.com/watch?v=3RtvDvnUUnQ	https://www.youtube.com/watch?v=fUpb642EsOE	93%	【スカッとする話】結婚式が終わった途端、夫「給料50万は全部ママに渡すw」義母「お前の稼ぎじゃないからw文句言うなよ」私「そっちもね」
+https://www.youtube.com/watch?v=3hPc1mwMsi8	https://www.youtube.com/watch?v=-U1QXDCVfB8	90%	【スカッとする話】熱海に新築戸建てが完成すると義母「年長者に譲れw」私「え？」義母「嫁の分際で偉そうね」夫「ここは譲ってあげよ？」お望
+https://www.youtube.com/watch?v=gYCEDoU2r3M	https://www.youtube.com/watch?v=OTtXNVQfwMw	88%	【スカッとする話】夫を亡くし、女手一つで息子を医者に育て上げたのに、息子「結婚式には来ないで」バレないようこっそり会場に行くと、息子
+https://www.youtube.com/watch?v=Yl1FRp3RLws	https://www.youtube.com/watch?v=-2NPxSnCoDA	87%	【スカッとする話】ジャージ姿の夫と病院へ行くと、私の婚約者を略奪した姉と再会。姉「私の夫、ここの院長なのwあなた達は生活大変でしょ」夫
+https://www.youtube.com/watch?v=pps1Gh_FfIU	https://www.youtube.com/watch?v=xccw36svwyY	87%	【スカッとする話】妊娠中の私を捨てた夫と同窓会で再会。夫「お前より若い女と再婚したw別れてくれたおかげで幸せw」私「それで幸せなんた
+https://www.youtube.com/watch?v=F05dhaAdONc	https://www.youtube.com/watch?v=cnmmrAEygJc	85%	【スカッとする話】夫婦で新築を購入すると、義家族が荷物を大量に搬入。義家族「私たちも住むからw」拒否すると夫が激怒したが、私の一言て
+https://www.youtube.com/watch?v=VrRL-GT9E3k	https://www.youtube.com/watch?v=RWaATWML5EY	83%	【スカッとする話】正月、母が危篤で実家に帰ると義母「ここが嫌なら実家で暮らせ」私の荷物を外に投げ捨てた。私「後で撤回なしですよ
+
+=== 2. スカッと物語  29本  https://www.youtube.com/channel/UCLz5UoQMIAja9LyZIOCYmQg
+https://www.youtube.com/watch?v=od3pGdQwxPk	https://www.youtube.com/watch?v=IsPanDg1vH0	100%	【スカッとする話】娘の葬儀に愛人を連れてきた婿「最期に間に合わなくて残念w」愛人「遺産2億は私達が相続ねw」私「…ですってw」夫「助かるなw
+https://www.youtube.com/watch?v=Ef-RDmTY9Jk	https://www.youtube.com/watch?v=DEqKKzP1pB4	100%	【スカッとする話】通院費1万すら拒絶した息子夫婦「年金から払えば？w」翌日、家の名義を変え姿を消すと、大号泣の2人から大量着信が…w【朗読ド
+https://www.youtube.com/watch?v=kzk9Ium2XNM	https://www.youtube.com/watch?v=W7iyZQfb2oU	100%	【スカッとする話】父が毎日お茶漬けなので、私「仕送り10万じゃ足りない？」父「仕送り？貰ってないぞ」私「変ね…銀行に電話するわ」直後、夫がガ
+https://www.youtube.com/watch?v=8lcqgmooFug	https://www.youtube.com/watch?v=dOy6I1JE_yY	100%	【スカッとする話】私の退職金をやたら気にする夫「いくら貰ったの？」私「口座に2000万入った！」翌日、カードを手に夫が失踪。私（計画通りw）
+https://www.youtube.com/watch?v=DT24kwepkr0	https://www.youtube.com/watch?v=ZobJWKrmIzQ	100%	【スカッとする話】娘の結婚式に愛人と共に現れた夫「彼女にも座らせてあげて」私は黙って愛人に席を譲った直後、グループ10社を束ねる新郎父「会長
+https://www.youtube.com/watch?v=0_szphr5FQg	https://www.youtube.com/watch?v=W1l_WF0rxns	100%	【スカッとする話】勉強が苦手な私の息子に義母「うちの子は優秀なのに…ダメ嫁が産むと出来損ないかw」ブチギレた私は義母と絶縁。10年後、息子は
+https://www.youtube.com/watch?v=4NsNHKQLYqw	https://www.youtube.com/watch?v=28rOAUunNPw	100%	【スカッとする話】夫から高級化粧品を貰った私。夫「あれ、もう使った？w」私「お義母さんが試してたよ」直後、なぜか夫が慌て出しw【朗読】【スカ
+https://www.youtube.com/watch?v=WQGCAz-NxdE	https://www.youtube.com/watch?v=iDdnkB23JiU	100%	【スカッとする話】夫「もう俺の親に関わるな」10年間義母を介護してきた私は、夫の一言で介護・支援を即終了。1ヶ月家に帰らず姿を消すと、発狂し
+https://www.youtube.com/watch?v=VJ9-vOfNGZs	https://www.youtube.com/watch?v=byOeJgVNDQo	100%	【スカッとする話】資産5億の父と食事中、離婚直後の元夫と愛人に遭遇。元夫「また金持ちに寄生かw」直後、父の一言で2人は青ざめw【朗読】【スカ
+https://www.youtube.com/watch?v=5s1QB7eb9K0	https://www.youtube.com/watch?v=lw1jxku6xxo	100%	【スカッとする話】離婚した3日後に再婚した元夫「金持ちで若い嫁ゲットw」私「ごめん、笑いすぎて腹痛いwだって、その女は…w」真実を知った夫は
+https://www.youtube.com/watch?v=IC5RMYPop_0	https://www.youtube.com/watch?v=2t3thqCEE5U	100%	【スカッとする話】旦那が出張中、手土産を持って夫を亡くした親友を訪ねた私。しかし玄関のドアを開け、目の前の光景を見た瞬間、私「今までありがと
+https://www.youtube.com/watch?v=TCZYtXk8Ilk	https://www.youtube.com/watch?v=uSakJfqMq3Y	100%	【スカッとする話】お盆に親戚の集まりに行くと、親戚一同が私を無視…義母（うわw来たよ…）無言でその場を立ち去り4日後、親戚全員から大量着信が
+https://www.youtube.com/watch?v=zheqqfFcdJo	https://www.youtube.com/watch?v=TafuGL859H8	100%	【スカッとする話】夫「この家には両親も住ませる！嫌ならお前だけ引越せw」私「OK（まだ黙っとくかw）」お望み通り引っ越しすと、3日後、号泣の
+https://www.youtube.com/watch?v=JKO3-2ZO7K0	https://www.youtube.com/watch?v=IOzGqAeYdYQ	100%	【スカッとする話】私がビル100棟のオーナーと知らず、私を捨て社長令嬢と再婚した夫「俺だけ金持ちなってごめんw」私「本当にそう思ってるの？」
+https://www.youtube.com/watch?v=1ctIRkuxzPo	https://www.youtube.com/watch?v=TUFznlJ6JeM	100%	【スカッとする話】私「正月に両親ウチ来るから」夫「新年から最悪の幕開けw来てる間は出てくわw」私「では私が出ていきます」離婚届を提出し永久に
+https://www.youtube.com/watch?v=qV-66FLxN4w	https://www.youtube.com/watch?v=h7fUPWG2iGU	100%	【スカッとする話】娘がアスペルガーと診断されると、夫「離婚でw親権はお前なw」絶望の中、号泣する私に娘「ママ、これは何…？」娘が指差した紙を
+https://www.youtube.com/watch?v=7Ml1wG4Wpfo	https://www.youtube.com/watch?v=t9x4VmiCRI4	100%	【スカッとする話】親代わりで育てた妹の結婚式で、着物姿の妹が式場に1人ポツン…義家族「嘘に決まってるじゃんw」私「なら契約も嘘か！了解」義家
+https://www.youtube.com/watch?v=m63E6NbTDp8	https://www.youtube.com/watch?v=j1whEo65tTY	100%	【感動する話】離婚当日、私にカードを渡した夫「2度と俺の前に現れるな」屈辱で3年間使えなかったので、解約しに銀行窓口に行くと、行員「奥様、お
+https://www.youtube.com/watch?v=6Uy2JDantEw	https://www.youtube.com/watch?v=VqAVQppeIsM	100%	【スカッとする話】私を嫌う義両親が私を無視。私「おやすみ」2人「…」ハワイ旅行当日に姿を消すと鬼電。義両親「今どこ？」私「…」無視して空港に
+https://www.youtube.com/watch?v=iqXd0oSJbIg	https://www.youtube.com/watch?v=UMALXNxEZ8g	100%	【スカッとする話】息子のために貯めた800万の進学資金を勝手に義母に渡した夫「ママが家買うから渡したw文句あるなら離婚！」私「OK」息子「今
+https://www.youtube.com/watch?v=0dbOS-jil54	https://www.youtube.com/watch?v=z0vZvZ-U3js	100%	【スカッとする話】私を毛嫌いする息子夫婦が私を無視。私「お弁当できたよ！」2人「…」3日後、息子嫁が高熱で倒れ、息子「助けてくれ！」私「…」
+https://www.youtube.com/watch?v=wcsxnk8g-xA	https://www.youtube.com/watch?v=InEluoUt8ik	100%	【スカッとする話】裕福な義家族と高級料亭に行くと、義兄嫁「その服で同席する気？お前とは格が違うんだよ」義母「ええ、あなたとは違うわね」義兄嫁
+https://www.youtube.com/watch?v=RpRfw2H0iS8	https://www.youtube.com/watch?v=stThz-8uQrM	100%	【スカッとする話】正月に親戚の集まりで長男嫁にだけ席を用意しない私。親戚「最低！それでも家族か！」夫「俺達に家族はいないぞ？」一同「え？」実
+https://www.youtube.com/watch?v=NXha_HSlkrA	https://www.youtube.com/watch?v=sTmob2uIaqg	99%	【スカッとする話】結婚挨拶から帰宅した息子「片親の貧乏人とは白紙って…」息子の頬にはビンタの痕が…キレた私は義家族に即電話→義家族全員が号泣
+https://www.youtube.com/watch?v=jY7WJR61kEE	https://www.youtube.com/watch?v=sPpAlpY3zIw	98%	【スカッとする話】親戚一同の前で私を笑い者にする夫「稼ぎ0の嫁はお荷物で…w」義母「捨てられないよう頑張れw」私「別に頑張らないですよ？もう
+https://www.youtube.com/watch?v=fQgKojBVHlM	https://www.youtube.com/watch?v=Fd31YEY2YA0	97%	【スカッとする話】最愛の夫を事故で亡くし49日後、私を家から追い出す義両親。義父「出ていってほしい」私「今までお世話になりました…」翌日、遺
+https://www.youtube.com/watch?v=TxImXkEkJ80	https://www.youtube.com/watch?v=eFu4Ak6nNYo	96%	【スカッとする話】結婚式をドタキャンした妹の代わりに、田舎の大工と結婚させられた私。私「バイトして生活費入れるね」夫「必要ないよ！だって…」
+https://www.youtube.com/watch?v=MACQeA4h_qM	https://www.youtube.com/watch?v=HFQiOY1EIYg	92%	【スカッとする話】毎月30万仕送りを続けたのに、帰国すると娘が毎日お粥生活。私「30万送ってたよね？」娘「私は1円も見てないよ」→なぜか
+https://www.youtube.com/watch?v=dvv3g3sBBzE	https://www.youtube.com/watch?v=WimfKEqUSmI	84%	【スカッとする話】義両親が我が家に居座り1ヶ月。義両親「水漏れが酷くて…」私「なら業者呼びますね」義両親「や、やめてくれ！」なぜか
+
+=== 3. 出る杭は打たれる  27本  https://www.youtube.com/channel/UCAmIDIbiOxKA9YSVK0aYSZQ
+https://www.youtube.com/watch?v=eO55IR5xYH8	https://www.youtube.com/watch?v=OJkzN_P6Tys	100%	【スカッとする話】義母の私にだけ引越し先を教えない長男嫁「他人に住所は教えませんw今後一切関わらないでくださいw」1ヶ月後、長男嫁が病気で緊
+https://www.youtube.com/watch?v=1cday0ktFEQ	https://www.youtube.com/watch?v=DeIUkxQ3Yjg	100%	【スカッとする話】生まれた息子が夫に似てない。夫「浮気してたな？離婚だ！」義父「今すぐ出てけアバズレが」10年後、夫と義父と遭遇すると2人が
+https://www.youtube.com/watch?v=cZ_wZEMKHQQ	https://www.youtube.com/watch?v=7z-EBP9QVbU	100%	【スカッとする話】両親と同居するための新築一軒家が完成すると、夫「お袋の介護か離婚か選べw」私「え？同居するつもり？2週間前から他人なのに？
+https://www.youtube.com/watch?v=G6xeIfd_UT4	https://www.youtube.com/watch?v=YfWacJ9_fK8	100%	【スカッとする話】父の銀行で次期頭取候補だった夫が職場の受付嬢と浮気。夫「お前に頭取夫人は無理だろw」私「何も知らないのねw」3日後、大号泣
+https://www.youtube.com/watch?v=VWZHjv1Fbec	https://www.youtube.com/watch?v=kN2RaU-DlNM	100%	【スカッとする話】私が義父の入院費を払ってると知らず私の荷物を処分した義妹「パパに寄生するなクズがw」義妹を残し2億の新築に引越し入院費の支
+https://www.youtube.com/watch?v=a4kHMkoZHmM	https://www.youtube.com/watch?v=gWWRbmvBG_A	100%	【スカッとする話】18年間家賃を払ってきた私を罵倒する長男嫁「月9万の家賃程度で偉そうにw母親づらすんなよババァがw」長男「支払い止めてみろ
+https://www.youtube.com/watch?v=j2_KU4xaWdE	https://www.youtube.com/watch?v=xrBR0QZZRq0	100%	【スカッとする話】55000円で年金暮らしの私に娘「ババァの介護とか絶対無理w今日で絶縁して連絡しないでw」私「いいけど後悔しない？」娘「し
+https://www.youtube.com/watch?v=iHUwcG_Pzp0	https://www.youtube.com/watch?v=pYQ4HHc2X70	100%	【スカッとする話】義母「家政婦3号の引越しはまだ？w」義父「寄生虫はとっとと失せろw」私「5分後には出ていきます」1ヶ月後、血相変えた義父か
+https://www.youtube.com/watch?v=y5qWj5_hhvY	https://www.youtube.com/watch?v=DSNpH-u2EGo	100%	【スカッとする話】親代わりで育てた妹の結婚式で中卒の私を拒絶する医者の義父「クズがなぜここに？底辺は失せろ！」夫「じゃあお前が失せろ」義父「
+https://www.youtube.com/watch?v=KfQdGttuU08	https://www.youtube.com/watch?v=awx6UJE46kc	100%	【スカッとする話】私の第一子の出産祝で親戚一同と義実家に行くとなぜか私の席だけ無かった...義母「お祝いは家族だけw他人は立ってろw」私「帰
+https://www.youtube.com/watch?v=FoSBsUHVUgA	https://www.youtube.com/watch?v=Du3Qri7ivK8	100%	【スカッとする話】55階タワマンの最上階を購入すると、夫「両親も一緒に暮らすからw」義両親「嫌なら離婚して出てけw」即出ていくと血相変えた夫
+https://www.youtube.com/watch?v=tdRN9ljPk8k	https://www.youtube.com/watch?v=YdttuW1Geo0	100%	【スカッとする話】出張中に飛行機が墜落し半身不随になった夫「迷惑かけれないから離婚しよ」私「え？もう離婚済みだよ？介護は愛人がするんでしょ？
+https://www.youtube.com/watch?v=uRjuM-nJFW0	https://www.youtube.com/watch?v=B47vKdBLrbY	100%	【スカッとする話】長期入院してた私が娘と家に帰ると夫と愛人と隠し子が…夫「離婚届にサインして出てけw」娘「あんたら何も知らないの？」夫「え？
+https://www.youtube.com/watch?v=JqkZPhEQ90k	https://www.youtube.com/watch?v=9HluUqVt4lA	100%	【スカッとする話】単身赴任から帰った夫が愛人を連れ帰宅すると、夫「今日でお前とは離婚する！」愛人「私たちの家から早く出てけw」私「え？ここは
+https://www.youtube.com/watch?v=MoFnOvCejhs	https://www.youtube.com/watch?v=sxGodPlB1PE	100%	【スカッとする話】農家の夫を20年支えてきた私を裏切り愛人と再婚した夫「好きな人が出来たから離婚でw」私「お世話になりました」即離婚して引っ
+https://www.youtube.com/watch?v=8AYn2t9XBEo	https://www.youtube.com/watch?v=VZczm593KRQ	100%	【スカッとする話】1億の庭付き一軒家を持つ金持ち自慢の婚約者の家へ結婚挨拶へ行くと婚約者「ブスだけど家政婦には良いだろw」義母「貧相な顔ｗ」
+https://www.youtube.com/watch?v=-mYSNjp4moM	https://www.youtube.com/watch?v=5HWlENHS8h8	100%	【スカッとする話】夫・息子・義母に9年間嫌われ続けた私。義母が亡くなり葬儀の日、離婚届を置いて引越すと、半狂乱の夫から鬼電がw
+https://www.youtube.com/watch?v=4zNu2e4cEv0	https://www.youtube.com/watch?v=72mrBowyHJw	100%	【スカッとする話】夫と買い出し中、金持ちの浮気相手と結婚した元婚約者と再会。婚約者「俺の嫁は美人で女医だぜwお前の旦那は貧乏臭いなw」→夫「
+https://www.youtube.com/watch?v=W0XUztQxB8g	https://www.youtube.com/watch?v=wA9U9cdmjks	100%	【スカッとする話】義実家の新築祝いに行くと私だけカップ麺が出てきた...義両親「家族分しかありませんw」夫「...帰るか」私「はい」直後、義
+https://www.youtube.com/watch?v=CGoZsaW2cdE	https://www.youtube.com/watch?v=hJCiwiFtPwM	100%	【スカッとする話】17年前に3歳の私と不治の病の母を捨て愛人を選んだ父に再会「まだ生きてたのかｗ俺は孫も生まれて幸せだぜw」母「創業17年の
+https://www.youtube.com/watch?v=JLN7Gy0U9tY	https://www.youtube.com/watch?v=f4wGIv3cYG0	100%	【スカッとする話】長男の葬儀当日、斎場の控室に入ると夫と長男嫁が真っ最中…私「嫁が男に襲われています！」こっそり部屋に鍵をかけ閉じ込め親戚一
+https://www.youtube.com/watch?v=Ha-4fuxGs8g	https://www.youtube.com/watch?v=BTIYCjXsOiY	100%	【スカッとする話】私の里帰り中に夫と家を奪った親友から連絡「赤ちゃん出来たwもう帰ってくるなw」私「いいの？喜んで！」そのまま新居に引越した
+https://www.youtube.com/watch?v=_3Lrl0KQNHk	https://www.youtube.com/watch?v=44cWtddOh_Y	100%	【スカッとする話】私を捨て金持ちの愛人と再婚した元夫と再会すると、元夫「年収300万の貧乏人は失せろw」愛人「底辺は生活保護でも貰えばw」私
+https://www.youtube.com/watch?v=2qhsL5IBPdE	https://www.youtube.com/watch?v=acMaagt7Yv0	100%	【スカッとする話】夫「妊娠？知らねぇよwお願いだからもうしゃべんな！」私「..」黙って引っ越し永久に無視してやった結果ｗ
+https://www.youtube.com/watch?v=UZCj8NanA-0	https://www.youtube.com/watch?v=NBqBPgaFa2A	100%	【スカッとする話】夫の義両親と同居する事になり義父母と新居の見学へ行くと、なぜか私だけ別室に案内。不動産「今すぐ逃げて下さい！」明かされた衝
+https://www.youtube.com/watch?v=Xr1nb2k6jdk	https://www.youtube.com/watch?v=F0gsz0c6tDc	100%	【スカッとする話】夫に連れられ夫婦旅行へ行くと、高速道路のSAで売店の女性が耳打ちしてきた「今すぐ逃げて下さい！」理由を聞くと衝撃の事実に戦
+https://www.youtube.com/watch?v=Ls4mIyoNETY	https://www.youtube.com/watch?v=uBvDuF4U2Aw	100%	【スカッとする話】がん末期の母を置いて海外旅行に行った長男夫婦「ババァの介護は頼んだわｗ」翌日、母が笑顔で行動開始すると長男夫婦は帰らぬ人に
+
+=== 4. 良い話  24本  https://www.youtube.com/channel/UCSrk1OzKlw4sCvRbksLDgcQ
+https://www.youtube.com/watch?v=BgwIu7GjpsA	https://www.youtube.com/watch?v=p9EJ4XSEiOU	100%	【スカッとする話】夫を略奪した美人同級生から結婚式の招待状が届くと、祖父「バァさんと2人で行く」祖母「地獄を見せてくるわ」普段温厚な祖父母が
+https://www.youtube.com/watch?v=_NmgMfK7eX0	https://www.youtube.com/watch?v=s8zl0VxtC2k	100%	【スカッと総集編】離婚から２週間で再婚した元夫「家柄、性格ともに最高の嫁w」夫の新しい嫁を見た瞬間、私は思わず大爆笑www→だってその嫁は…
+https://www.youtube.com/watch?v=_17PdwgYQtA	https://www.youtube.com/watch?v=VX7Q7VMHXOo	100%	【スカッとする話】新婚3ヶ月で初めて義実家に泊まると、夫「もし嫁イビリされたら教えて」私「大丈夫。全力で反撃するから」結果w【スカッと】【朗
+https://www.youtube.com/watch?v=19hufD4fHQU	https://www.youtube.com/watch?v=G7C_-NrmzFQ	100%	【スカッとする話】私に年間3億の家賃収入があると知らず20歳の愛人と再婚した元夫と再会「生活保護の乞食だw慰謝料も請求するからな覚悟しとけw
+https://www.youtube.com/watch?v=RrYsNClQdpk	https://www.youtube.com/watch?v=1whCmp5y0Nk	100%	【スカッとする話】私が夫のドナー提供予定と知らず私を罵倒する夫「誰のおかげで飯食えてんだw逆らうなら離婚だぞw」私「じゃ離婚で」夫を見捨てて
+https://www.youtube.com/watch?v=ch4Bn0Oil14	https://www.youtube.com/watch?v=w8upN1NkUWE	100%	【スカッとする話】義姉が0歳児を玄関に置き…義姉「1年前から娘の世話ありがとw」私「なんの話？」（私も1年間里帰り中なんだけど…）
+https://www.youtube.com/watch?v=WsA9R_Dugs4	https://www.youtube.com/watch?v=6YoyJs_Qqjk	100%	【スカッと】3年前に記入済みの離婚届を残し不倫相手と駆け落ちした夫から電話「来週帰ってやるw寿司用意しとけw」1週間後、夫が帰宅すると衝撃の
+https://www.youtube.com/watch?v=2j0hFHCXwY0	https://www.youtube.com/watch?v=8vs2qZG8EK0	100%	【スカッとする話】単身赴任先で不倫してた夫「愛人が妊娠したから離婚でw」愛人「ババァは離婚届書いて出てけw」私「離婚せず復讐します」弁護士「
+https://www.youtube.com/watch?v=pT1ypCW8OIE	https://www.youtube.com/watch?v=oR5ywE3o28o	100%	【スカッとする話】出産直後に帰宅すると浮気夫「彼女と住んでるからお前ら出てけw子育てはお前1人で勝手にやれw」私「いいけど後悔するよ？」夫ご
+https://www.youtube.com/watch?v=dDEf0ycIN-U	https://www.youtube.com/watch?v=bSAcu_g5eMg	100%	【スカッとする話】妹と22年間不倫していた夫「妹の方が相性良いんだw」妹「ババァは離婚して消えてw」私「OK。でも気を付けて…実は…」私の一
+https://www.youtube.com/watch?v=zy9hH5jkqwo	https://www.youtube.com/watch?v=599qI_PHb6c	100%	【スカッと総集編】40歳で妊娠した私を捨て23歳の愛人と再婚した医師の夫「若い女の方が良いから離婚でw」18年後、病院で元夫と再会すると→元
+https://www.youtube.com/watch?v=UHI2wSQn1Pg	https://www.youtube.com/watch?v=5H9u_CCpQ5U	100%	【スカッとする話】娘の卒業式の為に購入した洋服を勝手に義姉に譲った夫「服は姪っ子にプレゼントしたw」私「お世話になりました」娘「おじさんバイ
+https://www.youtube.com/watch?v=SOWPD0p64h8	https://www.youtube.com/watch?v=RNxgC9d_wPc	100%	【スカッとする話】女手一つで育てた息子の結婚式で私の料理だけ無い…義母「他人の料理はありませんw」息子「…帰るよ」私「…いいの？涙」直後、義
+https://www.youtube.com/watch?v=19hufD4fHQU	https://www.youtube.com/watch?v=iyUg7BhMrl4	100%	【スカッと総集編】私に年間3億の家賃収入があると知らず20歳の愛人と再婚した元夫と再会「生活保護の乞食だw慰謝料も請求するからな覚悟しとけw
+https://www.youtube.com/watch?v=tG_Am2ijCZQ	https://www.youtube.com/watch?v=pASfttqqShg	99%	【スカッとする話】私に年間9億の家賃収入があると知らずの事故で両足を失った私を捨て愛人と再婚した夫「家事すら出来ない寄生虫とは離婚w慰謝料も
+https://www.youtube.com/watch?v=AkMaZD1vsY0	https://www.youtube.com/watch?v=4CDuIyGgreU	99%	【スカッとする話】長男夫婦が帰省し夕飯を作ると長男嫁「ひどい料理w家もボロいし年金生活じゃ仕方ないかw」直後、普段温厚な長男が立ち上がり、長
+https://www.youtube.com/watch?v=NErdT5kX1Gw	https://www.youtube.com/watch?v=5AbXeqqVHY4	99%	【スカッとする話】臨月の私を家庭用サウナに閉じこめ5泊7日の温泉旅行に出かけたエリート義両親「私達から息子を奪った罰よw」7日後、帰宅した義
+https://www.youtube.com/watch?v=CTSam6d0a5g	https://www.youtube.com/watch?v=uYt37nxwb0o	99%	【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=NErdT5kX1Gw	https://www.youtube.com/watch?v=LPY1ke7gWfI	99%	【スカッと総集編】臨月の私を家庭用サウナに閉じこめ5泊7日の温泉旅行に出かけたエリート義両親「私達から息子を奪った罰よw」7日後、帰宅した義
+https://www.youtube.com/watch?v=CTSam6d0a5g	https://www.youtube.com/watch?v=lVGupM23LsE	99%	【スカッと総集編】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=LLBKCfB0r9c	https://www.youtube.com/watch?v=Gh9ClVlrJUo	98%	【スカッとする話】私が家族全員養っていると知らず3ヶ月も同居の姑に無視され続けた私。ある日、勝手に全ての鍵を変えられ家から閉め出されたので、
+https://www.youtube.com/watch?v=f53AHJe3x38	https://www.youtube.com/watch?v=QlQECIqvNZw	98%	【スカッとする話】豪華客船でディナー中、大手銀行員のママ友が私にビールをぶっかけ…ママ友「貧乏人がなんでいるの？w」3秒後、血相変えた船長が
+https://www.youtube.com/watch?v=py2Yoh601oI	https://www.youtube.com/watch?v=AiIbD4_uq2s	96%	【スカッとする話】私のブラックカードで25人分も高級寿司を奢る義母「嫁の金なので全部タダよｗ」私「あれ？カードは期限切れですよ？先週、離婚届
+https://www.youtube.com/watch?v=tG_Am2ijCZQ	https://www.youtube.com/watch?v=oJ0tlRUdj2A	95%	【スカッと総集編】年間9億の家賃収入があると知らず事故で両足を失った私を捨て愛人と再婚した夫「家事すら出来ない寄生虫とは離婚w慰謝料も600
+
+=== 5. 家庭の真実 5497  20本  https://www.youtube.com/channel/UCqzVZHS7_AHD3WczZdnOkwg
+https://www.youtube.com/watch?v=DBMjSadqY8E	https://www.youtube.com/watch?v=lRIrN83xkSc	100%	【スカッとする話】私の車のアクセルにこっそり手を加える夫。私（知らないふりしよw）翌日、車を義両親に貸し出すと、夫「ま、待ってくれ…」実はw
+https://www.youtube.com/watch?v=RoD3ADzOkEQ	https://www.youtube.com/watch?v=AW46gN91lmo	100%	【スカッとする話】孫の合格祝いで義実家に行くと私と夫だけわさびのみだった…義兄「もらえるだけ光栄だろw」私「ありがたく頂きますね」帰宅後、悶
+https://www.youtube.com/watch?v=Y9etLclFzxg	https://www.youtube.com/watch?v=6DiHSqB63W0	100%	【スカッとする話】夫が出張で遠出するたび、私を実家へ帰らせる義母。義母「理由はいいから！」不審に思い静かに家に戻ると、玄関から怪しい声が聞こ
+https://www.youtube.com/watch?v=jgzpvPyiZbY	https://www.youtube.com/watch?v=A4vl6ZGY-H4	100%	【スカッとする話】私を捨て海外へ移住した義家族。家財も金も持ち逃げされていた。しかし、机上には土地の権利書が…こっそり内容を確認するとw【朗
+https://www.youtube.com/watch?v=KZ0tx1U9oac	https://www.youtube.com/watch?v=8CIj36Dn45g	100%	【スカッとする話】貯金で箱根に別荘を建てた私に義母「明日泊まりに行くわねw夫の介護もよろしくw」私「え？夫とは離婚してますが？」義母「え？」
+https://www.youtube.com/watch?v=3jG_zij-Yw8	https://www.youtube.com/watch?v=2jJCIGafP3k	100%	【スカッと総集編】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁w」長男「今後一切関わらないw」私「本当にいいのね？」長男嫁「え？」
+https://www.youtube.com/watch?v=XN7h9Xoh6sQ	https://www.youtube.com/watch?v=ED8m-ZWU12Y	100%	【スカッと総集編】夫の他界後、9年間同居介護中の義父「家も遺産も本当の家族である娘に譲るが大丈夫だよな？」私「大丈夫です。今日で引っ越すので
+https://www.youtube.com/watch?v=HcyutJ8MibI	https://www.youtube.com/watch?v=JwCyMTMKqaI	100%	【スカッとする話】初孫を見に来た義両親を迎えに行くと、義母「何このボロいミニバンwハイヤーでも用意しなさいよw」私「では歩いて来てください」
+https://www.youtube.com/watch?v=LhrTK1y5rRI	https://www.youtube.com/watch?v=3vf-BW99bPI	100%	【スカッと総集編】義実家で義母の同居介護中に浮気した夫から離婚届が速達で届いた…夫「息子・娘も離婚を望んでるってｗ」即提出して家を売り払い引
+https://www.youtube.com/watch?v=DSDxIahlfk4	https://www.youtube.com/watch?v=bKqVmWX1Zx4	100%	【スカッと総集編】夫「我が家の貯金・老後資金・給料全部お袋が管理する。嫌なら離婚で」義母「あんたの小遣いは毎月300円ねw」私「じゃあ離婚で
+https://www.youtube.com/watch?v=4v_s7Pl_j_4	https://www.youtube.com/watch?v=erkxYLsHnNc	100%	【スカッと総集編】長男夫婦の新築祝いに50万用意した私を罵倒する長男嫁「300万ぐらい包めよ貧乏人w他人は家に入れませんのでw」次男夫婦にだ
+https://www.youtube.com/watch?v=81QLY13fFF0	https://www.youtube.com/watch?v=I0YiB-VENsY	100%	【スカッとする話】夫「お前の部屋は両親に譲る。2人を介護するから頼むな」私「はーい（何も知らないのねw）」翌日、義両親が引越してくると夫は半
+https://www.youtube.com/watch?v=XN7h9Xoh6sQ	https://www.youtube.com/watch?v=zraWXCultxM	100%	【スカッとする話】夫の他界後、9年間同居介護中の義父「家も遺産も本当の家族である娘に譲るが大丈夫だよな？」私「大丈夫です。今日で引っ越すので
+https://www.youtube.com/watch?v=5W4pdapnt3Q	https://www.youtube.com/watch?v=jBjxiVehxnI	100%	【スカッと総集編】私が義家族全員を養ってると知らず荷物を全て捨てた夫「いつまで俺の両親に寄生すんだ？w」私「じゃあ出て行くわ   」夫だけ残
+https://www.youtube.com/watch?v=ZSY8zmZac6w	https://www.youtube.com/watch?v=wN8ao7swkq0	100%	【スカッと総集編】夫が腕を骨折して入院。義両親「息子は嫁に折られたから被害届出したって言ってるわよ！」キレた義母が私の頬を叩いた直後、我が家
+https://www.youtube.com/watch?v=5rAOt29LtjQ	https://www.youtube.com/watch?v=rb5KK3PkgaI	100%	【スカッと総集編】義両親との同居を勝手に決めた夫「両親の引越しは済んだか？」私「うん、終わったよ！私の方も今タワマンに引越し完了した！」夫「
+https://www.youtube.com/watch?v=BO-Ey1kyoKw	https://www.youtube.com/watch?v=4II62hEUDk8	94%	【スカッとする話】41歳で妊娠した私とお腹の子を捨て医学部女子大生と再婚した医者の夫「21歳の若い女が妊娠したから再婚する」30年後、病
+https://www.youtube.com/watch?v=kZPGHcJGA6s	https://www.youtube.com/watch?v=IOjiCJpzGq8	94%	【スカッとする話】車いすの義父を同居介護して11年…義父「家や遺産は全て長女に相続する」義母「手続きそろそろしないとね」私「ええ、ご自由に
+https://www.youtube.com/watch?v=3jG_zij-Yw8	https://www.youtube.com/watch?v=_m8w5ILU3u0	90%	【スカッとする話】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁でw」長男「今後一切関わらないからw」私「本当にいいのね？」長男嫁「
+https://www.youtube.com/watch?v=gYaIALjBme0	https://www.youtube.com/watch?v=Pok0f93sICw	89%	【スカッとする話】息子「関係者だけで祝うからw」初孫の誕生会に義両親を参加させ、私だけ門前払いする息子夫婦。関係者ではないので家を
+
+=== 6. スカッとストーリー 5006  18本  https://www.youtube.com/channel/UC1x3I0LM2SzXkpn57uaFuQA
+https://www.youtube.com/watch?v=7UfS_a8A8SY	https://www.youtube.com/watch?v=YYnTTQ_3WI8	100%	【スカッとする話】妹の代わりに田舎の猟師に嫁いだ私「今日の夕飯は鹿肉？」夫「いや、これで好きな物食べて」10万円を手渡された私…→夫の正体を
+https://www.youtube.com/watch?v=7p73mp_ivBs	https://www.youtube.com/watch?v=Jrhwc49ujEM	100%	【スカッとする話】貧乏なフリしてお見合いに行くと男性社長「仕事は何してるの？」私「内職です…（フラれたな）」直後、伝票に書いた私の字を見た彼
+https://www.youtube.com/watch?v=Q4TYGcJUdS4	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=pIsby_LgMFY	https://www.youtube.com/watch?v=keFJBewY-wo	100%	【スカッとする話】女手一つで育てた娘が初出社。1時間後、バスローブ姿で帰宅。娘「片親に服は不要って…」ブチギレた大株主の私「地獄見せてやるよ
+https://www.youtube.com/watch?v=YDQsCTAe8xM	https://www.youtube.com/watch?v=IPsXxYnWZVk	100%	【スカッとする話】父が急逝し院長になった私。翌日、机に退職届が100人分…副院長「お前が院長ならみんな辞めるってw」私「どうぞどうぞ！」→翌
+https://www.youtube.com/watch?v=qGpAuULjcNI	https://www.youtube.com/watch?v=BjaRlXbjvT4	100%	【スカッとする話】同窓会に行った夫が10分で帰宅。夫「同級生に中卒の低所得は帰れって」”僕は無能♡”と落書きされたカバン。グループ25社会長
+https://www.youtube.com/watch?v=peC67hL4j6M	https://www.youtube.com/watch?v=kYJ0Q8Fd06U	100%	【スカッとする話】同窓会で売れ残りと言われ腹いせに貧乏人と結婚した私に友人「貧乏な旦那さんで可哀想w」直後、会場に現れた夫を見た瞬間、友人全
+https://www.youtube.com/watch?v=EVa-wb01Zr8	https://www.youtube.com/watch?v=JufxnM3q24k	100%	【スカッと総集編】私がローン・生活費・娯楽・全て支払っていると知らず夫と引越した義父「ダメ嫁は息子と離婚しろw」私「日給100円の夫は返品で
+https://www.youtube.com/watch?v=tPDWmXoAQJg	https://www.youtube.com/watch?v=OkM8PSI_Q9M	100%	【スカッとする話】私と夫が年金暮らしと知った途端、絶縁宣言する息子夫婦。息子「貧乏な親の介護とか無理w」息子嫁「絶縁でお願いしますw」私「い
+https://www.youtube.com/watch?v=tmENImX8A60	https://www.youtube.com/watch?v=5O2yEVZZZzo	100%	【スカッと総集編】私が役員報酬で家計を支えていると知らず夫と引っ越した長男夫婦。長男嫁「他人に住所は教えませんw」私「じゃバイトの夫とは離婚
+https://www.youtube.com/watch?v=nSnmgKYit-0	https://www.youtube.com/watch?v=a4zw-oCgHd0	100%	【スカッとする話】社員食堂のおばちゃんの私。男性社員「おばさんありがと！」女性社員「いつも有難う！」私「君達、今日でクビね」社員「え？」【朗
+https://www.youtube.com/watch?v=dpjHe4ENdDs	https://www.youtube.com/watch?v=TFj28JG7kF0	100%	【スカッとする話】夫の出張中、義母と義妹が離婚届を持って家に来ると、義母「30分以内にサインして提出しろ！」義妹「年収3000万の兄の寄生虫
+https://www.youtube.com/watch?v=IHtvFLutWao	https://www.youtube.com/watch?v=mOQGw5P9TTc	100%	【スカッとする話】女医の妹の結婚式に出席すると私の席だけ大量の菊の花が…義母「中卒のクズ嫁は帰れw」妹「姉が何者か知らないの？」　義母はガク
+https://www.youtube.com/watch?v=tmENImX8A60	https://www.youtube.com/watch?v=m4GjWjEtP-g	99%	【スカッとする話】私が役員報酬で家計を支えていると知らず夫と引っ越した長男夫婦。長男嫁「他人に住所は教えませんw」私「じゃバイトの夫とは離婚
+https://www.youtube.com/watch?v=XTsAVaVXTDc	https://www.youtube.com/watch?v=nlS5u4pCtI0	97%	【スカッとする話】警察官の弟の結婚式に出席した私。義母「中卒の姉は一族の恥ねw」直後、慌てた弟が義母に私の正体を伝えると、義母は顔面蒼白に
+https://www.youtube.com/watch?v=EVa-wb01Zr8	https://www.youtube.com/watch?v=cmemO-hqmVU	96%	【スカッとする話】私がローン・生活費・娯楽・全てを支払っていると知らず夫と引越した義父「ダメ嫁は息子と離婚しろw」私「では日給100円の夫は
+https://www.youtube.com/watch?v=qh5Q8lw2OO8	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+https://www.youtube.com/watch?v=C3huC9DR_Kw	https://www.youtube.com/watch?v=jw9S7G6HmWE	87%	【スカッとする話】結婚式で手紙を朗読する娘「母は父の寄生虫でした…」夫「ママがお荷物で迷惑かけたな…」私「今日で母も妻も辞めるね」
+
+=== 7. 嫁ゴコロ逆転朗読館  18本  https://www.youtube.com/channel/UCQDSjWHn0tvkuVZav4jZnXQ
+https://www.youtube.com/watch?v=sn9gV9SEkus	https://www.youtube.com/watch?v=00HSG0Knh3I	100%	【スカッとする話】70歳を過ぎ夫と別居中の私。40年もの間、夫は冷酷だった。ある日、夫の手帳を開いた瞬間、全てを理解し涙が溢れ…【朗読】【ス
+https://www.youtube.com/watch?v=JIMx_juz-_s	https://www.youtube.com/watch?v=Lz3rc2N2XhM	100%	【スカッとする話】正月、帰省の新幹線で、妊娠中の私を立ち席にした夫は「腰が痛い」と1人グリーン車へ。愛人の元へ向かったと知った私は、何も告げ
+https://www.youtube.com/watch?v=gf855k-72TE	https://www.youtube.com/watch?v=bUesKx2d9r8	100%	【スカッとする話】夫「3年間アメリカに赴任する」私「長すぎる！私も一緒に行く」夫「お前は家を守っててくれ」1年後、デパートで夫と妊婦を目撃→
+https://www.youtube.com/watch?v=lQssednKgFk	https://www.youtube.com/watch?v=XxAE11v62qA	100%	【スカッとする話】女の子を出産直後に夫「すまん、離婚しよう。お互い今が都合良いよね？」私「OK（本当にいいのかなw）」お望み通り提出すると夫
+https://www.youtube.com/watch?v=jJ6Oj2y5sO0	https://www.youtube.com/watch?v=X0ymak1xUTk	100%	【スカッとする話】新築祝い当日、親族の前で息子夫婦「祝い金たった40万って何？300万くらい包めよ貧乏人w」キレた私は仕送りと援助を停止→つ
+https://www.youtube.com/watch?v=pzaBjuFwzmg	https://www.youtube.com/watch?v=w6v4PeHPtAs	100%	【スカッとする話】親族20人の前で夫と義母。義母「月収100万の息子の寄生虫w」夫「金 目当ての最低な嫁w」私「じゃ嫁辞める」玄関から出ると
+https://www.youtube.com/watch?v=j-OOmUx_VyA	https://www.youtube.com/watch?v=9YYFRUPxl10	100%	【スカッとする話】余命5ヶ月と診断された夫「嫁と娘に渡す遺産はない。全額愛人に相続する」私「はーい（覚悟しろよ）」娘と容赦無く制裁した結果w
+https://www.youtube.com/watch?v=KO_1eATdl4M	https://www.youtube.com/watch?v=NoI2VSODku4	100%	【スカッとする話】夫「不倫相手を好きになった…悪いが離婚してくれ」私「はーい、両親と子供連れてくね」即離婚して引越すと夫から鬼電→私（あ、も
+https://www.youtube.com/watch?v=5xc2qZVS0h8	https://www.youtube.com/watch?v=0G9PzgXs2Hg	100%	【スカッとする話】私と夫を猛烈に嫌う長男夫婦が作ったミートソースが怪しい。私（なんか動いた？）夫（だな）バレないようにこっそり長男嫁の皿と入
+https://www.youtube.com/watch?v=wypTXZU0pOo	https://www.youtube.com/watch?v=a4zw-oCgHd0	100%	【スカッとする話】社員食堂のおばちゃんの私。男性社員「おばさんありがと！」女性社員「いつも有難う！」私「君達、今日でクビね」社員「え？」【朗
+https://www.youtube.com/watch?v=IAQF03tIZGk	https://www.youtube.com/watch?v=PN93A1chfSU	100%	【スカッとする話】亭主関白夫「明日から食費は月3000円！予算超えたら離婚だからな！」私「はーい、後悔しないでね？」夫「しねぇよw」1ヶ月後
+https://www.youtube.com/watch?v=tjF9EMKKPek	https://www.youtube.com/watch?v=5NdbKUema40	100%	【スカッとする話】私の入院中に勝手に義両親を住ませる夫「お前の部屋はもうないよw」義母「荷物も捨てといたからw」娘「大丈夫よ！手は打ったから
+https://www.youtube.com/watch?v=XXmPjhkM_C8	https://www.youtube.com/watch?v=FKxO2ZIWpyI	100%	【スカッとする話】父「もう限界だ…助けて」息子夫婦から年金と貯金を摂取されボロボロな姿で現れた。私「一緒に暮らそ」父「ええんか？涙」翌日、息
+https://www.youtube.com/watch?v=f1y8iXINIsA	https://www.youtube.com/watch?v=XxaFsY1Peuo	97%	【スカッとする話】父を亡くし借金生活をする私。父の鞄に入っていた通帳から延滞金20万を振り込んだ直後、玄関前の光景を見た私は絶句し…【朗読
+https://www.youtube.com/watch?v=GEmFlw9hGL4	https://www.youtube.com/watch?v=ASyRO03-Tgo	97%	【スカッと総集編】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=GEmFlw9hGL4	https://www.youtube.com/watch?v=MGatnbs_LMc	97%	【スカッとする話】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=FYFT7WpAh2w	https://www.youtube.com/watch?v=RDPqmMx-11U	95%	【スカッとする話】夫の葬儀49日後、私を追い出し義両親と同居する息子夫婦「ジジィの荷物持って出てけ」翌日、家具家電全て持って引越し家を売
+https://www.youtube.com/watch?v=2eQP76-TiFo	https://www.youtube.com/watch?v=vyk34qyD3O0	84%	【スカッとする話】離婚届を見せ脅してくる夫「今すぐ俺にメシ作れ！逆らったら離婚するぞ！」息子が勝手に提出すると、急に夫がガクガク
+
+=== 8.  読書室【スカッとする話】  17本  https://www.youtube.com/channel/UCjQd7ZVm5BPbGpB_V9B6kgQ
+https://www.youtube.com/watch?v=ykrbCE8A45A	https://www.youtube.com/watch?v=RNWUvpjXeTw	100%	【スカッと】私の子供が夫の上司と瓜二つ。夫「浮気してたな！離婚だ！」義母「アバズレは今すぐ出てけw」13年後、夫と義母と再会すると二人は半狂
+https://www.youtube.com/watch?v=9zs6le8kFYk	https://www.youtube.com/watch?v=7msH4kMIKYA	100%	【スカッと】夫を略奪した妹の結婚式で妹「今日から私が社長夫人で〜すw社員は全員パシリよろしく〜w」直後、社員一同が大爆笑w→私（社長は私なん
+https://www.youtube.com/watch?v=MfZT_x26nhg	https://www.youtube.com/watch?v=Z2pKxDTj5Io	100%	【スカッと】私と息子を捨てて私の妹と再婚した夫「邪魔者2人は失せろw」妹「3日以内に出てってねw」息子「母さん良かったね！」私「え？」息子「
+https://www.youtube.com/watch?v=7Ae8984Yap8	https://www.youtube.com/watch?v=LpVENTyRBTo	100%	【スカッと】義父の訃報を知り夫に連絡。夫「接待中だ！くだらんことで連絡するな」私「はーい、もう二度と連絡しません」（葬式も遺言も秘密にしとこ
+https://www.youtube.com/watch?v=zfCjj9-UtK8	https://www.youtube.com/watch?v=KejS7MR6J4s	100%	【スカッとする話】5年間、アメリカに単身赴任だった夫が金髪の愛人と隠し子を連れ帰宅...夫「新しい家族できたから離婚でw」息子「え？パパ何も
+https://www.youtube.com/watch?v=BhyUXLfdjo0	https://www.youtube.com/watch?v=GqmdD9S7kiQ	100%	【スカッとする話】7歳の双子を残して夫が失踪。夫「20歳の愛人と再婚するw欠陥遺伝子のガキは任せるw」うずくまる娘を抱きしめた瞬間、2人同時
+https://www.youtube.com/watch?v=EBiY08XxCU8	https://www.youtube.com/watch?v=L3EoOQuimfw	100%	【スカッとする話】40歳で妊娠した私を捨て21歳の浮気相手と再婚した社長の夫「彼女が妊娠したから離婚w」20年後、公園で元夫と再会すると、息
+https://www.youtube.com/watch?v=pjYj8LyGdYs	https://www.youtube.com/watch?v=KwIKJhGIKa0	100%	【スカッとする話】11年間、義実家のローンを払ってきた私に夫「この家は妹夫婦に譲ることにしたw」義妹「他人は今すぐ出ていってw」私「じゃあ引
+https://www.youtube.com/watch?v=MednHh5vpSw	https://www.youtube.com/watch?v=gWWRbmvBG_A	100%	【スカッとする話】18年間家賃を払ってきた私を罵倒する長男嫁「月9万の家賃程度で偉そうにw母親づらすんなよババァがw」長男「支払い止めてみろ
+https://www.youtube.com/watch?v=ItiHHN9nAoE	https://www.youtube.com/watch?v=KMhlovvuqDg	100%	【スカッとする話】13億の資産を築いた夫の葬儀後、通帳と印鑑を盗んだ義両親「3000万の家買っちゃったw」それを聞いてお腹を抱えて大爆笑→私
+https://www.youtube.com/watch?v=pmcRc0q916U	https://www.youtube.com/watch?v=d_RzRR51F4U	100%	【スカッとする話】23歳の愛人と3歳の隠し子を連れお宮参り中の夫と遭遇…私「本命いたのね！お幸せに」夫「違う！これには深い訳が」即離婚届を提
+https://www.youtube.com/watch?v=ZkrpE-h9SNE	https://www.youtube.com/watch?v=DvKb1bUts2U	100%	【スカッとする話】35年間支え続けた夫から突然の離婚宣言。夫「お前の顔見るのはもう限界！自分の荷物持って出てけ！」私「今までお世話になりまし
+https://www.youtube.com/watch?v=XrgSNXuB9wc	https://www.youtube.com/watch?v=xYAv3CvMZyc	100%	【スカッとする話】40歳独身の私に毎月お金を振り込む姉が結婚すると結婚挨拶で私を見下す新郎「姉に養われてる恥知らずな義妹がw」姉「え？妹は⚪
+https://www.youtube.com/watch?v=1b7bUCy5gVk	https://www.youtube.com/watch?v=V4oyDIsTfD4	100%	【スカッとする話】25年間支え続けた夫が突然の離婚宣言。夫「寄生虫養うの限界だから離婚wガキ連れて生活保護でも受けろw」私「いいの！？扶養減
+https://www.youtube.com/watch?v=q9e1WWRRNcw	https://www.youtube.com/watch?v=k5pQ8cxLt5s	100%	【スカッとする話】39歳で他界した娘の葬儀に行くと血相を変えて私の手を引く孫「バァバ、逃げるよ！見て...」そっと渡された香典袋を見た私は慌
+https://www.youtube.com/watch?v=8LDVpvnxhis	https://www.youtube.com/watch?v=_3WduSXY-_Q	100%	【スカッとする話】5歳の孫の七五三に行くと長男嫁「席は家族分しかありませんw」私（援助は全てやめるか…）絶縁して他人扱いした結果w
+https://www.youtube.com/watch?v=EBiY08XxCU8	https://www.youtube.com/watch?v=zb8EIRbjwZc	86%	【スカッと総集編】妊娠した私を捨て21歳の浮気相手と再婚した社長の夫「彼女が妊娠したから離婚w」20年後、公園で元夫と再会すると…【スカッと
+
+=== 9. とする話   16本  https://www.youtube.com/channel/UC-1KoQRWd1ijwgKpAmRTQ7A
+https://www.youtube.com/watch?v=E9MMt25o2Es	https://www.youtube.com/watch?v=w3t-NBVK2CU	100%	【スカッとする話】結婚式当日に夫から突然の電話。夫「みんな集まってるぞ！早く来い！」私「え？なに言ってるの？」たった今終わったと伝えると…
+https://www.youtube.com/watch?v=SBuY8D55Xp8	https://www.youtube.com/watch?v=H3HkNoT1qF0	100%	【スカッとする話】母が他界した直後、7歳の私を捨て職場の愛人と再婚した父「お前は目障りだから施設行けw」3か後、半狂乱の父から鬼電→私「私に
+https://www.youtube.com/watch?v=EqQHa2ddtO8	https://www.youtube.com/watch?v=_1Jc1H2WcQc	100%	【スカッとする話】医者一族と結婚した義妹の結婚式で義妹「中卒の貧乏人は一族の恥wアンタらの席はないから帰れw」夫「帰るか」私「はい」30分後
+https://www.youtube.com/watch?v=_s2GHQeq7pA	https://www.youtube.com/watch?v=rqjTvPUHuk0	100%	【スカッとする話】正月に義実家に帰省すると、姑「他人の子供にお年玉はやらんw」キレた私は義実家への仕送りを停止し永久に他人扱いした結果w
+https://www.youtube.com/watch?v=ZgCQj5oea-0	https://www.youtube.com/watch?v=NpgO6NFIrqU	98%	【スカッとする話】病気で13年も同居介護中の義父「家も遺産も唯一の家族の長男夫婦に譲るけどええか？」私「はい、ご自由にどうぞ。私は3分後に出
+https://www.youtube.com/watch?v=VUaw1yXBj6A	https://www.youtube.com/watch?v=Y8xJE1oys54	97%	【スカッとする話】家族5人でハワイ旅行当日、航空券が4枚しかない。義母「他人のチケットは無いわよw」私「自分で取ったので大丈夫です」直後、フ
+https://www.youtube.com/watch?v=m7Nr45WhWnE	https://www.youtube.com/watch?v=fN1cesr14OA	97%	【スカッとする話】妹の出産祝で実家に帰ると妹「嫁にいったアンタは他人w」兄「家族で祝うから帰れw」キレた私は実家への仕送りを停止→家も売り払
+https://www.youtube.com/watch?v=t7TNZo39ymE	https://www.youtube.com/watch?v=a98H9YkItjA	96%	【スカッとする話】月4万円で年金暮らしの私を罵倒する娘夫婦。娘「介護とか嫌だし絶縁でw」娘婿「今後一切関わらないのでw」私「後悔しない？」娘
+https://www.youtube.com/watch?v=sLcMgAcnPRg	https://www.youtube.com/watch?v=YfWacJ9_fK8	96%	【スカッとする話】父の銀行で次期頭取候補だった夫が職場の受付嬢と浮気。夫「お前に頭取夫人は無理だろw」私「何も知らないのねw」3日後、大号泣
+https://www.youtube.com/watch?v=qSgAGGgqhIs	https://www.youtube.com/watch?v=kNnc9OXcb34	96%	【スカッとする話】夫に愛人がいるのが発覚し離婚すると、姑「引越しは済んだ？w」夫「寄生虫は早く失せろw」直後、13台の高級車が現れ→女優の母
+https://www.youtube.com/watch?v=pvgtB01eBiM	https://www.youtube.com/watch?v=GmBCty_zSQs	96%	【スカッとする話】家事、育児、介護、パートをこなし15年。私「もう限界。実家に帰ります」夫「はぁ？ガキの面倒は？飯は？帰るなら離婚届書いてけ
+https://www.youtube.com/watch?v=ilmu6DfzIE4	https://www.youtube.com/watch?v=rbjHl1IvTaA	95%	【スカッとする話】息子と温泉旅行から帰宅した私に気付かない夫と娘。夫「ブザイク嫁もバカ息子もいらんw」娘「帰れなくなったらいいのにw」2人の
+https://www.youtube.com/watch?v=pvgtB01eBiM	https://www.youtube.com/watch?v=Yrtj6pTpQ5A	93%	【スカッと総集編】家事、育児、介護、パートをこなし15年。私「もう限界。実家に帰ります」夫「はぁ？ガキの面倒は？飯は？帰るなら離婚届書いてけ
+https://www.youtube.com/watch?v=PuAY-yzHMYg	https://www.youtube.com/watch?v=8HI9HivPLYM	92%	【スカッとする話】夫から突然のブチギレ電話。夫「なんで子供の葬式に来ない！今すぐ来ないと離婚するぞ！」私「え？私に子供はいないけど？」夫
+https://www.youtube.com/watch?v=3YLbOetfJnA	https://www.youtube.com/watch?v=T5WYfDcbCLA	92%	【スカッとする話】同居の父が亡くなった途端、愛人と隠し子を連れ引越してきた夫「ジジィの家は俺が貰う！出てけw」それを聞いた私は大爆笑→私「ど
+https://www.youtube.com/watch?v=3YLbOetfJnA	https://www.youtube.com/watch?v=tyXXrXAsIUE	92%	【スカッと総集編】同居の父が亡くなった途端、愛人と隠し子を連れ引越してきた夫「ジジィの家は俺が貰う！出てけw」それを聞いた私は大爆笑→私「ど
+
+=== 10. 憂鬱よりスカッと  16本  https://www.youtube.com/channel/UC8bvniIkSPPf_5ELr1VNZCQ
+https://www.youtube.com/watch?v=EbCFdI1mcDA	https://www.youtube.com/watch?v=VyoXxeYV0Ag	100%	【スカッとする話】家事、育児、仕事をこなし夫と30年間連れ添った私に夫が突然の土下座「愛人が妊娠したから再婚する。離婚してくれ」私「はーい、
+https://www.youtube.com/watch?v=WxOpFiBUsKQ	https://www.youtube.com/watch?v=jpA_PiL1qKA	100%	【スカッとする話】私「もう限界！実家に帰ります！」実家帰省した私が家に帰ると私「ただい...ま？」机の上に記入済みの離婚届が...私「出せっ
+https://www.youtube.com/watch?v=mHSslWPvj0E	https://www.youtube.com/watch?v=Ne3lH19M3rA	100%	【スカッとする話】娘「毎月1300円の仕送り助かるよ！毎日半額の弁当食べてるよ！」私「え？毎月13万円振り込んでるわよ？」娘「え？」実は..
+https://www.youtube.com/watch?v=bRSlZrqYVfk	https://www.youtube.com/watch?v=nGKyU7UVUac	100%	【スカッとする話】長男嫁の出産祝いで産婦人科へ行くと隣の病室から夫の声 「俺と君に似てて可愛い子だねぇw」 全てを悟った私は病室の鍵を閉め、
+https://www.youtube.com/watch?v=8NpzH1hOfmc	https://www.youtube.com/watch?v=fvBt5WXD4N8	100%	【スカッとする話】父の遺産を全て奪った姉夫婦「金無しババアは邪魔」母すらも家から追い出し怒り心頭の私に母が一言「あの子達、終わったわね」私「
+https://www.youtube.com/watch?v=giUF6R92dZk	https://www.youtube.com/watch?v=zpFJNCVzzcI	100%	【スカッと総集編】長男夫婦に隠れて在宅ワークで月160万稼ぐ私に長男嫁「給料3桁あるんですか！？」 私「3000円しかないわよw 」不吉な予
+https://www.youtube.com/watch?v=kKqNpuCM4OE	https://www.youtube.com/watch?v=XYLNYy9X5to	100%	【スカッとする話】50年間誠実に働いてきた農家の私に突然取引中止を告げた社長令嬢「自社で安い製品作ったので用済みですw」私「承知しました。今
+https://www.youtube.com/watch?v=S2ZLPiW41iQ	https://www.youtube.com/watch?v=-kjX6Edo4jQ	99%	【スカッとする話】長男夫婦と孫と高級中華へ行くと私には餃子１個だけ。長男嫁「お義母さんはそれだけですw餃子代7万は払ってねw」私「では会計し
+https://www.youtube.com/watch?v=sq9lUYwsBCI	https://www.youtube.com/watch?v=nrD7Zh7W22k	99%	【スカッとする話】家のローン月11万払う私に長男嫁「この家は孫達に住ませる！家事もしないゴミは出てけw」私「じゃ引越そか」夫「うん」→1ヶ月
+https://www.youtube.com/watch?v=5T4cVJt3Hz4	https://www.youtube.com/watch?v=ZN2XDe1ICK4	99%	【スカッとする話】大好きな父が80歳で突然他界。葬儀中、長男嫁から鬼電「今日は息子のカットの日よ！今すぐ帰って送迎しろ！」私「はい...」泣
+https://www.youtube.com/watch?v=02bEx7WOEJk	https://www.youtube.com/watch?v=UnzOKs3sIHQ	98%	【スカッとする話】妊娠9ヶ月の私を奴隷扱いするエリート夫「嫁は奴隷！家事はサボるな！」翌日、夫が体調不良で寝込んだので私「旦那は稼いでナンボ
+https://www.youtube.com/watch?v=iiH7QOPZp_4	https://www.youtube.com/watch?v=5aFfHFGkhME	98%	【スカッとする話】亡くなった母から相続した3億円の豪邸を勝手に義両親の名義に変更した夫「家は両親に譲るw逆らったら離婚ｗ」私「いいけど後悔す
+https://www.youtube.com/watch?v=jPXKAVcfh7Y	https://www.youtube.com/watch?v=RWD2prHXals	98%	【スカッとする話】破水し病院へ行く私を山に置き去りにし夫と旅行に行った連れ子の娘「私からパパを奪った罰よw」2時間後、陣痛で苦しむ私に半狂乱
+https://www.youtube.com/watch?v=5iKdNEUJ1aw	https://www.youtube.com/watch?v=4VGG0yj_HNk	98%	【スカッとする話】長男夫婦の結婚式で新婦を指し孫が「あっ、プロレスの姉ちゃん！」と笑っていた。私が叱ると孫「だって、この前じいちゃんの上に乗
+https://www.youtube.com/watch?v=I7ZaYf5Kqyk	https://www.youtube.com/watch?v=YWd1vzAgHB8	97%	【スカッとする話】13年前に医者の婚約者を奪った親友と再会「36歳で独身とか賞味期限切れねw私の旦那はイケメンで天才よw」→私「じゃうちの夫
+https://www.youtube.com/watch?v=QdnQCZZp5VM	https://www.youtube.com/watch?v=2xEUeF-OX7Y	96%	【スカッとする話】私が家のローン18万を払ってると知らず毎日孫の子守りを押し付ける長男嫁。ある日、私「孫の部屋に変わってる…」私の荷物が勝手
+
+=== 11. フィクション 5637  15本  https://www.youtube.com/channel/UCpdFO-yvHBX2xI9xHQMDE-A
+https://www.youtube.com/watch?v=t0FAcZKrnD4	https://www.youtube.com/watch?v=pdhclv8SJrI	100%	【スカッとする話】昼休みに同僚とカフェに入ると、隣の席に夫と若い女性が…夫「妻は2年前に他界したからwこの後うち来ていいよw」先回りし最高の
+https://www.youtube.com/watch?v=SEPWKUVcu10	https://www.youtube.com/watch?v=Ld47YPdFDy8	100%	【スカッとする話】3年前、社長の夫を略奪した姉と子供の運動会で再会。姉「借金生活で苦しそうねw」息子「借金あるのはパパだよ？」姉「ガキ、嘘は
+https://www.youtube.com/watch?v=_CzTwhLgBMA	https://www.youtube.com/watch?v=JJC-tjTSPv8	100%	【スカッとする話】私が夫と離婚した日、夫についていくと言った息子が、別れ際に玄関で封筒を渡してきた。息子「僕が戻るまで開けないで」1年後、帰
+https://www.youtube.com/watch?v=R0atEeaVdl4	https://www.youtube.com/watch?v=wWt0dqnPt6g	100%	【スカッとする話】38歳で両親に結婚を急かされ「相手はいる」と嘘をつくとイケメン上司「俺が恋人役するよ」1週間後、両親に会わせると父「まさか
+https://www.youtube.com/watch?v=M4Uru9NhfmU	https://www.youtube.com/watch?v=1uttTCauLRc	100%	【スカッとする話】離婚後、定食屋で働く元夫を、恋人と腹いせに見物しに行った私。会計を済ませようとすると、思わぬ展開に私は唖然とし…【朗読】【
+https://www.youtube.com/watch?v=FB9IVNWL7yM	https://www.youtube.com/watch?v=bcCx_RfSrhY	100%	【スカッとする話】離婚して23年、元夫の訃報を聞き、私は急いで葬儀場を訪れた。喪主の若い青年を見た瞬間、私はガクガク震えだし…【朗読】【スカ
+https://www.youtube.com/watch?v=D367GPOOaEs	https://www.youtube.com/watch?v=m7p3EJqSimc	100%	【スカッとする話】夫が離婚訴訟を起こした日、突然8歳の娘が裁判官に一言。娘「ママに隠してたもの…見せてもいいですか？」→裁判官が頷き映像が流
+https://www.youtube.com/watch?v=diHQJW5LlSE	https://www.youtube.com/watch?v=8ji_Mw1wTkc	100%	【スカッとする話】頼んでも家事も介護も一切しない夫「俺がいつお前に頼んだ？w勝手にやって押し付けんなw」離婚届を置いて黙って引っ越し→頼まれ
+https://www.youtube.com/watch?v=NPHzRmWq9Xk	https://www.youtube.com/watch?v=zdaXHuFb4rM	100%	【スカッとする話】39歳で妊娠した私を捨て22歳の新入社員と再婚した社長の夫。夫「老いたババァの子は不要w」20年後、元夫と飛行機で遭遇→娘
+https://www.youtube.com/watch?v=sf9iDiCzz3g	https://www.youtube.com/watch?v=ASyRO03-Tgo	97%	【スカッと総集編】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=sf9iDiCzz3g	https://www.youtube.com/watch?v=MGatnbs_LMc	97%	【スカッとする話】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=aSYwPb5sLH8	https://www.youtube.com/watch?v=o_BJ2DweO4g	95%	【スカッとする話】仕事から帰宅した瞬間、夫から平手打ちと暴言をくらった私。夫「今すぐ飯を作れ！この役立たず！」直後、料理の代わりに離婚届
+https://www.youtube.com/watch?v=f2rs8DFkrTA	https://www.youtube.com/watch?v=FWFpRQUD4lk	95%	【スカッとする話】天涯孤独の私を義母の介護でこき使い家政婦扱いする夫「文句あるなら離婚w出てけw」直後、10台の高級車が家に停車→母「迎
+https://www.youtube.com/watch?v=BcOLCmyDsyI	https://www.youtube.com/watch?v=K8gRLxoseYc	93%	【スカッとする話】夫「今日から生活費は月5000円で！」義母「予算超えたら離婚して出てけw」私「はーい、がんばりますね」翌日。夫・義母
+https://www.youtube.com/watch?v=t98lx4P6wCU	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+
+=== 12. 義家族スカッと物語帳  15本  https://www.youtube.com/channel/UCIZ41RBpQd7wBp_oOTGv1zw
+https://www.youtube.com/watch?v=CLwUPWOMYZM	https://www.youtube.com/watch?v=KVKExhX2jn4	100%	【スカッとする話】財布を届けにきた私に気づかない夫「嫁は何も疑ってないよw今夜もまた会えるねw」夫の正体を知り私の愛は消滅しw【朗読】【スカ
+https://www.youtube.com/watch?v=SqxgbTS5sbk	https://www.youtube.com/watch?v=wWt0dqnPt6g	100%	【スカッとする話】38歳で両親に結婚を急かされ「相手はいる」と嘘をつくとイケメン上司「俺が恋人役するよ」1週間後、両親に会わせると父「まさか
+https://www.youtube.com/watch?v=e8AUCDntWUs	https://www.youtube.com/watch?v=qORErX-vqL8	100%	【スカッとする話】同窓会で東大卒のイケメン医師が中卒でバイトの私に難病症例を提示。医師「解けたら何でもするw」私「あ、それ難しくないよ」【朗
+https://www.youtube.com/watch?v=mukHueM_s0w	https://www.youtube.com/watch?v=AW46gN91lmo	100%	【スカッとする話】孫の合格祝いで義実家に行くと私と夫だけわさびのみだった…義兄「もらえるだけ光栄だろw」私「ありがたく頂きますね」帰宅後、悶
+https://www.youtube.com/watch?v=KJFLMty8LjY	https://www.youtube.com/watch?v=KOdNAZcklk0	100%	【スカッとする話】4歳の娘を寝かしつけていると、急にベランダを指差し囁いた。娘「ママがお外行くと、そこから女の人が来るの」→出かける瞬間11
+https://www.youtube.com/watch?v=jwkW8Y91HMc	https://www.youtube.com/watch?v=-qfSnxAmUYM	100%	【スカッとする話】義姉が子供を連れて転がりこみ、一銭も払わず30日居座り続けた。義姉「何でそんな怒ってるの？w」夫「家族だし問題ないだろw」
+https://www.youtube.com/watch?v=b5yKmV8BJCg	https://www.youtube.com/watch?v=6CiQAA2oA-Y	100%	【スカッとする話】結婚式前日に私を捨てた夫と友人の結婚式で再会すると…元夫「美人モデルと結婚したw離婚して正解だったぜw」私（何も知らないの
+https://www.youtube.com/watch?v=g17-l1IMJ_w	https://www.youtube.com/watch?v=qss9KoL5a0Q	100%	【スカッとする話】施設育ちで天涯孤独の私を家政婦扱いする夫と義妹。夫「逆らうなら離婚w消えろw」10分後、黒塗り高級車が次々に現れ→夫「え？
+https://www.youtube.com/watch?v=fUyuooBW4x0	https://www.youtube.com/watch?v=FrV4rLUCe5Q	100%	【スカッとする話】3歳になった孫の誕生日会で息子「泊まるなら押入れでw」息子嫁「嫌なら帰って下さいw」キレた私は仕送りと援助を停止→さらに隣
+https://www.youtube.com/watch?v=n66MEREV7e0	https://www.youtube.com/watch?v=DYfDC7tM1-8	100%	【スカッとする話】定年退職後30年連れ添った私を捨てる夫「老後は第二の人生歩むから離婚w」私「いいけど後悔しない？」夫「するかw」3ヶ月後w
+https://www.youtube.com/watch?v=qzz90ZXanN0	https://www.youtube.com/watch?v=wzIm362qyUk	100%	【スカッとする話】13年前に夫を奪った親友と再会。元夫「うちの子は法学部だぜw」元親友「まだ独身とか惨めな人生w」私「うちの娘紹介するね」3
+https://www.youtube.com/watch?v=LQ-mCQqsMFY	https://www.youtube.com/watch?v=PhHi9HvCrPQ	100%	【スカッとする話】医師の夫が新人看護師と浮気。看護師「院長夫人の座は私が頂くw離婚して病院も辞めてねw」私「はーい、後はよろしく」その後、2
+https://www.youtube.com/watch?v=JUywqjZzBA4	https://www.youtube.com/watch?v=1l07gzryzxY	100%	【スカッとする話】43歳で妊娠した私と息子を捨てた学歴主義の夫「ババァの子は頭悪そうw育てたくないから離婚でw」20年後、病院で元夫と遭遇→
+https://www.youtube.com/watch?v=RfBmo0GBFgg	https://www.youtube.com/watch?v=jxziuKOmRjA	87%	【スカッとする話】男3兄弟を育てる私に突然、夫「社長令嬢が妊娠したw離婚でw」私「はーい、じゃ長男だけ連れてく」夫「え？次男と三男も
+https://www.youtube.com/watch?v=46Cl0fYNJIg	https://www.youtube.com/watch?v=cnmmrAEygJc	85%	【スカッとする話】夫婦で新築を購入すると、義家族が荷物を大量に搬入。義家族「私たちも住むからw」拒否すると夫が激怒したが、私の一言て
+
+=== 13. 姑の裏の顔 5668  15本  https://www.youtube.com/channel/UCAUkwErZzfdQ5NFOS49O-rw
+https://www.youtube.com/watch?v=50SxTGvrOSs	https://www.youtube.com/watch?v=NyhY1gRNkEE	100%	【スカッとする話】孫の七五三祝いに行くと息子「母さんは便所メシでw」嫁「嫌なら外でお願いしますw」直後、普段温厚な夫が立ち上がり、夫「外に出
+https://www.youtube.com/watch?v=I1Y9orzE8Zg	https://www.youtube.com/watch?v=wygqZyloOZs	100%	【スカッとする話】72歳の誕生日に息子が私に嘘をつき義家族とハワイ旅行したとSNSで発覚。息子「ごめん、見てると思ってなかったw」空港に置き
+https://www.youtube.com/watch?v=Mo3V5bptutM	https://www.youtube.com/watch?v=1DLChkN9oW8	100%	【スカッとする話】医者の弟の結婚式に出席した私に義母「中卒が身内とか医者一族の恥w」直後、夫が私の名前を呼んだ瞬間、その場にいた全員が凍りつ
+https://www.youtube.com/watch?v=9gEfk0BifO8	https://www.youtube.com/watch?v=L7w7177AO6A	100%	【スカッとする話】インフルで高熱の私に突然、義母から怒りの鬼電。義母「旦那が熱出してるのにお前は遊びに行きやがって！」私「発熱してるのは私で
+https://www.youtube.com/watch?v=HpCgM5Pwq-Q	https://www.youtube.com/watch?v=5GO3xM_YnnI	100%	【スカッと総集編】私が家族9人を養ってると知らず荷物を全て捨てた義母「いつまで我が家に寄生するの？w」私「では引っ越しますね」義母だけ残し豪
+https://www.youtube.com/watch?v=OWbenJjPKfs	https://www.youtube.com/watch?v=3vf-BW99bPI	100%	【スカッと総集編】義実家で義母の同居介護中に浮気した夫から離婚届が速達で届いた…夫「息子・娘も離婚を望んでるってｗ」即提出して家を売り払い引
+https://www.youtube.com/watch?v=HpCgM5Pwq-Q	https://www.youtube.com/watch?v=t2MZmYNuCdE	100%	【スカッとする話】私が家族9人を養ってると知らず荷物を全て捨てた義母「いつまで我が家に寄生するの？w」私「では引っ越しますね」義母だけ残し豪
+https://www.youtube.com/watch?v=QLzXmTgTySk	https://www.youtube.com/watch?v=nw5vqqyFuAo	95%	【スカッとする話】会社の有給休暇で兄の結婚式に行くと、義母「荷物捨てたから一生帰って来るなw離婚して関わらないで欲しいわw」私「はい、承
+https://www.youtube.com/watch?v=c6WfPPUO52E	https://www.youtube.com/watch?v=qAkeYm7RkW0	95%	【スカッとする話】女医の娘の結婚挨拶に行くと夫の席はあるのに私だけ席が無い。医者の義両親「無能は立ち見w」夫「…帰ろっか」私「…うん」義
+https://www.youtube.com/watch?v=fTbqr1DdJ6Q	https://www.youtube.com/watch?v=feq1qa_cjkY	93%	【スカッとする話】夫と一緒にお盆に義実家に帰省すると私達だけカップ麺。銀行員の義兄「家族の分だけ高級うな重w」夫「帰るか…」私「うん…
+https://www.youtube.com/watch?v=3FrVVvgXGtk	https://www.youtube.com/watch?v=qXmpDKTFsJg	93%	【スカッとする話】私が総資産30億の社長と知らず夫「女部長と再婚するから離婚でｗ子供はお前に譲ってやるよw」私「はーい」即離婚して引越
+https://www.youtube.com/watch?v=au5_MlT1qTA	https://www.youtube.com/watch?v=0e75YQ1eFv8	86%	【スカッとする話】陣痛で義妹の結婚式を欠席すると、夫「大事な妹の式だぞ！我慢しろ！来ないなら離婚だから！」私「では離婚でお願いし
+https://www.youtube.com/watch?v=mWGFiHATy38	https://www.youtube.com/watch?v=4jpS4EiMOsE	84%	【スカッとする話】女手一つで育てた娘の結婚式で私が作ったウェルカムボードを捨てた義母「こんな貧乏くさい絵はゴミw」娘「母さん、帰
+https://www.youtube.com/watch?v=_xCfAXk-2OM	https://www.youtube.com/watch?v=uz1Rgfr9Du0	81%	【スカッとする話】義父を介護して10年目、私が過労で倒れると夫「仮病はいいからw怠け者とは離婚で！」私「マジで？ありがとう！」【
+https://www.youtube.com/watch?v=MMnQ83ehWkY	https://www.youtube.com/watch?v=GEvoY6NKBZw	78%	【スカッとする話】義母「子供を1ヶ月預けるのは非常識！子供が可哀想だろ！」私「家で夫が面倒みてますが…」直後、義母が全てを悟りフ
+
+=== 14. 女たちのスカッと物語  15本  https://www.youtube.com/channel/UCpVDiaX7X6rpIOvjUGkm0kA
+https://www.youtube.com/watch?v=4tvRnS4X1hM	https://www.youtube.com/watch?v=aCFKEISe330	100%	【スカッとする話】同窓会で結婚直前に私を捨てた夫と再会。夫「金持ちの社長令嬢と結婚したw俺だけ幸せでごめんなw」私「本当にそう思う？」真実を
+https://www.youtube.com/watch?v=Oj60nY6ri4o	https://www.youtube.com/watch?v=a4zw-oCgHd0	100%	【スカッとする話】社員食堂のおばちゃんの私。男性社員「おばさんありがと！」女性社員「いつも有難う！」私「君達、今日でクビね」社員「え？」【朗
+https://www.youtube.com/watch?v=ZwOzGPUfFEk	https://www.youtube.com/watch?v=GfIuJM9lgJo	100%	【スカッと総集編】夫「もう限界だ…離婚しよう。老後もお前と一緒とか無理だ」私「はい離婚届。娘以外連れてくね」夫「え？娘はお前が引き取れよ」私
+https://www.youtube.com/watch?v=lPpDgp7l7Sc	https://www.youtube.com/watch?v=_m8w5ILU3u0	100%	【スカッとする話】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁でw」長男「今後一切関わらないからw」私「本当にいいのね？」長男嫁「
+https://www.youtube.com/watch?v=o7aq6y0myeg	https://www.youtube.com/watch?v=uYt37nxwb0o	100%	【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=RbP0evE5cIY	https://www.youtube.com/watch?v=8p7Hl5wjPok	100%	【スカッとする話】大雪の中、赤ちゃんを背負い2時間歩いてきた8歳の姪「3000円貸して下さい...」夫「はぁ？貸すわけないだろ！」次の瞬間、
+https://www.youtube.com/watch?v=OCCgIG2QBZk	https://www.youtube.com/watch?v=6eC3Q3csQ9U	100%	【スカッとする話】母子家庭で育てた娘の結婚挨拶へ行くと私だけ料理がない…義母「貧乏人は水で十分でしょw」直後、義姉が私を見て顔面蒼白→義家族
+https://www.youtube.com/watch?v=YSVqAPYHnpg	https://www.youtube.com/watch?v=Ru27si_54MQ	100%	【スカッとする話】結婚し幸せな日常を送る息子が急逝し13日後、私宛に亡き息子から手紙が届いた。手紙「俺の代わりに嫁に復讐を...」手紙で指定
+https://www.youtube.com/watch?v=-ncCdOktk0A	https://www.youtube.com/watch?v=gp0iCrgbXh8	100%	【スカッと総集編】私の総資産が11億と知らず妊娠9ヶ月の私を捨て社長令嬢と再婚した夫「腹がデカくて女として見れんｗガキはお前が育てろｗ」私「
+https://www.youtube.com/watch?v=De1IqOa1Kbk	https://www.youtube.com/watch?v=YrSY8KgMSy4	100%	【スカッと総集編】長男夫婦に母の保険金を奪われ実家を追い出されボロボロの父が我が家へ来て「10万円貸してくれ...」夫「え？そんなの無理です
+https://www.youtube.com/watch?v=qjBRBFePEV8	https://www.youtube.com/watch?v=0wz6UQiOzp0	100%	【スカッと総集編】家のローンを毎月21万払う私に夫「この家は長男夫婦に相続する！」長男嫁「他人ババァはでてけw」私「じゃあ引越します」1ヶ月
+https://www.youtube.com/watch?v=3p2rUmrgUWo	https://www.youtube.com/watch?v=a14Uvt5re2g	100%	【スカッとする話】年末に義実家へ帰省するといつものように奴隷扱いの私に、久しぶりに帰省した義父「なんでご飯食べないんだ？」私「いつもの事なの
+https://www.youtube.com/watch?v=az87LvNaBR8	https://www.youtube.com/watch?v=cdwBAP575w8	94%	【スカッとする話】私を嫌う夫と娘が私を無視。私「おはよう」2人「…」娘の豪華挙式当日に姿を消すと鬼電。私「私に娘はいませんが？」→娘「え
+https://www.youtube.com/watch?v=uYnevi33Jxo	https://www.youtube.com/watch?v=gGILea_xo5c	92%	【スカッと総集編】夫に愛人がいるのが発覚し離婚すると…姑「引っ越しまだ？早く消えてねw」私「30分後に消えますご安心を」直後、荷物が運ばれ最
+https://www.youtube.com/watch?v=lPpDgp7l7Sc	https://www.youtube.com/watch?v=2jJCIGafP3k	90%	【スカッと総集編】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁w」長男「今後一切関わらないw」私「本当にいいのね？」長男嫁「え？」
+
+=== 15. 静かな夜の物語、雨の中の記憶  15本  https://www.youtube.com/channel/
+https://www.youtube.com/watch?v=hKi2-HjQLs0	https://www.youtube.com/watch?v=Yrtj6pTpQ5A	100%	【スカッと総集編】家事、育児、介護、パートをこなし15年。私「もう限界。実家に帰ります」夫「はぁ？ガキの面倒は？飯は？帰るなら離婚届書いてけ
+https://www.youtube.com/watch?v=4sbyeBKVtv0	https://www.youtube.com/watch?v=TKF2Pe7g2bE	100%	【スカッとする話】4人の子供に囲まれ幸せな日常を送る夫が急逝し2週間後、私宛に夫から手紙が届いた「連れ子に隠れて読んでくれ...」手紙に記さ
+https://www.youtube.com/watch?v=ze9iOqJewBo	https://www.youtube.com/watch?v=T40Q2m3NnVw	100%	【スカッとする話】私の里帰り中に医者の婚約者を略奪した姉から連絡「彼の赤ちゃん妊娠したwアンタは帰ってくるなw」私「いいの？有り難う！」その
+https://www.youtube.com/watch?v=sxpe2kRt6MQ	https://www.youtube.com/watch?v=AG72nH3Qr4E	100%	【スカッとする話】私が社員9000人の社長と知らず父が亡くなった途端に豹変した夫「お前の遺産は俺が管理する！文句あるなら離婚して失せろw」私
+https://www.youtube.com/watch?v=dsXb5aq2bps	https://www.youtube.com/watch?v=ncvmZKkz9Hw	100%	【スカッとする話】親族の集まりで30人分のおせちを床にぶちまけた長男嫁「親族にゴミ食わせる気かw」孫「急いで肉買ってこいw」私「え？私は今買
+https://www.youtube.com/watch?v=Tyv1Jl6SFJ8	https://www.youtube.com/watch?v=y8ReyKKeUUQ	100%	【スカッとする話】私が資産170億の不動産王と知らず私から夫を奪った美人な姉「生活保護でも貰え貧乏人w」後日、示談交渉で弁護士が大爆笑→弁護
+https://www.youtube.com/watch?v=1ohy7LZ6Wdo	https://www.youtube.com/watch?v=KlztcZvQraE	100%	【スカッとする話】私の父が亡くなった途端、実家を無断で解体した夫「ここは更地にして民宿にするw」それを聞いた娘が大爆笑→娘「お父さん知らない
+https://www.youtube.com/watch?v=o0udygfbu2Y	https://www.youtube.com/watch?v=cF4ti4NhgGU	100%	【スカッとする話】地下室に隠れ夫と親友が真っ最中だった...母「嫁子、戸締りしておいたわよ！」ど天然の母が気づかず鍵を閉めたので永遠に放置し
+https://www.youtube.com/watch?v=XFnYvkDe64A	https://www.youtube.com/watch?v=qn_AexjYLOo	100%	【スカッとする話】超高級車を10台持つ金持ち自慢の婚約者の実家へ結婚挨拶に行くと、義母「私の奴隷さんいらっしゃいw」婚約者「貧乏な顔だろ？親
+https://www.youtube.com/watch?v=-9_qZv_QZQU	https://www.youtube.com/watch?v=FeWYwxOB9EE	100%	【スカッとする話】私が役員報酬で家計を支えていると知らず夫と引っ越した連れ子の娘。連れ子「家政婦で良いなら住所教えるよw」私「では無職のクズ
+https://www.youtube.com/watch?v=FtkiCIJXyhg	https://www.youtube.com/watch?v=M2hAF-Scj3M	100%	【スカッとする話】夫「今日から長男夫婦と孫と同居する！」長男嫁「ババァは家から出てけw」私（私が生活費33万払ってるのに）翌日、業者に電話し
+https://www.youtube.com/watch?v=E7LaAMY2_Rw	https://www.youtube.com/watch?v=BucW38NrA9o	99%	【スカッとする話】車椅子の母と散歩中、9年前に私を捨てた夫と再会。元夫「お前の母親歩けないのか？娘に似て不良品だなw」直後、私の旦那を見た元
+https://www.youtube.com/watch?v=eBxwEC5Gzro	https://www.youtube.com/watch?v=gWWRbmvBG_A	98%	【スカッとする話】18年間家賃を払ってきた私を罵倒する長男嫁「月9万の家賃程度で偉そうにw母親づらすんなよババァがw」長男「支払い止めてみろ
+https://www.youtube.com/watch?v=FtkiCIJXyhg	https://www.youtube.com/watch?v=PMr_BteIB_k	97%	【スカッと総集編】夫「長男夫婦と孫と同居する」長男嫁「ババァは家から出てけ」私（私が生活費33万払ってるのに）翌日、業者に電話して家具家電を
+https://www.youtube.com/watch?v=hKi2-HjQLs0	https://www.youtube.com/watch?v=GmBCty_zSQs	97%	【スカッとする話】家事、育児、介護、パートをこなし15年。私「もう限界。実家に帰ります」夫「はぁ？ガキの面倒は？飯は？帰るなら離婚届書いてけ
+
+=== 16. さあ、どうぞ  15本  https://www.youtube.com/channel/UCG-XF2tttCtNESz__p6GQ7w
+https://www.youtube.com/watch?v=EoPGSTdsArk	https://www.youtube.com/watch?v=jtzUWcGh5y8	100%	【スカッとする話】私の夫を奪ったママ友「医者の旦那さん奪っちゃったｗ赤ちゃんできたし豪華挙式するねｗ」私「結婚したことないですけど？」ママ友
+https://www.youtube.com/watch?v=t74xjdInIKo	https://www.youtube.com/watch?v=ZJzIfS3DH88	100%	【スカッとする話】病気で盲目になった夫のため、365日ずっと料理を作る私に夫「味噌汁おいしかった！味噌変えた？」私は空っぽの鍋を見た瞬間、家
+https://www.youtube.com/watch?v=8i7FiAPnp0Q	https://www.youtube.com/watch?v=ZOSTbqZ1QDQ	100%	【スカッとする話】私の娘にだけお年玉をくれない義母「アンタに似た低学歴の孫は他人wもらえるのは家族だけよｗ」キレた私は義母への仕送り20万を
+https://www.youtube.com/watch?v=g5Ha81o0TKA	https://www.youtube.com/watch?v=w3t-NBVK2CU	100%	【スカッとする話】結婚式当日に夫から突然の電話。夫「みんな集まってるぞ！早く来い！」私「え？なに言ってるの？」たった今終わったと伝えると…
+https://www.youtube.com/watch?v=kztpzk6wwVM	https://www.youtube.com/watch?v=ADWCCJNh7ZE	100%	【スカッとする話】義母と買い物中に夫から電話「母さんが緊急入院した！少し帰省する！」隣で大爆笑の義母。義母「私達もサプライズ帰省するよw」私
+https://www.youtube.com/watch?v=8pLZr_JM-Q8	https://www.youtube.com/watch?v=6nj9rvRxM-4	100%	【スカッとする話】義妹が居座り2年間も出ていかない。義妹「私、病気持ちで辛くて…」私「じゃあ私が引越すね」夫「は？」義妹「ま、待って下さい」
+https://www.youtube.com/watch?v=3_Ai3en4tpI	https://www.youtube.com/watch?v=4vTHBkxs0vU	100%	【スカッとする話】結婚式翌日から夫と義母が私を無視。私「おはよ！」夫・義母「...」ある日、義母に介護が必要になり黙って姿を消した結果w
+https://www.youtube.com/watch?v=B70Knwztvn8	https://www.youtube.com/watch?v=yjvtXiMQodc	100%	【スカッとする話】連れ子に初孫が生まれ出産祝いに行くと私だけ席が無い…連れ子「家族の席しか無いよw」夫「…帰るぞ」私「...はい」次の瞬間、
+https://www.youtube.com/watch?v=ge3HNbMtWNo	https://www.youtube.com/watch?v=jA4TTTeqo-M	100%	【スカッとする話】私が年商500億の社長と知らない夫「時給941円の底辺は出てけw」連れ子「役立たずの母親バイバイw」私「じゃあ出ていきます
+https://www.youtube.com/watch?v=hsi88P-3wn4	https://www.youtube.com/watch?v=GgVCrrU6ykU	100%	【スカッとする話】親族の集まりでエリート夫「うちのは家事も掃除もしない汚嫁ですw」私「は？一体誰の話してんの？あんたいつも社宅じゃない」義両
+https://www.youtube.com/watch?v=ONdlMXVYvQQ	https://www.youtube.com/watch?v=FJiSauJbihQ	100%	【スカッとする話】我が家が火事で全焼すると夫の連れ子「女の人が火傷で重症と聞いたけど大丈夫だった？w」私「え？私は買い物中だけど？」連れ子「
+https://www.youtube.com/watch?v=uL3DVrxqV74	https://www.youtube.com/watch?v=nHIzigFFjbw	100%	【スカッとする話】長男の新築祝いで1億の豪邸に行くと長男嫁「引っ越し祝いは300万です！払えないなら帰れババァw」私「帰りますか...」夫「
+https://www.youtube.com/watch?v=7Epcvjh9pWA	https://www.youtube.com/watch?v=7lJpHSlgrEQ	100%	【スカッとする話】女手１つで育てた長男の結婚挨拶で義父「貧乏な家の息子は娘とは不相応！」長男嫁「やっぱり結婚は無しでw」お望み通り婚約破棄し
+https://www.youtube.com/watch?v=O1QReujGH_Y	https://www.youtube.com/watch?v=T3LqJSBHdQE	100%	【スカッとする話】結婚式に向かった夫の忘れ物に気付き電話すると、夫「式中に電話するな！非常識だぞ！」私「ご祝儀と礼服忘れてるけど...」夫「
+https://www.youtube.com/watch?v=t_HFoeSqIEM	https://www.youtube.com/watch?v=U2S1py-2s34	100%	【スカッとする話】夫と娘に10年嫌われ続けた母親の私。娘の中学卒業式の日に姿を消すと、血相を変えた夫から鬼電がきて永久に無視した結果w【修羅
+
+=== 17. 孤独な心  15本  https://www.youtube.com/channel/UCSNdJwT8r-r8xVDRxs6utlw
+https://www.youtube.com/watch?v=KqQ7dijW-dg	https://www.youtube.com/watch?v=y8ReyKKeUUQ	100%	【スカッとする話】私が資産170億の不動産王と知らず私から夫を奪った美人な姉「生活保護でも貰え貧乏人w」後日、示談交渉で弁護士が大爆笑→弁護
+https://www.youtube.com/watch?v=sRZrxPLurEk	https://www.youtube.com/watch?v=hRCh_bWpcgg	100%	【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結
+https://www.youtube.com/watch?v=u1GSjSJh3R0	https://www.youtube.com/watch?v=g4FVXeIsDTQ	100%	【スカッとする話】夫を略奪した姉から結婚式の招待状が届くと、父「母さんと2人で行くよ」母「地獄を見せてくるわね」普段温厚な両親がこの後...
+https://www.youtube.com/watch?v=q2hewcZaBVw	https://www.youtube.com/watch?v=a5lS8StIZwA	100%	【スカッとする話】1億のピアノがある金持ち自慢の婚約者の実家へ結婚挨拶に行くと、婚約者「俺達の家政婦連れてきたよw」義父「貧乏な顔w親の顔が
+https://www.youtube.com/watch?v=fwHuJKATGww	https://www.youtube.com/watch?v=7Pz5jiUvSnQ	100%	【スカッとする話】親友の出産祝いで産婦人科へ行くと新生児の父親がまさかの夫だった...。私「おめでと！赤ちゃん可愛いね！」速攻で帰宅し夫の荷
+https://www.youtube.com/watch?v=Fjeq6bUienk	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=9o7-zgVgrkQ	https://www.youtube.com/watch?v=Y2GawdK7Q9E	99%	【スカッとする話】長男夫婦に初孫が生まれ出産祝いに行くと長男嫁「二人は汚いので床でいいですか？w」長男「ジジババは段ボールの上でw」夫「..
+https://www.youtube.com/watch?v=QnaVtzhMSO4	https://www.youtube.com/watch?v=UiZsY3yFtBw	98%	【スカッとする話】高熱で病院へ行く娘を降ろし義両親とのハワイ旅行に行った夫「病院は歩いて行けるだろw」2時間後、半狂乱の夫から鬼電→夫「た、
+https://www.youtube.com/watch?v=moZp7T4kQiY	https://www.youtube.com/watch?v=iWpWDCY4L5o	98%	【スカッとする話】夫の連れ子の出産祝いに行くと、連れ子「ババァは戸籍上は他人w赤ちゃん触るなら1回30万払えw」夫「...帰るか」私「うん」
+https://www.youtube.com/watch?v=7FQvCeZuF34	https://www.youtube.com/watch?v=jcLkESG2h5U	97%	【スカッと】単身赴任の夫の家へサプライズで行くと記入済みの離婚届が...私「お望み通り提出するか」速攻で提出して携帯解約し家を売却して海外移
+https://www.youtube.com/watch?v=YF2IV7HPkzE	https://www.youtube.com/watch?v=mLYItA9m_XY	97%	【スカッとする話】婚約者を略奪した親友から結婚式の招待状が届くと、長男「嫁と2人で行ってくる」長男嫁「盛大に暴れてきます」普段温厚な長男夫婦
+https://www.youtube.com/watch?v=yoGWOJzJZ4c	https://www.youtube.com/watch?v=E6hGGRc68uY	97%	【スカッとする話】愛人と隠し子を連れ帰宅した夫「息子はお前にやる！離婚だ！」息子「母さんとは離婚出来ないよ？だって...」息子の衝撃の一言で
+https://www.youtube.com/watch?v=gDGJSEnL7xI	https://www.youtube.com/watch?v=wdxUcG1tem8	96%	【スカッとする話】母の葬儀中に夫から電話「親戚の集まりなのにサボるな！親の葬儀とか知るか今すぐ来い」私「分かりました」喪服のまま駆け付けた結
+https://www.youtube.com/watch?v=9F31FqrD7SY	https://www.youtube.com/watch?v=Wk9S9SoTHxU	93%	【スカッとする話】夫と義両親から13年間も嫌われ続けた私。ある日、離婚届を置いて引っ越すと、ボロボロの夫と義両親から鬼電が→私（やっと気づい
+https://www.youtube.com/watch?v=sc4XrMs0COk	https://www.youtube.com/watch?v=7BkfeUd5plU	92%	【スカッとする話】私が役員報酬で家計を支えていると知らず夫を略奪し引越した愛人。愛人「家政婦で良いなら住所教えるよw」私「じゃ時給780円の
+
+=== 18. Dima Tomashevich  15本  https://www.youtube.com/channel/UCkfiH3lPVPodePE4eNSDpWg
+https://www.youtube.com/watch?v=SRmU4BFmMfU	https://www.youtube.com/watch?v=xGHuS24cdnQ	100%	【スカッとする話】夫が亡くなり葬式後、更に最愛の長男と孫まで亡くした私に長男嫁「遺産は私が貰うからババァも逝けw」と深夜に家を追い出された。
+https://www.youtube.com/watch?v=JiYO5b0V6pU	https://www.youtube.com/watch?v=3SjNRx445WM	100%	【スカッとする話】家事に疲れて昼寝してた私に花瓶の水をぶっかけてきた長男嫁「私のおかげで暮らせてるのに…ちゃんとメシぐらい作れ！」私「無理。
+https://www.youtube.com/watch?v=b4Hl6zXY_vI	https://www.youtube.com/watch?v=samZXNv0pmY	100%	【スカッとする話】医者の長男が亡くなり通夜振る舞いで私の席だけない。長男嫁「ババァは帰れw夫の遺産と家は嫁である私が相続しますw」それを聞い
+https://www.youtube.com/watch?v=3iknTWZTMDA	https://www.youtube.com/watch?v=7lJpHSlgrEQ	100%	【スカッとする話】女手１つで育てた長男の結婚挨拶で義父「貧乏な家の息子は娘とは不相応！」長男嫁「やっぱり結婚は無しでw」お望み通り婚約破棄し
+https://www.youtube.com/watch?v=6Nb6W3d6PIc	https://www.youtube.com/watch?v=o7m-_gvawQ0	100%	【スカッとする話】長男夫婦が年末に帰省すると、長男嫁「明日親戚が集まるから30人前のおせち作って下さいw」私「頑張ってみるわね」有名な料理研
+https://www.youtube.com/watch?v=55FhWLykUVw	https://www.youtube.com/watch?v=N8_kIcYB8XA	100%	【スカッとする話】炎天下の中、私が倉庫の掃除をしてると鍵をかけ閉じ込めた長男嫁「夜には帰ってくるわねw」３時間後、長男嫁「ただいま...あれ
+https://www.youtube.com/watch?v=vlTzDJoGQVc	https://www.youtube.com/watch?v=ZWebgSwWOzY	100%	【スカッとする話】育休を終え職場に出社した私が新しい女部長に挨拶すると「あれ？清掃のおばちゃん？邪魔だから床掃除でもしてろw」直後、全社員が
+https://www.youtube.com/watch?v=AJ8w72BnMHc	https://www.youtube.com/watch?v=wJUURA3MikY	100%	【スカッとする話】私の入院中に愛人と浮気し妊娠を理由に離婚宣言する夫「家事サボる女とは離婚！慰謝料として家はオレ達が貰うw！」弁護士を交えて
+https://www.youtube.com/watch?v=fMQaK6RIKiM	https://www.youtube.com/watch?v=RWRgIPluB6c	100%	【スカッとする話】長年介護した寝たきりだった夫が他界すると、葬儀で同居の長男嫁「義理の父とはいえ迷惑だったｗ汚いし臭いし逝って助かるｗ」→ブ
+https://www.youtube.com/watch?v=szRQIW8vYgw	https://www.youtube.com/watch?v=g6Y6qpQoq3k	100%	【スカッとする話】中卒で年金生活の私を見下す高学歴エリートの長男嫁「年金暮らしの貧乏人とは絶縁でw」直後、それを聞いた長男が顔面蒼白で「お、
+https://www.youtube.com/watch?v=ZDLy0puKUjA	https://www.youtube.com/watch?v=Z7gS0PmgiuQ	100%	【スカッとする話】夫が突然ビールをぶっかけ、夫「俺のおかげで暮らせてる寄生虫が…文句あるなら離婚して出て行け！」私「わかりました…」3日後、
+https://www.youtube.com/watch?v=FU0N0CuOK18	https://www.youtube.com/watch?v=H2raB2wCmFg	100%	【スカッとする話】病気の夫を支え続けた私に離婚届を突きつけてきた夫「20歳年下の彼女が出来たから離婚でw」私「いいよ、はい離婚届け！」家を売
+https://www.youtube.com/watch?v=E7DUx4_J5Jo	https://www.youtube.com/watch?v=BGX2R_kzmMM	100%	【スカッとする話】夫と一戸建て新居の内見へ行くと、夫「ママたちは一番広い部屋な！逆らったら離婚だからなw」義両親「嫁は物置で十分ｗ」→私「じ
+https://www.youtube.com/watch?v=gVSmPtTPEf8	https://www.youtube.com/watch?v=19hJFO1xBnU	100%	【スカッとする話】双子を出産し退院した直後に夫「今夜はお祝いだ！両親を呼ぶから高級寿司とビール買ってこい！」私「はい...」涙を流しながら家
+https://www.youtube.com/watch?v=iaucLPO-D2Q	https://www.youtube.com/watch?v=3yRAjPm3Nxo	95%	【スカッとする話】長男夫婦が我が家に子供5人と猫6匹連れて来ると長男嫁「猫の世話よろしくw」長男「子供の風呂と飯も頼むw」私「では私も実家に
+
+=== 19. Noah Qumi  14本  https://www.youtube.com/channel/UCH4l3-r5NgR2RlKdoRwfzAw
+https://www.youtube.com/watch?v=MHsVbMKecBY	https://www.youtube.com/watch?v=blo_a56_T1U	100%	【スカッとする話】愛人に夫を奪われた私。2人「すまん、離婚してくれ…」離婚届が置かれた瞬間、即サインし夫を譲ると、相手弁護士がガタガタ震え出
+https://www.youtube.com/watch?v=0HyRkakDfNI	https://www.youtube.com/watch?v=2meTtNT2fJ8	100%	【スカッとする話】母の手術費のためにバケモノ御曹司と婚約した私。父「すまんな…」結婚初日、別人の彼の姿に驚愕し…【朗読】【スカッと】
+https://www.youtube.com/watch?v=kwDoLkr5Sbk	https://www.youtube.com/watch?v=aCFKEISe330	100%	【スカッとする話】同窓会で結婚直前に私を捨てた夫と再会。夫「金持ちの社長令嬢と結婚したw俺だけ幸せでごめんなw」私「本当にそう思う？」真実を
+https://www.youtube.com/watch?v=95_XVcEcx7c	https://www.youtube.com/watch?v=Q8wTXMZ6iys	100%	【スカッとする話】35歳で妊娠した私を捨て19歳の女子大生と再婚した学歴主義の夫。夫「高齢出産だとバカ生まれそうw」15年後、学校で元夫と遭
+https://www.youtube.com/watch?v=Mrocl2zI9zA	https://www.youtube.com/watch?v=HTXg2kgO-aI	100%	【スカッとする話】夫「限界だ…。離婚してくれ…。お前と老後は耐えられん…」私「はい離婚届。義父の介護任せるね」即離婚して姿を消すと夫から大量
+https://www.youtube.com/watch?v=-pck5MfMrj4	https://www.youtube.com/watch?v=PN93A1chfSU	100%	【スカッとする話】亭主関白夫「明日から食費は月3000円！予算超えたら離婚だからな！」私「はーい、後悔しないでね？」夫「しねぇよw」1ヶ月後
+https://www.youtube.com/watch?v=_KqB9ErM7HI	https://www.youtube.com/watch?v=_m8w5ILU3u0	100%	【スカッとする話】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁でw」長男「今後一切関わらないからw」私「本当にいいのね？」長男嫁「
+https://www.youtube.com/watch?v=zBTIx1Hbi6c	https://www.youtube.com/watch?v=Hj7yYfAf4ow	95%	【スカッとする話】18年親代わりに私を育ててくれた兄とエリート銀行員の婚約者との結婚挨拶に行くと、義母「貧乏人とは婚約破棄でw」直後、キレ
+https://www.youtube.com/watch?v=FNOxd1vSuQs	https://www.youtube.com/watch?v=JuCiUOLk2v4	95%	【スカッとする話】余命3ヶ月と診断された夫「俺の貯金も家も車もすべて愛人に渡す。お前に渡す金は無いw」翌朝、荷物をまとめ出ていくと、真実を
+https://www.youtube.com/watch?v=_KqB9ErM7HI	https://www.youtube.com/watch?v=2jJCIGafP3k	90%	【スカッと総集編】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁w」長男「今後一切関わらないw」私「本当にいいのね？」長男嫁「え？」
+https://www.youtube.com/watch?v=s22fDmWOq9s	https://www.youtube.com/watch?v=FBxAecHRyv4	89%	【スカッとする話】夫を亡くし1Kのアパートで年金暮らしの私を見下す長男嫁「孤独で極貧人生惨めですねw」1ヶ月後、娘夫婦と一軒家建て同
+https://www.youtube.com/watch?v=rQ-I-Ahmn_k	https://www.youtube.com/watch?v=aaaPLdvdBeU	87%	【スカッとする話】入院中、義父から突然怒りの電話。義父「夫が入院中なのに嫁のお前が何遊んでるんだ！」私「え？入院してるのは私ですよ
+https://www.youtube.com/watch?v=aT_AvQ2_b7A	https://www.youtube.com/watch?v=UDP-lajdyc4	84%	【スカッとする話】外科医の兄が挙げる豪華挙式で義妹「低学歴なんて一族の汚点よｗ」私の着物にワインをぶっかけてきた。直後、乾杯の挨拶て
+https://www.youtube.com/watch?v=1j5E_rhz3MM	https://www.youtube.com/watch?v=mFMjiHyQUKY	81%	【スカッとする話】4歳で発語なしの娘に夫「高学歴一族の恥。離婚だ」義妹「ゴミ一つ残すなよクズ共」引越し当日、私の両親が迎えに来ると
+
+=== 20. スカッとする話 5020  14本  https://www.youtube.com/channel/UCAG5eZR0aJpGuShtjtimSEg
+https://www.youtube.com/watch?v=-FQjdMNh2gM	https://www.youtube.com/watch?v=gVrVwssbXow	100%	【感動する話】親に捨てられた中1の私に弁当屋の夫婦「これお食べ」空腹の私を助けてくれた老夫婦。20年後、社長になった私が再訪問→張り紙の一文
+https://www.youtube.com/watch?v=tiOlfcaKAJE	https://www.youtube.com/watch?v=gBmPsDEOoUs	100%	【スカッとする話】結婚直前で逃げた姉の代わりに田舎の農家に嫁いだ私。私「私も手伝おうか？」夫「君は家でゆっくりしてて」翌朝、口座に1000万
+https://www.youtube.com/watch?v=z0gg-kdn8Io	https://www.youtube.com/watch?v=azDvOP8I1Ck	100%	【スカッとする話】同窓会に出席した肉屋の私。金持ち同級生「お前肉屋？wじゃあ旦那は豚かw呼べw」1時間後、社長の夫が会場に到着。キレた夫「豚
+https://www.youtube.com/watch?v=S6BO0FlMpkE	https://www.youtube.com/watch?v=GsVNz8g6MTk	100%	【スカッとする話】大雪の夜、道端で震える7歳の少女。少女「これおばちゃんの財布？」私は実家の温泉旅館に連れ帰り、懐石料理を振る舞った結果…【
+https://www.youtube.com/watch?v=KoXScSm4HiA	https://www.youtube.com/watch?v=dHfs8LWncGY	100%	【スカッとする話】女手一つで育てた娘の結納に行くと、料亭で咽び泣く娘が1人ポツン…娘「格下とは婚約破棄って…」直後、社長令嬢の私は即電話「人
+https://www.youtube.com/watch?v=IGUFzrMiOzA	https://www.youtube.com/watch?v=aOokRIIBjW0	100%	【スカッとする話】実家の高級料亭を手伝って20年。母「海外移住することにしたw」父「店は優秀な次男に引き継ぐw」私「大賛成！だってこの店…」
+https://www.youtube.com/watch?v=rBenzS9LtEY	https://www.youtube.com/watch?v=9TulrMzmHr8	100%	【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しね
+https://www.youtube.com/watch?v=6TTbJxZG7bY	https://www.youtube.com/watch?v=YARRQqAerVs	100%	【スカッとする話】私の母が筆頭株主と知らず私の内定を取消した頭首「母子家庭は内定取消でw」一同大爆笑。私「だそうです…お母さん…」母「頭首？
+https://www.youtube.com/watch?v=Xa_3lEujbHo	https://www.youtube.com/watch?v=5xVI6wldA4A	100%	【スカッとする話】親代わりに育ててくれてた姉と医者一族の結婚挨拶に行くと義父「中卒の姉が親？w婚約破棄w」直後、普段温厚な姉が立ち上がり→姉
+https://www.youtube.com/watch?v=Ea0UQ7L2T8s	https://www.youtube.com/watch?v=_4-WKAXLdZw	100%	【スカッとする話】無断で長男夫婦と孫5人を同居させる夫「逆らったら離婚だぞ寄生虫ｗ」私「じゃあ離婚でいいわよ。1億の豪邸に引越したので」夫「
+https://www.youtube.com/watch?v=IUllOGmoOas	https://www.youtube.com/watch?v=5AbXeqqVHY4	100%	【スカッとする話】臨月の私を家庭用サウナに閉じこめ5泊7日の温泉旅行に出かけたエリート義両親「私達から息子を奪った罰よw」7日後、帰宅した義
+https://www.youtube.com/watch?v=IUllOGmoOas	https://www.youtube.com/watch?v=LPY1ke7gWfI	100%	【スカッと総集編】臨月の私を家庭用サウナに閉じこめ5泊7日の温泉旅行に出かけたエリート義両親「私達から息子を奪った罰よw」7日後、帰宅した義
+https://www.youtube.com/watch?v=QPiRCf5pOjM	https://www.youtube.com/watch?v=RWaATWML5EY	83%	【スカッとする話】正月、母が危篤で実家に帰ると義母「ここが嫌なら実家で暮らせ」私の荷物を外に投げ捨てた。私「後で撤回なしですよ
+https://www.youtube.com/watch?v=JX-ocSB49Vo	https://www.youtube.com/watch?v=ObEfba0ciWg	83%	【スカッとする話】清掃員の私を見下す外科部長「アメリカの大臣に英語で挨拶しろw」私「大臣、お久しぶりです」ペラペラ英語で話した結
+
+=== 21. Shinji Datの人生物語  14本  https://www.youtube.com/channel/UCpdX_bFCePsYvPWZAMQoaeg
+https://www.youtube.com/watch?v=FiGEQo_QLoY	https://www.youtube.com/watch?v=gqjIGgB7rlA	100%	【スカッとする話】夫「俺の年金は1円もやらん」40年間夫を支えてきたのに、他人のように突き放された私（もう我慢しなくていっかw）→翌日、なぜ
+https://www.youtube.com/watch?v=5SfD5lmv8GY	https://www.youtube.com/watch?v=uYt37nxwb0o	100%	【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=F-JFquYn4l8	https://www.youtube.com/watch?v=C6r_ataNQZU	100%	【スカッと総集編】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！悪いが、離婚してくれ！」私「はーい、仕事も辞めるね！」夫
+https://www.youtube.com/watch?v=ZDiYHoGLBCY	https://www.youtube.com/watch?v=yUWQozZU0zY	100%	【スカッと総集編】夫が亡くなった途端、我が家を勝手に解体した義両親「今日からうちで同居しろ！嫁は家政婦にしてやるw」それを聞いた私は大爆笑→
+https://www.youtube.com/watch?v=eoTIjHaKblI	https://www.youtube.com/watch?v=Yfo6v4-ZtHc	100%	【スカッとする話】私が義父の入院費を払ってると知らず私の荷物を全て捨てた夫「もう俺に寄生するな穀潰しがw」夫を残し1億の豪邸に引越し入院費の
+https://www.youtube.com/watch?v=pFrUHPf1Esk	https://www.youtube.com/watch?v=3WlCnGLe67U	100%	【スカッとする話】私の両親が亡くなった途端、実家を勝手に解体した夫「今日から俺の家で両親と同居だ！」それを聞いた私は大爆笑→私「あんた達、知
+https://www.youtube.com/watch?v=5SfD5lmv8GY	https://www.youtube.com/watch?v=lVGupM23LsE	100%	【スカッと総集編】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=VqJfyORB9O0	https://www.youtube.com/watch?v=gp0iCrgbXh8	100%	【スカッと総集編】私の総資産が11億と知らず妊娠9ヶ月の私を捨て社長令嬢と再婚した夫「腹がデカくて女として見れんｗガキはお前が育てろｗ」私「
+https://www.youtube.com/watch?v=hd4Ky5rKbEo	https://www.youtube.com/watch?v=sd-a4XIE7jQ	100%	【スカッと総集編】私の年収が2000万と知らず入院中の私を捨て愛人と再婚した夫「離婚届け出しといたｗ慰謝料として家と車は貰うｗ」私「承知しま
+https://www.youtube.com/watch?v=wjcsqrJMXOI	https://www.youtube.com/watch?v=70JSyEr3ztQ	100%	【スカッと総集編】夫が土下座「20歳の愛人が妊娠した！離婚してくれ！」私「はい離婚届け。じゃ娘以外は連れてくね」夫「は？娘も連れていけよ」私
+https://www.youtube.com/watch?v=eoTIjHaKblI	https://www.youtube.com/watch?v=EmiUvKJTw3c	96%	【スカッと総集編】義父の入院費を払ってると知らず私の荷物を全て捨てた夫「俺に寄生するな穀潰しw」夫を残し1億の豪邸に引越し入院費の支払いも止
+https://www.youtube.com/watch?v=9ec8TRW_FFY	https://www.youtube.com/watch?v=ZSMzLBZN4z0	95%	【スカッとする話】手術当日、怯える私を見捨て、平然と飲み会へ向かった夫。1年後、夫の癌が発覚すると夫「怖いから来てくれ、頼む」私「飲み会た
+https://www.youtube.com/watch?v=XIKb95pkTjk	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+https://www.youtube.com/watch?v=F-JFquYn4l8	https://www.youtube.com/watch?v=n-_5T-nb0dg	86%	【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けて
+
+=== 22. 人生の光と影  14本  https://www.youtube.com/channel/UCYX4tsWpykTmtfNq_i36C_w
+https://www.youtube.com/watch?v=8AmSKMrlaRQ	https://www.youtube.com/watch?v=ZTng_6NCKl8	100%	【スカッとする話】親代わりに育てた弟の結婚式でタキシードを着た弟が1人ポツン。弟「結婚は嘘でドッキリって…」直後、普段温厚な夫が新婦一族に電
+https://www.youtube.com/watch?v=k8PCprhidvc	https://www.youtube.com/watch?v=LMo-dxLN6Qc	100%	【スカッとする話】12年前、私の夫を略奪し駆け落ちした長男嫁から連絡。長男嫁「旦那と久しぶりに帰るwあんたはトイレに隠れててw」私「はい…」
+https://www.youtube.com/watch?v=eKijFqrCIO4	https://www.youtube.com/watch?v=3ROoZpLQQvY	100%	【スカッとする話】姉夫婦の婚約祝いに到着すると息子「ママ、今すぐ帰ろう！早く発車して！」混乱する息子に理由を聞くと、息子「後ろみて…」私「え
+https://www.youtube.com/watch?v=ky0P_CvUAyI	https://www.youtube.com/watch?v=w6v4PeHPtAs	100%	【スカッとする話】親族20人の前で夫と義母。義母「月収100万の息子の寄生虫w」夫「金 目当ての最低な嫁w」私「じゃ嫁辞める」玄関から出ると
+https://www.youtube.com/watch?v=P5rDMpoAe0U	https://www.youtube.com/watch?v=I0YiB-VENsY	100%	【スカッとする話】夫「お前の部屋は両親に譲る。2人を介護するから頼むな」私「はーい（何も知らないのねw）」翌日、義両親が引越してくると夫は半
+https://www.youtube.com/watch?v=5exrxdHByg8	https://www.youtube.com/watch?v=7Vq5sNaCsNc	100%	【スカッとする話】義母の嫁いびりが原因で夫と離婚。夫「今すぐ出てけ役立たずw」私「はい」両親と共に挨拶を済ませ迎えに来た車に乗り込むと→夫・
+https://www.youtube.com/watch?v=cYepYy4CPGU	https://www.youtube.com/watch?v=Ru27si_54MQ	100%	【スカッとする話】結婚し幸せな日常を送る息子が急逝し13日後、私宛に亡き息子から手紙が届いた。手紙「俺の代わりに嫁に復讐を...」手紙で指定
+https://www.youtube.com/watch?v=GTB0TLeMo6I	https://www.youtube.com/watch?v=3WlCnGLe67U	100%	【スカッとする話】私の両親が亡くなった途端、実家を勝手に解体した夫「今日から俺の家で両親と同居だ！」それを聞いた私は大爆笑→私「あんた達、知
+https://www.youtube.com/watch?v=WKNYdo5PHgQ	https://www.youtube.com/watch?v=U5xUCWiE2KA	100%	【スカッとする話】孫の七五三のお祝いに行くと私の食事がない...長男嫁「家族分しか用意してませんｗ」夫「じゃあ帰るか」私「うん」直後、長男嫁
+https://www.youtube.com/watch?v=v3n_U9e95kE	https://www.youtube.com/watch?v=VRN73vXHN9Y	100%	【スカッと総集編】私の総資産が9億と知らず入院中の私を捨て20歳の愛人と再婚した夫「家事も出来ない役立たずは離婚ｗ慰謝料も払ってくれよなｗ」
+https://www.youtube.com/watch?v=W9DGvjP4DmA	https://www.youtube.com/watch?v=WHx8h3F0pU0	100%	【スカッとする話】長男夫婦との二世帯住宅ローンを月25万全額支払う私に長男嫁「小銭ぐらいで偉そうにｗ」長男「支払い止めてみろｗ」私「喜んで！
+https://www.youtube.com/watch?v=VLohau_jerE	https://www.youtube.com/watch?v=Tm9DKLFF30M	100%	【スカッとする話】私が余命半年と聞いて愛人と豪遊しはじめた夫「いつまで生きてるの？w」 私「余命なのはあなただよ？」後日、半狂乱の夫が...
+https://www.youtube.com/watch?v=WKNYdo5PHgQ	https://www.youtube.com/watch?v=BGGFZHCKH2A	99%	【スカッと総集編】孫の七五三のお祝いに行くと私の食事がない   長男嫁「家族分しか用意してませんｗ」夫「じゃあ帰るか」私「うん」直後、長男嫁
+https://www.youtube.com/watch?v=krTnXIGEv7w	https://www.youtube.com/watch?v=AG72nH3Qr4E	99%	【スカッとする話】私が社員9000人の社長と知らず父が亡くなった途端に豹変した夫「お前の遺産は俺が管理する！文句あるなら離婚して失せろw」私
+
+=== 23. 美しい木  14本  https://www.youtube.com/channel/UCKDhvWl0boDNeo65NQzjbOg
+https://www.youtube.com/watch?v=xAHW3dG1V5M	https://www.youtube.com/watch?v=3WJaWicyrhk	100%	【スカッとする話】長男夫婦の結婚式の帰宅中、突然激怒する夫「犯罪者のクズとは離婚！毎月の仕送り5万盗んでただろ！」 私「承知しました...」
+https://www.youtube.com/watch?v=JaHSlsKxqLI	https://www.youtube.com/watch?v=SA1PcWksbus	100%	【スカッとする話】5歳の娘の病気が判明した途端、私と娘を捨て愛人と消えた夫。9年後、娘のある秘密を知ると夫「迎えに来たぞ！パパと帰ろう」娘「
+https://www.youtube.com/watch?v=6OMd2U0O26s	https://www.youtube.com/watch?v=XeaG3k_O8iM	100%	【スカッとする話】夫「もう我慢できん！クズ嫁とは離婚！」夫婦喧嘩の翌日出張から帰ると私「この前はごめ...ん？」机の上に記入済みの離婚届が.
+https://www.youtube.com/watch?v=BZUbWZO5_FI	https://www.youtube.com/watch?v=8r9b0asur18	100%	【スカッとする話】全員を私が養ってると知らずハワイ旅行で長男嫁「ババァは帰って掃除でもしろw」長男「タダで旅行とか100年早いw」私「承知し
+https://www.youtube.com/watch?v=_Qg7oC0HdL0	https://www.youtube.com/watch?v=eL586qzv_4A	100%	【スカッとする話】長男夫婦の新築祝いに5歳の娘と行くと「なんでお庭に人が埋まってるの？」不思議な力を持つ娘のさらなる言葉で長男嫁が金属バット
+https://www.youtube.com/watch?v=JSnahwT8Ec8	https://www.youtube.com/watch?v=QYEH-y6RSgw	100%	【スカッとする話】長男嫁が私の車で交通事故を起こし緊急搬送。私「下半身不随で車いす生活だって...」夫「な、なんでお前は元気なんだ？」私「は
+https://www.youtube.com/watch?v=bNhA5AfHpB4	https://www.youtube.com/watch?v=ZbEqeHKJvPE	100%	【スカッとする話】夫「低収入の役立たずは出てけ」長男「こんなババァいらねぇw」私を低収入の無能扱いするので、口座の残高を1000円にして永久
+https://www.youtube.com/watch?v=xAHW3dG1V5M	https://www.youtube.com/watch?v=51hhnXRKh8I	100%	【スカッと総集編】長男夫婦の結婚式の帰宅中、突然激怒する夫「犯罪者のクズとは離婚！毎月の仕送り5万盗んでただろ！」 私「承知しました   」
+https://www.youtube.com/watch?v=q6T23mYG8UA	https://www.youtube.com/watch?v=0AsFooilZ4k	100%	【スカッとする話】長男嫁から突然怒りの電話「お義父の介護費用、ちょっとはお義母さんも払ってください！」私「え？私に夫はいませんが」長男嫁「え
+https://www.youtube.com/watch?v=5cN2-LQdZhA	https://www.youtube.com/watch?v=6Ar7XC0xekw	100%	【スカッとする話】夫の遺産３億を相続した私に長男夫婦「お金は振り込まれた？」私「手続きが複雑でまだなの」嫌な予感がして嘘をついた。翌日、長男
+https://www.youtube.com/watch?v=45uLuTAKkII	https://www.youtube.com/watch?v=NW2djFvCjds	99%	【スカッとする話】同居中の父が亡くなった瞬間、突然我が家に引っ越してきた義両親「他人は今すぐ出てけw」それを聞いた夫が血相を変えて、夫「お、
+https://www.youtube.com/watch?v=hZjR_1JjWd8	https://www.youtube.com/watch?v=hGeIy-jQiII	99%	【スカッとする話】夫が私の持ち家をリフォームすることになり完成すると夫が「お前と義母さんは４畳の物置部屋なw」姑「嫌なら離婚して出てけw」→
+https://www.youtube.com/watch?v=oOxUxVsOoQg	https://www.youtube.com/watch?v=Z0XyR6PuOaY	98%	【スカッとする話】娘の結婚式の両家顔合わせで金持ちエリートの婚約者「義母と義父は他人て。冠婚葬祭以外は関わりません」私「分かりました   
+https://www.youtube.com/watch?v=S2ewuuGnmQc	https://www.youtube.com/watch?v=4VGG0yj_HNk	95%	【スカッとする話】長男夫婦の結婚式で新婦を指し孫が「あっ、プロレスの姉ちゃん！」と笑っていた。私が叱ると孫「だって、この前じいちゃんの上に乗
+
+=== 24. フィクション 5634  13本  https://www.youtube.com/channel/UCtx1aitp-eTJhv2c94bnBZQ
+https://www.youtube.com/watch?v=1dPUOOQoIgw	https://www.youtube.com/watch?v=K7QGPSQED7o	100%	【感動する話】離婚前夜、夫との最後の晩餐。料亭で夫を待ち続けたが、メールの返信もなく現れない。その時、突然私に声をかけた店主「実は、ご主人が
+https://www.youtube.com/watch?v=zjVmh756GWo	https://www.youtube.com/watch?v=2ALPcxU2NE8	100%	【スカッとする話】自衛官の兄の結婚式に参加すると、義母「中卒の妹は一族の汚点w」直後、兄が義母の元に歩み寄り、兄「まだ妹の正体に気づかない？
+https://www.youtube.com/watch?v=UmOdOkciR2g	https://www.youtube.com/watch?v=i4CX2w0EpjQ	100%	【スカッとする話】不倫され無一文で追い出された私。偶然見た大富豪の継母募集に応募。1ヶ月後、知らせを聞いた元夫がいきなり家の前に現れ…w【朗
+https://www.youtube.com/watch?v=pfAWUPGI9p8	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=0xDqp88HDYY	https://www.youtube.com/watch?v=UUZxfE_gHw4	100%	【スカッとする話】200人が集まる兄の結婚式で院長夫人の義母が私に詰め寄り、義母「低学歴はお荷物！出てけw」直後、顔面蒼白で震える兄「お義母
+https://www.youtube.com/watch?v=LZcVxI5w24Q	https://www.youtube.com/watch?v=OrPFz7NFbL0	100%	【スカッとする話】夫の会社パーティーで秘書を正式な妻として紹介した夫。直後、会長である私の父から着信。父「別れなさい。あとは俺に任せろ」3日
+https://www.youtube.com/watch?v=w3U64rXaa4s	https://www.youtube.com/watch?v=ZTng_6NCKl8	100%	【スカッとする話】親代わりに育てた弟の結婚式でタキシードを着た弟が1人ポツン。弟「結婚は嘘でドッキリって…」直後、普段温厚な夫が新婦一族に電
+https://www.youtube.com/watch?v=RXjYjKHRu0U	https://www.youtube.com/watch?v=NzBlxUPoOa4	100%	【スカッとする話】入社式に行った双子の息子が30分で帰宅。息子「俺らの名札だけこれだった」（無能兄弟1号2号）と書かれた名札を見た私は社長に
+https://www.youtube.com/watch?v=RgJbSk8AemI	https://www.youtube.com/watch?v=HXKj0_Em7xg	100%	【スカッとする話】親族の集まりで私を侮辱する夫と義母。夫「俺の金で生きてる寄生虫w」義母「年収2000万の息子に感謝しなw」私「じゃあ離婚で
+https://www.youtube.com/watch?v=4XdOrqOB8vs	https://www.youtube.com/watch?v=9YYFRUPxl10	100%	【スカッとする話】余命5ヶ月と診断された夫「嫁と娘に渡す遺産はない。全額愛人に相続する」私「はーい（覚悟しろよ）」娘と容赦無く制裁した結果w
+https://www.youtube.com/watch?v=q5Jzeq-lT2A	https://www.youtube.com/watch?v=NoI2VSODku4	100%	【スカッとする話】夫「不倫相手を好きになった…悪いが離婚してくれ」私「はーい、両親と子供連れてくね」即離婚して引越すと夫から鬼電→私（あ、も
+https://www.youtube.com/watch?v=AqZ8dFyAr_A	https://www.youtube.com/watch?v=yLJHD6QWIOM	97%	【スカッとする話】結婚記念日に不倫相手と温泉旅行に出かけた夫「お前は留守番よろしくw」私は離婚届を置き静かに姿を消すと、帰宅し号泣の夫から鬼
+https://www.youtube.com/watch?v=TMjP2WF-USk	https://www.youtube.com/watch?v=-2NPxSnCoDA	89%	【スカッとする話】ジャージ姿の夫と病院へ行くと、私の婚約者を略奪した姉と再会。姉「私の夫、ここの院長なのwあなた達は生活大変でしょ」夫
+
+=== 25. 泥だらけの絆 5655  13本  https://www.youtube.com/channel/UCdyvc7k9wPzVO9X62aCvguQ
+https://www.youtube.com/watch?v=AXXpmLXnPFo	https://www.youtube.com/watch?v=qNSSnNaMxrs	100%	【スカッとする話】私1人で育てた息子の顔合わせで、なぜか私たちだけお茶漬け…義家族「貧乏人は好きだろ？w」直後、私の存在に気づいた義兄「俺た
+https://www.youtube.com/watch?v=tk0adRpC7xI	https://www.youtube.com/watch?v=ae1eDwWjrBU	100%	【スカッとする話】親戚の集まりに私たち家族だけ招待しない義両親。義父「お前ら貧乏家族は不要w」私「わかりました…」家族全員で欠席しハワイ旅行
+https://www.youtube.com/watch?v=uVKwqGj4XDE	https://www.youtube.com/watch?v=FKxO2ZIWpyI	100%	【スカッとする話】父「もう限界だ…助けて」息子夫婦から年金と貯金を摂取されボロボロな姿で現れた。私「一緒に暮らそ」父「ええんか？涙」翌日、息
+https://www.youtube.com/watch?v=gcAJp8pO22c	https://www.youtube.com/watch?v=rr4eaeyOZO0	100%	【スカッとする話】息子夫婦から突然の絶縁宣言。息子「絶縁して今後は他人で」息子嫁「孫にも会わせませんので」キレた私は家を売払い援助も停止→1
+https://www.youtube.com/watch?v=9swhEHx9jcI	https://www.youtube.com/watch?v=9i5Xko94orA	100%	【スカッとする話】引きこもり娘を育てた私に医者の夫「一族の恥！無能とは離婚だ！」兄嫁「1週間以内に出てってねw」娘を連れて2人で新居に引越す
+https://www.youtube.com/watch?v=eFl1pL-vcag	https://www.youtube.com/watch?v=ZYoCuCmOpZY	100%	【スカッとする話】息子夫婦の新築祝いに100万円を包むと息子嫁「たった100万ですか？うちの親300万でしたよ」夫「帰るか」私「うん」翌日、
+https://www.youtube.com/watch?v=wJagBmexUME	https://www.youtube.com/watch?v=2jJCIGafP3k	100%	【スカッと総集編】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁w」長男「今後一切関わらないw」私「本当にいいのね？」長男嫁「え？」
+https://www.youtube.com/watch?v=WzHqkzSCJWo	https://www.youtube.com/watch?v=GSmPm6dYwRY	100%	【スカッと】長男夫婦との同居を勝手に決めた夫「長男たちの引越しは済んだか？」私「うん終わった！私の方も今新築タワマンに引越し完了した！」夫「
+https://www.youtube.com/watch?v=WzHqkzSCJWo	https://www.youtube.com/watch?v=i0IxKCCxC54	100%	【スカッと総集編】長男夫婦との同居を勝手に決めた夫「長男たちの引越しは済んだか？」私「うん終わった！私の方も今新築タワマンに引越し完了した！
+https://www.youtube.com/watch?v=yxzgdHFi9JA	https://www.youtube.com/watch?v=TpSWnrOqoqg	100%	【スカッと総集編】私の財布から勝手に高級温泉の宿泊券を盗み、義両親と温泉旅行に行く夫「お前のチケットで親孝行してくるw」私「え？それ使用済み
+https://www.youtube.com/watch?v=SpSnqM7VIB4	https://www.youtube.com/watch?v=bPcGySAd3gA	100%	【スカッと総集編】家のローン月18万を払ってると知らず同居の長男嫁に1年間無視された...ある日、私「あれ？なんで私の荷物が...」長男嫁「
+https://www.youtube.com/watch?v=_8aXGqWSHzM	https://www.youtube.com/watch?v=38qn7ccYnLE	100%	【スカッとする話】長男夫婦が孫5人を連れ我が家に来ると長男嫁「お義母さんは4畳の物置小屋で寝泊まりお願いしまーすw」直後、私は無言で荷物をま
+https://www.youtube.com/watch?v=wJagBmexUME	https://www.youtube.com/watch?v=_m8w5ILU3u0	90%	【スカッとする話】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁でw」長男「今後一切関わらないからw」私「本当にいいのね？」長男嫁「
+
+=== 26. TINA SHTIBKO  13本  https://www.youtube.com/channel/UCIQbb4FNm2BhP5GfSTbrQ4w
+https://www.youtube.com/watch?v=LFh5HyZqSaY	https://www.youtube.com/watch?v=4XaTm2Lo-tc	100%	【スカッとする話】長男が結婚し実家で同居すると、長男嫁「狭いので出てって下さいw」我が家を追い出され1ヶ月後、私の新居を見にきた長男嫁「こ、
+https://www.youtube.com/watch?v=vH2vcM_uFO8	https://www.youtube.com/watch?v=l5MOnDUec8k	100%	【スカッとする話】祖母と同居の長男夫婦に毎月25万の仕送りをする私が祖母の様子を見に行くと伝えると長男が激怒「何しにくる気だ！？今まで何もし
+https://www.youtube.com/watch?v=OJFNQ_YQztc	https://www.youtube.com/watch?v=iknFXLIJR7c	100%	【スカッとする話】兄嫁に奴隷扱いされてる祖母「家から出して！」兄に相談すると「そんならお前らが引き取れ！」私「はい、預かります」祖母を夫の別
+https://www.youtube.com/watch?v=zOePfR4T-cY	https://www.youtube.com/watch?v=U9HQWEyzPVc	100%	【スカッとする話】11億の資産を築いた父の葬儀後に夫が突然「父さんの遺産いくらあるんだ？w」私「3億通帳に入れてるよ」翌朝、離婚届けを置き通
+https://www.youtube.com/watch?v=lOw_5j4cYj8	https://www.youtube.com/watch?v=OP4Cn0qElcw	100%	【スカッとする話】高級料亭の女将の私に突然融資を打ち切り1000万返済を要求する銀行員「赤字のゴミ料亭は金返せw」私「いいけど後悔しますよ？
+https://www.youtube.com/watch?v=WA8oCPKSt3c	https://www.youtube.com/watch?v=L7V4moDtbKk	100%	【スカッとする話】夫と姉夫婦4人で高級寿司屋に行くと、夫「義姉さんは妊娠中だからダメ」私・姉夫「え？そうなの？」夫「...」実は...【修羅
+https://www.youtube.com/watch?v=VSZ_A55F4VY	https://www.youtube.com/watch?v=Zj2veQRj8wE	100%	【スカッとする話】長男嫁「お義母さん今月の仕送り10万まだ！？」怒り狂った長男嫁から鬼電が...私「長男は他界しましたのでもう他人に仕送りで
+https://www.youtube.com/watch?v=zO6WL0SGYMg	https://www.youtube.com/watch?v=3-5Li1E7eCQ	100%	【スカッとする話】10億の資産を築いた社長の夫が亡くなり葬儀後、長男嫁「遺産10億と社長の座は、長男である旦那が相続しますw」それを聞いた私
+https://www.youtube.com/watch?v=QZKjXXA1C5A	https://www.youtube.com/watch?v=uBvDuF4U2Aw	100%	【スカッとする話】がん末期の母を置いて海外旅行に行った長男夫婦「ババァの介護は頼んだわｗ」翌日、母が笑顔で行動開始すると長男夫婦は帰らぬ人に
+https://www.youtube.com/watch?v=UDZwf08BfkQ	https://www.youtube.com/watch?v=xjUmLGx_XWw	100%	【スカッとする話】私が家のローンを毎月21万払ってるとも知らず家族旅行で長男嫁「他人ババアは帰って家の掃除でもしてろw」私「分かりました」家
+https://www.youtube.com/watch?v=6HZZFlUIbqQ	https://www.youtube.com/watch?v=l5TmQouYi48	100%	【スカッとする話】家のローンを月15万払っている私に夫「料理が下手な役立たずは出てけ！」私「いいけどホームレスになっても大丈夫？」夫「ならね
+https://www.youtube.com/watch?v=tZiNGkGUQ9c	https://www.youtube.com/watch?v=ZbEqeHKJvPE	100%	【スカッとする話】夫「低収入の役立たずは出てけ」長男「こんなババァいらねぇw」私を低収入の無能扱いするので、口座の残高を1000円にして永久
+https://www.youtube.com/watch?v=bWjdmtTUfPQ	https://www.youtube.com/watch?v=y4DFItjpFPM	92%	【スカッとする話】夫と長女に18年間も嫌われ続けた母親の私「もう疲れたので出ていきます...」娘の高校卒業式の日に家族を捨てると、血相を変え
+
+=== 27. 心温まるストーリー 4989  12本  https://www.youtube.com/channel/UCS-VuYFB_DXsDhPHAzUS0JA
+https://www.youtube.com/watch?v=qJ8No7XGqYQ	https://www.youtube.com/watch?v=qNSSnNaMxrs	100%	【スカッとする話】私1人で育てた息子の顔合わせで、なぜか私たちだけお茶漬け…義家族「貧乏人は好きだろ？w」直後、私の存在に気づいた義兄「俺た
+https://www.youtube.com/watch?v=zZK_hwS9jv8	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=2pKVUEdoXJI	https://www.youtube.com/watch?v=vQdhdcwgO20	100%	【スカッとする話】父が急逝し女社長になった私。副社長「これ退職届80人分wコネだけの女は皆無理ってw」翌日、新聞を見た元部下が土下座→全員を
+https://www.youtube.com/watch?v=aBJ1YwjjNAQ	https://www.youtube.com/watch?v=L6kEKzkIxIU	100%	【スカッとする話】同窓会でいじめられた私。同級生「乞食は残飯食ってろw」1時間後、息子が現れた途端、同級生の態度が急変し…w【朗読】【スカッ
+https://www.youtube.com/watch?v=oEkkRPtSwHc	https://www.youtube.com/watch?v=iQrx79Nz3e0	100%	【スカッとする話】夫が愛人と再婚し家を追放された私。亡き父が所有していたホテルに行くと、支配人「お嬢様、どうぞ中へ」3日後、血相変えた夫が突
+https://www.youtube.com/watch?v=ECeep1I50PM	https://www.youtube.com/watch?v=VzF9S7pgYKg	100%	【スカッとする話】エコ贔屓されている妹の代わりにブサ男と結婚させられた私。翌朝、銀行に行くと口座に4億が…夫「話がある、実は俺…」→妹と両親
+https://www.youtube.com/watch?v=AeGl_OpBBBE	https://www.youtube.com/watch?v=4PHFRmTlaPo	100%	【スカッとする話】清掃員の夫との結婚式当日、東大卒の弟から1通のメール。弟「卒業祝いと被ったw両親も行けないw」私（終わらせよう）翌日、号泣
+https://www.youtube.com/watch?v=lKTRrFXLOO4	https://www.youtube.com/watch?v=-BYN9x_-nLc	100%	【スカッとする話】CAの娘の結婚式に参加すると、義両親「中卒の親は場違いだろw」直後、結婚指輪を投げ捨てた娘「まだ分かってないんだw母は…」
+https://www.youtube.com/watch?v=hv0PJy7Jn88	https://www.youtube.com/watch?v=LMo-dxLN6Qc	100%	【スカッとする話】12年前、私の夫を略奪し駆け落ちした長男嫁から連絡。長男嫁「旦那と久しぶりに帰るwあんたはトイレに隠れててw」私「はい…」
+https://www.youtube.com/watch?v=dCVe0EXjyVw	https://www.youtube.com/watch?v=NzBlxUPoOa4	100%	【スカッとする話】入社式に行った双子の息子が30分で帰宅。息子「俺らの名札だけこれだった」（無能兄弟1号2号）と書かれた名札を見た私は社長に
+https://www.youtube.com/watch?v=eJdnkZsbcRs	https://www.youtube.com/watch?v=pXZzVkTWIVM	100%	【スカッとする話】大手銀行の頭首が私の内定を取消。頭取「父子家庭の貧乏人は不採用w」私「帰ります」行員一同大爆笑w翌日、ブチギレた父が株主総
+https://www.youtube.com/watch?v=HdO5-3BV4XA	https://www.youtube.com/watch?v=dU6JVw48vN4	92%	【スカッとする話】30年連れ添った夫を亡くし、1Kのアパートに引っ越した私に嫁「底辺すぎて笑えるw」1ヶ月後、私が乗る車を見た嫁「え、
+
+=== 28. Bonnie Denver  12本  https://www.youtube.com/channel/UCsdndA886timZqWK6_b0d0Q
+https://www.youtube.com/watch?v=gw_bZgF_vcw	https://www.youtube.com/watch?v=tOHZbuZysA4	100%	【スカッとする話】医者一族の婚約者と結婚挨拶に行くと私達の席だけない。義母「片親の貧乏人とは婚約破棄w」母「ではおたくの病院潰すわ」義家族「
+https://www.youtube.com/watch?v=Lapb-z9pqnY	https://www.youtube.com/watch?v=Utio_7T1lvM	100%	【スカッとする話】11年介護した義父の葬儀後に義母「家政婦は用済み！出てけw」夫「離婚届書いて失せろw」私「分かった（全て計画通りw）」1ヶ
+https://www.youtube.com/watch?v=t9IBLjg2a_M	https://www.youtube.com/watch?v=BEKjWcB_3Mk	100%	【スカッと】孫の結婚式に行くと私達夫婦を嫌う新婦「中卒の貧乏ジジババは祝儀置いて田舎に帰れw」夫「…帰るか」私「…うん」30分後、半狂乱の新
+https://www.youtube.com/watch?v=SR2PhjaQOtk	https://www.youtube.com/watch?v=vySwB9srcCQ	100%	【スカッとする話】単身赴任中の夫の家へ行くと愛人と隠し子と遭遇…私「幸せ邪魔してすみません」夫「違う！これには深い訳が…！」即離婚届を提出し
+https://www.youtube.com/watch?v=eRNbbmdSVbo	https://www.youtube.com/watch?v=w-IRDOvSHP8	100%	【スカッとする話】私の実家が資産20億の大地主だと知らず私を捨てて不動産屋の娘と結婚した婚約者「俺は逆玉で将来安泰だぜw」私「どこの不動産？
+https://www.youtube.com/watch?v=oWGPTgX21pE	https://www.youtube.com/watch?v=4u7TxzMC6WE	100%	【スカッとする話】私が社員7000人の社長と知らず母が亡くなった途端に豹変した銀行員の夫「遺産分配は俺がやる！嫌なら離婚w」私「はーい」即離
+https://www.youtube.com/watch?v=NRZocU-HxLA	https://www.youtube.com/watch?v=gHNgv8o0ucY	100%	【スカッとする話】結婚式直前に職場の女上司に婚約者を奪われ居場所も失った私「別会社に出向させて下さい」そこで思わぬ人物と再会し1年後→半狂乱
+https://www.youtube.com/watch?v=VE2LR5COEr4	https://www.youtube.com/watch?v=Lr_Gd8Op3qs	100%	【スカッとする話】結婚式当日、私を見下す姉の夫「お前の旦那が嫁を妊娠させた！慰謝料1000万払えクズども！」直後、私と夫は大爆笑→だって姉は
+https://www.youtube.com/watch?v=vu_8kZ6HeoE	https://www.youtube.com/watch?v=vqBTDvaavnA	100%	【スカッとする話】ピアノの天才の姉だけを溺愛する長男嫁「発達障害の妹はお義母さんにあげるw」私「じゃあ私が育てるわね」養子にして10年育てる
+https://www.youtube.com/watch?v=9DeLSbolks0	https://www.youtube.com/watch?v=ZF5k_Ux_0vs	100%	【スカッとする話】医者の婚約者を奪って絶縁した親友とイタリア旅行で再会｡親友夫婦が私を見下し馬鹿にすると夫「君達、俺が誰か気づいてないのか？
+https://www.youtube.com/watch?v=mNNqKsGw3zk	https://www.youtube.com/watch?v=k6GWqtIXUlQ	100%	【スカッとする話】台風の夜、5歳の孫からSOS「ママに家を追い出された！助けて」私「パパは？」孫「知らない女の人と出て行った」私「え？」キレ
+https://www.youtube.com/watch?v=a1iUOu8UsLY	https://www.youtube.com/watch?v=-EQHZjnhA9w	99%	【スカッとする話】一人暮らしの私のことを気遣う娘に私「いつも仕送りありがとう。月1000円でも気持ちが嬉しいわよ」娘「え？毎月13万送金して
+
+=== 29. 心の影 5476  11本  https://www.youtube.com/channel/UCurSn3tPfci7NFuBRTNZOQA
+https://www.youtube.com/watch?v=QCxezYLCVlc	https://www.youtube.com/watch?v=p-yN-SVW_EU	100%	【スカッとする話】金のない私を見下しこき使う義家族。義母「還暦祝いよろしくねw」私が倒れ夫がコンビニ弁当を出すと義母「これで祝ったつもり？」
+https://www.youtube.com/watch?v=k9wXZUWJ6RQ	https://www.youtube.com/watch?v=Mpi2bhYFSsQ	100%	【スカッとする話】私が毎日12時間、義父の介護をしていると知らない夫「離婚しよう…お前と一緒はもう限界…」私「本当にいいの？」夫「当然w」→
+https://www.youtube.com/watch?v=7oh1osAvV9Y	https://www.youtube.com/watch?v=ED8m-ZWU12Y	100%	【スカッと総集編】夫の他界後、9年間同居介護中の義父「家も遺産も本当の家族である娘に譲るが大丈夫だよな？」私「大丈夫です。今日で引っ越すので
+https://www.youtube.com/watch?v=t8H0w-rwC4c	https://www.youtube.com/watch?v=5_6f0e8GyqU	100%	【スカッとする話】里帰り出産から戻ると家が三世帯住宅に増築されていた…義父「支払いと介護はよろしくなw」私「え？私は住みませんけど？」義父・
+https://www.youtube.com/watch?v=7oh1osAvV9Y	https://www.youtube.com/watch?v=zraWXCultxM	100%	【スカッとする話】夫の他界後、9年間同居介護中の義父「家も遺産も本当の家族である娘に譲るが大丈夫だよな？」私「大丈夫です。今日で引っ越すので
+https://www.youtube.com/watch?v=NgantkfVBV0	https://www.youtube.com/watch?v=6nj9rvRxM-4	100%	【スカッとする話】義妹が居座り2年間も出ていかない。義妹「私、病気持ちで辛くて…」私「じゃあ私が引越すね」夫「は？」義妹「ま、待って下さい」
+https://www.youtube.com/watch?v=KSVLszb6r5s	https://www.youtube.com/watch?v=sBP7EbSkRSM	100%	【スカッとする話】義母が居座り2週間も出ていかない。義母「私、足が悪くてね…」私「では私が家を出ますね」夫「え？」義母「ま、待って！」翌日、
+https://www.youtube.com/watch?v=SVuD0DtXA6g	https://www.youtube.com/watch?v=XOHEsLaj9NU	100%	【スカッとする話】義両親の介護に疲れた私「もう限界。実家に帰ります」夫「はぁ？両親の世話は一生やれ！帰るなら離婚届書いて行けよ！」私「はーい
+https://www.youtube.com/watch?v=ueHjSbrkJko	https://www.youtube.com/watch?v=g9b-y4iFR5M	100%	【スカッとする話】長男夫婦と同居中、毎月家に30万入れる私と夫に長男嫁「家事もしない老害は出ていけw」夫「じゃあ今から引っ越すか」私「うん」
+https://www.youtube.com/watch?v=FSwI0L5cQm0	https://www.youtube.com/watch?v=RjPb4f1lroI	94%	【スカッとする話】結婚してまだ5日なのに、給料70万を全て義母に渡す夫「金稼いだのは俺wお前には一銭も入れないw」私「じゃあ私もそうす
+https://www.youtube.com/watch?v=4jr5uJhnBzA	https://www.youtube.com/watch?v=oD06ck-TlCc	87%	【スカッとする話】年末にエリート親族との集まりで私と夫だけ門前払いされた…義父「年末に底辺と過ごすのは勘弁w」親族一同から帰れコールを
+
+=== 30. シニア恋愛  11本  https://www.youtube.com/channel/UCnd6MdoC_kW2CQVyL1AEERA
+https://www.youtube.com/watch?v=d-D2unDvSZM	https://www.youtube.com/watch?v=kSqGwQPxtec	100%	【スカッとする話】元義母「二世帯住宅建てたw来月から家賃30万お願いw」私「離婚したから払いませんが？」元義母「嘘おっしゃいw」結果w【朗読
+https://www.youtube.com/watch?v=j_RDyPYSxNU	https://www.youtube.com/watch?v=vQdhdcwgO20	100%	【スカッとする話】父が急逝し女社長になった私。副社長「これ退職届80人分wコネだけの女は皆無理ってw」翌日、新聞を見た元部下が土下座→全員を
+https://www.youtube.com/watch?v=4IVDp7ToKG8	https://www.youtube.com/watch?v=YRUQbr26aHY	100%	【スカッとする話】夫と会社の新年会に行くと、部外者扱いされた私たち…課長「関係者だけ飲もっかw」夫と私「帰るから車出して」秘書「会長、承知し
+https://www.youtube.com/watch?v=XqjrVTB0uUU	https://www.youtube.com/watch?v=cdhdPI1kb2Y	100%	【スカッとする話】17歳で出産し高校中退した私。元彼「結婚？するわけw」20年後、元彼が私と娘に遭遇。元彼「そいつも早そうだなw」娘「こいつ
+https://www.youtube.com/watch?v=SaVMIu_p1_I	https://www.youtube.com/watch?v=p8J-A05WKIc	100%	【スカッとする話】本社に異動になった中卒の私が東大卒の女部長に挨拶すると女部長「あんたが噂の中卒ねw部下はコーヒー淹れてきてw」私（今は泳が
+https://www.youtube.com/watch?v=boQrOZQWbdQ	https://www.youtube.com/watch?v=DIGjC053Atk	100%	【スカッとする話】ボロ服を着た母を見て婚約破棄を言い渡した義母「住む世界が違うみたいw」母「ええ、そのようですね」帰宅後、義家族から鬼電がw
+https://www.youtube.com/watch?v=JXHfJNLRCVk	https://www.youtube.com/watch?v=rm1z-lg0fRg	100%	【スカッとする話】アメリカ本社から戻ってきた私を雑用扱いする社長令嬢「パシリご苦労さんw」私「君クビね、今までご苦労さん」社長令嬢「え？」【
+https://www.youtube.com/watch?v=-qZU_hjJqfQ	https://www.youtube.com/watch?v=gqjIGgB7rlA	100%	【スカッとする話】夫「俺の年金は1円もやらん」40年間夫を支えてきたのに、他人のように突き放された私（もう我慢しなくていっかw）→翌日、なぜ
+https://www.youtube.com/watch?v=Pv0VxwVXnCA	https://www.youtube.com/watch?v=mMhLLBfr_Fk	100%	【スカッとする話】父の介護のため帰省すると、速達で離婚届を送ってきた夫「皆大喜びしてるよw」私（もっと喜ばせてあげようw）翌日、夫が人生終了
+https://www.youtube.com/watch?v=zX5h0yWJSsI	https://www.youtube.com/watch?v=I0uVENJD8g8	100%	【スカッとする話】離婚して10年後に再婚した私。結婚式の知らせを聞き元夫が現れ、元夫「誰がこんな女で妥協する？w」新しい夫の名前が呼ばれると
+https://www.youtube.com/watch?v=n49CdmokHso	https://www.youtube.com/watch?v=ZSMzLBZN4z0	95%	【スカッとする話】手術当日、怯える私を見捨て、平然と飲み会へ向かった夫。1年後、夫の癌が発覚すると夫「怖いから来てくれ、頼む」私「飲み会た
+
+=== 31. サヨナラの選択4848  11本  https://www.youtube.com/channel/UCiDg2Vs1LHy6qIiV6ilje1A
+https://www.youtube.com/watch?v=ks7lwFCnjLM	https://www.youtube.com/watch?v=Y4k29xHFHUY	100%	【スカッとする話】デパートでバイトする私に会長夫人「私を誰だと思ってるの？ここの会長の夫人様よ！」私「で？」夫人「もういいお前クビ！」直後、
+https://www.youtube.com/watch?v=iOzvYl0FjG0	https://www.youtube.com/watch?v=yluothDtfeE	100%	【スカッとする話】私の実家の庭に幼馴染の家を建てる夫。夫「貧乏だから助けてあげたい」私「それ本当に大丈夫？」真実を伝えると夫が震えだしw【朗
+https://www.youtube.com/watch?v=9en_nSlDc5I	https://www.youtube.com/watch?v=XA-rA7VecBI	100%	【スカッとする話】同居の約束で新築の4000万援助したのに勝手に嫁両親を住ませる息子夫婦「家の名義は私たちなのでw」キレた夫が銀行融資を停止
+https://www.youtube.com/watch?v=K3GLb3eIlyE	https://www.youtube.com/watch?v=7b4pVxD6-XQ	100%	【スカッとする話】私「もう限界…出ていきます」夫「家事と介護は嫁の仕事！責任果たせないなら離婚！」お望み通り離婚届を置いて姿を消すと→半狂乱
+https://www.youtube.com/watch?v=BTZ7N_dYJi8	https://www.youtube.com/watch?v=C6r_ataNQZU	100%	【スカッと総集編】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！悪いが、離婚してくれ！」私「はーい、仕事も辞めるね！」夫
+https://www.youtube.com/watch?v=OfgToWQmkf4	https://www.youtube.com/watch?v=Yfo6v4-ZtHc	100%	【スカッとする話】私が義父の入院費を払ってると知らず私の荷物を全て捨てた夫「もう俺に寄生するな穀潰しがw」夫を残し1億の豪邸に引越し入院費の
+https://www.youtube.com/watch?v=OfgToWQmkf4	https://www.youtube.com/watch?v=EmiUvKJTw3c	96%	【スカッと総集編】義父の入院費を払ってると知らず私の荷物を全て捨てた夫「俺に寄生するな穀潰しw」夫を残し1億の豪邸に引越し入院費の支払いも止
+https://www.youtube.com/watch?v=KaVJDx1GC4A	https://www.youtube.com/watch?v=qL0fgimyBlg	94%	【感動する話】同級生だった夫と離婚し独りの私の元に、突然、元義母「息子に会ってほしいの…」再会すると信じられない姿に…【朗読】【スカッと
+https://www.youtube.com/watch?v=_Dc_8IoMyW4	https://www.youtube.com/watch?v=njtd515eFh4	89%	【スカッとする話】10年間義両親の介護を私に丸投げした夫「愛人と結婚するから離婚でｗ今後も介護がんばってなｗ」私「分かった（計画通り
+https://www.youtube.com/watch?v=L6CQRUVrroQ	https://www.youtube.com/watch?v=njtd515eFh4	89%	【スカッとする話】10年間義両親の介護を私に丸投げした夫「愛人と結婚するから離婚でｗ今後も介護がんばってなｗ」私「分かった（計画通り
+https://www.youtube.com/watch?v=BTZ7N_dYJi8	https://www.youtube.com/watch?v=n-_5T-nb0dg	86%	【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けて
+
+=== 32. 心に灯る物語  11本  https://www.youtube.com/channel/UC9RH_NC0WPeS4wTf1v8DyAA
+https://www.youtube.com/watch?v=fdPdTHGzP3Q	https://www.youtube.com/watch?v=y46IIixxM20	100%	【スカッとする話】作業服姿の夫と散歩中、私の元旦那と駆け落ちした親友と遭遇。元親友「そこのタワマン住みなのwあなたたちは生活大変そうねw」私
+https://www.youtube.com/watch?v=zrCEdtu0oao	https://www.youtube.com/watch?v=RplBfcanX0Q	100%	【スカッとする話】息子が亡くなった途端、私を家から追い出す息子嫁「保険金入ったし用済み！旦那の荷物持って出てけ」私「本当に後悔しない？」嫁「
+https://www.youtube.com/watch?v=77SDLWlcnlY	https://www.youtube.com/watch?v=T3U_Z90x4XM	100%	【スカッとする話】息子の葬儀に夫と義父が来ない。私「早く来て！もう告別式よ？」夫「今からタイだから無理！」義父「旅行中に連絡すんな」キレた私
+https://www.youtube.com/watch?v=98AOVhQAA7Y	https://www.youtube.com/watch?v=Yf8E-jgnsFM	100%	【スカッとする話】私からエリート銀行員の夫を奪った同僚から結婚式の招待状。同僚「ハワイ挙式するから来てねw」直後、私は夫の勤務先へ電話→私「
+https://www.youtube.com/watch?v=SkSQ9vSgEqs	https://www.youtube.com/watch?v=8qwPHXkvJeQ	100%	【スカッとする話】長男夫婦と同居中、私が全員を養っていると知らず私を罵倒する長男嫁「アンタの顔見ると吐き気するw家族だけで暮らすから出てけw
+https://www.youtube.com/watch?v=4FdweOZs9yo	https://www.youtube.com/watch?v=JaGjTAkTfxQ	100%	【スカッとする話】私が夫の入院費を払ってると知らず私の荷物を全て捨てた夫の連れ子「もうパパに寄生するなw」連れ子を残し1億のタワマンに引越し
+https://www.youtube.com/watch?v=DNmv0Hg_5Io	https://www.youtube.com/watch?v=OWdBzCbgDKk	100%	【スカッとする話】出産した妹のお見舞いに行くと、新生児の父親がまさかの夫...。私「おめでとう、お幸せに！」帰宅して夫の荷物を全て処分し家を
+https://www.youtube.com/watch?v=Y06XC41FsBE	https://www.youtube.com/watch?v=iT0GjRHrB6w	100%	【スカッとする話】年末年始の親族の集まりで20人分のおせちをゴミ箱にぶちまけたエリート夫「親戚にマズイ飯を作るな！」私「私は何も作ってないよ
+https://www.youtube.com/watch?v=oL1Wk06Tzeo	https://www.youtube.com/watch?v=R4_twhiqs1A	100%	【スカッとする話】長男夫婦が近所に引っ越して来ると長男「毎朝3時に起きて弁当3食分届けろ！断ったら絶縁して孫にも会わせん！w」私「じゃあ絶縁
+https://www.youtube.com/watch?v=hciFJkTimnM	https://www.youtube.com/watch?v=91uIitHGAw0	100%	【スカッとする話】長男夫婦が正月に帰省し、長男「お腹空いた？ｗローストビーフは俺達のだから母さんにはあげないよw」私「そう、私も実家に帰るわ
+https://www.youtube.com/watch?v=SkSQ9vSgEqs	https://www.youtube.com/watch?v=xcsigijhZAo	84%	【スカッと総集編】私が全員を養っていると知らず私を罵倒する長男嫁「アンタの顔見ると吐き気するw家族だけで暮らすから出てけw」私「じゃあ出てい
+
+=== 33. 雨の中の記憶、雨の中の記憶  11本  https://www.youtube.com/channel/
+https://www.youtube.com/watch?v=D7M2p9ALM9c	https://www.youtube.com/watch?v=KKEWop4fNrk	100%	【スカッと総集編】私が総資産が28億の社長令嬢と知らず私を裏切り職場の美人同僚と再婚した夫「美人同僚と再婚するから離婚w」同僚「子供は1人で
+https://www.youtube.com/watch?v=jzQ7tWnYBb4	https://www.youtube.com/watch?v=c2AdQUXc1Hg	100%	【スカッと総集編】入院した私に大量の塩をぶっかける長男嫁「このままあの世にいけwババァがいなくて最高w」キレた私は長男嫁への仕送りを停止→本
+https://www.youtube.com/watch?v=91jZsqJGQeo	https://www.youtube.com/watch?v=u2ktHPgl-Nc	100%	【スカッとする話】義家族と高級料亭へ行くと義母「あんたのカードで払ったよw支払い30万円よろしくねw」私「え？私カード持ってないけど…」義母
+https://www.youtube.com/watch?v=F0XGuiwOK4Y	https://www.youtube.com/watch?v=IaSMuG9SQHg	98%	【スカッとする話】資産3億を築いた長男が他界すると長男嫁「夫の遺産は全て私のものw」孫「ババァには1円もあげないw」1ヶ月後、血相変えた嫁か
+https://www.youtube.com/watch?v=6r9nopea82s	https://www.youtube.com/watch?v=ic9sL-ViLjw	98%	【スカッと総集編】実家に帰省すると妹が全身の毛を剃られ赤ん坊を抱いて泣いていた…私「今どこ？」母「家族で旅行中w」私「は？」家を売り払い更地
+https://www.youtube.com/watch?v=iLduhZdDq8c	https://www.youtube.com/watch?v=D66705hwMgg	97%	【スカッとする話】7000万で新築を購入した途端、愛人・隠し子・義母を連れ帰宅した夫「俺たちが住むから離婚して失せろw」私「え？ここ私の家じ
+https://www.youtube.com/watch?v=jicHDA2WT1I	https://www.youtube.com/watch?v=u2ktHPgl-Nc	97%	【スカッとする話】義家族と高級料亭へ行くと義母「あんたのカードで払ったよw支払い30万円よろしくねw」私「え？私カード持ってないけど…」義母
+https://www.youtube.com/watch?v=wNk-zervUEE	https://www.youtube.com/watch?v=KKvSV1JKlt0	96%	【スカッとする話】突然、義妹夫婦を連れてきた義母「今日から皆で暮らすｗ」義妹「文句あるなら出てってねｗ」夫「じゃ引っ越すか」私「お達者で」義
+https://www.youtube.com/watch?v=KIqtDF7vbMA	https://www.youtube.com/watch?v=J3z5MRu6918	96%	【スカッとする話】医者一族である婚約者の親族の集まりに行くと私だけバナナ1本。婚約者「他人だから仕方ないだろw」彼母「それ食べたら帰ってねw
+https://www.youtube.com/watch?v=-edR9_-olnY	https://www.youtube.com/watch?v=DeIUkxQ3Yjg	95%	【スカッとする話】生まれた息子が夫に似てない。夫「浮気してたな？離婚だ！」義父「今すぐ出てけアバズレが」10年後、夫と義父と遭遇すると2人が
+https://www.youtube.com/watch?v=plFEwAiZdeA	https://www.youtube.com/watch?v=F1mnzuaYuqM	93%	【スカッとする話】義両親の居酒屋を手伝って10年の私に義母「私達引退することにしたのw」義父「店は長男嫁に任せることにしたよw」私「ご自由に
+
+=== 34. スカッと逆転チャンネル  11本  https://www.youtube.com/channel/UCdomxLx_o6zPSsAkEAokA3g
+https://www.youtube.com/watch?v=YgKP1yecRHA	https://www.youtube.com/watch?v=T5WYfDcbCLA	100%	【スカッとする話】同居の父が亡くなった途端、愛人と隠し子を連れ引越してきた夫「ジジィの家は俺が貰う！出てけw」それを聞いた私は大爆笑→私「ど
+https://www.youtube.com/watch?v=v-e8Mt-GSGk	https://www.youtube.com/watch?v=AYATV4AsDDE	100%	【スカッとする話】単身赴任中の夫から離婚届…夫「ごめん、癌になった。迷惑かけたくないから離婚しよ」察した私「お世話になりました」その日のうち
+https://www.youtube.com/watch?v=rxokI4YvWaA	https://www.youtube.com/watch?v=53bXG_XMV0Y	100%	【スカッとする話】単身赴任から帰宅した私を他人扱いする夫と娘「誰このおばさんw」私「…」他人なので出ていった結果w
+https://www.youtube.com/watch?v=YgKP1yecRHA	https://www.youtube.com/watch?v=tyXXrXAsIUE	100%	【スカッと総集編】同居の父が亡くなった途端、愛人と隠し子を連れ引越してきた夫「ジジィの家は俺が貰う！出てけw」それを聞いた私は大爆笑→私「ど
+https://www.youtube.com/watch?v=47cRXrv3t4o	https://www.youtube.com/watch?v=7JKs8bxsTK4	100%	【スカッとする話】倒産寸前だった長男夫婦の会社を私が立て直すと長男「ババァは用済み。辞めてくれw」私「分かりました」翌日、全社員300人が出
+https://www.youtube.com/watch?v=FAhbabV0GE4	https://www.youtube.com/watch?v=ffa_pV3yukY	99%	【スカッとする話】単身赴任中の夫が浮気「俺の彼女が妊娠した。離婚してくれ」私「嫌でーす！離婚しませーん！」夫「え？なんで？」離婚を認めなかっ
+https://www.youtube.com/watch?v=exEmmBh0Y6I	https://www.youtube.com/watch?v=IU6rXBY6Itc	98%	【スカッとする話】単身赴任から帰った夫のスーツからなぜか記入済みの離婚届と女の写真が...私「お望み通り離婚するか」速攻で提出して家を引越し
+https://www.youtube.com/watch?v=exEmmBh0Y6I	https://www.youtube.com/watch?v=fxMlGLR3n4g	98%	【スカッと総集編】単身赴任から帰った夫のスーツからなぜか記入済みの離婚届と女の写真が...私「お望み通り離婚するか」速攻で提出して家を引越し
+https://www.youtube.com/watch?v=jVMzEiaUkDM	https://www.youtube.com/watch?v=3v3SpATF0Q8	96%	【スカッとする話】何をしても怒らない祖母に自慢の婚約者を紹介すると…祖母「結婚は認めません！親を呼びなさい！」突然豹変したので夫の両親を呼ぶ
+https://www.youtube.com/watch?v=PUtRfxqowco	https://www.youtube.com/watch?v=fDXqlovH1qE	93%	【スカッとする話】片親で育ててくれた母と結婚挨拶へ行くと私の席が無い。義両親「貧乏人は立ち見がお似合いw」直後、普段温厚な母が立ち上がり→母
+https://www.youtube.com/watch?v=0IL073oNa8M	https://www.youtube.com/watch?v=UQlpAe4Omjw	91%	【スカッとする話】夫が他界すると夫の連れ子「遺産いくら？」私「夫の両親が相続して0円よ...」連れ子「じゃアンタの娘辞めるわw」後日、テレビ
+
+=== 35. 大人のスカッと物語  11本  https://www.youtube.com/channel/UC3_22iiSJgBR1aGvyoWj1gg
+https://www.youtube.com/watch?v=RQMxB-hkgHY	https://www.youtube.com/watch?v=v6KeZkHFU7k	100%	【スカッとする話】私が年商1500億の社長と知らず父の葬儀が終わった途端に豹変した夫「遺産は全部俺のw嫌なら離婚w」即離婚届を提出し夫の勤め
+https://www.youtube.com/watch?v=cAIX6EW5L3c	https://www.youtube.com/watch?v=1-hqNpJ_jOU	100%	【スカッとする話】結婚10年目、夫婦の会話も無く寝室別で夜の行為も絶対しない夫が癌で長期入院に…1ヶ月後、夫が手術する事になり夫の体を見た医
+https://www.youtube.com/watch?v=2N-D6fFLgss	https://www.youtube.com/watch?v=kEirPZtxmUU	100%	【スカッとする話】私も夫も日本人なのに息子の肌が黒い…夫「黒人の男と浮気しただろ！」私「はぁ？じゃあDNA鑑定してよ！」後日、鑑定結果を見せ
+https://www.youtube.com/watch?v=XJPf2LziWio	https://www.youtube.com/watch?v=T40Q2m3NnVw	100%	【スカッとする話】私の里帰り中に医者の婚約者を略奪した姉から連絡「彼の赤ちゃん妊娠したwアンタは帰ってくるなw」私「いいの？有り難う！」その
+https://www.youtube.com/watch?v=L1afRXemRp0	https://www.youtube.com/watch?v=KlztcZvQraE	100%	【スカッとする話】私の父が亡くなった途端、実家を無断で解体した夫「ここは更地にして民宿にするw」それを聞いた娘が大爆笑→娘「お父さん知らない
+https://www.youtube.com/watch?v=KhyXM7-EjBw	https://www.youtube.com/watch?v=32PcmmzXwLY	100%	【スカッとする話】牛乳アレルギーの私に牛乳を飲ませ愛人と旅行に行った夫「計算おかしい！浮気したな！」私「違う、助けて...」放置され3日後→
+https://www.youtube.com/watch?v=1USAusebSpE	https://www.youtube.com/watch?v=mgV03N2miWM	100%	【スカッとする話】私が総資産11億の主婦と知らずに夫「仕事もしない役立たずは出てけw」連れ子「寄生虫は今すぐ母親辞めろw」私「承知しました」
+https://www.youtube.com/watch?v=AV-65XTwciA	https://www.youtube.com/watch?v=V40Y5tMWi_0	95%	【スカッとする話】私の実家が資産160億の不動産王と知らず私を捨て社長令嬢の娘と再婚した元夫と再会「俺は逆玉で将来安泰ｗ貧乏なお前は地獄で頑
+https://www.youtube.com/watch?v=zTjAyTb5FoE	https://www.youtube.com/watch?v=btTsRUVmMq8	94%	【スカッとする話】私の年収が4000万と知らず事故で両足を失った私を捨て社長令嬢と再婚したエリート夫「家事もできない役立たずは離婚wガキ共も
+https://www.youtube.com/watch?v=zTjAyTb5FoE	https://www.youtube.com/watch?v=FaDXmBfHp58	94%	【スカッと総集編】私の年収が4000万と知らず事故で両足を失った私を捨て社長令嬢と再婚したエリート夫「家事もできない役立たずは離婚wガキ共も
+https://www.youtube.com/watch?v=WCnmniRkM8Y	https://www.youtube.com/watch?v=FT6UKghkomY	92%	【スカッとする話】私が田舎に庭付き一軒家を購入すると、夫「母さん達も引っ越してくるってw」義母「嫌なら息子と離婚させるからw」引越し当日、義
+
+=== 36. スカッと朗読の部屋  11本  https://www.youtube.com/channel/UCvO63auFe1UZQ_dHVqkGN7Q
+https://www.youtube.com/watch?v=s1onzaRxwIA	https://www.youtube.com/watch?v=AUpn356fmIo	100%	【スカッとする話】毎日新居に来る義弟夫婦…私「なんで毎日来るの？迷惑です」義弟「え？だってこの家は俺たちの家ですよ？」私「はい？」実は…
+https://www.youtube.com/watch?v=1w6Z68BF1d0	https://www.youtube.com/watch?v=qnvleUOXFGo	100%	【スカッとする話】無断で義家族9人を同居させる夫「お前は４畳の物置小屋なw」義母「嫌なら離婚して出てけばw」私「私は3ヶ月前に離婚済みだし1
+https://www.youtube.com/watch?v=zBycphz3DW4	https://www.youtube.com/watch?v=CdOIccEuKb0	100%	【スカッとする話】私が台所にいると知らず会話を続ける夫と娘…2人の会話を聞いていた私は荷物をまとめて黙って姿を消し永久に無視してやった結果w
+https://www.youtube.com/watch?v=ZR-wW9vfoP4	https://www.youtube.com/watch?v=aDkGhtxzjjw	100%	【スカッとする話】父の葬儀に向かう荷造り中の私に熱々のコーヒーをぶっかけた夫「帰るなら二度と戻ってくるなよw」私「はーい」家の荷物を全て処分
+https://www.youtube.com/watch?v=wkpBe14taIU	https://www.youtube.com/watch?v=M19YMyh9RTQ	100%	【スカッとする話】海外旅行中の夫から突然の電話「愛人と暮らすから離婚でw家と車は置いて出てけw」私「もう家も車もないけど？」夫「え？」帰国後
+https://www.youtube.com/watch?v=ZT1y3H8-gOI	https://www.youtube.com/watch?v=6UWe8WooXpM	100%	【スカッとする話】母子家庭で育てた長男の結婚式へ行くと私の席が無い...姑「貧乏人の席はありませんw」長男「帰ろっか..」私「うん...」義
+https://www.youtube.com/watch?v=zG0O7-8FT50	https://www.youtube.com/watch?v=Egtv-lgcHl8	100%	【スカッとする話】私が宝くじで12億当てたと知らず愛人と再婚した銀行員の夫「仕事もしない役立たずは離婚w」私「いいよ！」離婚後、夫の銀行へ→
+https://www.youtube.com/watch?v=1nvoc8IGrfQ	https://www.youtube.com/watch?v=cwUdR_GfH9g	99%	【スカッとする話】婿両親が私の娘を引きずって家に来た。義母「月90万の息子と不釣り合いw返品」私「いいんですか？」義母「当然よw」私「じゃあ
+https://www.youtube.com/watch?v=PRvuEljR264	https://www.youtube.com/watch?v=p6Opr9y7udU	98%	【スカッとする話】生後3ヵ月の姪っ子を私に預け夫と駆け落ちした妹と15年後に偶然再会。妹「不良品は息してる？w」元夫「プッw」直後、高校生の
+https://www.youtube.com/watch?v=iWyKqsMiZAU	https://www.youtube.com/watch?v=XPBALyOx-Q4	95%	【スカッとする話】新築タワマンへ引っ越し荷解きをしてると同居していた義姉「私は20畳の広い部屋で！」義両親「嫁は4畳の物置なw」私「は？誰の
+https://www.youtube.com/watch?v=hMRKtNh91I8	https://www.youtube.com/watch?v=stcaPJYLGmM	91%	【スカッとする話】家に帰ると孫が庭で膝を抱え泣いていた…私「どうしたの？お母さん達は？」孫「家族だけで姉の誕生日会してる」私「私達も家族だけ
+
+=== 37. 痛快!!怒りのスカッとチャンネル【スカッと朗読】  11本  https://www.youtube.com/channel/UC96mO8pXAaiP70V7KUjVHqg
+https://www.youtube.com/watch?v=4_x4CtcujZ0	https://www.youtube.com/watch?v=bI91wh-7IMg	100%	【スカッとする話】孫の七五三のお祝いに親戚一同と行くと私だけ席がない...長男嫁「他人の席は無いから立ってればw」私「じゃ帰るか」親戚一同「
+https://www.youtube.com/watch?v=agja1b2k0kA	https://www.youtube.com/watch?v=hRCh_bWpcgg	100%	【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結
+https://www.youtube.com/watch?v=704G8Q4fTlM	https://www.youtube.com/watch?v=g4FVXeIsDTQ	100%	【スカッとする話】夫を略奪した姉から結婚式の招待状が届くと、父「母さんと2人で行くよ」母「地獄を見せてくるわね」普段温厚な両親がこの後...
+https://www.youtube.com/watch?v=3wZGVaBCuJQ	https://www.youtube.com/watch?v=a5lS8StIZwA	100%	【スカッとする話】1億のピアノがある金持ち自慢の婚約者の実家へ結婚挨拶に行くと、婚約者「俺達の家政婦連れてきたよw」義父「貧乏な顔w親の顔が
+https://www.youtube.com/watch?v=i-Nr1quSmAM	https://www.youtube.com/watch?v=7Pz5jiUvSnQ	100%	【スカッとする話】親友の出産祝いで産婦人科へ行くと新生児の父親がまさかの夫だった...。私「おめでと！赤ちゃん可愛いね！」速攻で帰宅し夫の荷
+https://www.youtube.com/watch?v=FlhRKKQBjDM	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=9u8rDWBI9JY	https://www.youtube.com/watch?v=IU6rXBY6Itc	98%	【スカッとする話】単身赴任から帰った夫のスーツからなぜか記入済みの離婚届と女の写真が...私「お望み通り離婚するか」速攻で提出して家を引越し
+https://www.youtube.com/watch?v=9u8rDWBI9JY	https://www.youtube.com/watch?v=fxMlGLR3n4g	98%	【スカッと総集編】単身赴任から帰った夫のスーツからなぜか記入済みの離婚届と女の写真が...私「お望み通り離婚するか」速攻で提出して家を引越し
+https://www.youtube.com/watch?v=xyFMhiAxoNU	https://www.youtube.com/watch?v=iWpWDCY4L5o	98%	【スカッとする話】夫の連れ子の出産祝いに行くと、連れ子「ババァは戸籍上は他人w赤ちゃん触るなら1回30万払えw」夫「...帰るか」私「うん」
+https://www.youtube.com/watch?v=kM9WOXXZV2E	https://www.youtube.com/watch?v=E6hGGRc68uY	97%	【スカッとする話】愛人と隠し子を連れ帰宅した夫「息子はお前にやる！離婚だ！」息子「母さんとは離婚出来ないよ？だって...」息子の衝撃の一言で
+https://www.youtube.com/watch?v=DgbiU0EwjXk	https://www.youtube.com/watch?v=wdxUcG1tem8	96%	【スカッとする話】母の葬儀中に夫から電話「親戚の集まりなのにサボるな！親の葬儀とか知るか今すぐ来い」私「分かりました」喪服のまま駆け付けた結
+
+=== 38. Jamison Abraham  11本  https://www.youtube.com/channel/UCcUsK23eqHw3ZQA5HjspM9Q
+https://www.youtube.com/watch?v=Nududo1BLfA	https://www.youtube.com/watch?v=Mi69PEXjWFc	100%	【スカッと】365日間、私を無視し続けた年収1000万の夫「誰のおかげで生きてると思ってる！文句あるなら離婚して出てけw」私「後悔しない？」
+https://www.youtube.com/watch?v=y8x7SoRM9mk	https://www.youtube.com/watch?v=CNsn701Em6g	100%	【スカッと】私が総資産19億と知らず子供の産めない私を捨て再婚した夫「欠陥品とは離婚ｗ家と車も俺が貰うｗ」私「いいよ！ 」→翌日、涙を流した
+https://www.youtube.com/watch?v=I1fCJmwv5aM	https://www.youtube.com/watch?v=zZV5oL3aIHY	100%	【スカッとする話】孫の七五三祝いに行くと私だけ席がない...夫の連れ子「家族以外は立ってろw」夫「...帰るか」私「うん」直後、連れ子に大惨
+https://www.youtube.com/watch?v=EU3EqDbgiQc	https://www.youtube.com/watch?v=24r-JE4M58Y	100%	【スカッとする話】夫と姉が温泉旅行中、交通事故で半身不随に。夫「2人の面倒は宜しくな！」私「え？姉さんに頼みなよ！」直後、隣に姉が運ばれ叫ん
+https://www.youtube.com/watch?v=l8-8ZGep2_s	https://www.youtube.com/watch?v=4Zso73ZN2XQ	100%	【スカッとする話】私に婚約破棄を告げ美人な姉と結婚した元婚約者から結婚招待状「ブスでも姉の結婚式は祝えよｗ新郎は元婚約者だけどw」私「え？私
+https://www.youtube.com/watch?v=e7zerXMRBNw	https://www.youtube.com/watch?v=rCNrL5SfFV8	100%	【スカッとする話】夫の連れ子の娘と結婚挨拶に連れてきた婚約者「他人は今後一切関りませんw」私「分かりました」当日、他人全員で欠席した結果w
+https://www.youtube.com/watch?v=1MZNyJiRpA8	https://www.youtube.com/watch?v=vyDCAcHPme8	100%	【スカッとする話】夫「来月ママが引っ越してくる！お前の部屋片付けておけw」私「はーい、キレイにしておくね」夫の出張中に不動産屋に連絡し家を売
+https://www.youtube.com/watch?v=aV0ins2fafw	https://www.youtube.com/watch?v=8a9QMDUv9kk	100%	【スカッとする話】長男夫婦が他界し孫を育てる私に夫「あのガキども迷惑だったんだよなw」親友「アンタの金持ち旦那もらうわw」ボロボロの私に孫「
+https://www.youtube.com/watch?v=K05bRWGnqW8	https://www.youtube.com/watch?v=LebL5tuESUQ	100%	【スカッとする話】10年前、盲目の義父を私に押し付け社長令嬢の愛人と駆け落ちした夫 「貧乏ジジィもう逝ったか？w」 私「うん、遺産11億貰っ
+https://www.youtube.com/watch?v=GzndWl7nPNM	https://www.youtube.com/watch?v=YU1qKVkm094	100%	【スカッとする話】離婚した翌日に元夫と遭遇すると、元夫「今日20歳の社長令嬢と再婚したw若くて最高の嫁だぜw」直後、現れた新しい嫁を見た私は
+https://www.youtube.com/watch?v=y8x7SoRM9mk	https://www.youtube.com/watch?v=DdmscVg2GO0	89%	【スカッと総集編】私が総資産19億と知らず子供の産めない私を捨て再婚した夫「子供も産めない欠陥品とは離婚ｗ家と車も俺が貰うからｗ」私「いいよ
+
+=== 39. 時を越える話  10本  https://www.youtube.com/channel/UC_n9gc1na-2QpFv6TPInL3w
+https://www.youtube.com/watch?v=ISJkWfnE524	https://www.youtube.com/watch?v=ZobJWKrmIzQ	100%	【スカッとする話】娘の結婚式に愛人と共に現れた夫「彼女にも座らせてあげて」私は黙って愛人に席を譲った直後、グループ10社を束ねる新郎父「会長
+https://www.youtube.com/watch?v=yVVWvJEjUsg	https://www.youtube.com/watch?v=28rOAUunNPw	100%	【スカッとする話】夫から高級化粧品を貰った私。夫「あれ、もう使った？w」私「お義母さんが試してたよ」直後、なぜか夫が慌て出しw【朗読】【スカ
+https://www.youtube.com/watch?v=ycSulISX7t8	https://www.youtube.com/watch?v=2t3thqCEE5U	100%	【スカッとする話】旦那が出張中、手土産を持って夫を亡くした親友を訪ねた私。しかし玄関のドアを開け、目の前の光景を見た瞬間、私「今までありがと
+https://www.youtube.com/watch?v=0HW82wdXXnk	https://www.youtube.com/watch?v=W-rW5yUgXLY	100%	【スカッとする話】父を理由に夫に捨てられ5年後、若い女と子供を連れた元夫と再会。元夫「嫁はお前と違って完璧w」直後、私の新しい夫を見て、元夫
+https://www.youtube.com/watch?v=g_gk0BdnOQs	https://www.youtube.com/watch?v=qNSSnNaMxrs	100%	【スカッとする話】私1人で育てた息子の顔合わせで、なぜか私たちだけお茶漬け…義家族「貧乏人は好きだろ？w」直後、私の存在に気づいた義兄「俺た
+https://www.youtube.com/watch?v=rU-MsxpLunI	https://www.youtube.com/watch?v=U5xUCWiE2KA	100%	【スカッとする話】孫の七五三のお祝いに行くと私の食事がない...長男嫁「家族分しか用意してませんｗ」夫「じゃあ帰るか」私「うん」直後、長男嫁
+https://www.youtube.com/watch?v=KXdOju9SQ0M	https://www.youtube.com/watch?v=gp0iCrgbXh8	100%	【スカッと総集編】私の総資産が11億と知らず妊娠9ヶ月の私を捨て社長令嬢と再婚した夫「腹がデカくて女として見れんｗガキはお前が育てろｗ」私「
+https://www.youtube.com/watch?v=rU-MsxpLunI	https://www.youtube.com/watch?v=BGGFZHCKH2A	99%	【スカッと総集編】孫の七五三のお祝いに行くと私の食事がない   長男嫁「家族分しか用意してませんｗ」夫「じゃあ帰るか」私「うん」直後、長男嫁
+https://www.youtube.com/watch?v=yiHE6LI4_P8	https://www.youtube.com/watch?v=VRN73vXHN9Y	99%	【スカッと総集編】私の総資産が9億と知らず入院中の私を捨て20歳の愛人と再婚した夫「家事も出来ない役立たずは離婚ｗ慰謝料も払ってくれよなｗ」
+https://www.youtube.com/watch?v=j_h4CHvhmSg	https://www.youtube.com/watch?v=-2NPxSnCoDA	89%	【スカッとする話】ジャージ姿の夫と病院へ行くと、私の婚約者を略奪した姉と再会。姉「私の夫、ここの院長なのwあなた達は生活大変でしょ」夫
+
+=== 40. 老いの詩  10本  https://www.youtube.com/channel/UClKj-HO63gh7qxtT7M0czEQ
+https://www.youtube.com/watch?v=pQKMo5JuRYs	https://www.youtube.com/watch?v=YYnTTQ_3WI8	100%	【スカッとする話】妹の代わりに田舎の猟師に嫁いだ私「今日の夕飯は鹿肉？」夫「いや、これで好きな物食べて」10万円を手渡された私…→夫の正体を
+https://www.youtube.com/watch?v=SPvJ4YWDGWU	https://www.youtube.com/watch?v=qNSSnNaMxrs	100%	【スカッとする話】私1人で育てた息子の顔合わせで、なぜか私たちだけお茶漬け…義家族「貧乏人は好きだろ？w」直後、私の存在に気づいた義兄「俺た
+https://www.youtube.com/watch?v=z5nlzoCfBGg	https://www.youtube.com/watch?v=pdhclv8SJrI	100%	【スカッとする話】昼休みに同僚とカフェに入ると、隣の席に夫と若い女性が…夫「妻は2年前に他界したからwこの後うち来ていいよw」先回りし最高の
+https://www.youtube.com/watch?v=C7JSwop-Gi8	https://www.youtube.com/watch?v=YXQf7LoG2gE	100%	【スカッとする話】夫の会社に身分を隠して入社した私。昼休み、夫のコップでお茶を飲むと女性秘書「私の夫のコップよ！言いつけてクビにする」呼び出
+https://www.youtube.com/watch?v=a2SifSSKEQA	https://www.youtube.com/watch?v=9TulrMzmHr8	100%	【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しね
+https://www.youtube.com/watch?v=elYIbG4OaC8	https://www.youtube.com/watch?v=aCFKEISe330	100%	【スカッとする話】同窓会で結婚直前に私を捨てた夫と再会。夫「金持ちの社長令嬢と結婚したw俺だけ幸せでごめんなw」私「本当にそう思う？」真実を
+https://www.youtube.com/watch?v=6Xb4VEQrhPc	https://www.youtube.com/watch?v=Tpbu9uHiFPg	100%	【スカッとする話】結婚10年目に銀行員の夫が突然の暴露「お前の親友と結婚するw籍入れてないし財産分与は無しw」私「あれ？あんた知らないの？」
+https://www.youtube.com/watch?v=81FCAFf6qk4	https://www.youtube.com/watch?v=Yfo6v4-ZtHc	100%	【スカッとする話】私が義父の入院費を払ってると知らず私の荷物を全て捨てた夫「もう俺に寄生するな穀潰しがw」夫を残し1億の豪邸に引越し入院費の
+https://www.youtube.com/watch?v=81FCAFf6qk4	https://www.youtube.com/watch?v=EmiUvKJTw3c	96%	【スカッと総集編】義父の入院費を払ってると知らず私の荷物を全て捨てた夫「俺に寄生するな穀潰しw」夫を残し1億の豪邸に引越し入院費の支払いも止
+https://www.youtube.com/watch?v=YePMeSDF154	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+
+=== 41. 涙の向こう側  10本  https://www.youtube.com/channel/UCOXAYjsxUMpublA1yS1ATIA
+https://www.youtube.com/watch?v=SwLud5WJ-9Q	https://www.youtube.com/watch?v=7b4pVxD6-XQ	100%	【スカッとする話】私「もう限界…出ていきます」夫「家事と介護は嫁の仕事！責任果たせないなら離婚！」お望み通り離婚届を置いて姿を消すと→半狂乱
+https://www.youtube.com/watch?v=SjEoD7MKz0E	https://www.youtube.com/watch?v=yqCdgYsZcrQ	100%	【スカッとする話】初孫のお食い初めに行くと私を無視する長男夫婦…私「おめでと！」長男・嫁「…」キレた私は家具家電を黙って捨て家を売払い更地に
+https://www.youtube.com/watch?v=PDCuakh5uO4	https://www.youtube.com/watch?v=W8UO8b4fyYc	100%	【スカッとする話】私が菜園と庭付き一戸建てを購入すると夫「両親と妹夫婦も引越して来るからw」義母「私たちの介護もよろしくねw」引越し当日、発
+https://www.youtube.com/watch?v=LWn_eEvcP0c	https://www.youtube.com/watch?v=-4yhJ5v7T4s	100%	【スカッとする話】大手銀行で5時間待たされた。私「30億おろします」銀行員「残高300円じゃねーか底辺ババァw」私「貸金庫のお金30億他に移
+https://www.youtube.com/watch?v=BKGGXpEPjwU	https://www.youtube.com/watch?v=9rpPVsP5yWI	100%	【スカッとする話】突然、義妹「今日は私の結婚式だよ？ドタキャンとか最低よ！」私「え？一体どういうこと？」招待されてないと伝えると…
+https://www.youtube.com/watch?v=fMa8sp7lxqk	https://www.youtube.com/watch?v=_m8w5ILU3u0	100%	【スカッとする話】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁でw」長男「今後一切関わらないからw」私「本当にいいのね？」長男嫁「
+https://www.youtube.com/watch?v=a1E33wG5EuE	https://www.youtube.com/watch?v=D84pvtxh-qM	100%	【スカッとする話】盲目の夫を連れて定期健診に行くと、なぜか私だけ別室に案内された…医者「今すぐ警察に行きなさい！」真相を知った私は顔面蒼白に
+https://www.youtube.com/watch?v=06qwkK-wO1E	https://www.youtube.com/watch?v=6eC3Q3csQ9U	100%	【スカッとする話】母子家庭で育てた娘の結婚挨拶へ行くと私だけ料理がない…義母「貧乏人は水で十分でしょw」直後、義姉が私を見て顔面蒼白→義家族
+https://www.youtube.com/watch?v=zS-rOTgSXZM	https://www.youtube.com/watch?v=cdwBAP575w8	94%	【スカッとする話】私を嫌う夫と娘が私を無視。私「おはよう」2人「…」娘の豪華挙式当日に姿を消すと鬼電。私「私に娘はいませんが？」→娘「え
+https://www.youtube.com/watch?v=fMa8sp7lxqk	https://www.youtube.com/watch?v=2jJCIGafP3k	90%	【スカッと総集編】月9万円で年金暮らしの私に長男嫁「頼られるの嫌だし絶縁w」長男「今後一切関わらないw」私「本当にいいのね？」長男嫁「え？」
+
+=== 42. スカっとゼミ!!  10本  https://www.youtube.com/channel/UC9Hd679L2faWD0aJQHeAlrA
+https://www.youtube.com/watch?v=tc-9FGKPWTs	https://www.youtube.com/watch?v=VrctjOjY0Ts	96%	【スカッとする話】単身赴任中の私に夫から速達で離婚届…夫「息子も離婚して欲しいってw」私（やっと自由になれるw）大喜びして離婚届を提出し家を
+https://www.youtube.com/watch?v=DKzM1r5EGpw	https://www.youtube.com/watch?v=6UWe8WooXpM	83%	【スカッとする話】母子家庭で育てた長男の結婚式へ行くと私の席が無い...姑「貧乏人の席はありませんw」長男「帰ろっか..」私「うん...」義
+https://www.youtube.com/watch?v=8p3vkkh73Zo	https://www.youtube.com/watch?v=IIMdWb_44ts	81%	【スカッとする話】風呂も寝室も完全別で夜の行為も一切しない夫が緊急入院し手術する事に→医師「い、一体なんだこれは…」夫の体を見た医師が震え出
+https://www.youtube.com/watch?v=jjdUMvdaKxU	https://www.youtube.com/watch?v=k11Y7DA0DRk	81%	【スカッとする話】私名義のマンションとは知らず私を追い出す長男嫁「お義母さんの全部が気に入らない！家族だけで暮らすから出てけ！」稼ぎ頭の私「
+https://www.youtube.com/watch?v=styiBssopwY	https://www.youtube.com/watch?v=yrrQ18CMZjQ	79%	【スカッとする話】私の遺産をあてにする長男夫婦。私が危篤状態になると枕元で長男嫁「これでババアの遺産は私たちの物ｗ」高笑いをして病室を去った
+https://www.youtube.com/watch?v=kUHjfkX7-Zg	https://www.youtube.com/watch?v=yrrQ18CMZjQ	77%	【スカッとする話】私の遺産をあてにする長男夫婦。私が危篤状態になると枕元で長男嫁「これでババアの遺産は私たちの物ｗ」高笑いをして病室を去った
+https://www.youtube.com/watch?v=e-Biz2n8D-8	https://www.youtube.com/watch?v=kiUx3a37Lv4	76%	【スカッとする話】私「ボーナスとピアノが消えた！」夫「出産祝いで長男嫁に渡した。俺の稼いだ金だし文句ないだろ」私は離婚届を即提出→後日、パニ
+https://www.youtube.com/watch?v=JwU2_PZrMD8	https://www.youtube.com/watch?v=mOy5nZK4Phw	74%	【スカッとする話】義母の私だけ新築祝いに招待せず引っ越し先すら教えない長男嫁「偽物の母親に個人情報は教えませんw」私「そう、残念ね…」→本
+https://www.youtube.com/watch?v=G-PrX312MyU	https://www.youtube.com/watch?v=VD6RZRSRF7s	73%	【スカッとする話】親族の集まりで主婦の私を見下す娘「専業主婦って寄生虫だよねw」夫「俺がいないと終わりだなw」私「じゃあ嫁も母親も辞めるね」
+https://www.youtube.com/watch?v=KRPAry0foPU	https://www.youtube.com/watch?v=dLHFLGIOs2s	72%	【スカッとする話】弁護士の長男が亡くなり葬儀後、長男嫁「遺産8000万とこの家は嫁である私が相続しますｗ」長男の部下一同が大爆笑ｗ→
+
+=== 43. スカッと成敗ストーリー  10本  https://www.youtube.com/channel/UC1iIGo491nSYyJ_AsgmPzyw
+https://www.youtube.com/watch?v=cmr_Wm_l0r0	https://www.youtube.com/watch?v=NskvXTGiyMY	100%	【スカッとする話】私がグループ13社の社長と知らず、母の葬儀後に銀行員の夫「相続少ねぇなw離婚でw」即離婚届を提出し夫の銀行へ→私「700億
+https://www.youtube.com/watch?v=SrlJ46l-aQs	https://www.youtube.com/watch?v=3v1qqv9z0yE	100%	【スカッとする話】長男が双子の娘を残して他界。長男嫁「発達障害のガキは中卒の貧乏ババァに譲ってあげるw」私「では私が育てます…」10年後、ま
+https://www.youtube.com/watch?v=m_8afsZanW4	https://www.youtube.com/watch?v=SwTnBYd5lG0	100%	【スカッとする話】長男嫁「このタワマンは私の両親に住んでもらう！他人は出てけw」私「はーい、喜んで！」翌日、家の売却手続きを済ませ夫と1億の
+https://www.youtube.com/watch?v=4UNa8lN9ePQ	https://www.youtube.com/watch?v=S0bbOFtONww	100%	【スカッとする話】顔に火傷跡がある私を捨てた両親「バケモノの娘はいらないw」祖父母「じゃあ私達が引き取るわ」10年後、500坪の自宅に両親が
+https://www.youtube.com/watch?v=BpOTkpkXf14	https://www.youtube.com/watch?v=oc3OW0Tmk3c	100%	【スカッとする話】結婚式直前に40歳の私を捨て23歳の浮気相手と結婚した婚約者「ババァ捨てて正解だったw」私「別れてくれて有難う！」 婚約者
+https://www.youtube.com/watch?v=IHc1SF_n8ys	https://www.youtube.com/watch?v=giPBrZeE8s8	99%	【スカッとする話】私がグループ12社の会長と知らず、父が亡くなった途端に夫「遺産は俺が頂くw嫌なら離婚w」即離婚届を提出し夫の会社へ→私「全
+https://www.youtube.com/watch?v=z0fAd0dx9-s	https://www.youtube.com/watch?v=Lhrb2i9uX0Q	93%	【スカッとする話】母のスーツを借りて夢だったアパレル会社の面接へ行くと、私の身なりを見下す面接官「古臭い格好w貧乏人は帰れw」母「これは私の
+https://www.youtube.com/watch?v=zf2WSOwPHOw	https://www.youtube.com/watch?v=gP9frtBf2wg	92%	【スカッとする話】私が役員報酬で家計を支えていると知らず夫と引越した長男夫婦。長男嫁「他人に新居は教えませんw」私「じゃ日給100円の夫とは
+https://www.youtube.com/watch?v=rLh4pHn4ZtY	https://www.youtube.com/watch?v=4gs5Zq6DMCY	90%	【スカッとする話】浮気した夫と離婚すると夫の連れ子「部屋はちゃんとキレイにしてねw」愛人「明日中に出てってねw」私「はーい」私の家具家電全て
+https://www.youtube.com/watch?v=fYGA9psPN4M	https://www.youtube.com/watch?v=2Q_EtHgIDB8	86%	【スカッとする話】夫が亡くなり義実家を建て替えた私と長男夫婦が同居。10年後、長男が亡くなり49日が終わると長男嫁から電話が…【修
+
+=== 44. 人生スカッと朗読館  9本  https://www.youtube.com/channel/UChTkZ7g3oCCQG3XSqe69LWQ
+https://www.youtube.com/watch?v=qsjIpApuEeQ	https://www.youtube.com/watch?v=hi2PAohyTkU	100%	【スカッとする話】夫の出張中、オウムを任された私。何気なくオウムに話しかけると、オウム「嫁にはバレてないよ」不審に思い夫の部屋を開けた。→直
+https://www.youtube.com/watch?v=R6VSFZgv9rc	https://www.youtube.com/watch?v=eFu4Ak6nNYo	100%	【スカッとする話】結婚式をドタキャンした妹の代わりに、田舎の大工と結婚させられた私。私「バイトして生活費入れるね」夫「必要ないよ！だって…」
+https://www.youtube.com/watch?v=KAK0g14QoEk	https://www.youtube.com/watch?v=IsPanDg1vH0	100%	【スカッとする話】娘の葬儀に愛人を連れてきた婿「最期に間に合わなくて残念w」愛人「遺産2億は私達が相続ねw」私「…ですってw」夫「助かるなw
+https://www.youtube.com/watch?v=tUiERp-OvV8	https://www.youtube.com/watch?v=DEqKKzP1pB4	100%	【スカッとする話】通院費1万すら拒絶した息子夫婦「年金から払えば？w」翌日、家の名義を変え姿を消すと、大号泣の2人から大量着信が…w【朗読ド
+https://www.youtube.com/watch?v=FRnqGdRwH-A	https://www.youtube.com/watch?v=Fd31YEY2YA0	100%	【スカッとする話】最愛の夫を事故で亡くし49日後、私を家から追い出す義両親。義父「出ていってほしい」私「今までお世話になりました…」翌日、遺
+https://www.youtube.com/watch?v=yZ-O91t9bwA	https://www.youtube.com/watch?v=W7iyZQfb2oU	100%	【スカッとする話】父が毎日お茶漬けなので、私「仕送り10万じゃ足りない？」父「仕送り？貰ってないぞ」私「変ね…銀行に電話するわ」直後、夫がガ
+https://www.youtube.com/watch?v=WMKXjnCRQZs	https://www.youtube.com/watch?v=sPpAlpY3zIw	100%	【スカッとする話】親戚一同の前で私を笑い者にする夫「稼ぎ0の嫁はお荷物で…w」義母「捨てられないよう頑張れw」私「別に頑張らないですよ？もう
+https://www.youtube.com/watch?v=I_t1idu0rlk	https://www.youtube.com/watch?v=HFQiOY1EIYg	92%	【スカッとする話】毎月30万仕送りを続けたのに、帰国すると娘が毎日お粥生活。私「30万送ってたよね？」娘「私は1円も見てないよ」→なぜか
+https://www.youtube.com/watch?v=17WdyEForLM	https://www.youtube.com/watch?v=WimfKEqUSmI	84%	【スカッとする話】義両親が我が家に居座り1ヶ月。義両親「水漏れが酷くて…」私「なら業者呼びますね」義両親「や、やめてくれ！」なぜか
+
+=== 45. 夜の語り部5056  9本  https://www.youtube.com/channel/UCEvaB4r-6y7tj3UAoMEdqXA
+https://www.youtube.com/watch?v=bQ7ZCEsAHqU	https://www.youtube.com/watch?v=t9x4VmiCRI4	100%	【スカッとする話】親代わりで育てた妹の結婚式で、着物姿の妹が式場に1人ポツン…義家族「嘘に決まってるじゃんw」私「なら契約も嘘か！了解」義家
+https://www.youtube.com/watch?v=-PbKfh2Ga5A	https://www.youtube.com/watch?v=DPS_qm8jKlI	100%	【スカッとする話】私の年収が1000万と知らず夫と一緒に出ていった息子「毒親とは絶縁wバイバイw」私「じゃあ夫とも縁切るね」息子「勝手にどう
+https://www.youtube.com/watch?v=TH7qfqD12cA	https://www.youtube.com/watch?v=DPS_qm8jKlI	100%	【スカッとする話】私の年収が1000万と知らず夫と一緒に出ていった息子「毒親とは絶縁wバイバイw」私「じゃあ夫とも縁切るね」息子「勝手にどう
+https://www.youtube.com/watch?v=IZTrM4ybCbI	https://www.youtube.com/watch?v=lRIrN83xkSc	100%	【スカッとする話】私の車のアクセルにこっそり手を加える夫。私（知らないふりしよw）翌日、車を義両親に貸し出すと、夫「ま、待ってくれ…」実はw
+https://www.youtube.com/watch?v=3EO3FneMC1g	https://www.youtube.com/watch?v=qORErX-vqL8	100%	【スカッとする話】同窓会で東大卒のイケメン医師が中卒でバイトの私に難病症例を提示。医師「解けたら何でもするw」私「あ、それ難しくないよ」【朗
+https://www.youtube.com/watch?v=8DLp2nu8Hy0	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=NDzr4wgxcVA	https://www.youtube.com/watch?v=EeQo49qzzTA	100%	【スカッとする話】結婚式当日に夫からブチギレ電話。夫「今何時だと思ってんだ！花嫁の立場でふざけるな！」父「お前こそふざけんなよ？」電話に出た
+https://www.youtube.com/watch?v=MPI-aa3JaqM	https://www.youtube.com/watch?v=DcIegdkPriU	100%	【スカッとする話】私を嫌う夫と息子が私を無視。私「ただいま」2人「…」息子の大学卒業式に消えると鬼電。私「私に息子はいませんが？」→息子「え
+https://www.youtube.com/watch?v=VjSSirs6rOo	https://www.youtube.com/watch?v=hRCh_bWpcgg	100%	【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結
+
+=== 46. 隠された才能 5633  9本  https://www.youtube.com/channel/UCxSupAhazSWDXBtwag7MUbA
+https://www.youtube.com/watch?v=4-IgFmR6AOo	https://www.youtube.com/watch?v=Rt9GxXvlbY8	100%	【スカッとする話】夫の会社に弁当を届けると、夫「今日も忙しいから助かる！」直後、夫の鞄を見た瞬間、私「さようなら」夫「え？」【朗読】【スカッ
+https://www.youtube.com/watch?v=XwTLoPCcQrE	https://www.youtube.com/watch?v=yf6Hd6ajnbc	100%	【スカッとする話】5年前に離婚した元夫と保育園で再会。元夫「そいつ俺の子？俺もう子供いるし認知しないよ」私「ん？お前種ナシじゃんwそっちも誰
+https://www.youtube.com/watch?v=cnKO3QZMVLk	https://www.youtube.com/watch?v=L6kEKzkIxIU	100%	【スカッとする話】同窓会でいじめられた私。同級生「乞食は残飯食ってろw」1時間後、息子が現れた途端、同級生の態度が急変し…w【朗読】【スカッ
+https://www.youtube.com/watch?v=ojKmGCh8ib0	https://www.youtube.com/watch?v=sPaQ4y9ujUE	100%	【スカッとする話】子供の誕生日に回転寿司へ行くと、夫を奪った妹と10年ぶりに再会。妹「頭悪そうな子wうち私立よw」息子「母さんこれ見せてもい
+https://www.youtube.com/watch?v=kFuvpHrOBFc	https://www.youtube.com/watch?v=-TmKVAFTUIo	100%	【スカッとする話】産婦人科で再会した元夫「俺の子？認知の子はしねぇよw」元義母「復縁要求はやめてねw」私「そんなことしないwだって…」直後、
+https://www.youtube.com/watch?v=kl3jj8Z0ebQ	https://www.youtube.com/watch?v=V_Fkzks6Kwk	100%	【スカッとする話】1億の新築を4000万で勝手に売った夫「隠し子の養育費に使う！愛人と暮らすから出てけ」私「喜んで！だってこの家…」真実を伝
+https://www.youtube.com/watch?v=PkvGhLNyQBs	https://www.youtube.com/watch?v=YARRQqAerVs	100%	【スカッとする話】私の母が筆頭株主と知らず私の内定を取消した頭首「母子家庭は内定取消でw」一同大爆笑。私「だそうです…お母さん…」母「頭首？
+https://www.youtube.com/watch?v=Cl3vTXjItGw	https://www.youtube.com/watch?v=PhHi9HvCrPQ	100%	【スカッとする話】医師の夫が新人看護師と浮気。看護師「院長夫人の座は私が頂くw離婚して病院も辞めてねw」私「はーい、後はよろしく」その後、2
+https://www.youtube.com/watch?v=6gFIxUKU9B4	https://www.youtube.com/watch?v=_XdgNdXWUY4	91%	【スカッとする話】正月の親戚の集まりに普段着で行くと、父「俺が買った着物はどうした？」夫「嫁には無駄だから売ったw」父「…」帰宅した
+
+=== 47. 心の琴線 5645  9本  https://www.youtube.com/channel/UCiaf20iOL2Huh9928uSBP7A
+https://www.youtube.com/watch?v=tUhPcqu5_1Y	https://www.youtube.com/watch?v=qORErX-vqL8	100%	【スカッとする話】同窓会で東大卒のイケメン医師が中卒でバイトの私に難病症例を提示。医師「解けたら何でもするw」私「あ、それ難しくないよ」【朗
+https://www.youtube.com/watch?v=4f6pxkgsWec	https://www.youtube.com/watch?v=cd2Xb8XKtOE	100%	【スカッとする話】親戚が集まる忘年会に行くと、父「贈った鞄使ってないのか？」夫「嫁に似合わないから捨てたw」直後、私を外に呼び出した父「俺が
+https://www.youtube.com/watch?v=EypWrTl0eOw	https://www.youtube.com/watch?v=IPsXxYnWZVk	100%	【スカッとする話】父が急逝し院長になった私。翌日、机に退職届が100人分…副院長「お前が院長ならみんな辞めるってw」私「どうぞどうぞ！」→翌
+https://www.youtube.com/watch?v=YnfJV6jLEg8	https://www.youtube.com/watch?v=FxlDr2hksk4	100%	【スカッとする話】姉を溺愛する両親に低スペ男とのお見合いを強要された私。母「貧乏の相手はお前がお似合いw」3日後、お見合いに行くと→現れた相
+https://www.youtube.com/watch?v=qFDP75o0ue0	https://www.youtube.com/watch?v=CmlQI7xYekQ	100%	【スカッとする話】銀行で駐車券を頼んだ私に銀行員「駐車場はお客様専用w貧乏人はお帰りくださいw」直後、100億引き出すと行員一同は震え出し…
+https://www.youtube.com/watch?v=Uu7kpQKsxRM	https://www.youtube.com/watch?v=1l07gzryzxY	100%	【スカッとする話】43歳で妊娠した私と息子を捨てた学歴主義の夫「ババァの子は頭悪そうw育てたくないから離婚でw」20年後、病院で元夫と遭遇→
+https://www.youtube.com/watch?v=Vv2PAFTACZ4	https://www.youtube.com/watch?v=nb_aRD_6UTg	100%	【スカッとする話】親友が急逝し女手一つで引き取り育てた娘の結婚式で私の席にだけ盛り塩が置かれていた。医者の新郎母「母子家庭の母は一族の恥w」
+https://www.youtube.com/watch?v=RV48RxyOXZc	https://www.youtube.com/watch?v=OGQqqSZ2qR0	100%	【スカッとする話】家のローンを毎月18万払い続ける私に夫「家と財産は長男夫婦に譲った！」長男「寄生虫の穀潰しは出てけw」キレた私が全ての支払
+https://www.youtube.com/watch?v=WHpJvO6c0AA	https://www.youtube.com/watch?v=H-iBD-D6jz8	94%	【スカッとする話】父が急逝し社長になった私に30人分の退職届を投げつけた専務「全員連れて独立するわ！」私「いいの？wラッキー！」専務「え
+
+=== 48. 暮らしの話 5688  9本  https://www.youtube.com/channel/UCWk4WbfyjB8F0DF4kgNBEqw
+https://www.youtube.com/watch?v=CECCXa2Pl2E	https://www.youtube.com/watch?v=u1Ga8VNwPE4	100%	【スカッとする話】夫が亡くなり8年経ったある日、納骨堂に写真を供えていると少年「隣に住んでるおじさんだ」詳しく話を聞くと背筋が凍り…【朗読】
+https://www.youtube.com/watch?v=2iUFk8HmuyA	https://www.youtube.com/watch?v=_XYrDmk-GHI	100%	【スカッとする話】電気が停止した隣家を訪ねると、ボロボロの少女が妹を庇い震えていた。実家の旅館へ連れて帰るとまさかの展開に…【朗読】【スカッ
+https://www.youtube.com/watch?v=QL2k_CRsDNQ	https://www.youtube.com/watch?v=VQu62UhB0uI	100%	【スカッとする話】55年間独身で生きてきた私が夢の庭付き一軒家のため戸籍を取ると20年前に結婚し娘の存在が発覚..。直後、職員の一言で戦慄し
+https://www.youtube.com/watch?v=-6RF3HsoYlA	https://www.youtube.com/watch?v=ujLRk5msBsw	100%	【スカッとする話】日曜の昼間に警察から突然の連絡。警察「息子さんを万引きで逮捕しました。署までお越しください」私「私の子供は娘ですが？」娘の
+https://www.youtube.com/watch?v=7tHaIWWkmKU	https://www.youtube.com/watch?v=LtKhM-D5jyI	100%	【スカッとする話】夫の浮気相手が私の実家を放火。夫「お前の実家が放火された！今すぐ逃げてくれ！」私「うちは燃えてないけど？」3秒後、現場の全
+https://www.youtube.com/watch?v=8kkn1k7Beos	https://www.youtube.com/watch?v=OkzDBHyHdWU	100%	【スカッとする話】キャンプ中に夫と5歳の娘が崖から落ちて亡くなった…4年後、家事代行で豪邸に行くと、娘「マ、ママ！」
+https://www.youtube.com/watch?v=MghDHNIk9As	https://www.youtube.com/watch?v=dzwFny9DVj0	100%	【スカッと】親族の集まりに夫と行くと7歳の姪「お絵描きしたから見て！」姪が描いた不思議な絵を見ると、夫「 あれ？まさか…」私「うん」姪のSO
+https://www.youtube.com/watch?v=85BjcIrLaXE	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=JLnalQJjrYA	https://www.youtube.com/watch?v=ggQWFYLMQqE	95%	【スカッと総集編】長男の結婚式前夜、ペットカメラを確認すると誰もいないはずの寝室で夫と長男嫁が真っ最中…音量を最大にして式場で実況中継し
+
+=== 49. 妻の復讐 5649  9本  https://www.youtube.com/channel/UC_-FBuCpoEW8RPG4j-oCbkg
+https://www.youtube.com/watch?v=RsEXpU8hnpQ	https://www.youtube.com/watch?v=wxIjPqUT7oA	100%	【スカッとする話】パートから帰ると突然私を殴ってきた義母「息子の金盗んだな！金返せ！」夫と義母に泥棒扱いされた私「じゃあ警察呼びますね」→即
+https://www.youtube.com/watch?v=HB8kbxdHmcw	https://www.youtube.com/watch?v=Suxi8PzXzbk	100%	【スカッとする話】里帰り出産中、私の荷物が全て実家に送られてきた…夫「この家で母と暮らすから離婚でw」義母「役立たずは帰ってこないでねw」私
+https://www.youtube.com/watch?v=hyAYIjXQyj0	https://www.youtube.com/watch?v=7Vq5sNaCsNc	100%	【スカッとする話】義母の嫁いびりが原因で夫と離婚。夫「今すぐ出てけ役立たずw」私「はい」両親と共に挨拶を済ませ迎えに来た車に乗り込むと→夫・
+https://www.youtube.com/watch?v=T33Fil1juto	https://www.youtube.com/watch?v=kpGjizf6mpc	100%	【スカッとする話】私が社員3000人の夫の会社の社長と知らず新築を購入した途端に豹変した夫「今日から両親と同居する！嫌なら離婚して出てけw」
+https://www.youtube.com/watch?v=3UFXUBVqOGo	https://www.youtube.com/watch?v=6eC3Q3csQ9U	100%	【スカッとする話】母子家庭で育てた娘の結婚挨拶へ行くと私だけ料理がない…義母「貧乏人は水で十分でしょw」直後、義姉が私を見て顔面蒼白→義家族
+https://www.youtube.com/watch?v=fN59nNyu_A0	https://www.youtube.com/watch?v=yUWQozZU0zY	100%	【スカッと総集編】夫が亡くなった途端、我が家を勝手に解体した義両親「今日からうちで同居しろ！嫁は家政婦にしてやるw」それを聞いた私は大爆笑→
+https://www.youtube.com/watch?v=XlThS5fE3-w	https://www.youtube.com/watch?v=7a4h1eiOwjw	100%	【スカッとする話】私が全員を養ってるとも知らず家族旅行で長男嫁「義母の全てが気に入らない！家族だけで行くからババァは掃除してろw」私「は〜い
+https://www.youtube.com/watch?v=OtaTpLvX8pM	https://www.youtube.com/watch?v=8GATpQFg7_w	100%	【スカッと総集編】家のローンを毎月17万払う私に夫「家事もしない役立たずは家から出てけ！」長男嫁「お義母さんは施設へどうぞ（笑）」私「じゃあ
+https://www.youtube.com/watch?v=nbgjapHfAYE	https://www.youtube.com/watch?v=2s_1_Gvlhpo	100%	【スカッと総集編】長男夫婦と夫に嫌われ続けた母親の私が実家を追い出され娘夫婦の家へ。私「1000円貸してください   」婿「お義母さん…同居
+
+=== 50. 小さな幸せ  9本  https://www.youtube.com/channel/UCDan477oQB_h9RQ24R2fRhA
+https://www.youtube.com/watch?v=81tu7UZBJM0	https://www.youtube.com/watch?v=9x2mRPOpvjQ	100%	【スカッとする話】娘の結婚式当日に夫がいない…私「何してるの？式始まってるよ！」夫「悪い、緊急の仕事が入って！」私「…OK」1時間後、ある人
+https://www.youtube.com/watch?v=1qZ9mMY-E7E	https://www.youtube.com/watch?v=y8ReyKKeUUQ	100%	【スカッとする話】私が資産170億の不動産王と知らず私から夫を奪った美人な姉「生活保護でも貰え貧乏人w」後日、示談交渉で弁護士が大爆笑→弁護
+https://www.youtube.com/watch?v=5UonOrpizXo	https://www.youtube.com/watch?v=a5lS8StIZwA	100%	【スカッとする話】1億のピアノがある金持ち自慢の婚約者の実家へ結婚挨拶に行くと、婚約者「俺達の家政婦連れてきたよw」義父「貧乏な顔w親の顔が
+https://www.youtube.com/watch?v=c94Vx8R940I	https://www.youtube.com/watch?v=7Pz5jiUvSnQ	100%	【スカッとする話】親友の出産祝いで産婦人科へ行くと新生児の父親がまさかの夫だった...。私「おめでと！赤ちゃん可愛いね！」速攻で帰宅し夫の荷
+https://www.youtube.com/watch?v=qXG_qdmBwTM	https://www.youtube.com/watch?v=VPQPhd_XW-o	99%	【スカッとする話】長男が娘を残して他界。長男嫁「金持ちの医者と再婚するw双子はババァが育てろw」私「いいの？喜んで！」60歳の私が工場の皆と
+https://www.youtube.com/watch?v=bUn2oMbwWMw	https://www.youtube.com/watch?v=eb8s4DgkJ3o	98%	【スカッとする話】孫の100日祝いに親戚一同と行くと私だけ席がなかった…長男嫁「家族の席しかありませんw」私「…帰りますか」親戚一同「うん」
+https://www.youtube.com/watch?v=KUFk1iGpLoE	https://www.youtube.com/watch?v=jcLkESG2h5U	97%	【スカッと】単身赴任の夫の家へサプライズで行くと記入済みの離婚届が...私「お望み通り提出するか」速攻で提出して携帯解約し家を売却して海外移
+https://www.youtube.com/watch?v=Tvmk2bOmgS0	https://www.youtube.com/watch?v=mLYItA9m_XY	97%	【スカッとする話】婚約者を略奪した親友から結婚式の招待状が届くと、長男「嫁と2人で行ってくる」長男嫁「盛大に暴れてきます」普段温厚な長男夫婦
+https://www.youtube.com/watch?v=0QJNMCZZE0g	https://www.youtube.com/watch?v=E6hGGRc68uY	96%	【スカッとする話】愛人と隠し子を連れ帰宅した夫「息子はお前にやる！離婚だ！」息子「母さんとは離婚出来ないよ？だって...」息子の衝撃の一言で
+
+=== 51. Pendelton Gideon  9本  https://www.youtube.com/channel/UCIRVjzjmTHwXA3X81dpyNeQ
+https://www.youtube.com/watch?v=yAg-ur38iSY	https://www.youtube.com/watch?v=tOHZbuZysA4	100%	【スカッとする話】医者一族の婚約者と結婚挨拶に行くと私達の席だけない。義母「片親の貧乏人とは婚約破棄w」母「ではおたくの病院潰すわ」義家族「
+https://www.youtube.com/watch?v=bK4E6flKw4g	https://www.youtube.com/watch?v=8p7Hl5wjPok	99%	【スカッとする話】大雪の中、赤ちゃんを背負い2時間歩いてきた8歳の姪「3000円貸して下さい...」夫「はぁ？貸すわけないだろ！」次の瞬間、
+https://www.youtube.com/watch?v=BKdnXXwAz_8	https://www.youtube.com/watch?v=fz32YDbWe1Q	98%	【スカッと】私が新築タワマンを購入した途端に夫「明日から愛人と同居する！」愛人「ババァは私の家から出てけw」私「え？私は独身ですが？」夫・愛
+https://www.youtube.com/watch?v=BKdnXXwAz_8	https://www.youtube.com/watch?v=b7xMpCmS-ec	98%	【スカッと総集編】私が新築タワマンを購入した途端に夫「明日から愛人と同居する！」愛人「ババァは私の家から出てけw」私「え？私は独身ですが？」
+https://www.youtube.com/watch?v=CLe1giaxE8I	https://www.youtube.com/watch?v=Txz_ssCTCJk	96%	【スカッと】13年間、義実家のローンを払ってきた私に義両親「家は長男夫婦に売った！」夫「他人は今すぐ出ていけw」私「じゃあ引っ越しますね」翌
+https://www.youtube.com/watch?v=GSpb3yXQF2I	https://www.youtube.com/watch?v=OaIj_8vvCdo	96%	【スカッとする話】深夜に母が倒れ夫と病院へ...私「急いで車出して！」夫「...はーい」だが、なぜか道中の海岸で置き去りに、夫「俺様に命令し
+https://www.youtube.com/watch?v=0K5l93rI-NY	https://www.youtube.com/watch?v=8a9QMDUv9kk	96%	【スカッとする話】長男夫婦が他界し孫を育てる私に夫「あのガキども迷惑だったんだよなw」親友「アンタの金持ち旦那もらうわw」ボロボロの私に孫「
+https://www.youtube.com/watch?v=CCycBNB6BSY	https://www.youtube.com/watch?v=cVBDhgoNCIQ	95%	【スカッとする話】破水し動けなくなった私を見た5歳の息子「父さん！病院連れてって！」夫「社員旅行中だから無理w」1週間後、電話で夫「明日帰る
+https://www.youtube.com/watch?v=Jv-TkkLHFng	https://www.youtube.com/watch?v=Gx1fLUdVHGk	95%	【スカッとする話】離婚して2週間後、30歳で不妊の私を見下す夫「23歳で若い彼女と再婚したｗ30過ぎたババァは失せろｗ」直後、現れた新しい女
+
+=== 52. Ivan Ilencow  9本  https://www.youtube.com/channel/UC6IzQHpKzqIt1DgjPouEefQ
+https://www.youtube.com/watch?v=9GauLOUX3QM	https://www.youtube.com/watch?v=CTeggEwk2Nc	100%	【スカッとする話】妊婦の私が倒れて入院するとワインをぶっかけ海外旅行に行く夫「帰るまでに産んでおけよ！」無視した私に夫がワインを投げるも当た
+https://www.youtube.com/watch?v=IZLbdwBj7XA	https://www.youtube.com/watch?v=ik5Oxry7o0g	100%	【スカッとする話】勝手に我が家の庭でバーベキューをする長男嫁「お義母さんの家の庭借りてるよw肉とビール無いから買ってきてw」私「え？私の家そ
+https://www.youtube.com/watch?v=NF3p6kjJQmw	https://www.youtube.com/watch?v=hhT_cSBqCts	100%	【スカッとする話】私が社員900人の社長と知らず私の親友を妊娠させ再婚した夫「病気持ちの貧乏人とは離婚ｗ」退院後、真っ先に夫の勤め先へ。私「
+https://www.youtube.com/watch?v=9u_E5KiGi8E	https://www.youtube.com/watch?v=a5jUE4NP1Qo	100%	【スカッとする話】長男夫婦と同居する事になり長男と長男嫁と新築の見学へ行くと、なぜか私だけ強制的に別室に案内された。不動産「今すぐ警察に行っ
+https://www.youtube.com/watch?v=3nZkkjGDjow	https://www.youtube.com/watch?v=Rp0Fun6cuJA	100%	【スカっとする話】長男の結婚式でなぜか私だけ席が無い。長男嫁「中卒の席はないわw」二人が勤める病院の院長が挨拶で私に「あなたのおかげで今の病
+https://www.youtube.com/watch?v=wud3iM-gqm0	https://www.youtube.com/watch?v=Zq9eORdDdX8	100%	【スカッとする話】天才外科女医である事を隠して生きてきた私。ある日、娘に連れられイチゴ狩りに行くとおばちゃんが倒れ緊急搬送！医者「この手術は
+https://www.youtube.com/watch?v=8mFT78LkY_o	https://www.youtube.com/watch?v=R5Nl5gypj8M	100%	【スカッとする話】私名義でローン5000万を残し私の親友と失踪した夫「貧乏で家売ったらしいなw」私「地価上昇2億で売れたよ」夫「は？」結果w
+https://www.youtube.com/watch?v=DpE46mRFpIw	https://www.youtube.com/watch?v=p1aAa-lOrzg	100%	【スカッとする話】我が家が全焼し現場確認に行くと、長男嫁と夫が何かを探している....声をかけようとすると長男嫁と夫の恐ろしい会話が聞こえて
+https://www.youtube.com/watch?v=xPe3noo1jfQ	https://www.youtube.com/watch?v=UUTOHlp0M4c	100%	【スカッとする話】夫の海外出張前夜、ファミレスに行くと夫と長男嫁が。夫「今夜が日本での最後の食事だな」長男嫁「夫さんとの二人で海外暮らし楽し
+
+=== 53. Павел ****  9本  https://www.youtube.com/channel/UCSPg9ALk7YwnsqACClpErGg
+https://www.youtube.com/watch?v=iKlAkSZVtcE	https://www.youtube.com/watch?v=EIrAyCZzwiI	100%	【スカッとする話】40度の高熱の私から財布とクレカを奪った長男嫁「はい、氷水w帰るまでに治して下さいねｗ」バケツで氷水をかけられ気絶した…3
+https://www.youtube.com/watch?v=EnUXTdRCsLE	https://www.youtube.com/watch?v=UOK61ieeNvk	100%	【スカッとする話】夫と高級寿司屋へ行くと長男と長男嫁の姿が...長男「来年は保険金で生活するぞｗ」長男嫁「フランスでの生活楽しみ～ｗ」→面白
+https://www.youtube.com/watch?v=-uUdEw9DTRY	https://www.youtube.com/watch?v=OGc065QvS9Q	100%	【スカッとする話】夫「赤ん坊はロッカーに放り込んどいたぞｗ」私「娘なら一緒にいるけど？」夫「は？」慌てて戻った夫が絶句。実はその子...
+https://www.youtube.com/watch?v=XtMeWnWunc4	https://www.youtube.com/watch?v=Rw2iIdnpgQY	100%	【スカッとする話】私を低収入扱いする長男夫婦。長男嫁「低収入の義母は出てけw」長男「俺もこんな母親いらないw」お望み通り口座を0円にして、1
+https://www.youtube.com/watch?v=6PLBalvbrKs	https://www.youtube.com/watch?v=WZyGcrwc7t8	100%	【スカッとする話】病室で夫が他界した3秒後...長男「遺産は俺が配分するぞw」私「では今後一切援助は無しで」長男嫁「は？ババァもさっさと逝け
+https://www.youtube.com/watch?v=AtuDTOiKUDc	https://www.youtube.com/watch?v=G6RbZxlT-A8	100%	【スカッとする話】高熱の私から財布を奪った夫「お金ありがとなwお礼に体冷やしてやるよｗ」バケツで冷水をかけられ気絶した私は…翌日、ご機嫌に帰
+https://www.youtube.com/watch?v=lQrSdWnPnIE	https://www.youtube.com/watch?v=aNmQ6Vua4fw	100%	【スカッとする話】夫「年末に長男と長男嫁が帰省するからお前は実家に帰れw」私（家賃16万払ってるの私なのに…）翌日、ゴミ回収業者に電話し、家
+https://www.youtube.com/watch?v=SmOYbzSSsbw	https://www.youtube.com/watch?v=2j77zFQEDzM	100%	【スカッとする話】夫「幸せを絵に描いた家族だな」私「そうね。けどアンタのせいで彼女達は不幸になるよ」夫「え？」翌朝...【修羅場】【スカッと
+https://www.youtube.com/watch?v=X3UM_aKu4oo	https://www.youtube.com/watch?v=QImiPDVmq3s	92%	【スカッとする話】私と夫の事が大嫌いな長男夫婦と高級料亭へ行くと私達だけ席がない。長男「席が無いなら会計して帰れw」私「いいけど後悔するよ？
+
+=== 54. Legacy Apollo  9本  https://www.youtube.com/channel/UC2YwIXq-utTkNLQgcRVloyQ
+https://www.youtube.com/watch?v=c0b7OwI4zCw	https://www.youtube.com/watch?v=-WjRVa4jNLk	100%	【スカッとする話】73歳の誕生日に長男夫婦がくれた10万円の時計をゴミ箱に捨てた私に夫「長男と長男嫁さんに土下座して謝れ！」私「これ見ても同
+https://www.youtube.com/watch?v=Vk35R5f7G2w	https://www.youtube.com/watch?v=uSa9TRN9UTA	100%	【スカッとする話】長男夫婦「ババァは口を開くな！」食事さえ許されずガリガリの私…久々に帰国した次男「母さんは食べないの？」私「いつもの事よ…
+https://www.youtube.com/watch?v=HTl3ryWNJfI	https://www.youtube.com/watch?v=W_2WifFIdxI	100%	【スカッとする話】長男嫁のスマホに夫から着信。手を離せない長男嫁の代わりに私がスピーカーにして電話に出ると、嫁と勘違いした夫と長男がトンデモ
+https://www.youtube.com/watch?v=yNLHCpUS1JA	https://www.youtube.com/watch?v=164f_ZUgz7E	100%	【スカッとする話】39歳で高齢妊娠した私が病院へ行くと、エリート銀行の元夫に遭遇「ババァが妊婦とかキモw」直後、現夫が現れ「私の妻が何か？」
+https://www.youtube.com/watch?v=kfmZxFYpE4Q	https://www.youtube.com/watch?v=sjdVGMyS0Gs	99%	【スカッとする話】長男の結婚式へ出席すると私の席だけが無い。私の事が大嫌いな長男嫁「席の用意忘れたwお祝儀払って帰れw」私「いいけど後悔する
+https://www.youtube.com/watch?v=xyN57zqS76Q	https://www.youtube.com/watch?v=XH3CEgYvbAI	99%	【スカッとする話】長男夫婦が私の持ち家から引っ越した途端、老後の為に貯めた3000万が無くなった...。私「警察を呼んで！」長男「やめろ！長
+https://www.youtube.com/watch?v=dSZVeRv2AUo	https://www.youtube.com/watch?v=BdrL9Al-wcc	98%	【スカッとする話】息子「引っ越しはまだか？！」息子夫婦に父の遺産を独占され実家から追い出しだされた私と夫。夫「そ、そんな...」私「うまくい
+https://www.youtube.com/watch?v=FB12yimfK1E	https://www.youtube.com/watch?v=rPypPSQZ3YI	98%	【スカッとする話】着物を着て嫁の実家へ行くと長男嫁「何ですかその安物w弁償するんで新しいの買ってきてくださいw」とワインをぶっかけられた→私
+https://www.youtube.com/watch?v=WscqTpYLrIY	https://www.youtube.com/watch?v=QYxvtK-welQ	97%	【スカッとする話】10年前、私と長男を捨てて職場の年上男性と駆け落ちした長男嫁「旦那と家に戻るからあんた達は家から出てって！」私「家はもうな
+
+=== 55. 嫁の切り札朗読館  8本  https://www.youtube.com/channel/UCJs7FR3NDs8ntlTSLFQBGOg
+https://www.youtube.com/watch?v=rDsS1a0O9eY	https://www.youtube.com/watch?v=sPpAlpY3zIw	100%	【スカッとする話】親戚一同の前で私を笑い者にする夫「稼ぎ0の嫁はお荷物で…w」義母「捨てられないよう頑張れw」私「別に頑張らないですよ？もう
+https://www.youtube.com/watch?v=6jKoA7KlcjE	https://www.youtube.com/watch?v=dOy6I1JE_yY	100%	【スカッとする話】私の退職金をやたら気にする夫「いくら貰ったの？」私「口座に2000万入った！」翌日、カードを手に夫が失踪。私（計画通りw）
+https://www.youtube.com/watch?v=_nRFilJcS_g	https://www.youtube.com/watch?v=ZobJWKrmIzQ	100%	【スカッとする話】娘の結婚式に愛人と共に現れた夫「彼女にも座らせてあげて」私は黙って愛人に席を譲った直後、グループ10社を束ねる新郎父「会長
+https://www.youtube.com/watch?v=KR4q6p8v37M	https://www.youtube.com/watch?v=W1l_WF0rxns	100%	【スカッとする話】勉強が苦手な私の息子に義母「うちの子は優秀なのに…ダメ嫁が産むと出来損ないかw」ブチギレた私は義母と絶縁。10年後、息子は
+https://www.youtube.com/watch?v=DZxdCD4dGIQ	https://www.youtube.com/watch?v=6wF7ONOegQ0	100%	【スカッとする話】38歳で第一子を出産した私を捨て、19歳年下の不倫相手を優先した夫「可愛い子供が欲しかったな。お前との子はブスだから離婚で
+https://www.youtube.com/watch?v=WRvg5fD33k4	https://www.youtube.com/watch?v=28rOAUunNPw	100%	【スカッとする話】夫から高級化粧品を貰った私。夫「あれ、もう使った？w」私「お義母さんが試してたよ」直後、なぜか夫が慌て出しw【朗読】【スカ
+https://www.youtube.com/watch?v=9kXJsm99oV4	https://www.youtube.com/watch?v=iDdnkB23JiU	100%	【スカッとする話】夫「もう俺の親に関わるな」10年間義母を介護してきた私は、夫の一言で介護・支援を即終了。1ヶ月家に帰らず姿を消すと、発狂し
+https://www.youtube.com/watch?v=tCutOHG4Qy8	https://www.youtube.com/watch?v=0APTrXx_onI	82%	【スカッとする話】5年ぶりに本社に復帰した私。年下部長が英語資料を投げつけ「残業よろしくw朝締切で」私が一瞬で翻訳すると…w【朗
+
+=== 56. 静かなる横浜5037  8本  https://www.youtube.com/channel/UCOIJmQi-cKQxqxTukmYLEHA
+https://www.youtube.com/watch?v=Y3Ib9aJOsSo	https://www.youtube.com/watch?v=t9x4VmiCRI4	100%	【スカッとする話】親代わりで育てた妹の結婚式で、着物姿の妹が式場に1人ポツン…義家族「嘘に決まってるじゃんw」私「なら契約も嘘か！了解」義家
+https://www.youtube.com/watch?v=NLwIGMmggys	https://www.youtube.com/watch?v=W-rW5yUgXLY	100%	【スカッとする話】父を理由に夫に捨てられ5年後、若い女と子供を連れた元夫と再会。元夫「嫁はお前と違って完璧w」直後、私の新しい夫を見て、元夫
+https://www.youtube.com/watch?v=OhPKdU7AS-o	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=RCKLa_AOGqc	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=l0CySHGxBtI	https://www.youtube.com/watch?v=rm1z-lg0fRg	100%	【スカッとする話】アメリカ本社から戻ってきた私を雑用扱いする社長令嬢「パシリご苦労さんw」私「君クビね、今までご苦労さん」社長令嬢「え？」【
+https://www.youtube.com/watch?v=5Ib0NvUtwuE	https://www.youtube.com/watch?v=0nSf9Cow5gQ	100%	【スカッとする話】夫を突然の事故で亡くし、豪邸で清掃員として働き始めた私。旅行から戻った会長の顔を見た私「あなた、もしかして…」直後、会長の
+https://www.youtube.com/watch?v=ISSq7Ltmv6Y	https://www.youtube.com/watch?v=uYt37nxwb0o	100%	【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=ISSq7Ltmv6Y	https://www.youtube.com/watch?v=lVGupM23LsE	100%	【スカッと総集編】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+
+=== 57. 人生劇場チャンネル5062  8本  https://www.youtube.com/channel/UCDUjpUXLHRFyRStL02pHIwA
+https://www.youtube.com/watch?v=qcJzdgpps48	https://www.youtube.com/watch?v=InEluoUt8ik	100%	【スカッとする話】裕福な義家族と高級料亭に行くと、義兄嫁「その服で同席する気？お前とは格が違うんだよ」義母「ええ、あなたとは違うわね」義兄嫁
+https://www.youtube.com/watch?v=nS8RzdBKuPI	https://www.youtube.com/watch?v=j2eZcUFfC0Y	100%	【スカッとする話】号泣する娘を引きずってきた婿両親。義母「貧乏な子は合わなかったw」義父「高収入の息子とは格が違うw」私「後悔しないでくださ
+https://www.youtube.com/watch?v=ZPU0I07VM9U	https://www.youtube.com/watch?v=lRIrN83xkSc	100%	【スカッとする話】私の車のアクセルにこっそり手を加える夫。私（知らないふりしよw）翌日、車を義両親に貸し出すと、夫「ま、待ってくれ…」実はw
+https://www.youtube.com/watch?v=BP3UUASdXFI	https://www.youtube.com/watch?v=ZTng_6NCKl8	100%	【スカッとする話】親代わりに育てた弟の結婚式でタキシードを着た弟が1人ポツン。弟「結婚は嘘でドッキリって…」直後、普段温厚な夫が新婦一族に電
+https://www.youtube.com/watch?v=aUnrO72as7M	https://www.youtube.com/watch?v=EeQo49qzzTA	100%	【スカッとする話】結婚式当日に夫からブチギレ電話。夫「今何時だと思ってんだ！花嫁の立場でふざけるな！」父「お前こそふざけんなよ？」電話に出た
+https://www.youtube.com/watch?v=6sHkMVLXrQw	https://www.youtube.com/watch?v=DcIegdkPriU	100%	【スカッとする話】私を嫌う夫と息子が私を無視。私「ただいま」2人「…」息子の大学卒業式に消えると鬼電。私「私に息子はいませんが？」→息子「え
+https://www.youtube.com/watch?v=jmIQkdjG5pg	https://www.youtube.com/watch?v=xZkf_P7X0BY	100%	【スカッとする話】兄夫婦の出産祝いで父親と家を訪ねると父「今すぐ帰る！車を出せ！」慌てる父に理由を訪ねると、父「バックミラー見てみろ」私「え
+https://www.youtube.com/watch?v=qEHbErzCWgI	https://www.youtube.com/watch?v=SsTnEXgWzwI	100%	【スカッとする話】私が年商1500億の社長と知らず夫を奪った夫の幼馴染「もやし生活頑張ってねw」後日、示談交渉で夫が大爆笑「貧乏生活は俺達の
+
+=== 58. 実話感動チャンネル  8本  https://www.youtube.com/channel/UCekQO8WQ0udVSYSfX4Pymgw
+https://www.youtube.com/watch?v=yHsqJO7LoCA	https://www.youtube.com/watch?v=W-rW5yUgXLY	100%	【スカッとする話】父を理由に夫に捨てられ5年後、若い女と子供を連れた元夫と再会。元夫「嫁はお前と違って完璧w」直後、私の新しい夫を見て、元夫
+https://www.youtube.com/watch?v=jv_tPg2W6KU	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=j59WOLZHPKk	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=UajqAF_skJM	https://www.youtube.com/watch?v=9TulrMzmHr8	100%	【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しね
+https://www.youtube.com/watch?v=3Y0kz4vBXE4	https://www.youtube.com/watch?v=Tpbu9uHiFPg	100%	【スカッとする話】結婚10年目に銀行員の夫が突然の暴露「お前の親友と結婚するw籍入れてないし財産分与は無しw」私「あれ？あんた知らないの？」
+https://www.youtube.com/watch?v=wC808VvKID0	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=XTORZQrSsvc	https://www.youtube.com/watch?v=sd-a4XIE7jQ	100%	【スカッと総集編】私の年収が2000万と知らず入院中の私を捨て愛人と再婚した夫「離婚届け出しといたｗ慰謝料として家と車は貰うｗ」私「承知しま
+https://www.youtube.com/watch?v=qFlVMlu5W_s	https://www.youtube.com/watch?v=nlS5u4pCtI0	97%	【スカッとする話】警察官の弟の結婚式に出席した私。義母「中卒の姉は一族の恥ねw」直後、慌てた弟が義母に私の正体を伝えると、義母は顔面蒼白に
+
+=== 59. 日本の物語 〜老後の人生〜  8本  https://www.youtube.com/channel/UCEZOpLWYD1o09D4aS_BZmbA
+https://www.youtube.com/watch?v=tmnruT6J0QY	https://www.youtube.com/watch?v=YYnTTQ_3WI8	100%	【スカッとする話】妹の代わりに田舎の猟師に嫁いだ私「今日の夕飯は鹿肉？」夫「いや、これで好きな物食べて」10万円を手渡された私…→夫の正体を
+https://www.youtube.com/watch?v=TlvtISBwrlw	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=_Ni2a62qBLs	https://www.youtube.com/watch?v=xx85GANRbNY	100%	【スカッとする話】発達障害が原因で捨てられ、親戚中をたらい回しにされた双子兄弟「もう隠さなくていいや」私が引き取るとIQ200の天才で…w【
+https://www.youtube.com/watch?v=AH8CnLKGWQM	https://www.youtube.com/watch?v=C6r_ataNQZU	100%	【スカッと総集編】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！悪いが、離婚してくれ！」私「はーい、仕事も辞めるね！」夫
+https://www.youtube.com/watch?v=KHGvN9emr68	https://www.youtube.com/watch?v=sd-a4XIE7jQ	100%	【スカッと総集編】私の年収が2000万と知らず入院中の私を捨て愛人と再婚した夫「離婚届け出しといたｗ慰謝料として家と車は貰うｗ」私「承知しま
+https://www.youtube.com/watch?v=jTGVeJ1XvHA	https://www.youtube.com/watch?v=jAMMNpg5_S0	88%	【スカッとする話】41歳で妊娠した私と娘を捨て新人女医と再婚したエリート医師の夫「老いたババァより若い女w」30年後、病院で元夫と再
+https://www.youtube.com/watch?v=jTGVeJ1XvHA	https://www.youtube.com/watch?v=g_SuFj7M8gs	86%	【スカッとする話】41歳で妊娠した私と娘を捨て新人女医と再婚したエリート医師の夫「老いたババァより若い女w」30年後、病院で元夫と再
+https://www.youtube.com/watch?v=AH8CnLKGWQM	https://www.youtube.com/watch?v=n-_5T-nb0dg	86%	【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けて
+
+=== 60. 明日への涙 5640  8本  https://www.youtube.com/channel/UCMgqdL_Eaa1cwxS72pnAmCA
+https://www.youtube.com/watch?v=VNDuN66fvvU	https://www.youtube.com/watch?v=pjBVvrdO5sQ	100%	【スカッとする話】結婚20年目に離婚届を渡され夫に家を追い出された私。母の形見の時計を握りしめ急いで質屋に駆け込むと店員「お客様…こ、これは
+https://www.youtube.com/watch?v=hDEQt8ehpxc	https://www.youtube.com/watch?v=o3QJq6-5CSs	100%	【スカッとする話】自分が社長だと勘違いしている夫「次期社長の俺に逆らっていいの？」愛人「クビでいいんじゃない？」私「じゃあお前らクビで」お望
+https://www.youtube.com/watch?v=HdHDvW5V6QE	https://www.youtube.com/watch?v=EeQo49qzzTA	100%	【スカッとする話】結婚式当日に夫からブチギレ電話。夫「今何時だと思ってんだ！花嫁の立場でふざけるな！」父「お前こそふざけんなよ？」電話に出た
+https://www.youtube.com/watch?v=4RxkHr4scoo	https://www.youtube.com/watch?v=dltnrujS8l8	100%	【スカッとする話】娘が着る振袖を切り刻む夫「姪の分が無い！平等にしろ！」母「てめぇ、いい加減にしろよ」人生で怒った事ない母ブチギレ…w【朗読
+https://www.youtube.com/watch?v=ofVfhZlJXpY	https://www.youtube.com/watch?v=JuCiUOLk2v4	95%	【スカッとする話】余命3ヶ月と診断された夫「俺の貯金も家も車もすべて愛人に渡す。お前に渡す金は無いw」翌朝、荷物をまとめ出ていくと、真実を
+https://www.youtube.com/watch?v=4Jvwu7sDpkE	https://www.youtube.com/watch?v=k1aYTyOEkc4	91%	【スカッとする話】保育園で再会した元夫「俺の子？養育費は払わないぞw」女「今さら何の用かしらw」私「あなたは種無しでしょ？」元夫・女「
+https://www.youtube.com/watch?v=NegvjbGOaoQ	https://www.youtube.com/watch?v=rEdFExEyZ2I	88%	【スカッとする話】帰宅した夫から突然往復ビンタされた私。夫「財布からカードなくなってる！お前が盗っただろ！」私は隠しカメラを確認し即
+https://www.youtube.com/watch?v=2Ez7QoP8Kl4	https://www.youtube.com/watch?v=xccw36svwyY	87%	【スカッとする話】妊娠中の私を捨てた夫と同窓会で再会。夫「お前より若い女と再婚したw別れてくれたおかげで幸せw」私「それで幸せなんた
+
+=== 61. 奈落の家族 5652  8本  https://www.youtube.com/channel/UC-CxUAgCsbf-R4BwTN_XWHw
+https://www.youtube.com/watch?v=Vl9vxSk30Vo	https://www.youtube.com/watch?v=ae1eDwWjrBU	100%	【スカッとする話】親戚の集まりに私たち家族だけ招待しない義両親。義父「お前ら貧乏家族は不要w」私「わかりました…」家族全員で欠席しハワイ旅行
+https://www.youtube.com/watch?v=Hkhcg7tCrBs	https://www.youtube.com/watch?v=EdukiB7Cm5k	100%	【スカッとする話】婿両親がウチの娘と孫を引きずってきた。義父「月100万の息子と釣り合わんw」義母「役立たずの家政婦は返品でw」私「じゃ明日
+https://www.youtube.com/watch?v=2TZsiC8HWKU	https://www.youtube.com/watch?v=6AdAW6Y3AdM	100%	【スカッと総集編】私が田舎に畑と庭付き一軒家を購入した途端、義母「私もお父さんと引っ越すw」義父「介護もよろしく頼むよw」引越し当日、義母か
+https://www.youtube.com/watch?v=-tYaMMHqe1A	https://www.youtube.com/watch?v=Gij4fQKvVM0	100%	【スカッと総集編】私が新築を購入した途端に我が家に突然引っ越してきた長男夫婦「今日から同居してあげるw」私の家を乗っ取る気の長男と長男嫁→翌
+https://www.youtube.com/watch?v=m4n0C7E3zQw	https://www.youtube.com/watch?v=DT8RsbtKX0k	100%	【スカッと総集編】新築一軒家を購入した途端、夫「今日から俺の両親と同居する」義両親「逆らったら離婚ですよw」私「え？私は独身ですけど？」夫・
+https://www.youtube.com/watch?v=DCKe4bQWc20	https://www.youtube.com/watch?v=Nk5V6rGzYHU	100%	【スカッと総集編】私「里帰り出産で実家に帰る」母「長男と長男嫁と同居してるしアンタは一生帰ってくるなw」私（あ…何も知らないのね…）→後日、
+https://www.youtube.com/watch?v=jh5ryHRseFw	https://www.youtube.com/watch?v=uSPOvGlDe6c	100%	【スカッと総集編】夫「この家で両親と同居する！家事もしないお前は出てけ！」私（ローン28万払ってるの私なのに   ）翌朝、リサイクル業者に電
+https://www.youtube.com/watch?v=xCAlH5JozqU	https://www.youtube.com/watch?v=fu-ITgtPXqY	77%	【スカッとする話】夫がくれた出産プレゼントのベビー服を即行で捨てた私。義両親「何て事を！謝りなさい！」私「タグ、見ました？」フ
+
+=== 62. 涙の食卓 5651  8本  https://www.youtube.com/channel/UCDts-8SRBGNQEaBIhxtE0tw
+https://www.youtube.com/watch?v=Hu-WLShuweI	https://www.youtube.com/watch?v=FM5GF_l-sSw	100%	【スカッとする話】弁護士の息子の結婚式に行くと義両親の席はあるが私達夫婦の席がない。医師の義父「無能は床で正座w」夫「帰ろ」私「そうね」義母
+https://www.youtube.com/watch?v=khj2fWmUCnY	https://www.youtube.com/watch?v=E5Ed7TjpjS4	100%	【スカッとする話】結納で私にだけ寿司を用意しない義家族。義母「これが嫁の教育ってもんよw」私「じゃあ帰ります」即帰ると義母が泣き叫びw
+https://www.youtube.com/watch?v=NSFWecsgMos	https://www.youtube.com/watch?v=rB3CtufDsNY	100%	【スカッとする話】夫・義母・娘に9年間嫌われ続けた私。義父の葬儀の日に姿を消すと半狂乱の夫と義母から鬼電がw
+https://www.youtube.com/watch?v=uaLF76BmxN4	https://www.youtube.com/watch?v=NXJ8k0lLnF8	100%	【スカッとする話】婚約中の彼の親族集まりで30人分の宅配寿司をゴミ箱に捨てた婚約者と義姉。婚約者「親族に安い飯出すな！」義姉「高級寿司、走っ
+https://www.youtube.com/watch?v=tEVFC2v_hvs	https://www.youtube.com/watch?v=MBoXSFYAmyI	100%	【スカッと総集編】私が新築4LDKを購入した途端、夫「明日から両親と同居する！」義両親「嫁の家は俺達の家w」私「え？私は独身ですが？」夫・義
+https://www.youtube.com/watch?v=gq_ltzd-xGY	https://www.youtube.com/watch?v=4HBdhL1n_XU	100%	【スカッと総集編】新築4LDKを購入した途端、夫「明日から長男夫婦と同居する！」長男嫁「逆らったら介護しませんよw」私「は？私は独身ですけど
+https://www.youtube.com/watch?v=YUjY1jwmses	https://www.youtube.com/watch?v=5g86Izj6J1Q	100%	【スカッと総集編】家のローンを毎月21万払い続けている私に長男「家は俺達が相続する！」夫「俺は同居するからお前は出てけw」→私「じゃあ出てい
+https://www.youtube.com/watch?v=tEVFC2v_hvs	https://www.youtube.com/watch?v=22g9Q4pv0Vk	98%	【スカッとする話】私が新築4LDKを購入した途端、夫「明日から両親と同居する！」義両親「嫁の家は俺達の家w」私「え？私は独身ですが？」夫・義
+
+=== 63. 家族の修羅場  8本  https://www.youtube.com/channel/UCBh3ipHGoPZMTeNkEWdf5kQ
+https://www.youtube.com/watch?v=TgQ5XyInIK4	https://www.youtube.com/watch?v=RAvd6Tel5z0	100%	【スカッとする話】初孫の初節句のお祝いで料亭に行くと私だけ料理がない…長男嫁「家族の分しかないですよw」私「じゃあ他人は帰りますね。仕送り3
+https://www.youtube.com/watch?v=73K4XYt9xrc	https://www.youtube.com/watch?v=XKULaOclsHw	100%	【スカッとする話】母が危篤になり病院へ急ぐ私に夫「他人のババァとか興味ないwてか出張中は連絡するなw」2週間後、満面の笑みで夫が帰ると→私「
+https://www.youtube.com/watch?v=Dw56BW6dv8A	https://www.youtube.com/watch?v=Hf2l_WByhX8	100%	【スカッとする話】私「ボーナスとミニバンが消えた！」夫「還暦祝いで母さんに譲ったw文句あるなら離婚するぞw」3日後、半狂乱の義母から鬼電→私
+https://www.youtube.com/watch?v=s9pJpPJ4GFY	https://www.youtube.com/watch?v=cM6pI9zKvTM	100%	【スカッとする話】月10万で年金暮らしの私に娘「頼られるの無理だし絶縁でw」娘婿「追い出されるか施設か選べw」私「じゃ追い出してみろ」娘「え
+https://www.youtube.com/watch?v=IP12GZnCjug	https://www.youtube.com/watch?v=pX4vNIEMmac	100%	【スカッと】同居の母が亡くなった瞬間、我が家に愛人と隠し子の荷物を運び入れた夫「ババァの家は俺が貰う！出てけ！」それを聞いた息子は大爆笑→息
+https://www.youtube.com/watch?v=IP12GZnCjug	https://www.youtube.com/watch?v=Cf74Q0ied3c	100%	【スカッと総集編】同居の母が亡くなった瞬間、我が家に愛人と隠し子の荷物を運び入れた夫「ババァの家は俺が貰う！出てけw」それを聞いた息子は大爆
+https://www.youtube.com/watch?v=Tfo_LYKkxA4	https://www.youtube.com/watch?v=2rZwj4_jOq8	98%	【スカッとする話】私が生活費・娯楽・全てを支払っていると知らず夫と引越した長男夫婦「他人に新居は公開しませんw」私「じゃ無職の夫は離婚で」長
+https://www.youtube.com/watch?v=hU_nHDJY2IQ	https://www.youtube.com/watch?v=AkFPFwnz6fs	97%	【スカッとする話】1億の一軒家に住む金持ち自慢の婚約者の実家へ結婚挨拶に行くと、義父「なんだ？不細工な嫁だなw」義母「親の顔が見てみたいわね
+
+=== 64. Glasgow Blaise  8本  https://www.youtube.com/channel/UCpgekY72DbNLBcPSI1lSVRA
+https://www.youtube.com/watch?v=aQNAw65VZNg	https://www.youtube.com/watch?v=gaOSzriwNcA	100%	【スカッと総集編】庭で錦鯉が泳ぐ医者一族の婚約者の豪邸へ両家顔合わせに行くと、義母「我が家の財産が目的？」義父「親の顔が見てみたいなw」→私
+https://www.youtube.com/watch?v=kN8Y-iG8bRI	https://www.youtube.com/watch?v=n-_5T-nb0dg	100%	【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けて
+https://www.youtube.com/watch?v=cWddAaBiXqk	https://www.youtube.com/watch?v=7BkfeUd5plU	100%	【スカッとする話】私が役員報酬で家計を支えていると知らず夫を略奪し引越した愛人。愛人「家政婦で良いなら住所教えるよw」私「じゃ時給780円の
+https://www.youtube.com/watch?v=b4nOCZ_tUkg	https://www.youtube.com/watch?v=pi7V_7cf01o	100%	【スカッとする話】長男夫婦の家に行くと孫が鎖に繋がれていた…私「一体今どこにいるの？」長男「長男嫁と北海道旅行中w」キレた私は家を売却し更地
+https://www.youtube.com/watch?v=pMgKtrLBa3I	https://www.youtube.com/watch?v=k6Uv2NHfBM0	100%	【スカッとする話】私が年商300億の社長だと知らず婚約者を奪った姉｢社長の旦那の子妊娠しちゃったw慰謝料はいくらでも請求してw｣→弁護士｢え
+https://www.youtube.com/watch?v=l9B23TL6F8w	https://www.youtube.com/watch?v=da0XdCuaRR4	100%	【スカッとする話】私がフルタイムで働き家計を支えていると知らず夫と引っ越した義両親「同居するなら月給80万の息子の新居教えるわw」私「では手
+https://www.youtube.com/watch?v=6_GjdoLwnkc	https://www.youtube.com/watch?v=2bSmbmDKYEg	100%	【スカッとする話】私が義家族全員のクレカ代を支払ってるとは知らず私を追い出す夫「うちの家族は5人だけ！寄生虫の役立たずは出てけ！」私「分かり
+https://www.youtube.com/watch?v=P3EcV0iP7Ls	https://www.youtube.com/watch?v=AkFPFwnz6fs	99%	【スカッとする話】1億の一軒家に住む金持ち自慢の婚約者の実家へ結婚挨拶に行くと、義父「なんだ？不細工な嫁だなw」義母「親の顔が見てみたいわね
+
+=== 65. Vũ Thị Ánhu0236632 Vũ Thị Ánh  8本  https://www.youtube.com/channel/UCv69G_Vx6JItDpPYNZrhX8w
+https://www.youtube.com/watch?v=wzfgeDBgZW8	https://www.youtube.com/watch?v=VXr2EWwrnTg	100%	【スカッとする話】結婚5年目の夫を霊感のある兄に紹介…その3秒後、兄の衝撃の一言で夫がガクガク震え出し…
+https://www.youtube.com/watch?v=hnAlN3urUOE	https://www.youtube.com/watch?v=poGSdfKH9Og	99%	【スカッとする話】母の死の直後、中1の私を捨て愛人と再婚した父「子供はいらねぇよw」しかし1ヶ月後、半狂乱の父から鬼電→永久に無視してやった
+https://www.youtube.com/watch?v=QQMVtBYJbhM	https://www.youtube.com/watch?v=wfp4FYMR-KU	97%	【スカッとする話】私の入院中に家を勝手に売った義母「あんたの家2000万で売れたw息子と離婚して失せろw」私に7歳の息子「大丈夫！手は打った
+https://www.youtube.com/watch?v=iD9OP9B1isE	https://www.youtube.com/watch?v=Jst1X6cPwE8	96%	【スカッとする話】長男夫婦のハワイ豪華挙式が決まると、長男嫁「他人のババァは式呼ばないよw」私「はーい、分かりました…」お望み通り欠席すると
+https://www.youtube.com/watch?v=EJeJbXlSr60	https://www.youtube.com/watch?v=Y6QCc-iUUxc	96%	【スカッとする話】延期された結婚式前日、式場に行くと夫が愛人と挙式の真っ最中...私「始まってますので急いで！」急遽、参列者と親戚一同を呼ぶ
+https://www.youtube.com/watch?v=aGLsy1RxGUk	https://www.youtube.com/watch?v=3b6H8jZbyXI	95%	【スカッとする話】10年間大切に育てた夫の連れ子（娘）の結婚式当日、顔に火傷を負った私に連れ子「火傷がキモいバケモノは帰れw」私「分かった…
+https://www.youtube.com/watch?v=oqtsKd9LuOE	https://www.youtube.com/watch?v=APi08wHpBE0	95%	【スカッとする話】13億の資産を築いた母の葬儀後に夫が突然「義母さんの遺産いくらだった？w」私「1億くらいだったよ」翌日、離婚届けを置き通帳
+https://www.youtube.com/watch?v=6KKpOcwoiu0	https://www.youtube.com/watch?v=REtWO3bISWw	90%	【スカッとする話】タワマンのローンを私が払っているのに夫「28万程度で偉そうにw」長男嫁「寄生虫のババァは出てけw」私「分かりました...
+
+=== 66. 【黒服の審判】スカッと裏コンシェルジュ  8本  https://www.youtube.com/channel/UCOx7plQYvEIJEFyXMyc9foQ
+https://www.youtube.com/watch?v=B77HMdcFPXE	https://www.youtube.com/watch?v=CTU3qvprZsE	100%	【スカッとする話】海外出張から帰ると自宅の庭に記入済みの離婚届と私の荷物が捨ててあった…夫「愛人が妊娠した！慰謝料払うから離婚してくれ！」→
+https://www.youtube.com/watch?v=7k2PPa6nstg	https://www.youtube.com/watch?v=AkFPFwnz6fs	100%	【スカッとする話】1億の一軒家に住む金持ち自慢の婚約者の実家へ結婚挨拶に行くと、義父「なんだ？不細工な嫁だなw」義母「親の顔が見てみたいわね
+https://www.youtube.com/watch?v=0d3yeVMz9cY	https://www.youtube.com/watch?v=g3-T_5JMrcU	100%	【スカッとする話】うつ病の義父の介護を私に押し付け愛人と海外旅行へ行った夫「親父の介護は任せたぞｗ」義父「今すぐこの家を売り払うぞ」義父と家
+https://www.youtube.com/watch?v=dLgEFjsR_cs	https://www.youtube.com/watch?v=24r-JE4M58Y	100%	【スカッとする話】夫と姉が温泉旅行中、交通事故で半身不随に。夫「2人の面倒は宜しくな！」私「え？姉さんに頼みなよ！」直後、隣に姉が運ばれ叫ん
+https://www.youtube.com/watch?v=YmP3HE5mWwA	https://www.youtube.com/watch?v=acMaagt7Yv0	100%	【スカッとする話】夫「妊娠？知らねぇよwお願いだからもうしゃべんな！」私「..」黙って引っ越し永久に無視してやった結果ｗ
+https://www.youtube.com/watch?v=5pp3yh36fss	https://www.youtube.com/watch?v=uBvDuF4U2Aw	96%	【スカッとする話】がん末期の母を置いて海外旅行に行った長男夫婦「ババァの介護は頼んだわｗ」翌日、母が笑顔で行動開始すると長男夫婦は帰らぬ人に
+https://www.youtube.com/watch?v=VFRMQUkE4NM	https://www.youtube.com/watch?v=5HWlENHS8h8	95%	【スカッとする話】夫・息子・義母に9年間嫌われ続けた私。義母が亡くなり葬儀の日、離婚届を置いて引越すと、半狂乱の夫から鬼電がw
+https://www.youtube.com/watch?v=bY1oql9SDpM	https://www.youtube.com/watch?v=dxQEtcKCBwU	92%	【スカッとする話】夫「お前とは離婚だ！」ニートのくせに威張る夫。私が里帰り出産から帰宅すると記入済みの離婚届が...お望み通り提出して
+
+=== 67. どこにでも自由  8本  https://www.youtube.com/channel/UCdYAr7nX6UlKOOdkLLabNug
+https://www.youtube.com/watch?v=Lztq5XWr260	https://www.youtube.com/watch?v=bI91wh-7IMg	100%	【スカッとする話】孫の七五三のお祝いに親戚一同と行くと私だけ席がない...長男嫁「他人の席は無いから立ってればw」私「じゃ帰るか」親戚一同「
+https://www.youtube.com/watch?v=cG8V31L_VCk	https://www.youtube.com/watch?v=hRCh_bWpcgg	100%	【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結
+https://www.youtube.com/watch?v=KA5w7UaD1Fo	https://www.youtube.com/watch?v=g4FVXeIsDTQ	100%	【スカッとする話】夫を略奪した姉から結婚式の招待状が届くと、父「母さんと2人で行くよ」母「地獄を見せてくるわね」普段温厚な両親がこの後...
+https://www.youtube.com/watch?v=SDhDoPbVkhQ	https://www.youtube.com/watch?v=7Pz5jiUvSnQ	100%	【スカッとする話】親友の出産祝いで産婦人科へ行くと新生児の父親がまさかの夫だった...。私「おめでと！赤ちゃん可愛いね！」速攻で帰宅し夫の荷
+https://www.youtube.com/watch?v=gzBtBE8OGBQ	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=vrFpwbZgsfE	https://www.youtube.com/watch?v=iWpWDCY4L5o	98%	【スカッとする話】夫の連れ子の出産祝いに行くと、連れ子「ババァは戸籍上は他人w赤ちゃん触るなら1回30万払えw」夫「...帰るか」私「うん」
+https://www.youtube.com/watch?v=7KwU5aMCLhU	https://www.youtube.com/watch?v=E6hGGRc68uY	97%	【スカッとする話】愛人と隠し子を連れ帰宅した夫「息子はお前にやる！離婚だ！」息子「母さんとは離婚出来ないよ？だって...」息子の衝撃の一言で
+https://www.youtube.com/watch?v=71UAe94bH0k	https://www.youtube.com/watch?v=wdxUcG1tem8	96%	【スカッとする話】母の葬儀中に夫から電話「親戚の集まりなのにサボるな！親の葬儀とか知るか今すぐ来い」私「分かりました」喪服のまま駆け付けた結
+
+=== 68. スカッと豆太郎  8本  https://www.youtube.com/channel/UC84EpUMkWGBuDPcH0ENy7wQ
+https://www.youtube.com/watch?v=OrSQjn3eHVY	https://www.youtube.com/watch?v=IaHdv7dT6Sc	100%	【スカッとする話】18年間家賃を払ってきた私を罵倒する夫と連れ子「月10万の家賃程度で偉そうにw」夫「支払い止めてみろw」私「喜んで」3ヶ月
+https://www.youtube.com/watch?v=3Stp5CgJshM	https://www.youtube.com/watch?v=vyDCAcHPme8	100%	【スカッとする話】夫「来月ママが引っ越してくる！お前の部屋片付けておけw」私「はーい、キレイにしておくね」夫の出張中に不動産屋に連絡し家を売
+https://www.youtube.com/watch?v=oGoYjBTOSzw	https://www.youtube.com/watch?v=GZtalGoS6qE	100%	【スカッとする話】親族の集まりでエリート夫「嫁の飯はまずいんだよなw」私「え？私の料理食べた事ある？食事はいつも愛人宅じゃないの」義父「は？
+https://www.youtube.com/watch?v=jL4p0tp5j68	https://www.youtube.com/watch?v=BKC9CbFIESk	100%	【スカッとする話】夫の連れ子の娘と暮らし始めて1年。しかし、全くなつく気配がない…夫が海外出張に行った日に娘が初めて話しかけてきた。娘「お母
+https://www.youtube.com/watch?v=3X5nIaUEvFM	https://www.youtube.com/watch?v=5U30Sda_BcM	97%	【スカッとする話】私の旅行中に無断で義両親の引越し荷物を我が家に運び入れた夫「お前はもう帰ってくるなw」私「はーい、私も勝手に引越すね」海外
+https://www.youtube.com/watch?v=Q7Jfnh0ojj8	https://www.youtube.com/watch?v=8rLbjjDbMwA	97%	【スカッと総集編】妊娠9ヶ月の私を山奥に捨てた夫の連れ子の娘「パパの娘は私がいれば良いの！もう帰ってこなくて良いからねw」→私は必死に帰ろう
+https://www.youtube.com/watch?v=ffZuKyu_hlY	https://www.youtube.com/watch?v=m72Jeh0nNDs	93%	【スカッとする話】浮気夫と離婚すると夫の愛人「今日中に出てけよババァw」夫「ゴミ１つ残すなよw」私「OK」ゴミ回収業者に連絡し私の家具家電を
+https://www.youtube.com/watch?v=w-90qUegyOw	https://www.youtube.com/watch?v=KFzrZl6FN1Y	79%	【スカッとする話】夫と娘に10年間も嫌われ続けた母親の私。ある日、勝手に鍵を変えられ閉め出されたので離婚届けを置いて引越し家を売却して更地に
+
+=== 69. 逆転ストーリー 5008  7本  https://www.youtube.com/channel/UCriVTHI8ZSlCtGVvqIqnMSw
+https://www.youtube.com/watch?v=5h3oP6uheYc	https://www.youtube.com/watch?v=sTmob2uIaqg	100%	【スカッとする話】結婚挨拶から帰宅した息子「片親の貧乏人とは白紙って…」息子の頬にはビンタの痕が…キレた私は義家族に即電話→義家族全員が号泣
+https://www.youtube.com/watch?v=REKSObfsXg4	https://www.youtube.com/watch?v=p8J-A05WKIc	100%	【スカッとする話】本社に異動になった中卒の私が東大卒の女部長に挨拶すると女部長「あんたが噂の中卒ねw部下はコーヒー淹れてきてw」私（今は泳が
+https://www.youtube.com/watch?v=oOG4kNeC0o8	https://www.youtube.com/watch?v=sd51TvGQSo0	100%	【スカッとする話】夫と作業着で株主総会へ行くと総務部長「小汚い貧乏人は帰れw」夫「俺、大株主なんだけど…」部長「じゃあ全株売ってみろよw」私
+https://www.youtube.com/watch?v=FQ799dYRoJw	https://www.youtube.com/watch?v=9FnEjnbcf2o	100%	【スカッとする話】コンビニでバイトをする私を見下す東大卒の義兄が結婚式で、義兄「バイトの英語聞かせてくれw」私「いいけど、あんた終わるわよ？
+https://www.youtube.com/watch?v=onqezo88goc	https://www.youtube.com/watch?v=70JSyEr3ztQ	100%	【スカッと総集編】夫が土下座「20歳の愛人が妊娠した！離婚してくれ！」私「はい離婚届け。じゃ娘以外は連れてくね」夫「は？娘も連れていけよ」私
+https://www.youtube.com/watch?v=o3x5eIO1wXg	https://www.youtube.com/watch?v=jAMMNpg5_S0	88%	【スカッとする話】41歳で妊娠した私と娘を捨て新人女医と再婚したエリート医師の夫「老いたババァより若い女w」30年後、病院で元夫と再
+https://www.youtube.com/watch?v=o3x5eIO1wXg	https://www.youtube.com/watch?v=g_SuFj7M8gs	86%	【スカッとする話】41歳で妊娠した私と娘を捨て新人女医と再婚したエリート医師の夫「老いたババァより若い女w」30年後、病院で元夫と再
+
+=== 70. 秘密と嘘の家 5436  7本  https://www.youtube.com/channel/UCFu4mcOSv2LuCDSSbnFcMXw
+https://www.youtube.com/watch?v=Fi6_gc_bfxA	https://www.youtube.com/watch?v=UMALXNxEZ8g	100%	【スカッとする話】息子のために貯めた800万の進学資金を勝手に義母に渡した夫「ママが家買うから渡したw文句あるなら離婚！」私「OK」息子「今
+https://www.youtube.com/watch?v=8Clnu3-khJc	https://www.youtube.com/watch?v=79m-CwHxGq8	100%	【スカッとする話】夫と義実家までバスで向かうと降車直前、私の腕をつかんだ運転手「ここで降りたら終わるよ。次のバス停で逃げなさい」理由を知った
+https://www.youtube.com/watch?v=QrVr4xYpFIs	https://www.youtube.com/watch?v=nmxjuOeyqQ8	100%	【スカッとする話】娘の寝室に入り5時間出てこない義父。不審に思った私と夫が静かに扉を開けた瞬間、私たちは顔面蒼白に…【朗読】【スカッと】
+https://www.youtube.com/watch?v=kH1BtGWqAqA	https://www.youtube.com/watch?v=naqQMZogqf0	100%	【スカッとする話】79歳の義父が亡くなり義母と旅行中の夫に連絡すると…夫「旅行中は電話してくんな！」義母「次連絡したら絶縁よ！」私（義父の葬
+https://www.youtube.com/watch?v=iCu14GMdBc8	https://www.youtube.com/watch?v=KKvSV1JKlt0	100%	【スカッとする話】突然、義妹夫婦を連れてきた義母「今日から皆で暮らすｗ」義妹「文句あるなら出てってねｗ」夫「じゃ引っ越すか」私「お達者で」義
+https://www.youtube.com/watch?v=1GB5rbgEIk8	https://www.youtube.com/watch?v=kiUx3a37Lv4	100%	【スカッとする話】私「ボーナスとピアノが消えた！」夫「出産祝いで長男嫁に渡した。俺の稼いだ金だし文句ないだろ」私は離婚届を即提出→後日、パニ
+https://www.youtube.com/watch?v=lm_cTbWvRd8	https://www.youtube.com/watch?v=fUpb642EsOE	93%	【スカッとする話】結婚式が終わった途端、夫「給料50万は全部ママに渡すw」義母「お前の稼ぎじゃないからw文句言うなよ」私「そっちもね」
+
+=== 71. 物語チャンネル 5693  7本  https://www.youtube.com/channel/UCFEMckiarNY3cQZ0aMygl3w
+https://www.youtube.com/watch?v=F5v2U4oKrsU	https://www.youtube.com/watch?v=stThz-8uQrM	100%	【スカッとする話】正月に親戚の集まりで長男嫁にだけ席を用意しない私。親戚「最低！それでも家族か！」夫「俺達に家族はいないぞ？」一同「え？」実
+https://www.youtube.com/watch?v=3U-WfLrsXgg	https://www.youtube.com/watch?v=_VNnKc5IcKc	100%	【スカッとする話】9年前に離別した息子が亡くなり、すぐに葬儀場へ足を運んだ私。祭壇の前に立つ男を見た直後、私「そんな、嘘でしょ…」実は【朗読
+https://www.youtube.com/watch?v=TFp07yYbaYs	https://www.youtube.com/watch?v=YcsIuK4bGvk	100%	【スカッとする話】長期旅行から帰宅すると息子夫婦「父さんは認知症で施設に入れたw」私はすぐに施設を訪ねると、夫から衝撃の一言が…【朗読】【ス
+https://www.youtube.com/watch?v=R3nKMM_u9hk	https://www.youtube.com/watch?v=byxcDsjO6Vs	100%	【スカッとする話】披露宴の感動スピーチで息子「母親は一家の恥でしたw」夫「ママが役立たずですまんw」一同大爆笑。即帰宅し姿を消すと2人から鬼
+https://www.youtube.com/watch?v=Bu76qlAQ1B8	https://www.youtube.com/watch?v=aPIIWPYrC-A	100%	【スカッとする話】息子「話は全部嫁から聞いたぞ！」突然息子に殴られ緊急搬送。黙って引越すと3ヶ月後、ある音声が公開され息子夫婦は崩壊し…w【
+https://www.youtube.com/watch?v=RHi1KxrlLJo	https://www.youtube.com/watch?v=Vx6NjwFK4ZQ	100%	【感動する話】祖父が亡くなり放置された家に行くと綺麗に掃除されていた…。父「すみません…出て行きます」ボロボロの父娘が住み着いてたのでそのま
+https://www.youtube.com/watch?v=tO-FEB2Eb_8	https://www.youtube.com/watch?v=jGBUlT4xFRs	100%	【スカッと総集編】私と夫を嫌う息子夫婦が結婚祝いでケーキを買ってきた。私（…怪しい…よね？）夫（…だな）息子嫁の皿とこっそり交換すると嫁が泡
+
+=== 72. 母と娘と嫁5049  7本  https://www.youtube.com/channel/UCXgqiZuZK8nb9xaVgEX79UA
+https://www.youtube.com/watch?v=6xRM9qLqX68	https://www.youtube.com/watch?v=j2eZcUFfC0Y	100%	【スカッとする話】号泣する娘を引きずってきた婿両親。義母「貧乏な子は合わなかったw」義父「高収入の息子とは格が違うw」私「後悔しないでくださ
+https://www.youtube.com/watch?v=ErVArQjNhOQ	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=OvBUOKG0I60	https://www.youtube.com/watch?v=kvkSAA9nGms	100%	【スカッとする話】親から継いだ高級旅館を同窓会の会場にすると頭取娘「100人分ドタキャンでw」私「まじで？ラッキーw」翌日、頭取娘が半泣きの
+https://www.youtube.com/watch?v=ujBeQ3RbIks	https://www.youtube.com/watch?v=JZPwwqorLec	100%	【スカッとする話】大学病院の最終面接で履歴書をビリビリに破られた私。面接官「片親のゴミは不採用でw親もゴミに違いないw」直後、隣にいた今にも
+https://www.youtube.com/watch?v=Sn3t4kKgGZA	https://www.youtube.com/watch?v=aCFKEISe330	100%	【スカッとする話】同窓会で結婚直前に私を捨てた夫と再会。夫「金持ちの社長令嬢と結婚したw俺だけ幸せでごめんなw」私「本当にそう思う？」真実を
+https://www.youtube.com/watch?v=PNWOLIn79TE	https://www.youtube.com/watch?v=yUWQozZU0zY	100%	【スカッと総集編】夫が亡くなった途端、我が家を勝手に解体した義両親「今日からうちで同居しろ！嫁は家政婦にしてやるw」それを聞いた私は大爆笑→
+https://www.youtube.com/watch?v=Tx4tUA-Jxdg	https://www.youtube.com/watch?v=sd-a4XIE7jQ	100%	【スカッと総集編】私の年収が2000万と知らず入院中の私を捨て愛人と再婚した夫「離婚届け出しといたｗ慰謝料として家と車は貰うｗ」私「承知しま
+
+=== 73. 心温まる実話  7本  https://www.youtube.com/channel/UCqAz4zqqdAigBNPpMwK-pYw
+https://www.youtube.com/watch?v=wrq1xyWHf0c	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=9zxLIdDXH6c	https://www.youtube.com/watch?v=cVe3XmXeRuE	100%	【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り
+https://www.youtube.com/watch?v=JCRAk2WNo5Q	https://www.youtube.com/watch?v=Tpbu9uHiFPg	100%	【スカッとする話】結婚10年目に銀行員の夫が突然の暴露「お前の親友と結婚するw籍入れてないし財産分与は無しw」私「あれ？あんた知らないの？」
+https://www.youtube.com/watch?v=0AQQc4vwVZk	https://www.youtube.com/watch?v=9kcEIi88egw	100%	【スカッとする話】自ら命を絶った夫が亡くなり1週間後、私宛に夫から手紙が届いた...手紙「両親に見つからず読んでくれ」そこに記された場所に行
+https://www.youtube.com/watch?v=pZCEpsSUIiU	https://www.youtube.com/watch?v=sd-a4XIE7jQ	100%	【スカッと総集編】私の年収が2000万と知らず入院中の私を捨て愛人と再婚した夫「離婚届け出しといたｗ慰謝料として家と車は貰うｗ」私「承知しま
+https://www.youtube.com/watch?v=4yrcsQ6VbZI	https://www.youtube.com/watch?v=70JSyEr3ztQ	100%	【スカッと総集編】夫が土下座「20歳の愛人が妊娠した！離婚してくれ！」私「はい離婚届け。じゃ娘以外は連れてくね」夫「は？娘も連れていけよ」私
+https://www.youtube.com/watch?v=gG_UUCBmIKY	https://www.youtube.com/watch?v=nlS5u4pCtI0	97%	【スカッとする話】警察官の弟の結婚式に出席した私。義母「中卒の姉は一族の恥ねw」直後、慌てた弟が義母に私の正体を伝えると、義母は顔面蒼白に
+
+=== 74. 家庭の奇妙な話 5500  7本  https://www.youtube.com/channel/UCyECOcLVBmrEH9eCxnZtzEg
+https://www.youtube.com/watch?v=RRXQxd7QRYA	https://www.youtube.com/watch?v=p-yN-SVW_EU	100%	【スカッとする話】金のない私を見下しこき使う義家族。義母「還暦祝いよろしくねw」私が倒れ夫がコンビニ弁当を出すと義母「これで祝ったつもり？」
+https://www.youtube.com/watch?v=PIJNjlUxcg0	https://www.youtube.com/watch?v=AcSjq1ogI10	100%	【スカッとする話】夫「今お姉ちゃんと旅行中w義母の葬式行けなくなったw」義姉「関わり薄かったしねw」私「他界したのはあんた達の母よ」2人「ま
+https://www.youtube.com/watch?v=es0tFTOE658	https://www.youtube.com/watch?v=yMPrqmgHsG0	100%	【スカッとする話】3歳の息子が緊急搬送され義母の誕生会を欠席すると、義母「普通こっち優先だろ！プレゼント持って来い」私「OK」プレゼントを贈
+https://www.youtube.com/watch?v=tnP8sDLc4YQ	https://www.youtube.com/watch?v=gPozZENHgfk	100%	【スカッとする話】2代目の跡取りを出産した途端、夫の不倫相手を連れてきた義母「用済みw今日で離婚よ」私は嬉しくて速攻でサイン→翌日、なぜか義
+https://www.youtube.com/watch?v=H1qwUEBaWy0	https://www.youtube.com/watch?v=nmxjuOeyqQ8	100%	【スカッとする話】娘の寝室に入り5時間出てこない義父。不審に思った私と夫が静かに扉を開けた瞬間、私たちは顔面蒼白に…【朗読】【スカッと】
+https://www.youtube.com/watch?v=_Z526PBZhsE	https://www.youtube.com/watch?v=qZBxAv0kVdk	100%	【スカッとする話】離婚され家から追い出された私に、風呂敷包みを投げつけてきた義母。義母「2度と戻ってくるな！」包みをそっと開け確認すると私は
+https://www.youtube.com/watch?v=0dvxhROmI98	https://www.youtube.com/watch?v=Dun9vulx3CM	100%	【スカッと総集編】夫「離婚してください…もう限界…。老いたババァと一緒は無理だ…」私「はい離婚届。義母の介護よろしくね」即離婚して引越すと半
+
+=== 75. 明日への涙5639  7本  https://www.youtube.com/channel/UC2daLTlrWBDdKIOJDbg_Z4w
+https://www.youtube.com/watch?v=NgWK7u61zOA	https://www.youtube.com/watch?v=I0uVENJD8g8	100%	【スカッとする話】離婚して10年後に再婚した私。結婚式の知らせを聞き元夫が現れ、元夫「誰がこんな女で妥協する？w」新しい夫の名前が呼ばれると
+https://www.youtube.com/watch?v=tMSXepUWmsE	https://www.youtube.com/watch?v=idhSq8YhzdY	100%	【スカッとする話】私抜きでいつも外食に出かける家族。私はお茶漬けをすする毎日…夫「お前の飯不味いからなw」離婚届を置き黙って姿を消すと→血相
+https://www.youtube.com/watch?v=wVNFXO1Brhw	https://www.youtube.com/watch?v=pG3imzsGALc	100%	【スカッとする話】帰宅すると夫と愛人が寝ていたので私は黙って家を出た。7日後、机に置いた指輪と離婚届に書かれた1行を見た夫はその場に崩れ落ち
+https://www.youtube.com/watch?v=ZsOgnaEl8Q8	https://www.youtube.com/watch?v=8rgw5-jn7qI	100%	【スカッとする話】軽井沢に一軒家を購入すると愛人と隠し子を連れてきた夫「今日から同棲するw嫌なら離婚でw」私（2億のローン払えるのかなw）即
+https://www.youtube.com/watch?v=nJjsKhIWe3I	https://www.youtube.com/watch?v=Tz39S67Feh0	100%	【スカッとする話】11年前、私の夫を略奪し駆け落ちした長男嫁「11年ぶりに旦那の家に帰省する」元夫「お前らは家から出てけw」私「え？もう家な
+https://www.youtube.com/watch?v=ZwvJ8IL1TjI	https://www.youtube.com/watch?v=HTXg2kgO-aI	100%	【スカッとする話】夫「限界だ…。離婚してくれ…。お前と老後は耐えられん…」私「はい離婚届。義父の介護任せるね」即離婚して姿を消すと夫から大量
+https://www.youtube.com/watch?v=lILStQXpWfk	https://www.youtube.com/watch?v=0e75YQ1eFv8	86%	【スカッとする話】陣痛で義妹の結婚式を欠席すると、夫「大事な妹の式だぞ！我慢しろ！来ないなら離婚だから！」私「では離婚でお願いし
+
+=== 76. 心温まる物語 5715  7本  https://www.youtube.com/channel/UCp5XuGGZyQWEBrJpOq-DHdw
+https://www.youtube.com/watch?v=KLWsf1eDr3E	https://www.youtube.com/watch?v=wGvgplx2Ecw	100%	【スカッとする話】東大卒の弟の結婚式に出席すると義母「中卒？差がすごいことw」直後、義母の元に弟が歩み寄り、弟「姉が誰だか知らないんですか？
+https://www.youtube.com/watch?v=npsCj5C464E	https://www.youtube.com/watch?v=E3ZqmTv4Zk0	100%	【スカッとする話】事故で脳死と判定され、山奥の病院に捨てられた私。夫「今までお疲れさんw」夫が耳元で囁き部屋を出た瞬間、私はそっと立ち上がり
+https://www.youtube.com/watch?v=EwdGHtdK-uw	https://www.youtube.com/watch?v=s2GrUHCF1-U	100%	【スカッとする話】倒産寸前の弁当屋を営む私。ある日、片腕の13歳少女が来店。少女「日給100円でいいので…」私「月給20万で雇うわよ」→1ヶ
+https://www.youtube.com/watch?v=EAJ_PwlLEmg	https://www.youtube.com/watch?v=BjaRlXbjvT4	100%	【スカッとする話】同窓会に行った夫が10分で帰宅。夫「同級生に中卒の低所得は帰れって」”僕は無能♡”と落書きされたカバン。グループ25社会長
+https://www.youtube.com/watch?v=obAOqTyVLak	https://www.youtube.com/watch?v=DJpXC4yHd7E	100%	【スカッとする話】夫と車椅子で株主総会に行くと営業部長「歩けないゴミ女は帰れ」夫「誰に向かって口聞いてんだ？」営業部長「知らねぇよw早く失せ
+https://www.youtube.com/watch?v=HetG8jdoJlw	https://www.youtube.com/watch?v=NeFhYBshtIY	100%	【スカッとする話】スーパーでパートの私をバカにする年下部長が社員の前で英語のスピーチを強要。部長「ババァはABCも難しいかw」私「本場の英語
+https://www.youtube.com/watch?v=BDesDtjgN10	https://www.youtube.com/watch?v=-4yhJ5v7T4s	100%	【スカッとする話】大手銀行で5時間待たされた。私「30億おろします」銀行員「残高300円じゃねーか底辺ババァw」私「貸金庫のお金30億他に移
+
+=== 77. 愛憎の交差点 5648  7本  https://www.youtube.com/channel/UCZ27s-bExyb-zcqGkYvoicQ
+https://www.youtube.com/watch?v=3ND6uDwDZ-o	https://www.youtube.com/watch?v=3f9yDbpT0Gc	100%	【スカッと総集編】愛人と不倫した夫と離婚すると義母「3日以内に引越してねw」夫「離婚届出したから早く消えろw」3分後、21台の高級車が停車し
+https://www.youtube.com/watch?v=bhepKbIxpRg	https://www.youtube.com/watch?v=M2hAF-Scj3M	100%	【スカッとする話】夫「今日から長男夫婦と孫と同居する！」長男嫁「ババァは家から出てけw」私（私が生活費33万払ってるのに）翌日、業者に電話し
+https://www.youtube.com/watch?v=KBXbnqmHN3c	https://www.youtube.com/watch?v=F74TRQPted4	100%	【スカッとする話】体調不良でパートを早退し家に帰ると夫が義母と真っ最中...私「お義父さん、大変です！」義父をその場に凸させた結果w
+https://www.youtube.com/watch?v=CCIRnrfrTtg	https://www.youtube.com/watch?v=0AsFooilZ4k	100%	【スカッとする話】長男嫁から突然怒りの電話「お義父の介護費用、ちょっとはお義母さんも払ってください！」私「え？私に夫はいませんが」長男嫁「え
+https://www.youtube.com/watch?v=ZVxHUwRoNIs	https://www.youtube.com/watch?v=k11Y7DA0DRk	100%	【スカッとする話】私名義のマンションとは知らず私を追い出す長男嫁「お義母さんの全部が気に入らない！家族だけで暮らすから出てけ！」稼ぎ頭の私「
+https://www.youtube.com/watch?v=qbWsNmrM-kM	https://www.youtube.com/watch?v=gWWRbmvBG_A	98%	【スカッとする話】18年間家賃を払ってきた私を罵倒する長男嫁「月9万の家賃程度で偉そうにw母親づらすんなよババァがw」長男「支払い止めてみろ
+https://www.youtube.com/watch?v=bhepKbIxpRg	https://www.youtube.com/watch?v=PMr_BteIB_k	97%	【スカッと総集編】夫「長男夫婦と孫と同居する」長男嫁「ババァは家から出てけ」私（私が生活費33万払ってるのに）翌日、業者に電話して家具家電を
+
+=== 78. 話題のLINE  7本  https://www.youtube.com/channel/UCPUjukg0U7MOqNIw_4l5hkA
+https://www.youtube.com/watch?v=ljV5pcl0_Uw	https://www.youtube.com/watch?v=iT0GjRHrB6w	100% LINE形式	【スカッとする話】年末年始の親族の集まりで20人分のおせちをゴミ箱にぶちまけたエリート夫「親戚にマズイ飯を作るな！」私「私は何も作ってないよ
+https://www.youtube.com/watch?v=lMrKOT9jaZA	https://www.youtube.com/watch?v=JaGjTAkTfxQ	99% LINE形式	【スカッとする話】私が夫の入院費を払ってると知らず私の荷物を全て捨てた夫の連れ子「もうパパに寄生するなw」連れ子を残し1億のタワマンに引越し
+https://www.youtube.com/watch?v=wHa9P5MyJe4	https://www.youtube.com/watch?v=LXxfsTZeuZU	98% LINE形式	【スカッと】長男夫婦がお盆に帰省し私が店を予約すると長男嫁「何この汚い店w年金生活の貧乏ババァじゃ仕方ないかw」直後、普段温厚な夫→夫「調子
+https://www.youtube.com/watch?v=CPV5TYXpAh4	https://www.youtube.com/watch?v=w8upN1NkUWE	89% LINE形式	【スカッとする話】義姉が0歳児を玄関に置き…義姉「1年前から娘の世話ありがとw」私「なんの話？」（私も1年間里帰り中なんだけど…）
+https://www.youtube.com/watch?v=D3dZwACvJww	https://www.youtube.com/watch?v=B-nqblWpeIE	86% LINE形式	【スカッとする話】医者の夫を奪ったママ友「年収3千万の医者の旦那くんの子供出来たw3ヶ月後の結婚式来てねw」私「わかった」（年収3千万の医者
+https://www.youtube.com/watch?v=_-qoxxLguy8	https://www.youtube.com/watch?v=Tlkag3rVT5s	86% LINE形式	【スカッとする話】30年連れ添った夫と離婚すると、義母「引っ越しはまだ？」夫「早く出てけ」私「30分後に消えます」荷物が運ばれ私が車に乗ると
+https://www.youtube.com/watch?v=8bYdQf0Ko6g	https://www.youtube.com/watch?v=8XqFethhfqM	85% LINE形式	【スカッとする話】定年退職当日、40年連れ添った私を裏切った夫「老後は一人で過ごしたいから離婚で」私「そう、じゃあ離婚しましょ。で
+
+=== 79. 雨の中の記憶、静かな心の記録  7本  https://www.youtube.com/channel/
+https://www.youtube.com/watch?v=WfmGCr48Es4	https://www.youtube.com/watch?v=29F5nZ8UXYQ	100%	【スカッと総集編】私が家族全員を養ってたと知らず新築に引越す義母「アンタの全てが気に入らないw家族だけで暮らすから消えろw」　即離婚して全名
+https://www.youtube.com/watch?v=JFWqw8vLobc	https://www.youtube.com/watch?v=KKEWop4fNrk	100%	【スカッと総集編】私が総資産が28億の社長令嬢と知らず私を裏切り職場の美人同僚と再婚した夫「美人同僚と再婚するから離婚w」同僚「子供は1人で
+https://www.youtube.com/watch?v=VMGI0GJDgqA	https://www.youtube.com/watch?v=c2AdQUXc1Hg	100%	【スカッと総集編】入院した私に大量の塩をぶっかける長男嫁「このままあの世にいけwババァがいなくて最高w」キレた私は長男嫁への仕送りを停止→本
+https://www.youtube.com/watch?v=KLlUmrWBL2c	https://www.youtube.com/watch?v=D66705hwMgg	98%	【スカッとする話】7000万で新築を購入した途端、愛人・隠し子・義母を連れ帰宅した夫「俺たちが住むから離婚して失せろw」私「え？ここ私の家じ
+https://www.youtube.com/watch?v=6iZ3hygGdSQ	https://www.youtube.com/watch?v=KKvSV1JKlt0	96%	【スカッとする話】突然、義妹夫婦を連れてきた義母「今日から皆で暮らすｗ」義妹「文句あるなら出てってねｗ」夫「じゃ引っ越すか」私「お達者で」義
+https://www.youtube.com/watch?v=UGDdKlExhB4	https://www.youtube.com/watch?v=J3z5MRu6918	96%	【スカッとする話】医者一族である婚約者の親族の集まりに行くと私だけバナナ1本。婚約者「他人だから仕方ないだろw」彼母「それ食べたら帰ってねw
+https://www.youtube.com/watch?v=W_o79vrL1P0	https://www.youtube.com/watch?v=F1mnzuaYuqM	93%	【スカッとする話】義両親の居酒屋を手伝って10年の私に義母「私達引退することにしたのw」義父「店は長男嫁に任せることにしたよw」私「ご自由に
+
+=== 80. 雨の中の記憶、静かな終わり  7本  https://www.youtube.com/channel/
+https://www.youtube.com/watch?v=fz0_OTDIvpQ	https://www.youtube.com/watch?v=Bz-9j9l6enc	99%	【スカッとする話】新婚旅行中に私を雪山に置き去りにした夫「俺に意見するバカは帰ってくるなw反省するまでそこにいろw」私「さむい…置いてかない
+https://www.youtube.com/watch?v=OQIXO7vA7VU	https://www.youtube.com/watch?v=2kqFB_BTrsg	99%	【スカッとする話】医師「奥様と娘さんが退院しました。お迎えお願いいたします」私「え？私に娘はいませんが？」直後、隣で聞いていた霊感のある母→
+https://www.youtube.com/watch?v=ZRc8IkmBlhw	https://www.youtube.com/watch?v=HeH8HawqG-A	99%	【スカッとする話】帰宅した私と息子に気づかない義両親。義母「バカ嫁が産んだ息子もバカｗ」義父「介護要員には良いだろｗ」私「…引っ越すわよ」息
+https://www.youtube.com/watch?v=wy9ND01qNfU	https://www.youtube.com/watch?v=ujLRk5msBsw	98%	【スカッとする話】日曜の昼間に警察から突然の連絡。警察「息子さんを万引きで逮捕しました。署までお越しください」私「私の子供は娘ですが？」娘の
+https://www.youtube.com/watch?v=8UMynxAnEK0	https://www.youtube.com/watch?v=OGQqqSZ2qR0	96%	【スカッとする話】家のローンを毎月18万払い続ける私に夫「家と財産は長男夫婦に譲った！」長男「寄生虫の穀潰しは出てけw」キレた私が全ての支払
+https://www.youtube.com/watch?v=WJocrLwyLiM	https://www.youtube.com/watch?v=cOi4yMZgKgk	96%	【スカッとする話】70歳記念の夫婦旅行に財布を持たず便乗する長男夫婦。長男嫁「今日もごちになりますw」長男「今回は嫁の両親も呼んだよw」私「
+https://www.youtube.com/watch?v=ZJCaqvdVQNo	https://www.youtube.com/watch?v=cOi4yMZgKgk	96%	【スカッとする話】70歳記念の夫婦旅行に財布を持たず便乗する長男夫婦。長男嫁「今日もごちになりますw」長男「今回は嫁の両親も呼んだよw」私「
+
+=== 81. 秘密の重さ 5647  7本  https://www.youtube.com/channel/UCRxTgybyclgid9aIBdIXUVA
+https://www.youtube.com/watch?v=GRfsdlmNJ-c	https://www.youtube.com/watch?v=dFDoMBoHR8w	100%	【スカッとする話】私の月収が300万と知らない義両親。義母「ニートの不妊嫁は出てけw」義父「金目当ての寄生虫だったかw」1年後、公園で元義両
+https://www.youtube.com/watch?v=fgGZTp2-9So	https://www.youtube.com/watch?v=da0XdCuaRR4	100%	【スカッとする話】私がフルタイムで働き家計を支えていると知らず夫と引っ越した義両親「同居するなら月給80万の息子の新居教えるわw」私「では手
+https://www.youtube.com/watch?v=MW41sBFn6a8	https://www.youtube.com/watch?v=Bne-Te9-R4Y	100%	【スカッと総集編】3人の連れ子との同居を勝手に決めた夫「あいつらの引越しは済んだか？」私「うん！私の方も新居に引越したとこ！」夫「は？新居？
+https://www.youtube.com/watch?v=2Q9uNPrOM88	https://www.youtube.com/watch?v=4GDjLfbv5Kc	100%	【スカッと総集編】正月に義実家へ帰省するといつものように奴隷扱いの私に、久しぶり帰省した義母「なんでご飯食べないの？」私「いつもの事なので」
+https://www.youtube.com/watch?v=FzWdMcEOgLY	https://www.youtube.com/watch?v=MIFQ4dd9wOA	100%	【スカッと総集編】長男嫁との同居を勝手に決めた夫「長男夫婦の引越しは済んだか？」私「うん、終わった！私の方も今、タワマンに引っ越し完了したと
+https://www.youtube.com/watch?v=tLvHpUpoMjA	https://www.youtube.com/watch?v=NAEwCqwiBcg	100%	【スカッとする話】私名義の4LDKマンションと知らず、強引に私を追い出す姑と義姉「家は貰う！寄生虫は出て行け！」稼ぎ頭の私「わかりました…」
+https://www.youtube.com/watch?v=FXykblgQvlc	https://www.youtube.com/watch?v=EV4ngUwLNrc	95%	【スカッとする話】長男夫婦に嫌われ続けた私が家を追い出され娘夫婦の家へ。私「数日だけ泊めてほしい」娘婿「お義母さんと一緒に住もう」私「い
+
+=== 82. 【罠師の逆襲】あえて騙されて大破滅  7本  https://www.youtube.com/channel/UCO3cwCVrePQ3IZhL9x5k8-g
+https://www.youtube.com/watch?v=GOdgRL48tzo	https://www.youtube.com/watch?v=lXEl9ftky5c	100%	【スカッとする話】新築一戸建てを購入した途端に夫「妹と姪も同居！逆らうと離婚ｗ」私「え？私はもう独身だけど？」夫「え？」
+https://www.youtube.com/watch?v=HYELsG7nXms	https://www.youtube.com/watch?v=hacWh5sRQ_U	100%	【スカッとする話】突然、3年振りに長男から電話「父の入院費、月20万は限界…」私「え？父は3年前他界したよ？」長男「え？」実は…
+https://www.youtube.com/watch?v=P1g0aEdFWXw	https://www.youtube.com/watch?v=QYxlZ4M3Tcs	100%	【スカッとする話】注文した料理に一切手をつけない夫。私「食べないの？」夫「...」会計時、店員の手の動きを見た瞬間、私はガクガク震えだし..
+https://www.youtube.com/watch?v=R9-xMZ6AwSE	https://www.youtube.com/watch?v=RTO0Ty4liC0	100%	【スカッとする話】長男夫婦の家へ行くと孫が膝を抱え泣いていた...私「あれ？お父さんとお母さんは？」孫「家族だけでハワイ行くって」私「そう、
+https://www.youtube.com/watch?v=tApaUQi9Sbc	https://www.youtube.com/watch?v=HRvVDFnN1Y0	100%	【スカッとする話】夫と車を返しに行くと5歳の姪「夫さんなんで赤ちゃん山に埋めたの？」私「え？」不思議な力を持つ姪の言葉に夫が顔面蒼白になり.
+https://www.youtube.com/watch?v=sGsioQr_c8M	https://www.youtube.com/watch?v=xGHuS24cdnQ	100%	【スカッとする話】夫が亡くなり葬式後、更に最愛の長男と孫まで亡くした私に長男嫁「遺産は私が貰うからババァも逝けw」と深夜に家を追い出された。
+https://www.youtube.com/watch?v=zrt80LW6H2A	https://www.youtube.com/watch?v=y4DFItjpFPM	100%	【スカッとする話】夫と長女に18年間も嫌われ続けた母親の私「もう疲れたので出ていきます...」娘の高校卒業式の日に家族を捨てると、血相を変え
+
+=== 83. minh pham  7本  https://www.youtube.com/channel/UCWK9Evpbj0xbkFyaTiFreXw
+https://www.youtube.com/watch?v=36vWLhIQEN8	https://www.youtube.com/watch?v=Mi69PEXjWFc	100%	【スカッと】365日間、私を無視し続けた年収1000万の夫「誰のおかげで生きてると思ってる！文句あるなら離婚して出てけw」私「後悔しない？」
+https://www.youtube.com/watch?v=ZU4fuSODmZ0	https://www.youtube.com/watch?v=RXy39KsrjSY	100%	【スカッと】私が新築5LDKを購入した途端に夫「愛人と隠し子と同居する！」隠し子「寄生虫は出てけw」私「私は独身だけど？」夫・隠し子「え？」
+https://www.youtube.com/watch?v=ZvuKbHFTZcc	https://www.youtube.com/watch?v=wwS7psB4Iuw	100%	【スカッとする話】息子がベランダから転落し緊急搬送されたと連絡。夫「息子がお前を呼んでる！急いで病院に来てくれ！」私「嫌よ。だってあの子は.
+https://www.youtube.com/watch?v=XVtBjY61kSY	https://www.youtube.com/watch?v=fe_WsV6bbNY	99%	【スカッと】弟の結婚式当日、新婦両親に呼び出され、新婦母「貧乏人は立ち見w嫌なら帰れw」夫「じゃあ帰るか」私「そうね」5分後、新婦母から鬼電
+https://www.youtube.com/watch?v=x6aYZVigEQQ	https://www.youtube.com/watch?v=Xd4dY1mjM78	98%	【スカッとする話】娘の1か月検診から帰宅すると家の鍵が開かない…夫「夜泣きうるさくて鍵換えたw」義両親「ガキとお前は野宿しろｗ」私「はーい、
+https://www.youtube.com/watch?v=WsgNyyxDQ3s	https://www.youtube.com/watch?v=dteWMwt6L4Y	97%	【スカッとする話】旦那の出世祝いに贈ったネクタイを即行で捨てた夫「安物のゴミはいらん！」私「ちゃんと中、確認した？」夫「え？」実は...
+https://www.youtube.com/watch?v=t2u122y-rf8	https://www.youtube.com/watch?v=St5t2rltjZE	95%	【スカッとする話】夫が突然、姉と姪の大量の荷物を送ってきて、夫「姉と姪の荷物は届いた？今日から二人は俺達が養う！」私「うん、荷物届いて私も
+
+=== 84. 静かな夜の物語、お話の部屋  7本  https://www.youtube.com/channel/
+https://www.youtube.com/watch?v=ndorpzHpT74	https://www.youtube.com/watch?v=LBUgCfVXgYM	100%	【スカッと】妊娠10ヶ月の私を地下室に閉じこめ夫とハワイ旅行に行った義両親「クズ嫁はそこで反省してなw」1週間後、帰宅した義母が腐敗臭に気づ
+https://www.youtube.com/watch?v=IpBhmLwfWrM	https://www.youtube.com/watch?v=0bP_EWes9dM	100%	【スカッとする話】私が義実家の大黒柱と知らず、親戚の集まりでビールをぶっかけた夫「寄生虫は除菌しなきゃｗ」私「じゃあ仕送り止めるわね」夫・義
+https://www.youtube.com/watch?v=ndorpzHpT74	https://www.youtube.com/watch?v=GacXmYkB2z8	100%	【スカッと総集編】妊娠10ヶ月の私を地下室に閉じこめ夫とハワイ旅行に行った義両親「クズ嫁はそこで反省してなw」1週間後、帰宅した義母が腐敗臭
+https://www.youtube.com/watch?v=Tfysps_BXAs	https://www.youtube.com/watch?v=2HkpvXHVMuM	100%	【スカッとする話】息子夫婦の家へ行くと8歳の孫が地下室で鎖に繋がれ寝ていた...私「一体どうしたの？」孫「いつもの事だけど？」私「は？」キレ
+https://www.youtube.com/watch?v=rDO5Qo04l7Q	https://www.youtube.com/watch?v=PfN_dPE1fkw	100%	【スカッとする話】夫・長男・次男に13年間嫌われ続けた母親の私。息子の中学卒業式の日に姿を消すと、血相を変えた夫から鬼電→私「私に家族はいま
+https://www.youtube.com/watch?v=vIMr93IAbHI	https://www.youtube.com/watch?v=JPUmRRs32ko	100%	【スカッとする話】夫と新築の見学へ行くと、なぜか私だけ別室に案内された...不動産「今すぐ裏口から逃げて！」明かされた衝撃の事実を知り、私は
+https://www.youtube.com/watch?v=hVeiYFB22h0	https://www.youtube.com/watch?v=TaT-Ww_mqxA	100%	【スカッとする話】夫の連れ子の結婚式に行くと、連れ子「アンタは戸籍上は他人w入るなら入場料300万w」夫「...帰ろう」私「はい」速攻で帰宅
+
+=== 85. Dung Tran  7本  https://www.youtube.com/channel/UCFPRY-BV8v_syKN9vAChvHg
+https://www.youtube.com/watch?v=1lHvW_mmfeg	https://www.youtube.com/watch?v=PReSOM5m9b0	100%	【スカッとする話】息子夫婦の家へ行くと、7歳の孫が鎖に繋がれ震えていた...孫「私よりパパを早く助けて！」床下を開けると息子が横たわっていて
+https://www.youtube.com/watch?v=eeHYc8OLdAI	https://www.youtube.com/watch?v=pi7V_7cf01o	100%	【スカッとする話】長男夫婦の家に行くと孫が鎖に繋がれていた…私「一体今どこにいるの？」長男「長男嫁と北海道旅行中w」キレた私は家を売却し更地
+https://www.youtube.com/watch?v=0RZm2iL7Xcs	https://www.youtube.com/watch?v=9GqqVbMAXIo	98%	【スカッとする話】11年前に私と息子を捨て愛人を選び、海外に失踪した元夫から電話「おい、息子の結婚式始まるぞ！」私「は？息子はまだ中学生よ？
+https://www.youtube.com/watch?v=cmOzQfRqwAA	https://www.youtube.com/watch?v=SA1PcWksbus	98%	【スカッとする話】5歳の娘の病気が判明した途端、私と娘を捨て愛人と消えた夫。9年後、娘のある秘密を知ると夫「迎えに来たぞ！パパと帰ろう」娘「
+https://www.youtube.com/watch?v=r_5NJOwAxiE	https://www.youtube.com/watch?v=f5r1JGa0gr8	96%	【スカッとする話】ハワイへの家族旅行当日、空港に無一文で置き去りにされた私...夫「家族だけで楽しんでくるw」義両親「アンタは野宿でもしてな
+https://www.youtube.com/watch?v=wsqcVBmsx2k	https://www.youtube.com/watch?v=j5gAJfKA1h4	94%	【スカッとする話】私が年商55億の社長と知らず、三十路の私を不妊と見下し浮気相手と再婚した夫「不妊の欠陥品は婚活中か？w」私「え？誰が不妊の
+https://www.youtube.com/watch?v=F1Gi7_VSUfA	https://www.youtube.com/watch?v=0XonHAUSlWU	92%	【スカッとする話】結婚後5年しても子供が産まれない私を不妊と決めつけ私の荷物を全部庭に捨てた義母「孫産めない不良品は離婚して出てけw」離婚し
+
+=== 86. Văn Sơn Lã  7本  https://www.youtube.com/channel/UCnSrambnfB2Nc_4BliQ4Aug
+https://www.youtube.com/watch?v=hDurNSA0XVU	https://www.youtube.com/watch?v=a207sJNOihM	100%	【スカッとする話】浮気中の夫が意識不明で運ばれ、救急隊員「意識不明の重体です！」私「旦那じゃありません」無視して夫の人生終了させた結果w
+https://www.youtube.com/watch?v=ax6TS7MsQOw	https://www.youtube.com/watch?v=Ltedq0Li5TU	98%	【スカッとする話】給料日に3万しかくれない夫「同僚はこれで生活できてるって！1円もいれてないのに文句言うな！」私「毎月20万家に入れてるよ」
+https://www.youtube.com/watch?v=RIji9vTwWLY	https://www.youtube.com/watch?v=A2Bru1QfIL8	96%	【スカッとする話】姑との同居を断り続けた私に夫「誰のおかげで生活出来てるんだ！」姑「調子乗ってると離婚させるわよw」翌日、離婚届を置いて引っ
+https://www.youtube.com/watch?v=x6IaaxpWj6s	https://www.youtube.com/watch?v=urrn4wk835o	95%	【スカッとする話】事故で半身不随の夫の見舞いに来た8歳の姪「この手紙ばぁばから預かったの。夫さんに隠れて読んでって」手紙を確認した私は慌てて
+https://www.youtube.com/watch?v=xOwGZi2Qd64	https://www.youtube.com/watch?v=14YEbx6YYwk	93%	【スカッとする話】家事に疲れて休憩していると妊娠9ヶ月の私を蹴ってきた夫「妊婦だからは甘え！家事サボるな！」無視した私に夫がビール瓶を投げる
+https://www.youtube.com/watch?v=Licf37mEbcw	https://www.youtube.com/watch?v=od402_O8_4U	93%	【スカッとする話】夫のドナーとなり臓器提供した私が車いす生活になると、私を捨て23歳の愛人と駆け落ちした夫「介護とか嫌だし離婚でｗ」1週間後
+https://www.youtube.com/watch?v=CsArzigwylQ	https://www.youtube.com/watch?v=2nMrGRmMcZg	92%	【スカッとする話】夫と愛人が旅行中、飛行機が墜落し半身不随に。夫「頼む！2人の介護してくれ！」私「は？両親にでも頼めば？」直後、隣に愛人が運
+
+=== 87. Loan Vu  7本  https://www.youtube.com/channel/UCcSWImAU76lOLjftF7FbrNA
+https://www.youtube.com/watch?v=GLXz3u2zLQw	https://www.youtube.com/watch?v=WMiRJzlQfg4	100%	【スカッとする話】中学から18年付き合った婚約者「やっぱババァの嫁は無理！若い嫁探すから婚約破棄でw」1年後、半狂乱の婚約者から鬼電→永久に
+https://www.youtube.com/watch?v=aHM7oJBq7Xw	https://www.youtube.com/watch?v=KFzrZl6FN1Y	98%	【スカッとする話】夫と娘に10年間も嫌われ続けた母親の私。ある日、勝手に鍵を変えられ閉め出されたので離婚届けを置いて引越し家を売却して更地に
+https://www.youtube.com/watch?v=435aIR-zvJk	https://www.youtube.com/watch?v=6GdpFfoyDeI	97%	【スカッとする話】10年介護した義父の葬儀後に義母「介護終わったし離婚して出てけw」夫「実は愛人と隠し子がいるんだw」翌日、家を引越し出てい
+https://www.youtube.com/watch?v=fP3svBwILjw	https://www.youtube.com/watch?v=dWVCzj4UgzQ	97%	【スカッとする話】9年前、夫を奪い駆け落ちした元親友「旦那と実家に帰るから！アンタは家から出てけw」私「え？家は解体して更地だよ？」元親友・
+https://www.youtube.com/watch?v=Xj6plivPahE	https://www.youtube.com/watch?v=gFcbBfixNWk	97%	【スカッとする話】15年前に私と娘を捨て愛人を選び、音信不通だった元夫から電話「娘の結婚式始まるぞ！早く来い」私「え？娘はまだ高校生よ？」元
+https://www.youtube.com/watch?v=SpdaOsDOKuY	https://www.youtube.com/watch?v=7RO_1nL2V5U	96%	【スカッとする話】10億の資産を築いた父の葬儀後に母と高級料亭へ行くと、なぜか欠席してた夫と姑の姿が…。声をかけようとすると夫と姑のとんでも
+https://www.youtube.com/watch?v=iY63ZL4OS8c	https://www.youtube.com/watch?v=hCybFW2PLUE	94%	【スカッとする話】愛人と隠し子と高級ホテルから出てきた夫と遭遇した私「家族がいたのね！ごめん！」夫「ち、違うんだ！待ってくれ！」即離婚届を提
+
+=== 88. 小さなコーナー  7本  https://www.youtube.com/channel/UClsWKjOxXmWyf7DD0ygoufg
+https://www.youtube.com/watch?v=iIbeJvBv9FM	https://www.youtube.com/watch?v=qflvRvPbGWw	100%	【スカッとする話】夫が愛人とキャンプ中に遭難し両足骨折で入院すると夫「頼む！看病してくれ！」私「え？なんで私が？」直後、隣のベッドのカーテン
+https://www.youtube.com/watch?v=agfg7nO-KEY	https://www.youtube.com/watch?v=EIrAyCZzwiI	100%	【スカッとする話】40度の高熱の私から財布とクレカを奪った長男嫁「はい、氷水w帰るまでに治して下さいねｗ」バケツで氷水をかけられ気絶した…3
+https://www.youtube.com/watch?v=Urm8pKwd__g	https://www.youtube.com/watch?v=ggXy5tjhARw	100%	【スカッとする話】長男夫婦が我が家に引っ越して来て、長男「毎朝4時起きで弁当5人分作れ！」長男嫁「断ったら介護しませんよ！w」私「じゃあ私も
+https://www.youtube.com/watch?v=s4EU4m0fmSI	https://www.youtube.com/watch?v=0cwzo1Z8Xf4	100%	【スカッとする話】長男夫婦と夫に犯罪者扱いされ実家を追い出されて次男夫婦の家へ。私「1日だけ泊めて下さい」次男嫁「それは無理ですよ」私「そん
+https://www.youtube.com/watch?v=YrDivOH29eM	https://www.youtube.com/watch?v=0DY1aMdmKkg	100%	【スカッとする話】長男夫婦に秘密で在宅で月184万稼ぐ私に長男嫁「ババァ給料３桁あるの！？w」長男「って事は貯金は4桁！？w」 私「給料は3
+https://www.youtube.com/watch?v=kAvn_7OXCRo	https://www.youtube.com/watch?v=94zlJ0uZFAY	100%	【スカッとする話】長男夫婦の家へ孫を見に行くと、80歳の父が便所で食事し、庭で寝ていた。私「一体どうしたの！？」父「いつもの事じゃよ...」
+https://www.youtube.com/watch?v=6UCcFU16sFQ	https://www.youtube.com/watch?v=5ptm0eOdv8k	97%	【スカッとする話】長男夫婦に父の保険金を奪われ、実家から追い出されたボロボロの母が我が家の玄関へ現れ、母「1000円だけ貸してちょうだい」夫
+
+=== 89. 涙涙の感動秘話#027  7本  https://www.youtube.com/channel/UCaG47XV_nZwVW3gXj0T_aFw
+https://www.youtube.com/watch?v=30NNKZqRrj0	https://www.youtube.com/watch?v=KyZqEQsQCrs	100%	【スカッとする話】法事中にペットカメラを確認すると、私の寝室で夫と姉が真っ最中…両家親族一同を車に乗せて現場に突撃してやった結果w
+https://www.youtube.com/watch?v=04wDXSHzNKE	https://www.youtube.com/watch?v=Gx1fLUdVHGk	100%	【スカッとする話】離婚して2週間後、30歳で不妊の私を見下す夫「23歳で若い彼女と再婚したｗ30過ぎたババァは失せろｗ」直後、現れた新しい女
+https://www.youtube.com/watch?v=JGIvGCe1sLI	https://www.youtube.com/watch?v=OaIj_8vvCdo	100%	【スカッとする話】深夜に母が倒れ夫と病院へ...私「急いで車出して！」夫「...はーい」だが、なぜか道中の海岸で置き去りに、夫「俺様に命令し
+https://www.youtube.com/watch?v=ZPxYOPU0Zhc	https://www.youtube.com/watch?v=N8_kIcYB8XA	100%	【スカッとする話】炎天下の中、私が倉庫の掃除をしてると鍵をかけ閉じ込めた長男嫁「夜には帰ってくるわねw」３時間後、長男嫁「ただいま...あれ
+https://www.youtube.com/watch?v=aYLK8GNOESE	https://www.youtube.com/watch?v=ZWebgSwWOzY	100%	【スカッとする話】育休を終え職場に出社した私が新しい女部長に挨拶すると「あれ？清掃のおばちゃん？邪魔だから床掃除でもしてろw」直後、全社員が
+https://www.youtube.com/watch?v=UkNqw9wXJtI	https://www.youtube.com/watch?v=Gujab48F13I	100%	【スカッとする話】夫が出張に行った途端、5歳の娘が突然私に衝撃発言「今のうちにパパと離婚して！」私「はい？」理由を聞いて私は慌てて警察に通報
+https://www.youtube.com/watch?v=zHMo09pmu5g	https://www.youtube.com/watch?v=wJUURA3MikY	100%	【スカッとする話】私の入院中に愛人と浮気し妊娠を理由に離婚宣言する夫「家事サボる女とは離婚！慰謝料として家はオレ達が貰うw！」弁護士を交えて
+
+=== 90. 578 Xitchohet  7本  https://www.youtube.com/channel/UCxlkzHr78jVNai1RjN7f7cA
+https://www.youtube.com/watch?v=MK2V1qn57p4	https://www.youtube.com/watch?v=KyZqEQsQCrs	100%	【スカッとする話】法事中にペットカメラを確認すると、私の寝室で夫と姉が真っ最中…両家親族一同を車に乗せて現場に突撃してやった結果w
+https://www.youtube.com/watch?v=5X7v5TWhs_s	https://www.youtube.com/watch?v=sjdVGMyS0Gs	100%	【スカッとする話】長男の結婚式へ出席すると私の席だけが無い。私の事が大嫌いな長男嫁「席の用意忘れたwお祝儀払って帰れw」私「いいけど後悔する
+https://www.youtube.com/watch?v=FmID0bS10rI	https://www.youtube.com/watch?v=sjdVGMyS0Gs	100%	【スカッとする話】長男の結婚式へ出席すると私の席だけが無い。私の事が大嫌いな長男嫁「席の用意忘れたwお祝儀払って帰れw」私「いいけど後悔する
+https://www.youtube.com/watch?v=L7ObFpAvLmM	https://www.youtube.com/watch?v=nYE4OtGJrVU	100%	【スカッとする話】新築祝いに長男嫁がくれた１人前10万円の高級寿司をゴミ箱に捨てた私にブチギレる夫「嫁に土下座しろ！」私「中身見た？」夫「え
+https://www.youtube.com/watch?v=ZKhoO44uxyc	https://www.youtube.com/watch?v=zhO2doW0-kQ	100%	【スカッとする話】コネ入社の課長の娘のミスを指摘すると課長「貴様、誰の娘だと思ってんだ？クビだ！」クビ宣告されたので帰ろうとした瞬間、社長令
+https://www.youtube.com/watch?v=UDh4KIxOn2M	https://www.youtube.com/watch?v=ArinInMH4ZY	100%	【スカッとする話】長男夫婦「引っ越しは済んだ？ｗ」私「今日中に出て行くわ」家政婦扱いされ家を追い出された私。１ヶ月後、長男嫁が血相を変えて鬼
+https://www.youtube.com/watch?v=UmQRGdSJR1M	https://www.youtube.com/watch?v=fR_e9UBmB2I	100%	【スカッとする話】新築一軒家を購入した途端、毎日アポなしで来る姑「6人孫を連れてきたｗゴハンも風呂も宜しくw」夫「嫌なら出てけw」私「じゃあ
+
+=== 91. 567 Lenmoban  7本  https://www.youtube.com/channel/UCvdGGJHSzUfvS64FqivkrYQ
+https://www.youtube.com/watch?v=5bLzh5_Pq2w	https://www.youtube.com/watch?v=NpHDwu1oW4I	100%	【スカッとする話】長男嫁の自慢のパスタを食べた直後、泡を吹いて倒れた孫。私「救急車呼んでちょうだい！」長男嫁「は！？どうして義母さんじゃない
+https://www.youtube.com/watch?v=W5uMSrJbmJc	https://www.youtube.com/watch?v=i8zqcOBxHyo	100%	【スカッとする話】長男の海外主張中、癌で余命半年の私を奴隷扱いする長男嫁「家事も役立たずは出てけ！」私「はい...」泣きながら出て行くと長男
+https://www.youtube.com/watch?v=aiF0Bsy3nho	https://www.youtube.com/watch?v=i8zqcOBxHyo	100%	【スカッとする話】長男の海外主張中、癌で余命半年の私を奴隷扱いする長男嫁「家事も役立たずは出てけ！」私「はい...」泣きながら出て行くと長男
+https://www.youtube.com/watch?v=I66VDpJ7e9M	https://www.youtube.com/watch?v=L1iFf6yo66k	100%	【スカッとする話】ある日突然、大激怒の夫が「毎月仕送りした800万は！？長男夫婦がボロボロだったぞ！」私「長男嫁の通帳確認した？」夫「え？通
+https://www.youtube.com/watch?v=TdBw42EEfXU	https://www.youtube.com/watch?v=L1iFf6yo66k	100%	【スカッとする話】ある日突然、大激怒の夫が「毎月仕送りした800万は！？長男夫婦がボロボロだったぞ！」私「長男嫁の通帳確認した？」夫「え？通
+https://www.youtube.com/watch?v=AvpBJxLjZGI	https://www.youtube.com/watch?v=4VGG0yj_HNk	100%	【スカッとする話】長男夫婦の結婚式で新婦を指し孫が「あっ、プロレスの姉ちゃん！」と笑っていた。私が叱ると孫「だって、この前じいちゃんの上に乗
+https://www.youtube.com/watch?v=lN7bPsXxN8c	https://www.youtube.com/watch?v=MwADfvlYVM8	100%	【スカッとする話】ある日突然、激怒した夫「息子夫婦への仕送り10万はどこだ！息子嫁さんガリガリだったぞ！」私「息子嫁の通帳見た？」夫「は？通
+
+=== 92. 嫁子の逆転朗読劇場【スカッと物語】  6本  https://www.youtube.com/channel/UCqrk4gfB7SAhYKnyK39vAdg
+https://www.youtube.com/watch?v=uJY49GB3YLY	https://www.youtube.com/watch?v=DEqKKzP1pB4	100%	【スカッとする話】通院費1万すら拒絶した息子夫婦「年金から払えば？w」翌日、家の名義を変え姿を消すと、大号泣の2人から大量着信が…w【朗読ド
+https://www.youtube.com/watch?v=Y6q_6VixOC0	https://www.youtube.com/watch?v=eFu4Ak6nNYo	97%	【スカッとする話】結婚式をドタキャンした妹の代わりに、田舎の大工と結婚させられた私。私「バイトして生活費入れるね」夫「必要ないよ！だって…」
+https://www.youtube.com/watch?v=8TtMycXvCVE	https://www.youtube.com/watch?v=hi2PAohyTkU	96%	【スカッとする話】夫の出張中、オウムを任された私。何気なくオウムに話しかけると、オウム「嫁にはバレてないよ」不審に思い夫の部屋を開けた。→直
+https://www.youtube.com/watch?v=cTcHDCr-aQ4	https://www.youtube.com/watch?v=IsPanDg1vH0	96%	【スカッとする話】娘の葬儀に愛人を連れてきた婿「最期に間に合わなくて残念w」愛人「遺産2億は私達が相続ねw」私「…ですってw」夫「助かるなw
+https://www.youtube.com/watch?v=iX5Kwmhd4Wg	https://www.youtube.com/watch?v=HFQiOY1EIYg	89%	【スカッとする話】毎月30万仕送りを続けたのに、帰国すると娘が毎日お粥生活。私「30万送ってたよね？」娘「私は1円も見てないよ」→なぜか
+https://www.youtube.com/watch?v=rq_F0Edchno	https://www.youtube.com/watch?v=WimfKEqUSmI	84%	【スカッとする話】義両親が我が家に居座り1ヶ月。義両親「水漏れが酷くて…」私「なら業者呼びますね」義両親「や、やめてくれ！」なぜか
+
+=== 93. 人生の一頁 5631  6本  https://www.youtube.com/channel/UC342_Tf8mM_bScq2p9d7lcg
+https://www.youtube.com/watch?v=xPNdVXCk3Tw	https://www.youtube.com/watch?v=k-xOabuttTE	100%	【スカッとする話】息子の3回忌で法事中、遺影に手を合わせていると、老婆「この子生きてるわよ。骨壷の中、見たことある？」骨壷を開けると私は恐怖
+https://www.youtube.com/watch?v=_Hw4KIf2xi8	https://www.youtube.com/watch?v=qbv3oYHPVrc	100%	【スカッとする話】銀行のATMで入金中に突然、夫「今すぐ逃げよう、早く！」私の手を掴み全力疾走の夫…私「どうかしたの？」夫「後ろ見てみろ…」
+https://www.youtube.com/watch?v=Cjkpsd37Qio	https://www.youtube.com/watch?v=YomBGMDnCiE	100%	【スカッとする話】娘と入浴中だった夫が倒れた…私「すぐ病院連れていかないと！」娘「やめて！置いて逃げよう」私「何で…？」娘の一言で私はすぐに
+https://www.youtube.com/watch?v=w546cCTmScE	https://www.youtube.com/watch?v=GsF-0gaQVRA	100%	【スカッとする話】母から突然のブチギレ電話。母「毎日自分の子供預けて遊び回るなんてあんた最低よ！」私「え？今は娘と家いるけど？」母「え？」実
+https://www.youtube.com/watch?v=lvIg074pDHA	https://www.youtube.com/watch?v=dzwFny9DVj0	100%	【スカッと】親族の集まりに夫と行くと7歳の姪「お絵描きしたから見て！」姪が描いた不思議な絵を見ると、夫「 あれ？まさか…」私「うん」姪のSO
+https://www.youtube.com/watch?v=NzqT8EvPk7Y	https://www.youtube.com/watch?v=jTIY4pLvUiA	100%	【スカッとする話】真夜中に帰宅すると突然、私を嫌う夫の連れ子が私を屋根裏部屋へ引きずり込んだ…私（なに！？）連れ子「しっ！」直後、隙間からそ
+
+=== 94. 人生の晩年5045  6本  https://www.youtube.com/channel/UCRajns3nAnfDW1XFNGE8mjg
+https://www.youtube.com/watch?v=YU25fVp_XlU	https://www.youtube.com/watch?v=pdhclv8SJrI	100%	【スカッとする話】昼休みに同僚とカフェに入ると、隣の席に夫と若い女性が…夫「妻は2年前に他界したからwこの後うち来ていいよw」先回りし最高の
+https://www.youtube.com/watch?v=5pWfQJ33PNw	https://www.youtube.com/watch?v=blo_a56_T1U	100%	【スカッとする話】愛人に夫を奪われた私。2人「すまん、離婚してくれ…」離婚届が置かれた瞬間、即サインし夫を譲ると、相手弁護士がガタガタ震え出
+https://www.youtube.com/watch?v=_Xp6uTZBhZc	https://www.youtube.com/watch?v=9TulrMzmHr8	100%	【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しね
+https://www.youtube.com/watch?v=tH1-lLCCL1I	https://www.youtube.com/watch?v=C6r_ataNQZU	100%	【スカッと総集編】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！悪いが、離婚してくれ！」私「はーい、仕事も辞めるね！」夫
+https://www.youtube.com/watch?v=tDlxe4jFQSA	https://www.youtube.com/watch?v=70JSyEr3ztQ	100%	【スカッと総集編】夫が土下座「20歳の愛人が妊娠した！離婚してくれ！」私「はい離婚届け。じゃ娘以外は連れてくね」夫「は？娘も連れていけよ」私
+https://www.youtube.com/watch?v=tH1-lLCCL1I	https://www.youtube.com/watch?v=n-_5T-nb0dg	86%	【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けて
+
+=== 95. 夕暮れの散歩道4846  6本  https://www.youtube.com/channel/UCZtqjRN0zErgBqr6a5jBkUA
+https://www.youtube.com/watch?v=scVguDB7G-8	https://www.youtube.com/watch?v=p4pyD9SD1Tk	100%	【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族
+https://www.youtube.com/watch?v=NcCLNdH6Oqk	https://www.youtube.com/watch?v=uYt37nxwb0o	100%	【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=PUrYaVWq7QA	https://www.youtube.com/watch?v=Tpbu9uHiFPg	100%	【スカッとする話】結婚10年目に銀行員の夫が突然の暴露「お前の親友と結婚するw籍入れてないし財産分与は無しw」私「あれ？あんた知らないの？」
+https://www.youtube.com/watch?v=NcCLNdH6Oqk	https://www.youtube.com/watch?v=lVGupM23LsE	100%	【スカッと総集編】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの
+https://www.youtube.com/watch?v=2jTZl175tfg	https://www.youtube.com/watch?v=nlS5u4pCtI0	97%	【スカッとする話】警察官の弟の結婚式に出席した私。義母「中卒の姉は一族の恥ねw」直後、慌てた弟が義母に私の正体を伝えると、義母は顔面蒼白に
+https://www.youtube.com/watch?v=mJi17DT9yFQ	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+
+=== 96. 愛憎の十字路 5434  6本  https://www.youtube.com/channel/UCIrSkm9Z15Girl7kaWJyFOA
+https://www.youtube.com/watch?v=9cj7a6LZ998	https://www.youtube.com/watch?v=lRIrN83xkSc	100%	【スカッとする話】私の車のアクセルにこっそり手を加える夫。私（知らないふりしよw）翌日、車を義両親に貸し出すと、夫「ま、待ってくれ…」実はw
+https://www.youtube.com/watch?v=dlg95j0QTc0	https://www.youtube.com/watch?v=I0YiB-VENsY	100%	【スカッとする話】夫「お前の部屋は両親に譲る。2人を介護するから頼むな」私「はーい（何も知らないのねw）」翌日、義両親が引越してくると夫は半
+https://www.youtube.com/watch?v=VHZI9EqSar0	https://www.youtube.com/watch?v=yFas1_iynzg	100%	【スカッとする話】夫の出張中に突然離婚届を持ってきた義母「寄生虫は離婚して失せろw」私「喜んで！」義母「強がっちゃってw」即離婚すると半狂乱
+https://www.youtube.com/watch?v=hw2B4qfxjN4	https://www.youtube.com/watch?v=i6EwUdJi1Ek	100%	【スカッとする話】0歳児を我が家の玄関に置き、義妹「1年前から娘の世話ありがとw生後3ヶ月から頼んだしもう歩ける？」私「え？私も1年間、里帰
+https://www.youtube.com/watch?v=nc7Hxq5hRrU	https://www.youtube.com/watch?v=XcJWa6kefac	100%	【スカッとする話】姑が私の持ち家をリフォームすることになり完成すると姑が「アンタと母親は４畳の物置部屋ねｗ」義姉「嫌なら出てけｗ」→私「じゃ
+https://www.youtube.com/watch?v=MePdVIpLOAA	https://www.youtube.com/watch?v=NAEwCqwiBcg	100%	【スカッとする話】私名義の4LDKマンションと知らず、強引に私を追い出す姑と義姉「家は貰う！寄生虫は出て行け！」稼ぎ頭の私「わかりました…」
+
+=== 97. 感動のストーリー 5718  6本  https://www.youtube.com/channel/UChJXskMmVDbiJsbH0jjVRUg
+https://www.youtube.com/watch?v=EJWX60B3dZ4	https://www.youtube.com/watch?v=BncBRckTmkQ	100%	【スカッとする話】後輩のご祝儀に3万円を包み、お返しに古い時計をもらった私。物置に7年間放り込んでいたが、処分しようと裏側を見た瞬間私は言葉
+https://www.youtube.com/watch?v=vqSx9hyvFTc	https://www.youtube.com/watch?v=heS7VSZxA3U	100%	【スカッとする話】離婚し海外移住したことを知らない義母「明日息子の家に泊まりに行くw」義父「料理だけ用意して出てけw」私「え？息子さんなら高
+https://www.youtube.com/watch?v=XhERxV-jg8Q	https://www.youtube.com/watch?v=ASyRO03-Tgo	97%	【スカッと総集編】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=XhERxV-jg8Q	https://www.youtube.com/watch?v=MGatnbs_LMc	97%	【スカッとする話】夫「息子夫婦から全部聞いた！」突然夫に殴られた私…。離婚届を置いて黙って家を出た半年後、とある映像が公開され夫は大後悔し
+https://www.youtube.com/watch?v=PhzawcLuby0	https://www.youtube.com/watch?v=292Mju-11jU	95%	【スカッとする話】余命半年と宣告された私に夫「保険金3000万楽しみだ！仕事も辞めちゃおうかなw」私（受け取れるわけないのにw）半年後、夫
+https://www.youtube.com/watch?v=XV50YZpqMyc	https://www.youtube.com/watch?v=xJoQccTg90E	85%	【スカッとする話】離婚する前日の深夜1時、私の布団にもぐり込む夫「最後だし、お願い…」私「急にどうしたの…？」直後、夫が泣きながら
+
+=== 98. 家庭の嵐 5499  6本  https://www.youtube.com/channel/UC6XQp0Ks_jrLEbxFGN-0FIQ
+https://www.youtube.com/watch?v=AiuFrcNZyzE	https://www.youtube.com/watch?v=M0pHpjAezxk	100%	【スカッとする話】夫の葬儀2日後に豹変した義父「嫁は物置で食事しろw」義母「納豆以外食わせないw」しかし納豆のパックを開けると、なぜか中には
+https://www.youtube.com/watch?v=U2djWASCO-w	https://www.youtube.com/watch?v=kSqGwQPxtec	100%	【スカッとする話】元義母「二世帯住宅建てたw来月から家賃30万お願いw」私「離婚したから払いませんが？」元義母「嘘おっしゃいw」結果w【朗読
+https://www.youtube.com/watch?v=Ub0OaOrk6c4	https://www.youtube.com/watch?v=Wobm7os3nrw	100%	【スカッとする話】夫と離婚してから8日後、VIP病室に入院した義母から電話。義母「入院費払っておいてね」私「無理です。だって…」直後、義母が
+https://www.youtube.com/watch?v=aaaxYsvoVcA	https://www.youtube.com/watch?v=5RdQqzl3mpI	100%	【スカッとする話】義母にお腹を蹴られ流産した私。義母「たまたまだろw泣くな」ある映像を警察に提出すると、今度は義母が号泣の展開に…w【朗読】
+https://www.youtube.com/watch?v=FJMINWuQ-zY	https://www.youtube.com/watch?v=n2erPUlbO30	100%	【スカッとする話】自分が一家の大黒柱と勘違いしてる夫「旦那様に逆らう気？w」義母「お荷物は出てけw」お望み通り家具家電全てまとめて出ていった
+https://www.youtube.com/watch?v=dwxkDYzV894	https://www.youtube.com/watch?v=mLLpWbZSgEw	100%	【スカッと総集編】お盆に義実家へ帰省するといつものように奴隷扱いの私に、3年ぶりに海外から帰国した義父「あれ？嫁のご飯だけ無いよ？」私「いつ
+
+=== 99. 都会の孤独5052  6本  https://www.youtube.com/channel/UCTWwkNBKuUw8iJZaqGYyivA
+https://www.youtube.com/watch?v=TQc0G8KAVBg	https://www.youtube.com/watch?v=NeFhYBshtIY	100%	【スカッとする話】スーパーでパートの私をバカにする年下部長が社員の前で英語のスピーチを強要。部長「ババァはABCも難しいかw」私「本場の英語
+https://www.youtube.com/watch?v=dlKU8wTl3AM	https://www.youtube.com/watch?v=9TulrMzmHr8	100%	【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しね
+https://www.youtube.com/watch?v=GekAxSjZZoY	https://www.youtube.com/watch?v=WCgDiWmK46Q	100%	【スカッとする話】私を育てるため夢を諦め高校中退した母に結婚挨拶でビールをぶっかけた銀行頭取の義両親「中卒の家族は一族の恥w婚約白紙w」直後
+https://www.youtube.com/watch?v=GFc6HQj6EGQ	https://www.youtube.com/watch?v=Yfo6v4-ZtHc	100%	【スカッとする話】私が義父の入院費を払ってると知らず私の荷物を全て捨てた夫「もう俺に寄生するな穀潰しがw」夫を残し1億の豪邸に引越し入院費の
+https://www.youtube.com/watch?v=GFc6HQj6EGQ	https://www.youtube.com/watch?v=EmiUvKJTw3c	96%	【スカッと総集編】義父の入院費を払ってると知らず私の荷物を全て捨てた夫「俺に寄生するな穀潰しw」夫を残し1億の豪邸に引越し入院費の支払いも止
+https://www.youtube.com/watch?v=4cT8OyajnUc	https://www.youtube.com/watch?v=tQe8apURLKM	92%	【スカッとする話】女4姉妹を育てる私に夫「離婚して愛人と再婚するから」私「いいけど長女は連れてってね」夫「え？母親のお前が育てろよ」私「
+
+=== 100. 忘却の家 5454  6本  https://www.youtube.com/channel/UCU4rxzNFWBeGjdH3HY-dOOw
+https://www.youtube.com/watch?v=leTL3vDbDmY	https://www.youtube.com/watch?v=FNCNvnaZXFw	100%	【スカッとする話】私が在宅ワークに切り替え6年介護した寝たきりの義父「遺産6億は全て長男夫婦に渡したwお前には一銭も残さないw」→即出ていく
+https://www.youtube.com/watch?v=pVXKOu3vOe8	https://www.youtube.com/watch?v=6d_twanH4wg	100%	【スカッとする話】母の葬式にも出ず私と高1の娘を捨てて浮気女と駆け落ちした夫「ガキはお前にやるからよろしくw」3日後、血相を変えた夫から23
+https://www.youtube.com/watch?v=RGnPpTMmIoQ	https://www.youtube.com/watch?v=YWd1vzAgHB8	100%	【スカッとする話】13年前に医者の婚約者を奪った親友と再会「36歳で独身とか賞味期限切れねw私の旦那はイケメンで天才よw」→私「じゃうちの夫
+https://www.youtube.com/watch?v=Nj7-Xt1Fu3c	https://www.youtube.com/watch?v=dW-opdxTbYQ	100%	【スカッとする話】亡くなった元夫の保険金3000万で新築一軒屋を建てた夫「母さんに家買ったｗ逆らうなら離婚だw」私「わかりました。いいけど後
+https://www.youtube.com/watch?v=MULh46MFSak	https://www.youtube.com/watch?v=mRlS0rHQ-lY	100%	【スカッとする話】夫「引越しは済んだか？」私「今日中に出ていくわ」ATM扱いされ家を追い出された私。1ヶ月後、夫が血相を変えて鬼電してきて.
+https://www.youtube.com/watch?v=6mL2i-OqUYo	https://www.youtube.com/watch?v=292Mju-11jU	95%	【スカッとする話】余命半年と宣告された私に夫「保険金3000万楽しみだ！仕事も辞めちゃおうかなw」私（受け取れるわけないのにw）半年後、夫
+
