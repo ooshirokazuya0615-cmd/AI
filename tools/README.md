@@ -72,3 +72,19 @@ npm install playwright
 
 `tools/thumbnail.mjs` の `PRESETS` に追記します。
 色（`ink` / `accent` / `stroke`）、背景、フォント、揃え方を指定するだけです。
+
+# 転載スキャン（tensai-scan.py / tensai-aggregate.py）
+
+嫁子チャンネルの全動画タイトルでYouTube検索を回し、同じタイトルの別チャンネル動画（転載）を洗い出します。
+YouTubeのWebクライアントが使う公開エンドポイントを叩くだけなので、APIキーは不要です。
+
+```
+cd 作業フォルダ
+python3 tools/tensai-scan.py          # own_videos.json と hits.json を作る（約1時間）
+python3 tools/tensai-aggregate.py 出力.md   # チャンネル別・動画別の一覧を書き出す
+```
+
+- 2回目以降は `hits.json` を残したまま実行すると、未検索の動画だけ検索します。新規転載だけ拾いたいときは `hits.json` を消してから回してください。
+- `own_videos.json` を消すとチャンネルの動画一覧を取り直します（新作を含めたいときは消す）。
+- 検索結果に出るのは現存する動画だけなので、停止済みは自動的に除外されます。
+- 前回の結果は `drafts/data/` に日付つきで保存してあります。
