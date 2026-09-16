@@ -1,0 +1,505 @@
+# 申請ラウンド2
+# ラウンド1: 上位100チャンネルは1本ずつ（警告1回目）。101位以降の少数チャンネルは全本まとめて。
+# ラウンド2・3: ラウンド1の警告が付いたのを確認してから、上位100チャンネルにもう1本ずつ。
+# 1ブロック = 1申請。Claude in Chrome にはブロック単位で渡す。
+
+=== 順位1 藤田 七海（1本） https://www.youtube.com/channel/UCe0KTxGVR84qUjkAHQb-wGg
+侵害動画: https://www.youtube.com/watch?v=MCdA3DExAwI
+  元動画: https://www.youtube.com/watch?v=ZobJWKrmIzQ
+  元タイトル: 【スカッとする話】娘の結婚式に愛人と共に現れた夫「彼女にも座らせてあげて」私は黙って愛人に席を譲った直後、グループ10社を束ねる新郎父「会長、お久しぶりです」【
+
+=== 順位2 スカッと物語（1本） https://www.youtube.com/channel/UCLz5UoQMIAja9LyZIOCYmQg
+侵害動画: https://www.youtube.com/watch?v=Ef-RDmTY9Jk
+  元動画: https://www.youtube.com/watch?v=DEqKKzP1pB4
+  元タイトル: 【スカッとする話】通院費1万すら拒絶した息子夫婦「年金から払えば？w」翌日、家の名義を変え姿を消すと、大号泣の2人から大量着信が…w【朗読ドラマ】【朗読】【スカ
+
+=== 順位3 出る杭は打たれる（1本） https://www.youtube.com/channel/UCAmIDIbiOxKA9YSVK0aYSZQ
+侵害動画: https://www.youtube.com/watch?v=1cday0ktFEQ
+  元動画: https://www.youtube.com/watch?v=DeIUkxQ3Yjg
+  元タイトル: 【スカッとする話】生まれた息子が夫に似てない。夫「浮気してたな？離婚だ！」義父「今すぐ出てけアバズレが」10年後、夫と義父と遭遇すると2人が発狂。だって息子は…
+
+=== 順位4 良い話（1本） https://www.youtube.com/channel/UCSrk1OzKlw4sCvRbksLDgcQ
+侵害動画: https://www.youtube.com/watch?v=_NmgMfK7eX0
+  元動画: https://www.youtube.com/watch?v=s8zl0VxtC2k
+  元タイトル: 【スカッと総集編】離婚から２週間で再婚した元夫「家柄、性格ともに最高の嫁w」夫の新しい嫁を見た瞬間、私は思わず大爆笑www→だってその嫁は…w
+
+=== 順位5 家庭の真実 5497（1本） https://www.youtube.com/channel/UCqzVZHS7_AHD3WczZdnOkwg
+侵害動画: https://www.youtube.com/watch?v=RoD3ADzOkEQ
+  元動画: https://www.youtube.com/watch?v=AW46gN91lmo
+  元タイトル: 【スカッとする話】孫の合格祝いで義実家に行くと私と夫だけわさびのみだった…義兄「もらえるだけ光栄だろw」私「ありがたく頂きますね」帰宅後、悶絶し涙目の義兄が…w
+
+=== 順位6 スカッとストーリー 5006（1本） https://www.youtube.com/channel/UC1x3I0LM2SzXkpn57uaFuQA
+侵害動画: https://www.youtube.com/watch?v=7p73mp_ivBs
+  元動画: https://www.youtube.com/watch?v=Jrhwc49ujEM
+  元タイトル: 【スカッとする話】貧乏なフリしてお見合いに行くと男性社長「仕事は何してるの？」私「内職です…（フラれたな）」直後、伝票に書いた私の字を見た彼「僕と付き合って」実
+
+=== 順位7 嫁ゴコロ逆転朗読館（1本） https://www.youtube.com/channel/UCQDSjWHn0tvkuVZav4jZnXQ
+侵害動画: https://www.youtube.com/watch?v=JIMx_juz-_s
+  元動画: https://www.youtube.com/watch?v=Lz3rc2N2XhM
+  元タイトル: 【スカッとする話】正月、帰省の新幹線で、妊娠中の私を立ち席にした夫は「腰が痛い」と1人グリーン車へ。愛人の元へ向かったと知った私は、何も告げず新大阪で姿を消すと
+
+=== 順位8  読書室【スカッとする話】（1本） https://www.youtube.com/channel/UCjQd7ZVm5BPbGpB_V9B6kgQ
+侵害動画: https://www.youtube.com/watch?v=9zs6le8kFYk
+  元動画: https://www.youtube.com/watch?v=7msH4kMIKYA
+  元タイトル: 【スカッと】夫を略奪した妹の結婚式で妹「今日から私が社長夫人で〜すw社員は全員パシリよろしく〜w」直後、社員一同が大爆笑w→私（社長は私なんだよな…w）
+
+=== 順位9 とする話 （1本） https://www.youtube.com/channel/UC-1KoQRWd1ijwgKpAmRTQ7A
+侵害動画: https://www.youtube.com/watch?v=SBuY8D55Xp8
+  元動画: https://www.youtube.com/watch?v=H3HkNoT1qF0
+  元タイトル: 【スカッとする話】母が他界した直後、7歳の私を捨て職場の愛人と再婚した父「お前は目障りだから施設行けw」3か後、半狂乱の父から鬼電→私「私に父はいませんけど？」
+
+=== 順位10 憂鬱よりスカッと（1本） https://www.youtube.com/channel/UC8bvniIkSPPf_5ELr1VNZCQ
+侵害動画: https://www.youtube.com/watch?v=WxOpFiBUsKQ
+  元動画: https://www.youtube.com/watch?v=jpA_PiL1qKA
+  元タイトル: 【スカッとする話】私「もう限界！実家に帰ります！」実家帰省した私が家に帰ると私「ただい...ま？」机の上に記入済みの離婚届が...私「出せっていうから提出しよw
+
+=== 順位11 フィクション 5637（1本） https://www.youtube.com/channel/UCpdFO-yvHBX2xI9xHQMDE-A
+侵害動画: https://www.youtube.com/watch?v=SEPWKUVcu10
+  元動画: https://www.youtube.com/watch?v=Ld47YPdFDy8
+  元タイトル: 【スカッとする話】3年前、社長の夫を略奪した姉と子供の運動会で再会。姉「借金生活で苦しそうねw」息子「借金あるのはパパだよ？」姉「ガキ、嘘はいいからw」翌日w【
+
+=== 順位12 義家族スカッと物語帳（1本） https://www.youtube.com/channel/UCIZ41RBpQd7wBp_oOTGv1zw
+侵害動画: https://www.youtube.com/watch?v=SqxgbTS5sbk
+  元動画: https://www.youtube.com/watch?v=wWt0dqnPt6g
+  元タイトル: 【スカッとする話】38歳で両親に結婚を急かされ「相手はいる」と嘘をつくとイケメン上司「俺が恋人役するよ」1週間後、両親に会わせると父「まさか…こんな所で」実は【
+
+=== 順位13 姑の裏の顔 5668（1本） https://www.youtube.com/channel/UCAUkwErZzfdQ5NFOS49O-rw
+侵害動画: https://www.youtube.com/watch?v=I1Y9orzE8Zg
+  元動画: https://www.youtube.com/watch?v=wygqZyloOZs
+  元タイトル: 【スカッとする話】72歳の誕生日に息子が私に嘘をつき義家族とハワイ旅行したとSNSで発覚。息子「ごめん、見てると思ってなかったw」空港に置き去りにされた私はカー
+
+=== 順位14 女たちのスカッと物語（1本） https://www.youtube.com/channel/UCpVDiaX7X6rpIOvjUGkm0kA
+侵害動画: https://www.youtube.com/watch?v=Oj60nY6ri4o
+  元動画: https://www.youtube.com/watch?v=a4zw-oCgHd0
+  元タイトル: 【スカッとする話】社員食堂のおばちゃんの私。男性社員「おばさんありがと！」女性社員「いつも有難う！」私「君達、今日でクビね」社員「え？」【朗読】【スカッと】
+
+=== 順位15 静かな夜の物語、雨の中の記憶（1本） https://www.youtube.com/channel/
+侵害動画: https://www.youtube.com/watch?v=4sbyeBKVtv0
+  元動画: https://www.youtube.com/watch?v=TKF2Pe7g2bE
+  元タイトル: 【スカッとする話】4人の子供に囲まれ幸せな日常を送る夫が急逝し2週間後、私宛に夫から手紙が届いた「連れ子に隠れて読んでくれ...」手紙に記された場所へ行き同封の
+
+=== 順位16 さあ、どうぞ（1本） https://www.youtube.com/channel/UCG-XF2tttCtNESz__p6GQ7w
+侵害動画: https://www.youtube.com/watch?v=t74xjdInIKo
+  元動画: https://www.youtube.com/watch?v=ZJzIfS3DH88
+  元タイトル: 【スカッとする話】病気で盲目になった夫のため、365日ずっと料理を作る私に夫「味噌汁おいしかった！味噌変えた？」私は空っぽの鍋を見た瞬間、家中の鍵を全て交換し…
+
+=== 順位17 孤独な心（1本） https://www.youtube.com/channel/UCSNdJwT8r-r8xVDRxs6utlw
+侵害動画: https://www.youtube.com/watch?v=sRZrxPLurEk
+  元動画: https://www.youtube.com/watch?v=hRCh_bWpcgg
+  元タイトル: 【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結果w
+
+=== 順位18 Dima Tomashevich（1本） https://www.youtube.com/channel/UCkfiH3lPVPodePE4eNSDpWg
+侵害動画: https://www.youtube.com/watch?v=JiYO5b0V6pU
+  元動画: https://www.youtube.com/watch?v=3SjNRx445WM
+  元タイトル: 【スカッとする話】家事に疲れて昼寝してた私に花瓶の水をぶっかけてきた長男嫁「私のおかげで暮らせてるのに…ちゃんとメシぐらい作れ！」私「無理。じゃあ出て行くわ」長
+
+=== 順位19 Noah Qumi（1本） https://www.youtube.com/channel/UCH4l3-r5NgR2RlKdoRwfzAw
+侵害動画: https://www.youtube.com/watch?v=0HyRkakDfNI
+  元動画: https://www.youtube.com/watch?v=2meTtNT2fJ8
+  元タイトル: 【スカッとする話】母の手術費のためにバケモノ御曹司と婚約した私。父「すまんな…」結婚初日、別人の彼の姿に驚愕し…【朗読】【スカッと】
+
+=== 順位20 スカッとする話 5020（1本） https://www.youtube.com/channel/UCAG5eZR0aJpGuShtjtimSEg
+侵害動画: https://www.youtube.com/watch?v=tiOlfcaKAJE
+  元動画: https://www.youtube.com/watch?v=gBmPsDEOoUs
+  元タイトル: 【スカッとする話】結婚直前で逃げた姉の代わりに田舎の農家に嫁いだ私。私「私も手伝おうか？」夫「君は家でゆっくりしてて」翌朝、口座に1000万円…実はw【朗読】【
+
+=== 順位21 Shinji Datの人生物語（1本） https://www.youtube.com/channel/UCpdX_bFCePsYvPWZAMQoaeg
+侵害動画: https://www.youtube.com/watch?v=5SfD5lmv8GY
+  元動画: https://www.youtube.com/watch?v=uYt37nxwb0o
+  元タイトル: 【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの？」真実を伝えると元
+
+=== 順位22 人生の光と影（1本） https://www.youtube.com/channel/UCYX4tsWpykTmtfNq_i36C_w
+侵害動画: https://www.youtube.com/watch?v=k8PCprhidvc
+  元動画: https://www.youtube.com/watch?v=LMo-dxLN6Qc
+  元タイトル: 【スカッとする話】12年前、私の夫を略奪し駆け落ちした長男嫁から連絡。長男嫁「旦那と久しぶりに帰るwあんたはトイレに隠れててw」私「はい…」→約束破ってトイレか
+
+=== 順位23 美しい木（1本） https://www.youtube.com/channel/UCKDhvWl0boDNeo65NQzjbOg
+侵害動画: https://www.youtube.com/watch?v=JaHSlsKxqLI
+  元動画: https://www.youtube.com/watch?v=SA1PcWksbus
+  元タイトル: 【スカッとする話】5歳の娘の病気が判明した途端、私と娘を捨て愛人と消えた夫。9年後、娘のある秘密を知ると夫「迎えに来たぞ！パパと帰ろう」娘「え？誰このおじさん」
+
+=== 順位24 フィクション 5634（1本） https://www.youtube.com/channel/UCtx1aitp-eTJhv2c94bnBZQ
+侵害動画: https://www.youtube.com/watch?v=zjVmh756GWo
+  元動画: https://www.youtube.com/watch?v=2ALPcxU2NE8
+  元タイトル: 【スカッとする話】自衛官の兄の結婚式に参加すると、義母「中卒の妹は一族の汚点w」直後、兄が義母の元に歩み寄り、兄「まだ妹の正体に気づかない？」義母「え？」【朗読
+
+=== 順位25 泥だらけの絆 5655（1本） https://www.youtube.com/channel/UCdyvc7k9wPzVO9X62aCvguQ
+侵害動画: https://www.youtube.com/watch?v=tk0adRpC7xI
+  元動画: https://www.youtube.com/watch?v=ae1eDwWjrBU
+  元タイトル: 【スカッとする話】親戚の集まりに私たち家族だけ招待しない義両親。義父「お前ら貧乏家族は不要w」私「わかりました…」家族全員で欠席しハワイ旅行行くと→大号泣の義父
+
+=== 順位26 TINA SHTIBKO（1本） https://www.youtube.com/channel/UCIQbb4FNm2BhP5GfSTbrQ4w
+侵害動画: https://www.youtube.com/watch?v=vH2vcM_uFO8
+  元動画: https://www.youtube.com/watch?v=l5MOnDUec8k
+  元タイトル: 【スカッとする話】祖母と同居の長男夫婦に毎月25万の仕送りをする私が祖母の様子を見に行くと伝えると長男が激怒「何しにくる気だ！？今まで何もしなかったくせに！」私
+
+=== 順位27 心温まるストーリー 4989（1本） https://www.youtube.com/channel/UCS-VuYFB_DXsDhPHAzUS0JA
+侵害動画: https://www.youtube.com/watch?v=zZK_hwS9jv8
+  元動画: https://www.youtube.com/watch?v=cVe3XmXeRuE
+  元タイトル: 【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り出しw【朗読】【スカ
+
+=== 順位28 Bonnie Denver（1本） https://www.youtube.com/channel/UCsdndA886timZqWK6_b0d0Q
+侵害動画: https://www.youtube.com/watch?v=Lapb-z9pqnY
+  元動画: https://www.youtube.com/watch?v=Utio_7T1lvM
+  元タイトル: 【スカッとする話】11年介護した義父の葬儀後に義母「家政婦は用済み！出てけw」夫「離婚届書いて失せろw」私「分かった（全て計画通りw）」1ヶ月後、涙を流した夫と
+
+=== 順位29 心の影 5476（1本） https://www.youtube.com/channel/UCurSn3tPfci7NFuBRTNZOQA
+侵害動画: https://www.youtube.com/watch?v=k9wXZUWJ6RQ
+  元動画: https://www.youtube.com/watch?v=Mpi2bhYFSsQ
+  元タイトル: 【スカッとする話】私が毎日12時間、義父の介護をしていると知らない夫「離婚しよう…お前と一緒はもう限界…」私「本当にいいの？」夫「当然w」→介護負担を伝えず即離
+
+=== 順位30 シニア恋愛（1本） https://www.youtube.com/channel/UCnd6MdoC_kW2CQVyL1AEERA
+侵害動画: https://www.youtube.com/watch?v=j_RDyPYSxNU
+  元動画: https://www.youtube.com/watch?v=vQdhdcwgO20
+  元タイトル: 【スカッとする話】父が急逝し女社長になった私。副社長「これ退職届80人分wコネだけの女は皆無理ってw」翌日、新聞を見た元部下が土下座→全員を無視してあげた結果w
+
+=== 順位31 サヨナラの選択4848（1本） https://www.youtube.com/channel/UCiDg2Vs1LHy6qIiV6ilje1A
+侵害動画: https://www.youtube.com/watch?v=iOzvYl0FjG0
+  元動画: https://www.youtube.com/watch?v=yluothDtfeE
+  元タイトル: 【スカッとする話】私の実家の庭に幼馴染の家を建てる夫。夫「貧乏だから助けてあげたい」私「それ本当に大丈夫？」真実を伝えると夫が震えだしw【朗読】【スカッと】
+
+=== 順位32 心に灯る物語（1本） https://www.youtube.com/channel/UC9RH_NC0WPeS4wTf1v8DyAA
+侵害動画: https://www.youtube.com/watch?v=zrCEdtu0oao
+  元動画: https://www.youtube.com/watch?v=RplBfcanX0Q
+  元タイトル: 【スカッとする話】息子が亡くなった途端、私を家から追い出す息子嫁「保険金入ったし用済み！旦那の荷物持って出てけ」私「本当に後悔しない？」嫁「しねぇよw早く消えろ
+
+=== 順位33 雨の中の記憶、雨の中の記憶（1本） https://www.youtube.com/channel/
+侵害動画: https://www.youtube.com/watch?v=jzQ7tWnYBb4
+  元動画: https://www.youtube.com/watch?v=c2AdQUXc1Hg
+  元タイトル: 【スカッと総集編】入院した私に大量の塩をぶっかける長男嫁「このままあの世にいけwババァがいなくて最高w」キレた私は長男嫁への仕送りを停止→本当に帰らぬ人となった
+
+=== 順位34 スカッと逆転チャンネル（1本） https://www.youtube.com/channel/UCdomxLx_o6zPSsAkEAokA3g
+侵害動画: https://www.youtube.com/watch?v=v-e8Mt-GSGk
+  元動画: https://www.youtube.com/watch?v=AYATV4AsDDE
+  元タイトル: 【スカッとする話】単身赴任中の夫から離婚届…夫「ごめん、癌になった。迷惑かけたくないから離婚しよ」察した私「お世話になりました」その日のうちに家を出た結果w
+
+=== 順位35 大人のスカッと物語（1本） https://www.youtube.com/channel/UC3_22iiSJgBR1aGvyoWj1gg
+侵害動画: https://www.youtube.com/watch?v=cAIX6EW5L3c
+  元動画: https://www.youtube.com/watch?v=1-hqNpJ_jOU
+  元タイトル: 【スカッとする話】結婚10年目、夫婦の会話も無く寝室別で夜の行為も絶対しない夫が癌で長期入院に…1ヶ月後、夫が手術する事になり夫の体を見た医師が顔面蒼白に…
+
+=== 順位36 スカッと朗読の部屋（1本） https://www.youtube.com/channel/UCvO63auFe1UZQ_dHVqkGN7Q
+侵害動画: https://www.youtube.com/watch?v=1w6Z68BF1d0
+  元動画: https://www.youtube.com/watch?v=qnvleUOXFGo
+  元タイトル: 【スカッとする話】無断で義家族9人を同居させる夫「お前は４畳の物置小屋なw」義母「嫌なら離婚して出てけばw」私「私は3ヶ月前に離婚済みだし1億の新築に引越しまし
+
+=== 順位37 痛快!!怒りのスカッとチャンネル【スカッと朗読】（1本） https://www.youtube.com/channel/UC96mO8pXAaiP70V7KUjVHqg
+侵害動画: https://www.youtube.com/watch?v=agja1b2k0kA
+  元動画: https://www.youtube.com/watch?v=hRCh_bWpcgg
+  元タイトル: 【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結果w
+
+=== 順位38 Jamison Abraham（1本） https://www.youtube.com/channel/UCcUsK23eqHw3ZQA5HjspM9Q
+侵害動画: https://www.youtube.com/watch?v=y8x7SoRM9mk
+  元動画: https://www.youtube.com/watch?v=CNsn701Em6g
+  元タイトル: 【スカッと】私が総資産19億と知らず子供の産めない私を捨て再婚した夫「欠陥品とは離婚ｗ家と車も俺が貰うｗ」私「いいよ！ 」→翌日、涙を流した夫から鬼電がw
+
+=== 順位39 時を越える話（1本） https://www.youtube.com/channel/UC_n9gc1na-2QpFv6TPInL3w
+侵害動画: https://www.youtube.com/watch?v=yVVWvJEjUsg
+  元動画: https://www.youtube.com/watch?v=28rOAUunNPw
+  元タイトル: 【スカッとする話】夫から高級化粧品を貰った私。夫「あれ、もう使った？w」私「お義母さんが試してたよ」直後、なぜか夫が慌て出しw【朗読】【スカッと】
+
+=== 順位40 老いの詩（1本） https://www.youtube.com/channel/UClKj-HO63gh7qxtT7M0czEQ
+侵害動画: https://www.youtube.com/watch?v=SPvJ4YWDGWU
+  元動画: https://www.youtube.com/watch?v=qNSSnNaMxrs
+  元タイトル: 【スカッとする話】私1人で育てた息子の顔合わせで、なぜか私たちだけお茶漬け…義家族「貧乏人は好きだろ？w」直後、私の存在に気づいた義兄「俺たちの人生終了だ…」【
+
+=== 順位41 涙の向こう側（1本） https://www.youtube.com/channel/UCOXAYjsxUMpublA1yS1ATIA
+侵害動画: https://www.youtube.com/watch?v=SjEoD7MKz0E
+  元動画: https://www.youtube.com/watch?v=yqCdgYsZcrQ
+  元タイトル: 【スカッとする話】初孫のお食い初めに行くと私を無視する長男夫婦…私「おめでと！」長男・嫁「…」キレた私は家具家電を黙って捨て家を売払い更地にすると…w【朗読】【
+
+=== 順位42 スカっとゼミ!!（1本） https://www.youtube.com/channel/UC9Hd679L2faWD0aJQHeAlrA
+侵害動画: https://www.youtube.com/watch?v=DKzM1r5EGpw
+  元動画: https://www.youtube.com/watch?v=6UWe8WooXpM
+  元タイトル: 【スカッとする話】母子家庭で育てた長男の結婚式へ行くと私の席が無い...姑「貧乏人の席はありませんw」長男「帰ろっか..」私「うん...」義家族は全てを失う結果
+
+=== 順位43 スカッと成敗ストーリー（1本） https://www.youtube.com/channel/UC1iIGo491nSYyJ_AsgmPzyw
+侵害動画: https://www.youtube.com/watch?v=SrlJ46l-aQs
+  元動画: https://www.youtube.com/watch?v=3v1qqv9z0yE
+  元タイトル: 【スカッとする話】長男が双子の娘を残して他界。長男嫁「発達障害のガキは中卒の貧乏ババァに譲ってあげるw」私「では私が育てます…」10年後、まさかの展開にw
+
+=== 順位44 人生スカッと朗読館（1本） https://www.youtube.com/channel/UChTkZ7g3oCCQG3XSqe69LWQ
+侵害動画: https://www.youtube.com/watch?v=R6VSFZgv9rc
+  元動画: https://www.youtube.com/watch?v=eFu4Ak6nNYo
+  元タイトル: 【スカッとする話】結婚式をドタキャンした妹の代わりに、田舎の大工と結婚させられた私。私「バイトして生活費入れるね」夫「必要ないよ！だって…」翌日、半狂乱の妹が自
+
+=== 順位45 夜の語り部5056（1本） https://www.youtube.com/channel/UCEvaB4r-6y7tj3UAoMEdqXA
+侵害動画: https://www.youtube.com/watch?v=-PbKfh2Ga5A
+  元動画: https://www.youtube.com/watch?v=DPS_qm8jKlI
+  元タイトル: 【スカッとする話】私の年収が1000万と知らず夫と一緒に出ていった息子「毒親とは絶縁wバイバイw」私「じゃあ夫とも縁切るね」息子「勝手にどうぞw」2日後w【朗読
+
+=== 順位46 隠された才能 5633（1本） https://www.youtube.com/channel/UCxSupAhazSWDXBtwag7MUbA
+侵害動画: https://www.youtube.com/watch?v=XwTLoPCcQrE
+  元動画: https://www.youtube.com/watch?v=yf6Hd6ajnbc
+  元タイトル: 【スカッとする話】5年前に離婚した元夫と保育園で再会。元夫「そいつ俺の子？俺もう子供いるし認知しないよ」私「ん？お前種ナシじゃんwそっちも誰の子かな？」元夫「え
+
+=== 順位47 心の琴線 5645（1本） https://www.youtube.com/channel/UCiaf20iOL2Huh9928uSBP7A
+侵害動画: https://www.youtube.com/watch?v=4f6pxkgsWec
+  元動画: https://www.youtube.com/watch?v=cd2Xb8XKtOE
+  元タイトル: 【スカッとする話】親戚が集まる忘年会に行くと、父「贈った鞄使ってないのか？」夫「嫁に似合わないから捨てたw」直後、私を外に呼び出した父「俺があいつを始末する」【
+
+=== 順位48 暮らしの話 5688（1本） https://www.youtube.com/channel/UCWk4WbfyjB8F0DF4kgNBEqw
+侵害動画: https://www.youtube.com/watch?v=2iUFk8HmuyA
+  元動画: https://www.youtube.com/watch?v=_XYrDmk-GHI
+  元タイトル: 【スカッとする話】電気が停止した隣家を訪ねると、ボロボロの少女が妹を庇い震えていた。実家の旅館へ連れて帰るとまさかの展開に…【朗読】【スカッと】
+
+=== 順位49 妻の復讐 5649（1本） https://www.youtube.com/channel/UC_-FBuCpoEW8RPG4j-oCbkg
+侵害動画: https://www.youtube.com/watch?v=HB8kbxdHmcw
+  元動画: https://www.youtube.com/watch?v=Suxi8PzXzbk
+  元タイトル: 【スカッとする話】里帰り出産中、私の荷物が全て実家に送られてきた…夫「この家で母と暮らすから離婚でw」義母「役立たずは帰ってこないでねw」私「ありがとう、助かる
+
+=== 順位50 小さな幸せ（1本） https://www.youtube.com/channel/UCDan477oQB_h9RQ24R2fRhA
+侵害動画: https://www.youtube.com/watch?v=1qZ9mMY-E7E
+  元動画: https://www.youtube.com/watch?v=y8ReyKKeUUQ
+  元タイトル: 【スカッとする話】私が資産170億の不動産王と知らず私から夫を奪った美人な姉「生活保護でも貰え貧乏人w」後日、示談交渉で弁護士が大爆笑→弁護士「生活保護はアナタ
+
+=== 順位51 Pendelton Gideon（1本） https://www.youtube.com/channel/UCIRVjzjmTHwXA3X81dpyNeQ
+侵害動画: https://www.youtube.com/watch?v=bK4E6flKw4g
+  元動画: https://www.youtube.com/watch?v=8p7Hl5wjPok
+  元タイトル: 【スカッとする話】大雪の中、赤ちゃんを背負い2時間歩いてきた8歳の姪「3000円貸して下さい...」夫「はぁ？貸すわけないだろ！」次の瞬間、ブチギレた夫は...
+
+=== 順位52 Ivan Ilencow（1本） https://www.youtube.com/channel/UC6IzQHpKzqIt1DgjPouEefQ
+侵害動画: https://www.youtube.com/watch?v=IZLbdwBj7XA
+  元動画: https://www.youtube.com/watch?v=ik5Oxry7o0g
+  元タイトル: 【スカッとする話】勝手に我が家の庭でバーベキューをする長男嫁「お義母さんの家の庭借りてるよw肉とビール無いから買ってきてw」私「え？私の家そこじゃないわよ？」長
+
+=== 順位53 Павел ****（1本） https://www.youtube.com/channel/UCSPg9ALk7YwnsqACClpErGg
+侵害動画: https://www.youtube.com/watch?v=EnUXTdRCsLE
+  元動画: https://www.youtube.com/watch?v=UOK61ieeNvk
+  元タイトル: 【スカッとする話】夫と高級寿司屋へ行くと長男と長男嫁の姿が...長男「来年は保険金で生活するぞｗ」長男嫁「フランスでの生活楽しみ～ｗ」→面白い会話が聞こえたので
+
+=== 順位54 Legacy Apollo（1本） https://www.youtube.com/channel/UC2YwIXq-utTkNLQgcRVloyQ
+侵害動画: https://www.youtube.com/watch?v=Vk35R5f7G2w
+  元動画: https://www.youtube.com/watch?v=uSa9TRN9UTA
+  元タイトル: 【スカッとする話】長男夫婦「ババァは口を開くな！」食事さえ許されずガリガリの私…久々に帰国した次男「母さんは食べないの？」私「いつもの事よ…」次男「は？」その後
+
+=== 順位55 嫁の切り札朗読館（1本） https://www.youtube.com/channel/UCJs7FR3NDs8ntlTSLFQBGOg
+侵害動画: https://www.youtube.com/watch?v=6jKoA7KlcjE
+  元動画: https://www.youtube.com/watch?v=dOy6I1JE_yY
+  元タイトル: 【スカッとする話】私の退職金をやたら気にする夫「いくら貰ったの？」私「口座に2000万入った！」翌日、カードを手に夫が失踪。私（計画通りw）実は【朗読】【スカッ
+
+=== 順位56 静かなる横浜5037（1本） https://www.youtube.com/channel/UCOIJmQi-cKQxqxTukmYLEHA
+侵害動画: https://www.youtube.com/watch?v=NLwIGMmggys
+  元動画: https://www.youtube.com/watch?v=W-rW5yUgXLY
+  元タイトル: 【スカッとする話】父を理由に夫に捨てられ5年後、若い女と子供を連れた元夫と再会。元夫「嫁はお前と違って完璧w」直後、私の新しい夫を見て、元夫がガクガク震え出しw
+
+=== 順位57 人生劇場チャンネル5062（1本） https://www.youtube.com/channel/UCDUjpUXLHRFyRStL02pHIwA
+侵害動画: https://www.youtube.com/watch?v=nS8RzdBKuPI
+  元動画: https://www.youtube.com/watch?v=j2eZcUFfC0Y
+  元タイトル: 【スカッとする話】号泣する娘を引きずってきた婿両親。義母「貧乏な子は合わなかったw」義父「高収入の息子とは格が違うw」私「後悔しないでくださいね？」婿両親「しな
+
+=== 順位58 実話感動チャンネル（1本） https://www.youtube.com/channel/UCekQO8WQ0udVSYSfX4Pymgw
+侵害動画: https://www.youtube.com/watch?v=jv_tPg2W6KU
+  元動画: https://www.youtube.com/watch?v=p4pyD9SD1Tk
+  元タイトル: 【スカッとする話】義両親に蹴られ骨折した私に夫「寝かせとけば治るw」翌日、病室に嘲笑いに来た義家族「あれ、嫁は？w」医師「警察署です」義家族「え？」【朗読】【ス
+
+=== 順位59 日本の物語 〜老後の人生〜（1本） https://www.youtube.com/channel/UCEZOpLWYD1o09D4aS_BZmbA
+侵害動画: https://www.youtube.com/watch?v=TlvtISBwrlw
+  元動画: https://www.youtube.com/watch?v=cVe3XmXeRuE
+  元タイトル: 【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り出しw【朗読】【スカ
+
+=== 順位60 明日への涙 5640（1本） https://www.youtube.com/channel/UCMgqdL_Eaa1cwxS72pnAmCA
+侵害動画: https://www.youtube.com/watch?v=hDEQt8ehpxc
+  元動画: https://www.youtube.com/watch?v=o3QJq6-5CSs
+  元タイトル: 【スカッとする話】自分が社長だと勘違いしている夫「次期社長の俺に逆らっていいの？」愛人「クビでいいんじゃない？」私「じゃあお前らクビで」お望み通りクビにしてあげ
+
+=== 順位61 奈落の家族 5652（1本） https://www.youtube.com/channel/UC-CxUAgCsbf-R4BwTN_XWHw
+侵害動画: https://www.youtube.com/watch?v=Hkhcg7tCrBs
+  元動画: https://www.youtube.com/watch?v=EdukiB7Cm5k
+  元タイトル: 【スカッとする話】婿両親がウチの娘と孫を引きずってきた。義父「月100万の息子と釣り合わんw」義母「役立たずの家政婦は返品でw」私「じゃ明日から路上生活がんばれ
+
+=== 順位62 涙の食卓 5651（1本） https://www.youtube.com/channel/UCDts-8SRBGNQEaBIhxtE0tw
+侵害動画: https://www.youtube.com/watch?v=khj2fWmUCnY
+  元動画: https://www.youtube.com/watch?v=E5Ed7TjpjS4
+  元タイトル: 【スカッとする話】結納で私にだけ寿司を用意しない義家族。義母「これが嫁の教育ってもんよw」私「じゃあ帰ります」即帰ると義母が泣き叫びw
+
+=== 順位63 家族の修羅場（1本） https://www.youtube.com/channel/UCBh3ipHGoPZMTeNkEWdf5kQ
+侵害動画: https://www.youtube.com/watch?v=73K4XYt9xrc
+  元動画: https://www.youtube.com/watch?v=XKULaOclsHw
+  元タイトル: 【スカッとする話】母が危篤になり病院へ急ぐ私に夫「他人のババァとか興味ないwてか出張中は連絡するなw」2週間後、満面の笑みで夫が帰ると→私「お義母さんの葬儀、終
+
+=== 順位64 Glasgow Blaise（1本） https://www.youtube.com/channel/UCpgekY72DbNLBcPSI1lSVRA
+侵害動画: https://www.youtube.com/watch?v=kN8Y-iG8bRI
+  元動画: https://www.youtube.com/watch?v=n-_5T-nb0dg
+  元タイトル: 【スカッと】起業した夫を支えてきた私を裏切った夫「21歳のバイトを妊娠させた！離婚しで！」私「はーい、仕事も辞めるね！」夫「は？仕事は続けてくれよ」私「嫌よ。だ
+
+=== 順位65 Vũ Thị Ánhu0236632 Vũ Thị Ánh（1本） https://www.youtube.com/channel/UCv69G_Vx6JItDpPYNZrhX8w
+侵害動画: https://www.youtube.com/watch?v=hnAlN3urUOE
+  元動画: https://www.youtube.com/watch?v=poGSdfKH9Og
+  元タイトル: 【スカッとする話】母の死の直後、中1の私を捨て愛人と再婚した父「子供はいらねぇよw」しかし1ヶ月後、半狂乱の父から鬼電→永久に無視してやった結果w
+
+=== 順位66 【黒服の審判】スカッと裏コンシェルジュ（1本） https://www.youtube.com/channel/UCOx7plQYvEIJEFyXMyc9foQ
+侵害動画: https://www.youtube.com/watch?v=7k2PPa6nstg
+  元動画: https://www.youtube.com/watch?v=AkFPFwnz6fs
+  元タイトル: 【スカッとする話】1億の一軒家に住む金持ち自慢の婚約者の実家へ結婚挨拶に行くと、義父「なんだ？不細工な嫁だなw」義母「親の顔が見てみたいわねw」→母「どうも、不
+
+=== 順位67 どこにでも自由（1本） https://www.youtube.com/channel/UCdYAr7nX6UlKOOdkLLabNug
+侵害動画: https://www.youtube.com/watch?v=cG8V31L_VCk
+  元動画: https://www.youtube.com/watch?v=hRCh_bWpcgg
+  元タイトル: 【スカッとする話】私が義母の入院費を払ってると知らず新居に引っ越した夫「寄生虫は施設でもいけw」1億の高級施設に引越し入院費の支払も止めた結果w
+
+=== 順位68 スカッと豆太郎（1本） https://www.youtube.com/channel/UC84EpUMkWGBuDPcH0ENy7wQ
+侵害動画: https://www.youtube.com/watch?v=3Stp5CgJshM
+  元動画: https://www.youtube.com/watch?v=vyDCAcHPme8
+  元タイトル: 【スカッとする話】夫「来月ママが引っ越してくる！お前の部屋片付けておけw」私「はーい、キレイにしておくね」夫の出張中に不動産屋に連絡し家を売り払いキレイに更地に
+
+=== 順位69 逆転ストーリー 5008（1本） https://www.youtube.com/channel/UCriVTHI8ZSlCtGVvqIqnMSw
+侵害動画: https://www.youtube.com/watch?v=REKSObfsXg4
+  元動画: https://www.youtube.com/watch?v=p8J-A05WKIc
+  元タイトル: 【スカッとする話】本社に異動になった中卒の私が東大卒の女部長に挨拶すると女部長「あんたが噂の中卒ねw部下はコーヒー淹れてきてw」私（今は泳がせとこw）実はw【朗
+
+=== 順位70 秘密と嘘の家 5436（1本） https://www.youtube.com/channel/UCFu4mcOSv2LuCDSSbnFcMXw
+侵害動画: https://www.youtube.com/watch?v=8Clnu3-khJc
+  元動画: https://www.youtube.com/watch?v=79m-CwHxGq8
+  元タイトル: 【スカッとする話】夫と義実家までバスで向かうと降車直前、私の腕をつかんだ運転手「ここで降りたら終わるよ。次のバス停で逃げなさい」理由を知った私は血の気が引いて…
+
+=== 順位71 物語チャンネル 5693（1本） https://www.youtube.com/channel/UCFEMckiarNY3cQZ0aMygl3w
+侵害動画: https://www.youtube.com/watch?v=3U-WfLrsXgg
+  元動画: https://www.youtube.com/watch?v=_VNnKc5IcKc
+  元タイトル: 【スカッとする話】9年前に離別した息子が亡くなり、すぐに葬儀場へ足を運んだ私。祭壇の前に立つ男を見た直後、私「そんな、嘘でしょ…」実は【朗読】【スカッと】
+
+=== 順位72 母と娘と嫁5049（1本） https://www.youtube.com/channel/UCXgqiZuZK8nb9xaVgEX79UA
+侵害動画: https://www.youtube.com/watch?v=ErVArQjNhOQ
+  元動画: https://www.youtube.com/watch?v=cVe3XmXeRuE
+  元タイトル: 【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り出しw【朗読】【スカ
+
+=== 順位73 心温まる実話（1本） https://www.youtube.com/channel/UCqAz4zqqdAigBNPpMwK-pYw
+侵害動画: https://www.youtube.com/watch?v=9zxLIdDXH6c
+  元動画: https://www.youtube.com/watch?v=cVe3XmXeRuE
+  元タイトル: 【スカッとする話】私が離婚届に署名すると、満面の笑みで大喜びする義家族。新しい嫁を迎えた1週間後、電気・ガス・水道が止まると急に義家族が焦り出しw【朗読】【スカ
+
+=== 順位74 家庭の奇妙な話 5500（1本） https://www.youtube.com/channel/UCyECOcLVBmrEH9eCxnZtzEg
+侵害動画: https://www.youtube.com/watch?v=PIJNjlUxcg0
+  元動画: https://www.youtube.com/watch?v=AcSjq1ogI10
+  元タイトル: 【スカッとする話】夫「今お姉ちゃんと旅行中w義母の葬式行けなくなったw」義姉「関わり薄かったしねw」私「他界したのはあんた達の母よ」2人「またまたw」結果w【朗
+
+=== 順位75 明日への涙5639（1本） https://www.youtube.com/channel/UC2daLTlrWBDdKIOJDbg_Z4w
+侵害動画: https://www.youtube.com/watch?v=tMSXepUWmsE
+  元動画: https://www.youtube.com/watch?v=idhSq8YhzdY
+  元タイトル: 【スカッとする話】私抜きでいつも外食に出かける家族。私はお茶漬けをすする毎日…夫「お前の飯不味いからなw」離婚届を置き黙って姿を消すと→血相を変えた夫から鬼電が
+
+=== 順位76 心温まる物語 5715（1本） https://www.youtube.com/channel/UCp5XuGGZyQWEBrJpOq-DHdw
+侵害動画: https://www.youtube.com/watch?v=npsCj5C464E
+  元動画: https://www.youtube.com/watch?v=E3ZqmTv4Zk0
+  元タイトル: 【スカッとする話】事故で脳死と判定され、山奥の病院に捨てられた私。夫「今までお疲れさんw」夫が耳元で囁き部屋を出た瞬間、私はそっと立ち上がり…w【朗読】【スカッ
+
+=== 順位77 愛憎の交差点 5648（1本） https://www.youtube.com/channel/UCZ27s-bExyb-zcqGkYvoicQ
+侵害動画: https://www.youtube.com/watch?v=bhepKbIxpRg
+  元動画: https://www.youtube.com/watch?v=M2hAF-Scj3M
+  元タイトル: 【スカッとする話】夫「今日から長男夫婦と孫と同居する！」長男嫁「ババァは家から出てけw」私（私が生活費33万払ってるのに）翌日、業者に電話して家具家電を回収→1
+
+=== 順位78 雨の中の記憶、静かな心の記録（1本） https://www.youtube.com/channel/
+侵害動画: https://www.youtube.com/watch?v=JFWqw8vLobc
+  元動画: https://www.youtube.com/watch?v=KKEWop4fNrk
+  元タイトル: 【スカッと総集編】私が総資産が28億の社長令嬢と知らず私を裏切り職場の美人同僚と再婚した夫「美人同僚と再婚するから離婚w」同僚「子供は1人で頑張れｗ」私「はーい
+
+=== 順位79 雨の中の記憶、静かな終わり（1本） https://www.youtube.com/channel/
+侵害動画: https://www.youtube.com/watch?v=OQIXO7vA7VU
+  元動画: https://www.youtube.com/watch?v=2kqFB_BTrsg
+  元タイトル: 【スカッとする話】医師「奥様と娘さんが退院しました。お迎えお願いいたします」私「え？私に娘はいませんが？」直後、隣で聞いていた霊感のある母→母「その電話、切った
+
+=== 順位80 秘密の重さ 5647（1本） https://www.youtube.com/channel/UCRxTgybyclgid9aIBdIXUVA
+侵害動画: https://www.youtube.com/watch?v=fgGZTp2-9So
+  元動画: https://www.youtube.com/watch?v=da0XdCuaRR4
+  元タイトル: 【スカッとする話】私がフルタイムで働き家計を支えていると知らず夫と引っ越した義両親「同居するなら月給80万の息子の新居教えるわw」私「では手取り8万の旦那とは離
+
+=== 順位81 【罠師の逆襲】あえて騙されて大破滅（1本） https://www.youtube.com/channel/UCO3cwCVrePQ3IZhL9x5k8-g
+侵害動画: https://www.youtube.com/watch?v=HYELsG7nXms
+  元動画: https://www.youtube.com/watch?v=hacWh5sRQ_U
+  元タイトル: 【スカッとする話】突然、3年振りに長男から電話「父の入院費、月20万は限界…」私「え？父は3年前他界したよ？」長男「え？」実は…
+
+=== 順位82 minh pham（1本） https://www.youtube.com/channel/UCWK9Evpbj0xbkFyaTiFreXw
+侵害動画: https://www.youtube.com/watch?v=ZU4fuSODmZ0
+  元動画: https://www.youtube.com/watch?v=RXy39KsrjSY
+  元タイトル: 【スカッと】私が新築5LDKを購入した途端に夫「愛人と隠し子と同居する！」隠し子「寄生虫は出てけw」私「私は独身だけど？」夫・隠し子「え？」【スカッとする話】【
+
+=== 順位83 静かな夜の物語、お話の部屋（1本） https://www.youtube.com/channel/
+侵害動画: https://www.youtube.com/watch?v=IpBhmLwfWrM
+  元動画: https://www.youtube.com/watch?v=0bP_EWes9dM
+  元タイトル: 【スカッとする話】私が義実家の大黒柱と知らず、親戚の集まりでビールをぶっかけた夫「寄生虫は除菌しなきゃｗ」私「じゃあ仕送り止めるわね」夫・義両親「え？」結果ｗ
+
+=== 順位84 Dung Tran（1本） https://www.youtube.com/channel/UCFPRY-BV8v_syKN9vAChvHg
+侵害動画: https://www.youtube.com/watch?v=eeHYc8OLdAI
+  元動画: https://www.youtube.com/watch?v=pi7V_7cf01o
+  元タイトル: 【スカッとする話】長男夫婦の家に行くと孫が鎖に繋がれていた…私「一体今どこにいるの？」長男「長男嫁と北海道旅行中w」キレた私は家を売却し更地にし...w
+
+=== 順位85 Văn Sơn Lã（1本） https://www.youtube.com/channel/UCnSrambnfB2Nc_4BliQ4Aug
+侵害動画: https://www.youtube.com/watch?v=ax6TS7MsQOw
+  元動画: https://www.youtube.com/watch?v=Ltedq0Li5TU
+  元タイトル: 【スカッとする話】給料日に3万しかくれない夫「同僚はこれで生活できてるって！1円もいれてないのに文句言うな！」私「毎月20万家に入れてるよ」夫「え？」結果w
+
+=== 順位86 Loan Vu（1本） https://www.youtube.com/channel/UCcSWImAU76lOLjftF7FbrNA
+侵害動画: https://www.youtube.com/watch?v=aHM7oJBq7Xw
+  元動画: https://www.youtube.com/watch?v=KFzrZl6FN1Y
+  元タイトル: 【スカッとする話】夫と娘に10年間も嫌われ続けた母親の私。ある日、勝手に鍵を変えられ閉め出されたので離婚届けを置いて引越し家を売却して更地にした結果w
+
+=== 順位87 小さなコーナー（1本） https://www.youtube.com/channel/UClsWKjOxXmWyf7DD0ygoufg
+侵害動画: https://www.youtube.com/watch?v=agfg7nO-KEY
+  元動画: https://www.youtube.com/watch?v=EIrAyCZzwiI
+  元タイトル: 【スカッとする話】40度の高熱の私から財布とクレカを奪った長男嫁「はい、氷水w帰るまでに治して下さいねｗ」バケツで氷水をかけられ気絶した…3日後、私はご機嫌に帰
+
+=== 順位88 涙涙の感動秘話#027（1本） https://www.youtube.com/channel/UCaG47XV_nZwVW3gXj0T_aFw
+侵害動画: https://www.youtube.com/watch?v=04wDXSHzNKE
+  元動画: https://www.youtube.com/watch?v=Gx1fLUdVHGk
+  元タイトル: 【スカッとする話】離婚して2週間後、30歳で不妊の私を見下す夫「23歳で若い彼女と再婚したｗ30過ぎたババァは失せろｗ」直後、現れた新しい女を見て大爆笑→私「ご
+
+=== 順位89 578 Xitchohet（1本） https://www.youtube.com/channel/UCxlkzHr78jVNai1RjN7f7cA
+侵害動画: https://www.youtube.com/watch?v=5X7v5TWhs_s
+  元動画: https://www.youtube.com/watch?v=sjdVGMyS0Gs
+  元タイトル: 【スカッとする話】長男の結婚式へ出席すると私の席だけが無い。私の事が大嫌いな長男嫁「席の用意忘れたwお祝儀払って帰れw」私「いいけど後悔するよ？」長男嫁「黙れバ
+
+=== 順位90 567 Lenmoban（1本） https://www.youtube.com/channel/UCvdGGJHSzUfvS64FqivkrYQ
+侵害動画: https://www.youtube.com/watch?v=W5uMSrJbmJc
+  元動画: https://www.youtube.com/watch?v=i8zqcOBxHyo
+  元タイトル: 【スカッとする話】長男の海外主張中、癌で余命半年の私を奴隷扱いする長男嫁「家事も役立たずは出てけ！」私「はい...」泣きながら出て行くと長男とある人物がやってき
+
+=== 順位91 嫁子の逆転朗読劇場【スカッと物語】（1本） https://www.youtube.com/channel/UCqrk4gfB7SAhYKnyK39vAdg
+侵害動画: https://www.youtube.com/watch?v=Y6q_6VixOC0
+  元動画: https://www.youtube.com/watch?v=eFu4Ak6nNYo
+  元タイトル: 【スカッとする話】結婚式をドタキャンした妹の代わりに、田舎の大工と結婚させられた私。私「バイトして生活費入れるね」夫「必要ないよ！だって…」翌日、半狂乱の妹が自
+
+=== 順位92 人生の一頁 5631（1本） https://www.youtube.com/channel/UC342_Tf8mM_bScq2p9d7lcg
+侵害動画: https://www.youtube.com/watch?v=_Hw4KIf2xi8
+  元動画: https://www.youtube.com/watch?v=qbv3oYHPVrc
+  元タイトル: 【スカッとする話】銀行のATMで入金中に突然、夫「今すぐ逃げよう、早く！」私の手を掴み全力疾走の夫…私「どうかしたの？」夫「後ろ見てみろ…」実は【朗読】【スカッ
+
+=== 順位93 人生の晩年5045（1本） https://www.youtube.com/channel/UCRajns3nAnfDW1XFNGE8mjg
+侵害動画: https://www.youtube.com/watch?v=5pWfQJ33PNw
+  元動画: https://www.youtube.com/watch?v=blo_a56_T1U
+  元タイトル: 【スカッとする話】愛人に夫を奪われた私。2人「すまん、離婚してくれ…」離婚届が置かれた瞬間、即サインし夫を譲ると、相手弁護士がガタガタ震え出しw【朗読】【スカッ
+
+=== 順位94 夕暮れの散歩道4846（1本） https://www.youtube.com/channel/UCZtqjRN0zErgBqr6a5jBkUA
+侵害動画: https://www.youtube.com/watch?v=NcCLNdH6Oqk
+  元動画: https://www.youtube.com/watch?v=uYt37nxwb0o
+  元タイトル: 【スカッとする話】私の資産が9億あると知らず社長令嬢の愛人と再婚した元夫と再会「生活保護の貧乏人じゃんw元気？w」私「は？誰と勘違いしてるの？」真実を伝えると元
+
+=== 順位95 愛憎の十字路 5434（1本） https://www.youtube.com/channel/UCIrSkm9Z15Girl7kaWJyFOA
+侵害動画: https://www.youtube.com/watch?v=dlg95j0QTc0
+  元動画: https://www.youtube.com/watch?v=I0YiB-VENsY
+  元タイトル: 【スカッとする話】夫「お前の部屋は両親に譲る。2人を介護するから頼むな」私「はーい（何も知らないのねw）」翌日、義両親が引越してくると夫は半狂乱→私と娘は大爆笑
+
+=== 順位96 感動のストーリー 5718（1本） https://www.youtube.com/channel/UChJXskMmVDbiJsbH0jjVRUg
+侵害動画: https://www.youtube.com/watch?v=vqSx9hyvFTc
+  元動画: https://www.youtube.com/watch?v=heS7VSZxA3U
+  元タイトル: 【スカッとする話】離婚し海外移住したことを知らない義母「明日息子の家に泊まりに行くw」義父「料理だけ用意して出てけw」私「え？息子さんなら高架下ですが…」【朗読
+
+=== 順位97 家庭の嵐 5499（1本） https://www.youtube.com/channel/UC6XQp0Ks_jrLEbxFGN-0FIQ
+侵害動画: https://www.youtube.com/watch?v=U2djWASCO-w
+  元動画: https://www.youtube.com/watch?v=kSqGwQPxtec
+  元タイトル: 【スカッとする話】元義母「二世帯住宅建てたw来月から家賃30万お願いw」私「離婚したから払いませんが？」元義母「嘘おっしゃいw」結果w【朗読】【スカッと】
+
+=== 順位98 都会の孤独5052（1本） https://www.youtube.com/channel/UCTWwkNBKuUw8iJZaqGYyivA
+侵害動画: https://www.youtube.com/watch?v=dlKU8wTl3AM
+  元動画: https://www.youtube.com/watch?v=9TulrMzmHr8
+  元タイトル: 【スカッとする話】毎日9時間義母の介護で倒れた私に夫「介護すらできないなら離婚wこれからは愛人に任せるw」私「いいけど後悔しない？」夫「しねぇよw」1週間後w【
+
+=== 順位99 忘却の家 5454（1本） https://www.youtube.com/channel/UCU4rxzNFWBeGjdH3HY-dOOw
+侵害動画: https://www.youtube.com/watch?v=pVXKOu3vOe8
+  元動画: https://www.youtube.com/watch?v=6d_twanH4wg
+  元タイトル: 【スカッとする話】母の葬式にも出ず私と高1の娘を捨てて浮気女と駆け落ちした夫「ガキはお前にやるからよろしくw」3日後、血相を変えた夫から23件の鬼電→娘「あんた
+
+=== 順位100 裏世界ノイズ（1本） https://www.youtube.com/channel/UCYrw_-Y0uEE8NIe5fpwDkrQ
+侵害動画: https://www.youtube.com/watch?v=4kA8SdbCiEY
+  元動画: https://www.youtube.com/watch?v=OdNjDlmFQIc
+  元タイトル: 【スカッと総集編】義実家に帰省した私を駅まで迎えに来た義母「息子とデートに行くから歩いて帰れｗ」私「では徒歩5分の新居に行きます」1時間後、ブチギレた義母が現れ
+
