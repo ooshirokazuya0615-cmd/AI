@@ -102,3 +102,8 @@ class Scene:
 
 音の部品（`synth.py`）：`bell`（FMベル）、`pad`（和音の伸ばし）、`thump`（低音の一撃）、
 `noise`（帯域を絞ったノイズ）、`riser`（盛り上げ）、`reverb`（残響）、`Mix`（ミックス）。
+
+## 試作
+
+棒人間・音ハメ・3D・ASMR・キャラの声の試作は `prototypes/` にあります（本番のコードではありません）。
+中身と測った数字は `prototypes/README.md` を見てください。
