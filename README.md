@@ -14,7 +14,7 @@
 | `templates/` | コンテンツ種別ごとの「型」。メルマガ、ステップメール、LINE、セールスレター、ブログ、YouTube朗読 |
 | `templates/` の `thumbnail-copy.md` | サムネのコピー案を出す型 |
 | `tools/thumbnail.mjs` | サムネ画像（1280×720 PNG）の生成ツール。詳細は `tools/README.md` |
-| `tools/nonverbal/` | ノンバーバル動画（セリフ・文字なし）の生成ツール。映像はGPU描画、音はプログラム合成。詳細は `tools/nonverbal/README.md` |
+| `tools/nonverbal/` | ノンバーバル動画（セリフ・文字なし）の生成ツール。映像はGPU描画、音はプログラム合成。詳細は `tools/nonverbal/README.md`、公開前のルールは `POLICY.md` |
 | `drafts/` | AIが生成した原稿・サムネ・動画の置き場所 |
 
 ## 使い方
@@ -42,9 +42,10 @@ Claude は自動的に `style/voice.md` を読み、その文体で書きます�
 ノンバーバル動画を1本作って。Shorts用、40秒で
 ```
 
-映像も音もコードから作るので、素材の用意も著作権の心配もいりません。
+映像も音もコードから作るので、素材を用意する必要がありません。
 ただし **`--seed` を変えただけの動画を量産するのはNG** です。YouTube の「不自然なコンテンツ（テンプレート的な量産）」に当たり、
-収益化を止められます。1本ごとに新しい仕掛け・展開を入れてください（`tools/nonverbal/README.md`）。
+収益化を止められます。1本ごとに新しい仕掛け・展開を入れてください。
+公開前のルールとチェックリストは `tools/nonverbal/POLICY.md` にまとめています。
 
 スマホ（Claudeアプリ、または claude.ai/code）からも同じことができるので、
 移動中にネタを投げておいて、あとで `drafts/` を確認する使い方ができます。
