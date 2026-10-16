@@ -53,7 +53,8 @@ def marimba(midi, vel=1.0):
     x = np.sin(TAU * f * t) * np.exp(-t / (0.45 + 60 / f))
     x += 0.22 * vel * np.sin(TAU * f * 3.93 * t) * np.exp(-t / 0.05)
     x += 0.07 * np.sin(TAU * f * 9.2 * t) * np.exp(-t / 0.012)
-    k = synth.noise(0.03, 1500, 7000, seed=int(midi)) * np.exp(-tt(0.03) / 0.004) * 0.45
+    k = synth.noise(0.04, 1500, 7000, seed=int(midi)) * np.exp(-tt(0.04) / 0.012) * 0.40
+    x += 0.10 * np.sin(TAU * f * 8.0 * t) * np.exp(-t / 0.025)
     x[:len(k)] += k
     th = synth.thump(0.18, 95, 48) * 0.22
     x[:len(th)] += th
@@ -94,11 +95,11 @@ def bass_note(midi, sec, vel=1.0):
     """Upright bass pluck."""
     f = E.hz(midi)
     t = tt(sec + 0.25)
-    x = np.sin(TAU * f * t) + 0.5 * np.sin(TAU * 2 * f * t) * np.exp(-t / 0.35) + 0.25 * np.sin(TAU * 3 * f * t) * np.exp(-t / 0.2)
+    x = np.sin(TAU * f * t) + 0.55 * np.sin(TAU * 2 * f * t) * np.exp(-t / 0.35) + 0.22 * np.sin(TAU * 4 * f * t) * np.exp(-t / 0.15)
     env = np.exp(-t / 0.55) * np.minimum(1, t / 0.004)
     env[int(sec * SR):] *= np.exp(-(t[int(sec * SR):] - sec) / 0.05)
     th = synth.noise(0.02, 200, 1500, seed=int(midi)) * np.exp(-tt(0.02) / 0.004) * 0.15
-    x = np.tanh(1.6 * x * env) / np.tanh(1.6)
+    x = x * env
     x[:len(th)] += th
     return x * vel
 
@@ -193,21 +194,19 @@ def render():
     t = tt(bed_len)
     env = np.minimum(1.0, t / 0.6) * np.where(t < bed_len - 0.4, 1.0, np.exp(-(t - (bed_len - 0.4)) / 0.15))
     hum = sum(np.sin(TAU * E.hz(m) * t + k) * (1 + 0.04 * np.sin(TAU * (2.7 + k) * t)) for k, m in enumerate((62, 69, 74))) * env * 0.25 / 3
-    add(23.47, hum, 0.0, 1.1, 0.8)
-    add(23.47 - T.DURATION, hum, 0.0, 1.1, 0.8)
+    add(23.47, hum, 0.0, 2.2, 0.8)
 
     # start fork, with a riser from frame 0
     add(T.T_START, start_fork(), -0.35, 0.55, 0.6)
     add(0.0, synth.riser(T.T_START, seed=4) * 0.5, 0.0, 1.0)
-    add(T.DURATION, synth.riser(T.T_START, seed=4) * 0.5, 0.0, 1.0)
 
     # Kaku's landings: the melody (placeholder) + the stands answering an octave up
     upper = {62: 66, 64: 66, 66: 69, 69: 71, 71: 74, 74: 78}
     for tl, note, c1, face in T.landings():
         pan = float(np.clip(c1[0] / 14.0, -0.6, 0.6))
         melody = tl >= T.tb(28) - 1e-6
-        add(tl, marimba(note, 1.0), pan, 0.70 if melody else 0.55, 0.35)
-        add(tl, fork_tone(note + 12, 1.8, 0.35 if melody else 0.22, attack=0.03), pan * 0.5, 1.0, 0.9)
+        add(tl, marimba(note, 1.0), pan, 0.60 if melody else 0.55, 0.35)
+        add(tl, fork_tone(note + 12, 1.8, 0.28 if melody else 0.22, attack=0.03), pan * 0.5, 1.0, 0.9)
         if melody:
             add(tl + B / 3, fork_tone(upper[note] + 12, 1.2, 0.15, attack=0.03), -pan * 0.5, 1.0, 0.9)
     # habit 1: the little rock-back onto the same face after the last note (lands on b42)
@@ -247,7 +246,7 @@ def render():
             add(b * B, bass_note(root - 12, B * 0.5, 1.0), 0.0, 0.42, 0.05)
             continue
         if not melody or bar_beat in (0, 2):
-            walk = [root, third, root + 7, root + 5][bar_beat]
+            walk = [root, third, root + 7, root + 12][bar_beat]
             if melody:
                 walk = root if bar_beat == 0 else root + 7
             add(b * B, bass_note(walk - 12, B * (2 if melody else 1) * 0.92, 1.0), 0.0, 0.42, 0.05)
@@ -265,7 +264,7 @@ def render():
                 add(b * B + 2 * B / 3, ride(0.55, seed=b + 100), 0.35, 0.08, 0.3)
         if bar_beat == 0 and (b >= 16 or melody):
             pad = sum(fork_tone(m + 12, B * 4.2, 0.10, attack=0.3) for m in ch)
-            add(b * B, pad, 0.0, 0.5 if not melody else 0.8, 0.7)
+            add(b * B, pad, 0.0, 0.5 if not melody else 0.6, 0.7)
 
     # the stands turn to watch Rondo at corners 1 and 2: an unsettled chord held while they look, resolved when they turn back
     look = [(t, T.fork_look(t)[2]) for t in np.arange(0, T.tb(27), 0.01)]
@@ -292,20 +291,22 @@ def render():
     tau = t
     env = np.minimum(1, tau / 0.06) * (0.55 + 0.45 * np.exp(-tau / 1.6))
     duck = np.ones_like(t)
-    a, bb = 22.55 - tf, 23.40 - tf
+    a, bb = T.T_LOOK_TI + 0.35 - tf, T.tb(44) - 0.07 - tf
     duck = np.where((t > a) & (t < bb), 10 ** (-10 / 20), 1.0)
     ramp = 0.08
-    for edge, up in ((a, False), (bb, True)):
-        m_ = (t > edge - ramp) & (t < edge + ramp)
-        u = (t[m_] - (edge - ramp)) / (2 * ramp)
-        duck[m_] = 10 ** ((-10 * (u if not up else 1 - u)) / 20)
-    after = t >= (23.47 - tf)
-    duck[after] = 10 ** (-4 / 20) * np.clip(1 - (t[after] - (23.47 - tf)) / (45.4 * B - 23.47), 0, 1)
+    m_ = (t > a - ramp) & (t < a + ramp)
+    u = (t[m_] - (a - ramp)) / (2 * ramp)
+    duck[m_] = 10 ** ((-10 * u) / 20)
+    m_ = (t >= bb) & (t < bb + 0.07)
+    u = (t[m_] - bb) / 0.07
+    duck[m_] = 10 ** ((-10 + 6 * u) / 20)                 # -10 dB rising to -4 dB into the bar-11 cut
+    after = t >= (T.tb(44) - tf)
+    duck[after] = 10 ** (-4 / 20) * np.clip(1 - (t[after] - (T.tb(44) - tf)) / (45.4 * B - T.tb(44)), 0, 1)
     fin = sum(np.sin(TAU * E.hz(m) * t + k) * (1 + 0.04 * np.sin(TAU * (3.1 + 0.3 * k) * t)) for k, m in enumerate((62, 69, 74, 76, 78, 81, 86)))
     fin = fin * env * duck * 0.30 / 7 * 3.0
-    add(tf, fin, 0.0, 1.5, 1.0)
+    add(tf, fin, 0.0, 1.8, 1.0)
     add(tf, bass_note(38, 2.6, 1.2), 0.0, 0.35, 0.1)
-    add(tf, E.crash(0.5, 3.0, seed=6), 0.3, 0.07, 0.6)
+    add(tf, E.crash(0.5, 3.0, seed=6), 0.3, 0.10, 0.6)
     add(tf + 0.05, flap_burst(0.22, 5), 0.5, 0.05, 0.4)
     # the knot turns to TI: a soft slide, then TI's note (C#6) does NOT come
     add(T.T_LOOK_TI, swish(seed=77) * 0.8, -0.3, 0.12, 0.3)

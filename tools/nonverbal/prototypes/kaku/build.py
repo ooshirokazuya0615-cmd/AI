@@ -93,16 +93,16 @@ def master(path):
     shelf = Path(path).with_suffix('.shelf.wav')
     E.write_wav16(raw, mix)
     subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(raw), '-af',
-                    'highshelf=f=4000:g=3', '-c:a', 'pcm_f32le', str(shelf)], check=True)
+                    'highshelf=f=4000:g=3,equalizer=f=3000:t=q:w=0.8:g=4', '-c:a', 'pcm_f32le', str(shelf)], check=True)
     gain_db = 0.0
     for _ in range(3):
         pr = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', str(shelf), '-af',
-                             f'volume={gain_db}dB,aresample=192000,alimiter=limit=0.79:attack=1:release=60:level=disabled,'
+                             f'volume={gain_db}dB,aresample=192000,alimiter=limit=0.79:attack=1:release=60:level=disabled:latency=1,'
                              'aresample=48000,ebur128=peak=true', '-f', 'null', '-'], capture_output=True, text=True).stderr
         li = float(pr[pr.rindex('I:'):].split()[1])
         gain_db += -14.0 - li
     subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(shelf), '-af',
-                    f'volume={gain_db}dB,aresample=192000,alimiter=limit=0.79:attack=1:release=60:level=disabled,aresample=48000',
+                    f'volume={gain_db}dB,aresample=192000,alimiter=limit=0.79:attack=1:release=60:level=disabled:latency=1,aresample=48000',
                     '-c:a', 'pcm_s16le', str(path)], check=True)
     raw.unlink()
     shelf.unlink()

@@ -122,7 +122,7 @@ float kakuBox(vec3 p) {
 // stands: (dist, section, glow-id) ; staircase in (m, y) where m = L-inf radius
 vec3 mapStands(vec3 p) {
     float m = max(abs(p.x), abs(p.z));
-    if (m < STAND0 - 1.0) return vec3(STAND0 - 0.35 - m, 6.0, 0.0);
+    if (m < STAND0 - 1.0) return vec3(STAND0 - 0.35 - m, 6.0, -1.0);
     float res = 1e9;
     // front wall
     float fw = sdBox2(vec2(m - (STAND0 - 0.15), p.y - 0.25), vec2(0.15, 0.25));
@@ -150,8 +150,10 @@ vec3 mapStands(vec3 p) {
         if (abs(uc) > mc - 0.7) continue;
         vec3 fw3 = sx ? vec3(sign(p.x) * mc, top, uc) : vec3(uc, top, sign(p.z) * mc);
         float df;
+        bool isBound = false;
         if (p.y > top + 1.85) {
             df = max(p.y - (top + 1.8), 0.0) + 0.02;
+            isBound = true;
         } else {
             vec2 toC = normalize(-fw3.xz);
             vec2 toT = normalize(u_look.xy - fw3.xz);
@@ -165,17 +167,18 @@ vec3 mapStands(vec3 p) {
             vec2 f = vec2(cos(a), sin(a));
             vec3 rel = p - fw3;
             vec3 q = vec3(dot(rel.xz, vec2(-f.y, f.x)), rel.y, dot(rel.xz, f));
-            float lean = 0.2 * w;                    // heads lean toward what they watch
+            float lean = 0.42 * w;                   // heads lean toward what they watch
             float cl = cos(lean), sl = sin(lean);
             q = vec3(q.x, q.y * cl + q.z * sl, -q.y * sl + q.z * cl);
             df = sdFork(q, 1.0);
             float edge = 0.5 - abs(u - uc);
-            df = min(df, max(edge + 0.28, 0.02));
+            float bd = max(edge + 0.28, 0.02);
+            if (bd < df) { df = bd; isBound = true; }
         }
         if (df < out_.x) {
             float ang = atan(fw3.z, fw3.x);
             float sec = mod(floor((ang + PI) / (2.0 * PI) * 6.0 + 0.5), 6.0);
-            out_ = vec3(df, 5.0, sec + 0.09 * hash12(fw3.xz * 0.37));
+            out_ = vec3(df, 5.0, isBound ? -1.0 : sec + 0.09 * hash12(fw3.xz * 0.37));
         }
     }
     return out_;
@@ -214,7 +217,7 @@ vec3 map(vec3 p) {  // (dist, material, id)
     // the start fork (big) + its plinth
     vec3 qs = p - START_FORK;
     if (length(qs - vec3(0.0, 1.4, 0.0)) - 2.2 < res.x) {
-        float wob = u_startAge > 0.0 ? 0.03 * exp(-u_startAge * 1.6) * sin(u_startAge * 70.0) : 0.0;
+        float wob = u_startAge >= 0.0 ? 0.03 * exp(-u_startAge * 1.6) * sin(u_startAge * 70.0) : 0.0;
         vec3 q = vec3(qs.z, qs.y - 0.45, qs.x);              // prongs across z, facing x (toward the starter)
         q.x += wob * max(q.y - 1.0, 0.0);
         float d = sdFork(q, 1.38);
@@ -241,7 +244,7 @@ vec3 map(vec3 p) {  // (dist, material, id)
         if (body < res.x) res = vec3(body * 0.8, 9.0, 0.0);
         vec3 piv = METRO + vec3(0.0, 0.25, 0.36);
         vec3 tip = piv + vec3(sin(u_metro), cos(u_metro), 0.0) * 1.15;
-        float rod = sdCapsule(p, piv, tip, 0.016);
+        float rod = sdCapsule(p, piv, tip, 0.035);
         rod = min(rod, sdRoundBox(p - (piv + (tip - piv) * 0.7), vec3(0.07, 0.05, 0.03), 0.01));
         if (rod < res.x) res = vec3(rod, 13.0, 0.0);
     }
@@ -270,8 +273,9 @@ vec3 calcNormal(vec3 p, float t) {
 float softShadow(vec3 ro, vec3 rd, float tmax) {
     float res = 1.0, t = 0.02;
     for (int i = 0; i < 40; i++) {
-        float h = map(ro + rd * t).x;
-        res = min(res, 6.0 * h / t);
+        vec3 hm = map(ro + rd * t);
+        float h = hm.x;
+        if (hm.z > -0.5) res = min(res, 6.0 * h / t);
         t += clamp(h, 0.03, 0.6);
         if (res < 0.004 || t > tmax) break;
     }
@@ -360,7 +364,7 @@ vec3 shadeGround(vec3 p, vec3 n, float sh, float occ) {
         bool side1 = p.z < 0.0 && abs(p.z) >= abs(p.x);
         bool side4 = p.x < 0.0 && abs(p.x) >= abs(p.z);
         if (side1 && abs(p.x - (-H + 0.9)) < 0.07) col = C_LINE;
-        if (side4 && abs(p.z - (-H + 0.9)) < 0.30) {
+        if (side4 && abs(p.z - (-H + 0.9 - 0.40)) < 0.28) {
             float ch = mod(floor(p.x / 0.30) + floor((p.z + H) / 0.30), 2.0);
             col = mix(C_LINE, C_BAND * 0.9, ch);
         }
@@ -433,15 +437,26 @@ vec3 shadeRondo(vec3 p, vec3 n, vec3 rd, float sh, float occ) {
     return c + tint * mix(0.15, 0.22, brass);
 }
 
+float forkWatch(vec3 p) {
+    float m = max(abs(p.x), abs(p.z));
+    float k = clamp(floor((m - STAND0) / TIER_D), 0.0, float(NTIER - 1));
+    float mc = STAND0 + TIER_D * k + 0.55;
+    bool sx = abs(p.x) >= abs(p.z);
+    float uc = floor(sx ? p.z : p.x) + 0.5;
+    vec2 f2 = sx ? vec2(sign(p.x) * mc, uc) : vec2(uc, sign(p.z) * mc);
+    float w = clamp(u_look.z * 1.6 - length(f2 - u_look.xy) / 40.0, 0.0, 1.0);
+    return smoothstep(0.0, 1.0, w);
+}
 vec3 shadeFork(vec3 p, vec3 n, vec3 rd, float sh, float occ, float sec, float rnd) {
     int s = int(sec + 0.5);
     float g = 0.0;
     for (int i = 0; i < 6; i++) if (i == s) g = u_glow[i];
+    float w = forkWatch(p);
     float shimmer = 0.75 + 0.25 * sin(u_time * 9.0 + rnd * 6.0);
-    vec3 c = shadeMetal(p, n, rd, sh, occ, C_BRASS, 0.45) * g_envDim;
-    c += vec3(1.0, 0.58, 0.16) * g * 1.0 * (0.7 + 0.3 * rnd);
-    float finW = u_fin * smoothstep(0.0, 3.0, u_finAge * 35.0 - length(p.xz - u_kC.xz));
-    c += vec3(1.0, 0.48, 0.10) * finW * 2.2 * (0.8 + 0.3 * shimmer) * (0.7 + 0.3 * rnd);
+    vec3 c = shadeMetal(p, n, rd, sh, occ, C_BRASS * (1.0 - 0.2 * w), 0.45) * g_envDim;
+    c += vec3(1.0, 0.58, 0.16) * g * 0.6 * (1.0 - 0.85 * w) * (0.7 + 0.3 * rnd);
+    float finW = u_fin * smoothstep(0.0, 3.0, u_finAge * 90.0 + 25.0 - length(p.xz - u_kC.xz));
+    c += vec3(1.0, 0.42, 0.06) * finW * 1.4 * (0.8 + 0.3 * shimmer) * (0.7 + 0.3 * rnd);
     return c;
 }
 
@@ -534,9 +549,9 @@ vec3 shade(vec3 p, vec3 n, vec3 rd, vec3 res, float t) {
     else if (m == 6) col = shadeStone(p, n, sh, occ);
     else if (m == 7) col = shadeCeramic(p, n, rd, sh, occ);
     else if (m == 8) col = shadeWood(p, n, sh, occ, vec3(0.30, 0.18, 0.09));
-    else if (m == 9) col = shadeWood(p, n, sh, occ, vec3(0.22, 0.11, 0.05));
+    else if (m == 9) col = shadeMetal(p, n, rd, sh, occ, vec3(0.025, 0.022, 0.02), 0.25);
     else if (m == 10) col = shadeBoard(p, n, sh, occ);
-    else if (m == 11) col = shadeMetal(p, n, rd, sh, occ, C_BRASS, 0.3) + C_GOLD * (u_startAge > 0.0 ? 1.2 * exp(-u_startAge / 0.5) : 0.0);
+    else if (m == 11) col = shadeMetal(p, n, rd, sh, occ, C_BRASS, 0.3) + C_GOLD * (u_startAge >= 0.0 ? 1.2 * exp(-u_startAge / 0.5) : 0.0);
     else if (m == 12) col = shadeMetal(p, n, rd, sh, occ, C_BRASS * 0.95, 0.35);
     else if (m == 13) col = shadeMetal(p, n, rd, sh, occ, C_BRASS, 0.3);
     else col = shadeMetal(p, n, rd, sh, occ, vec3(0.08, 0.08, 0.09), 0.6);
@@ -605,7 +620,7 @@ void main() {
     col = aces(col * 0.82);
     col = mix(col, col * col * (3.0 - 2.0 * col), 0.25);
     col = pow(col, vec3(1.0 / 2.2));
-    col = mix(col, vec3(1.0, 0.78, 0.38), 0.25 * u_impact);
+    col = mix(col, vec3(1.0, 0.78, 0.38), 0.15 * u_impact);
     col += (hash12(gl_FragCoord.xy + fract(u_time * 7.13) * 100.0) - 0.5) / 255.0;
     f_color = vec4(col, 1.0);
 }

@@ -37,7 +37,7 @@ T_FINISH_K = B_FINISH_K * BEAT
 T_FINISH_R = B_FINISH_R * BEAT
 T_LOOK_TI = 42.2 * BEAT       # knot turns toward TI, TI does not ring
 T_RESET = 45.5 * BEAT         # racers go back to the start while the camera looks at the board
-FINISH_Z = -H + HALF          # finish line across the last straight
+FINISH_Z = -H + HALF - 0.40   # finish line across the last straight (inside the corner cell)
 START_X = -H + HALF           # start line across the first straight
 TI_POS = np.array([-10.6, 0.0, -4.6])
 
@@ -166,9 +166,9 @@ def kaku_look(t):
         v = base * (1 - u) + to * u
         return v / np.linalg.norm(v)
     # during the hesitation the knot glances 50 deg toward the score path (+x), then back
-    if T_HES0 + 0.15 <= t <= T_HES1 - 0.10:
-        u = min(smooth((t - (T_HES0 + 0.15)) / 0.1), smooth(((T_HES1 - 0.10) - t) / 0.1))
-        a = math.radians(50) * u
+    if T_HES0 + 0.05 <= t <= T_HES1 - 0.02:
+        u = min(smooth((t - (T_HES0 + 0.05)) / 0.1), smooth(((T_HES1 - 0.02) - t) / 0.08))
+        a = math.radians(100) * u
         v = -Z3 * math.cos(a) + X3 * math.sin(a)
         return v / np.linalg.norm(v)
     # look where it travels; on the last straight it looks down the straight (-z)
@@ -387,7 +387,7 @@ def finale(t):
         return 0.0
     if t > T_RESET:
         return 0.0
-    return min(1.0, tau / 0.12) * (0.55 + 0.45 * math.exp(-tau / 1.6)) * (1 - smooth((t - 44.2 * BEAT) / (1.2 * BEAT)))
+    return min(1.0, tau / 0.04) * (0.55 + 0.45 * math.exp(-tau / 1.6)) * (1 - smooth((t - 44.2 * BEAT) / (1.2 * BEAT)))
 
 
 def fork_look(t):
@@ -410,7 +410,7 @@ def fork_look(t):
 
 # ---------------------------------------------------------------- the starter (ceramic stickman) and fork
 START_FORK = np.array([-H + 0.2, 0.0, -H - 4.0])
-STARTER_ORIGIN = np.array([-H - 0.62, 0.0, -H - 4.0])
+STARTER_ORIGIN = np.array([-H - 1.09, 0.0, -H - 4.0])
 STARTER_SCALE = 1.72
 _REST = (0.0, 0.55, 0.0, 0.05, 0.10, -0.05, 0.10, 0.10, 0.25, 0.15, 0.30)
 _RAISE = (-0.04, 0.55, -0.12, 0.05, 0.12, -0.15, 0.25, 0.20, 0.30, 2.75, 0.85)
@@ -467,8 +467,8 @@ def board(t):
     return cube, ball, fc, fb
 
 
-T_BOARD_NOTE = 44.25 * BEAT     # the cube panel flips to the note on camera
-T_BOARD_BACK = 46.5 * BEAT      # both panels flip back to 0-0
+T_BOARD_NOTE = 44.6 * BEAT      # the cube panel flips to the note on camera
+T_BOARD_BACK = 46.9 * BEAT      # both panels flip back to 0-0
 
 
 def fp_fade(t):
