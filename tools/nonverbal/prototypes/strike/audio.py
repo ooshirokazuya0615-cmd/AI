@@ -56,23 +56,17 @@ def render():
     send = E.Bus(n)
     rng = np.random.default_rng(7)
 
-    # --- count-in: the bowler's approach (steps on the beat), release, roll ---
-    for i, tb in enumerate((0.0, 0.5)):
-        dry.add(tb, synth.thump(0.14, 120, 70) * 0.6, 0.1, 0.30)
-        dry.add(tb, synth.noise(0.06, 1500, 6000, seed=40 + i) * np.exp(-tt(0.06) / 0.012), 0.1, 0.10)
-    for tb in (0.0, 0.5, 1.0, 1.5):
-        dry.add(tb, E.hat(0.30, False, seed=int(tb * 10)), -0.2, 0.08)
-    sl = synth.noise(0.45, 600, 5000, seed=44)
-    dry.add(0.62, sl * np.sin(np.linspace(0, np.pi, len(sl))) ** 2, 0.1, 0.10)        # slide
-    dry.add(T.T_RELEASE + 0.09, synth.thump(0.25, 140, 55), 0.15, 0.55)                 # ball drops on the lane
-    dry.add(T.T_RELEASE + 0.09, sfx.wood(420, 0.8, 21), 0.15, 0.22)
+    # --- frame 0: the ball leaves the hand and races down the lane ---
+    dry.add(0.0, E.whoosh(0.18, True, seed=3) * 0.5, 0.1, 0.20)
+    dry.add(T.T_RELEASE + 0.03, synth.thump(0.25, 140, 55), 0.15, 0.55)                 # ball drops on the lane
+    dry.add(T.T_RELEASE + 0.03, sfx.wood(420, 0.8, 21), 0.15, 0.22)
     roll = T.T_STRIKE - T.T_RELEASE
     r = rumble(roll + 0.05)
-    env = np.minimum(1.0, tt(len(r) / SR) / 0.12) * (0.6 + 0.4 * tt(len(r) / SR) / roll)
-    dry.add(T.T_RELEASE + 0.09, r * env, 0.0, 0.45)
-    dry.add(T.T_STRIKE - 0.75, synth.riser(0.75, seed=2) * 0.22, 0.0, 1.0)
+    env = np.minimum(1.0, tt(len(r) / SR) / 0.06)
+    dry.add(T.T_RELEASE + 0.03, r * env, 0.0, 0.55)
+    dry.add(0.0, synth.riser(T.T_STRIKE, seed=2) * 0.25, 0.0, 1.0)
     r2 = rumble(T.T_DOM0 - T.T_STRIKE, seed=9)
-    dry.add(T.T_STRIKE, r2 * np.exp(-tt(len(r2) / SR) / 0.9), 0.0, 0.28)
+    dry.add(T.T_STRIKE, r2 * np.exp(-tt(len(r2) / SR) / 0.5), 0.0, 0.28)
 
     # --- strike ---
     dry.add(T.T_STRIKE, E.kick(1.25, 0.6, 46.0), 0.0, 0.9)
@@ -90,23 +84,25 @@ def render():
         elif kind == 'pin_tick':
             dry.add(t0, sfx.wood(rng.uniform(700, 1000), 0.4, int(rng.integers(1e6))), pan, 0.16)
 
-    # --- groove: bars 0..3, break at bar 4 ---
-    for bar in range(4):
-        for beat in range(4):
-            tb = T.tm(bar, beat * 4)
-            if beat in (0, 2) and not (bar == 0 and beat == 0):
-                dry.add(tb, E.kick(0.75, 0.38, 50.0), 0.0, 0.55)
-            if beat in (1, 3):
-                dry.add(tb, E.clap(0.6), 0.0, 0.22)
-        if bar >= 1:
-            for e in range(8):
-                dry.add(T.tm(bar, e * 2), E.hat(0.35 if e % 2 else 0.5, False, seed=e), 0.25, 0.10)
-        for st in (0, 6, 12, 14):
-            gate = 0.22 if st != 14 else 0.12
-            dry.add(T.tm(bar, st), E.bass(T.ROOTS[bar], gate, 0.8), 0.0, 0.36)
-        pad = E.pad(T.CHORDS[bar], 2.0, attack=0.25, release=0.4, cutoff=1500)
-        send.add(T.tm(bar), pad, 0.0, 0.10)
-        dry.add(T.tm(bar), pad, 0.0, 0.07)
+    # --- groove: from the strike to the slab; chords follow the melody ---
+    nbeats = int(round((T.T_BIG - T.T_STRIKE) / T.BEAT))
+    for b in range(nbeats):
+        tb = T.T_STRIKE + b * T.BEAT
+        if b % 2 == 0 and b > 0:
+            dry.add(tb, E.kick(0.75, 0.38, 50.0), 0.0, 0.55)
+        if b % 2 == 1:
+            dry.add(tb, E.clap(0.6), 0.0, 0.22)
+        if tb >= T.T_DOM0 - 1e-6:
+            for e in range(2):
+                dry.add(tb + e * T.BEAT / 2, E.hat(0.5 if e == 0 else 0.35, False, seed=b * 2 + e), 0.25, 0.10)
+    segs = [(T.T_STRIKE, T.T_DOM0, 0)] + [(T.T_DOM0 + i * 4 * T.BEAT, T.T_DOM0 + (i + 1) * 4 * T.BEAT, i + 1) for i in range(3)]
+    for t0, t1, ci in segs:
+        dur = t1 - t0
+        for st in np.arange(0.0, dur - 1e-6, 0.5):
+            dry.add(t0 + st, E.bass(T.ROOTS[ci], 0.22, 0.8), 0.0, 0.36)
+        pad = E.pad(T.CHORDS[ci], dur, attack=0.25, release=0.4, cutoff=1500)
+        send.add(t0, pad, 0.0, 0.10)
+        dry.add(t0, pad, 0.0, 0.07)
 
     # --- dominoes ---
     dry.add(T.T_DOM0, sfx.wood(900, 0.5, 3), -0.1, 0.25)        # ball taps domino 0

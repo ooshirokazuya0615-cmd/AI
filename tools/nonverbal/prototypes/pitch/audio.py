@@ -70,15 +70,12 @@ def render():
     send = E.Bus(n)
     rng = np.random.default_rng(11)
 
-    # --- count-in: the windup ---
-    for k in range(3):
-        dry.add(k * T.BEAT, E.hat(0.30, False, seed=k), -0.2, 0.08)
-    dry.add(T.BEAT, E.whoosh(0.30, True, seed=2) * 0.4, 0.1, 0.18)                # leg lift
-    dry.add(2 * T.BEAT, synth.thump(0.16, 120, 70) * 0.7, 0.1, 0.32)              # stride lands
-    dry.add(2 * T.BEAT, synth.noise(0.06, 900, 5000, seed=8) * np.exp(-tt(0.06) / 0.01), 0.1, 0.10)
+    # --- the throw (frame 0 is already mid-windup) ---
+    dry.add(0.0, E.whoosh(0.22, True, seed=2) * 0.5, 0.1, 0.22)
+    dry.add(0.17, synth.thump(0.16, 120, 70) * 0.7, 0.1, 0.30)                    # stride lands
     zip_ = synth.noise(0.22, 1500, 9000, seed=9) * np.linspace(0.2, 1.0, int(0.22 * SR)) ** 2
-    dry.add(T.T_REL - 0.02, zip_, 0.0, 0.18)                                       # the throw
-    dry.add(T.T_GONG - 0.6, synth.riser(0.6, seed=4) * 0.18, 0.0, 1.0)
+    dry.add(T.T_REL - 0.02, zip_, 0.0, 0.22)
+    dry.add(0.0, synth.riser(T.T_GONG, seed=4) * 0.20, 0.0, 1.0)
 
     # --- gong: the music starts ---
     g = gong()
@@ -134,14 +131,16 @@ def render():
     # --- catch ---
     dry.add(T.T_CATCH, leather_pop(), -0.15, 0.7)
     dry.add(T.T_CATCH, E.kick(1.1, 0.8, 44.0), 0.0, 0.7)
-    fin = E.pad(FINAL, T.DURATION - T.T_CATCH, attack=0.02, release=1.2, cutoff=2400)
+    fin = E.pad(FINAL, T.DURATION - T.T_CATCH, attack=0.02, release=0.5, cutoff=2400)
+    fin *= np.minimum(1.0, (T.DURATION - T.T_CATCH - tt(len(fin) / SR)) / 0.35).clip(0, 1)
     dry.add(T.T_CATCH, fin, 0.0, 0.20)
     send.add(T.T_CATCH, fin, 0.0, 0.22)
     for m, d, p in ((86, 0.0, 0.2), (81, 0.05, -0.2), (90, 0.10, 0.1)):
         b = synth.bell(E.hz(m), 2.8, 0.8)
         dry.add(T.T_CATCH + d, b, p, 0.16)
         send.add(T.T_CATCH + d, b, p, 0.22)
-    dry.add(T.T_CATCH, E.bass(38, 1.8, 1.0), 0.0, 0.40)
+    dry.add(T.T_CATCH, E.bass(38, 1.0, 1.0), 0.0, 0.40)
+    dry.add(T.T_CATCH + 0.9, E.whoosh(0.3, True, seed=12) * 0.4, 0.1, 0.18)        # winding up again (loop)
 
     wet = synth.reverb(send.buf, seconds=2.4, wet=1.0)
     mix = dry.buf + (wet - send.buf) * 0.55

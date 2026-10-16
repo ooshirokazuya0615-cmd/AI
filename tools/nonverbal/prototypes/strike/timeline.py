@@ -15,14 +15,14 @@ import numpy as np
 BPM = 120.0
 BEAT = 60.0 / BPM
 S16 = BEAT / 4
-OFFSET = 2.0                      # bar 0 downbeat = strike
+OFFSET = 0.5                      # bar 0 downbeat = strike (inside the first 0.5 s)
 DT = S16 / 3                      # time between two domino impacts
-DURATION = 14.0
-T_RELEASE = 1.0                   # count-in bar: steps on 0.0 / 0.5, release on 1.0
+DURATION = 11.3
+T_RELEASE = 0.0                   # frame 0 = the ball leaving the hand
 
 T_STRIKE = OFFSET
-T_DOM0 = OFFSET + 4 * BEAT        # bar 1
-T_BIG = OFFSET + 16 * BEAT        # bar 4 downbeat: last small domino hits the slab
+T_DOM0 = OFFSET + 2 * BEAT        # bar 0 beat 3
+T_BIG = T_DOM0 + 12 * BEAT        # last small domino hits the slab
 T_BOOM = T_BIG + 2 * BEAT         # bar 4 beat 3: slab lands
 
 G = 9.81
@@ -83,8 +83,8 @@ def note_colour(m):
 
 # ---------------- ball ----------------
 V_IN = None   # set after the stickman is defined
-V0_OUT = 1.221
-A_OUT = 0.4855
+V0_OUT = 2.692
+A_OUT = 2.442
 Z_TAP = DOM_Z0 - DOM_T / 2 - BALL_R      # ball centre when it touches domino 0
 
 
@@ -249,15 +249,10 @@ L_THIGH, L_SHIN, L_TORSO, L_UP, L_FORE = 0.27, 0.27, 0.33, 0.20, 0.20
 # (t, hip_z, hip_y, torso, Lhip, Lknee, Rhip, Rknee, Lsh, Lel, Rsh, Rel)   angles in radians,
 # legs/arms measured from straight down, + = forward (+z); knee bends the shin back, elbow bends the forearm forward
 POSES = [
-    (-0.30, -3.05, 0.54, 0.12, 0.05, 0.05, -0.05, 0.05, 0.55, 1.65, 0.65, 1.55),
-    (0.00, -2.78, 0.52, 0.20, -0.30, 0.30, 0.38, 0.10, 0.80, 0.40, 0.95, 0.30),
-    (0.25, -2.50, 0.535, 0.25, 0.10, 0.75, 0.00, 0.05, 0.65, 0.40, -0.25, 0.10),
-    (0.50, -2.20, 0.50, 0.35, 0.45, 0.25, -0.35, 0.35, 1.00, 0.20, -1.35, 0.10),
-    (0.75, -1.86, 0.44, 0.45, 0.75, 0.90, -0.60, 0.30, 1.30, 0.10, -0.45, 0.00),
-    (1.00, -1.62, 0.40, 0.50, 0.85, 1.20, -0.90, 0.25, 1.40, 0.10, 0.35, 0.00),
-    (1.45, -1.53, 0.41, 0.40, 0.85, 1.20, -0.95, 0.25, 1.50, 0.10, 2.55, 0.40),
-    (2.20, -1.50, 0.50, 0.15, 0.40, 0.55, -0.40, 0.30, 0.60, 0.40, 1.20, 0.60),
-    (3.00, -1.48, 0.53, 0.05, 0.15, 0.10, -0.15, 0.10, 0.20, 0.30, 0.25, 0.30),
+    (0.00, -1.62, 0.40, 0.50, 0.85, 1.20, -0.90, 0.25, 1.40, 0.10, 0.35, 0.00),
+    (0.45, -1.53, 0.41, 0.40, 0.85, 1.20, -0.95, 0.25, 1.50, 0.10, 2.55, 0.40),
+    (1.20, -1.50, 0.50, 0.15, 0.40, 0.55, -0.40, 0.30, 0.60, 0.40, 1.20, 0.60),
+    (2.00, -1.48, 0.53, 0.05, 0.15, 0.10, -0.15, 0.10, 0.20, 0.30, 0.25, 0.30),
 ]
 T_CUT = 0.0   # set below (victory shot)
 
@@ -337,15 +332,12 @@ def stick_capsules(t):
 def _keys():
     zb = BIG_Z
     k = [
-        (0.00, (1.75, 0.72, -2.95), (0.00, 0.50, -2.55)),
-        (0.50, (1.70, 0.66, -2.35), (0.00, 0.46, -1.95)),
-        (0.95, (1.45, 0.52, -1.95), (0.00, 0.36, -1.40)),
-        (1.25, (0.55, 0.32, -1.55), (0.00, 0.13, 0.60)),
-        (1.95, (0.36, 0.29, 2.00), (0.00, 0.17, 3.35)),
-        (2.70, (0.88, 0.62, 2.45), (0.00, 0.20, 3.85)),
-        (3.60, (0.62, 0.58, 3.55), (0.00, 0.08, 4.75)),
+        (0.00, (0.62, 0.98, -3.05), (0.00, 0.34, 0.20)),
+        (0.45, (0.36, 0.29, 2.00), (0.00, 0.17, 3.35)),
+        (1.00, (0.85, 0.60, 2.45), (0.00, 0.20, 3.85)),
+        (1.40, (0.62, 0.58, 3.55), (0.00, 0.08, 4.75)),
     ]
-    for t in np.arange(T_DOM0, T_BIG + 0.01, 1.0):
+    for t in (T_DOM0, T_DOM0 + 1.0, T_DOM0 + 2.0):
         zw = wave_front(t)
         k.append((float(t), (0.48, 0.62, zw - 1.15), (0.0, 0.06, zw + 0.40)))
     k += [
@@ -397,7 +389,14 @@ def shake(t):
 
 
 def camera(t):
-    if t >= T_CUT:
+    seg2, seg3 = T_DOM0 + 4 * BEAT, T_DOM0 + 8 * BEAT
+    if seg2 <= t < seg3:            # head-on: the wave runs at the camera
+        zw = wave_front(t)
+        pos, look = np.array([0.30, 0.30, zw + 1.35]), np.array([0.0, 0.10, zw - 0.30])
+    elif seg3 <= t < T_BIG:         # low side view for the fast run
+        zw = wave_front(t)
+        pos, look = np.array([1.60, 0.32, zw - 0.05]), np.array([0.0, 0.13, zw + 0.05])
+    elif t >= T_CUT:
         pos, look = _hermite(VKEYS, t, 1), _hermite(VKEYS, t, 2)
     else:
         pos = _hermite(KEYS, t, 1) + shake(t)
