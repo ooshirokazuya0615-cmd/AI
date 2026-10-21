@@ -132,7 +132,7 @@ M_BRASS = mat('brass', (0.85, 0.62, 0.25), 0.22, metal=1.0)
 M_CHROME = mat('chrome', (0.9, 0.9, 0.95), 0.08, metal=1.0)
 M_DARK = mat('dark', (0.02, 0.02, 0.025), 0.3, coat=0.6)
 
-z_top, z_bot = 1.5, HITS[-1]['z'] - 2.5
+z_top, z_bot = 3.5, HITS[-1]['z'] - 2.5
 # --- wall of vertical slats covering the whole descent -------------------------
 for k in range(-12, 13):
     cube((k * 0.16, 0.6, (z_top + z_bot) / 2), (0.14, 0.06, z_top - z_bot), M_WALL, bevel=0.01)
