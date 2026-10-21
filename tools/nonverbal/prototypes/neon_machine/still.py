@@ -64,7 +64,7 @@ def cube(loc, scale, m, rot=(0, 0, 0), bevel=0.0):
     o = bpy.context.object
     o.scale = scale
     if bevel:
-        bpy.ops.object.transform_apply(scale=True)
+        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
         md = o.modifiers.new('b', 'BEVEL')
         md.width, md.segments = bevel, 3
     bpy.ops.object.shade_smooth()
