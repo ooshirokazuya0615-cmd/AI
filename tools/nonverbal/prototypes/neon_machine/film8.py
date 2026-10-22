@@ -484,10 +484,10 @@ for g in GAPS:
     s = g['s']
     L_ = [h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]
     F_ = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum'][0]
-    a, b = CON[L_['i']], CON[F_['i']]
+    pa = CON[L_['i']]
     rf, rt = HEAD[L_['i']][2], HEAD[F_['i']][2]
     zt_ = rf['z'] - 0.42
-    pts = [a, Vector((a.x + 0.18, YB, a.z - 0.10)), Vector((a.x + 0.26, YB, zt_ + 0.05)), Vector((a.x + 0.12, YB, zt_)),
+    pts = [pa, Vector((pa.x + 0.18, YB, pa.z - 0.10)), Vector((pa.x + 0.26, YB, zt_ + 0.05)), Vector((pa.x + 0.12, YB, zt_)),
            Vector((X_LEFT + 0.15, YB, zt_)), Vector((X_LEFT - 0.05, YB, (zt_ + rt['z']) / 2)),
            Vector((X_LEFT + 0.12, YB, rt['z'] + 0.62))]
     GAPTUBE[s] = dict(pts=pts, t0=L_['t'] + 0.12, t1=F_['t'] - 0.18, L=L_, F=F_)
