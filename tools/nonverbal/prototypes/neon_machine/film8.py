@@ -537,11 +537,16 @@ for s, song in enumerate(SONGS):
             HEAD[h['i']] = HEAD[h['i'] - 1]
         row['notes'].append(h)
         nxt = hs[j + 1] if j + 1 < len(hs) else None
-        if nxt is not None and x - row['x0'] >= ROW_W and h['dur'] >= 0.34 and nxt['mech'] != 'again':
+        # a new line starts at a bar line, as on a printed page; only when no bar ends on a note long
+        # enough for the tube ride does the row run on a little and break mid-bar
+        at_bar = bool(bu) and int((pos - pu) // bu) != bar
+        if nxt is not None and h['dur'] >= 0.34 and (
+                x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + 0.9):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H
             new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + CLEF_W + KS_DX * abs(song['keysig']), notes=[], first=False)
-            RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new)
+            RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new,
+                                   at_bar=at_bar or not bu)
             row['x1'] = x + 0.25
             row = new
             xc = row['x0']
@@ -1156,6 +1161,7 @@ if ev_path:
     json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()], taps=TAPS), open(ev_path, 'w'))
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
+print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}" for i, r in RETURNS.items()), flush=True)
 print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
 if os.environ.get('EVENTS_ONLY'):
     sys.exit(0)
