@@ -263,6 +263,10 @@ def main(out):
             place(mix, click(0.04, 900, 60), r['t0'], 0.22)                  # into the funnel
             place(mix, whoosh(max(0.2, r['t1'] - r['t0'])), r['t0'], 0.07)  # through the tube
             place(mix, click(0.04, 1300, 70), r['t1'], 0.18)                 # out at the next row
+        for k, tp in enumerate(E.get('taps', [])):                          # the held ball settling on its note
+            tap = (sampler.one('Percussion/Claves1_Hit_v1_rr2_Sum.wav', 0.2) if sampler.available()
+                   else click(0.015, 3400))
+            place(mix, tap, tp['t'], 0.012 * tp['g'])
     fin = C[-1]
     place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)

@@ -104,53 +104,84 @@ def flash(m, t, base, peak, after):
     emit_keys(m, ((t - 1 / FPS, base), (t, peak), (t + 0.35, after)))
 
 
+_SHARED = {}
+
+
+def _prim(key, make, smooth_=False):
+    """An object on a mesh shared by every call with the same shape (exactly what the operator would build).
+    Building through the operators slows down as the scene grows; this keeps the build fast and lets
+    Cycles instance the repeated shapes."""
+    me = _SHARED.get(key)
+    if me is None:
+        make()
+        tmp = bpy.context.object
+        me = tmp.data
+        if smooth_:
+            me.shade_smooth()
+        me.materials.append(None)
+        bpy.data.objects.remove(tmp)
+        _SHARED[key] = me
+    o = bpy.data.objects.new(key[0], me)
+    o['shared'] = 1
+    bpy.context.collection.objects.link(o)
+    return o
+
+
 def add(o, m):
-    o.data.materials.append(m)
+    if o.get('shared'):
+        o.material_slots[0].link = 'OBJECT'
+        o.material_slots[0].material = m
+    else:
+        o.data.materials.append(m)
     return o
 
 
 def cube(loc, scale, m, bevel=0.0, rot=(0, 0, 0)):
-    bpy.ops.mesh.primitive_cube_add(size=1, location=loc, rotation=rot)
-    o = bpy.context.object
-    o.scale = scale
     if bevel:
+        bpy.ops.mesh.primitive_cube_add(size=1, location=loc, rotation=rot)
+        o = bpy.context.object
+        o.scale = scale
         bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
         md = o.modifiers.new('b', 'BEVEL')
         md.width, md.segments = bevel, 2
+        return add(o, m)
+    o = _prim(('cube',), lambda: bpy.ops.mesh.primitive_cube_add(size=1))
+    o.location, o.rotation_euler, o.scale = loc, rot, scale
     return add(o, m)
 
 
 def sphere(loc, r, m, scale=None, segs=24):
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=segs, ring_count=max(8, segs // 2), radius=r, location=loc)
-    o = bpy.context.object
+    o = _prim(('sphere', round(r, 6), segs), lambda: bpy.ops.mesh.primitive_uv_sphere_add(
+        segments=segs, ring_count=max(8, segs // 2), radius=r), smooth_=True)
+    o.location = loc
     if scale:
         o.scale = scale
-    bpy.ops.object.shade_smooth()
     return add(o, m)
 
 
 def cyl(p0, p1, r, m, verts=20, smooth_=True):
     p0, p1 = Vector(p0), Vector(p1)
     d = p1 - p0
-    bpy.ops.mesh.primitive_cylinder_add(vertices=verts, radius=r, depth=d.length, location=(p0 + p1) / 2)
-    o = bpy.context.object
+    o = _prim(('cyl', verts, round(r, 6), round(d.length, 6), smooth_), lambda: bpy.ops.mesh.primitive_cylinder_add(
+        vertices=verts, radius=r, depth=d.length), smooth_=smooth_)
+    o.location = (p0 + p1) / 2
     o.rotation_mode = 'QUATERNION'
     o.rotation_quaternion = d.to_track_quat('Z', 'Y')
-    if smooth_:
-        bpy.ops.object.shade_smooth()
     return add(o, m)
 
 
 def cone(loc, r1, r2, depth, m, verts=32):
-    bpy.ops.mesh.primitive_cone_add(vertices=verts, radius1=r1, radius2=r2, depth=depth, location=loc)
-    bpy.ops.object.shade_smooth()
-    return add(bpy.context.object, m)
+    o = _prim(('cone', verts, round(r1, 6), round(r2, 6), round(depth, 6)), lambda: bpy.ops.mesh.primitive_cone_add(
+        vertices=verts, radius1=r1, radius2=r2, depth=depth), smooth_=True)
+    o.location = loc
+    return add(o, m)
 
 
 def torus(loc, R_, r_, m, rot=(0, 0, 0)):
-    bpy.ops.mesh.primitive_torus_add(major_radius=R_, minor_radius=r_, location=loc, rotation=rot,
-                                     major_segments=40, minor_segments=10)
-    return add(bpy.context.object, m)
+    o = _prim(('torus', round(R_, 6), round(r_, 6)), lambda: bpy.ops.mesh.primitive_torus_add(
+        major_radius=R_, minor_radius=r_, major_segments=40, minor_segments=10))
+    o.location, o.rotation_euler = loc, rot
+    return add(o, m)
 
 
 def empty(loc, name='e'):
@@ -389,6 +420,7 @@ ROW_W = 2.9              # a row turns (carriage return) on a long note once it 
 ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
 CLEF_W = 0.55
+KS_DX = 0.072            # spacing of the key-signature accidentals
 WALL_Y = 0.62
 HEAD_Y = 0.54            # note heads stand just off the page (stems on the page read as attached)
 R_HEAD = (0.052, 0.045, 0.037)
@@ -412,6 +444,26 @@ def step_of(name, clef):
 
 def key_alt(ks):
     return {L: 1 if ks > 0 and L in KS_SHARPS[:ks] else -1 if ks < 0 and L in KS_FLATS[:-ks] else 0 for L in LETTERS}
+
+
+T_HOP = 0.40     # the longest free flight; a longer note holds the ball on its head first
+E_REST = 0.5     # restitution of the small settling bounces
+
+
+def bounces(t0, hold):
+    """Settling bounces after a hit: list of (start, duration, height), dying out within 70% of the hold."""
+    h1 = min(0.035, G / 8 * (0.7 * hold * (1 - E_REST)) ** 2)
+    out, u, hk = [], t0, h1
+    while hk > 4e-4:
+        Tk = 2 * math.sqrt(2 * hk / G)
+        out.append((u, Tk, hk))
+        u += Tk
+        hk *= E_REST ** 2
+    return out
+
+
+def is_held(h0, h1):
+    return h1['t'] - h0['t'] > T_HOP + 0.06
 
 
 def ballistic(p0, t0, p1, t1, t):
@@ -460,7 +512,7 @@ for s, song in enumerate(SONGS):
         if nxt is not None and x - row['x0'] >= ROW_W and h['dur'] >= 0.34 and nxt['mech'] != 'again':
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H
-            new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + CLEF_W, notes=[], first=False)
+            new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + CLEF_W + KS_DX * abs(song['keysig']), notes=[], first=False)
             RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new)
             row['x1'] = x + 0.25
             row = new
@@ -522,6 +574,26 @@ def ease(k):
     return k * k * (3 - 2 * k)
 
 
+def kick_time(h0):
+    """When a long note flicks the held ball on to the next note (None for an ordinary flight)."""
+    if h0['i'] + 1 >= len(C):
+        return None
+    h1 = C[h0['i'] + 1]
+    if h1['mech'] == 'bigdrum' or RETURNS.get(h0['i']) or (h0['s'] != h1['s'] and GAPTUBE.get(h1['s'])):
+        return None
+    return h1['t'] - T_HOP if is_held(h0, h1) else None
+
+
+# the small taps of the settling bounces (for the sound)
+TAPS = []
+for h_ in C[:-1]:
+    tk_ = kick_time(h_)
+    if tk_ is not None:
+        for b0, Tk, hk in bounces(h_['t'], tk_ - h_['t']):
+            if hk > 0.003:
+                TAPS.append(dict(t=b0 + Tk, g=math.sqrt(hk / 0.035)))
+
+
 def ball_pos(t):
     if t <= C[0]['t']:
         # first frame: already rolling in along the opening ledge, it drops onto the first note
@@ -544,6 +616,15 @@ def ball_pos(t):
                 if t <= tube['t1']:
                     return poly_at(pts[1:], ease((t - tube['t0']) / (tube['t1'] - tube['t0'])))
                 return ballistic(pts[-1], tube['t1'], p1, h1['t'], t)
+            if is_held(h0, h1):
+                tk = h1['t'] - T_HOP
+                if t >= tk:
+                    return ballistic(p0, tk, p1, h1['t'], t)
+                for b0, Tk, hk in bounces(h0['t'], tk - h0['t']):
+                    if t < b0 + Tk:
+                        u_ = t - b0
+                        return p0 + Vector((0, 0, math.sqrt(2 * G * hk) * u_ - 0.5 * G * u_ * u_))
+                return p0
             return ballistic(p0, h0['t'], p1, h1['t'], t)
     u = t - TF
     return CON[FIN['i']] + Vector((0, 0, max(0.0, 0.12 * math.exp(-u * 2.4) * abs(math.sin(u * 7.5)))))
@@ -601,8 +682,8 @@ def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER'):
 
 def accidental(sym, x, z, ink):
     """An accidental whose optical centre sits on the note's line (the flat's bowl, the sharp's box)."""
-    lift = {'♯': 0.0085, '♮': 0.009, '♭': 0.014}[sym]
-    return text_obj(sym, Vector((x, WALL_Y - 0.008, z + lift)), 0.1, ink)
+    lift = {'♯': 0.021, '♮': 0.022, '♭': 0.035}[sym]      # engraved size: a sharp is about 2.6 spaces tall
+    return text_obj(sym, Vector((x, WALL_Y - 0.008, z + lift)), 0.25, ink)
 
 
 xs_all = [p.x for p in CON.values()]
@@ -640,12 +721,12 @@ for s, song in enumerate(SONGS):
         sharp_steps, flat_steps = [8, 5, 9, 6, 3, 7, 4], [4, 7, 3, 6, 2, 5, 1]
         for q in range(abs(ks)):
             stp = (sharp_steps if ks > 0 else flat_steps)[q]
-            accidental('♯' if ks > 0 else '♭', x0s + 0.27 + q * 0.045, row['z'] + stp * LS / 2, ink)
+            accidental('♯' if ks > 0 else '♭', x0s + 0.27 + q * KS_DX, row['z'] + stp * LS / 2, ink)
         if row is sec_rows[s][0] and song.get('timesig'):
             n_, d_ = song['timesig']
-            xt = x0s + 0.30 + abs(ks) * 0.045 + 0.04
-            text_obj(str(n_), Vector((xt, WALL_Y - 0.008, row['z'] + 3 * LS)), 0.16, ink)
-            text_obj(str(d_), Vector((xt, WALL_Y - 0.008, row['z'] + 1 * LS)), 0.16, ink)
+            xt = x0s + 0.27 + abs(ks) * KS_DX + 0.06
+            for dg, zz in ((n_, 3 * LS), (d_, 1 * LS)):          # each digit fills two spaces
+                text_obj(str(dg), Vector((xt, WALL_Y - 0.008, row['z'] + zz - 0.008)), 0.265, ink)
     # bar lines: where the notated count crosses a whole bar
     bu, pu = song['bar_units'], song['pickup_units']
     if bu:
@@ -708,6 +789,12 @@ for h in C:
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
     o.location = head
+    tk = kick_time(h)
+    if tk is not None and tk - 0.07 > h['t'] + 0.32:          # the held note presses down and flicks the ball on
+        for u, k in ((-0.07, 0), (-0.02, 0.8), (0.05, -0.3), (0.16, 0)):
+            o.location = head - Vector((0, 0, 0.010 * k))
+            o.keyframe_insert('location', frame=fr(tk + u))
+        o.location = head
     burst(CON[h['i']] + Vector((0, -0.04, -R)), h['t'], neon, n=6, speed=0.75, life=0.3, size=0.007)
     ld = bpy.data.lights.new(f'spill{h["i"]}', 'POINT')
     ld.color, ld.shadow_soft_size = neon, 0.04
@@ -897,25 +984,33 @@ def row_at(t):
     return None
 
 
+VIEW_H = 2 * OFF.length * 10.125 / 50.0        # visible height on the head plane at the base distance (50 mm)
+for row in ROWS:
+    zs_ = [HEAD[h['i']][0].z for h in row['notes']]
+    lo_ = min(row['z'] - 0.05, min(zs_) - R_HEAD[2] - 0.07)
+    hi_ = max(row['z'] + 4 * LS + 0.05, max(zs_) + 2 * R + 0.22)      # the highest hop above the highest note
+    row['zc'], row['zoom'] = (lo_ + hi_) / 2, max(1.0, (hi_ - lo_) / (0.86 * VIEW_H))
+
+
+def frame_point(tt):
+    """Where the camera wants to look at time tt: on a row, the music's own position (x moves at XS per
+    second, the speed the notes are laid out at) and the middle of the row's notes; in a tube, the ball."""
+    r_ = row_at(tt)
+    if r_ is not None:
+        return Vector((r_['x0'] + XS * (tt - r_['t0']), HEAD_Y, r_['zc'])), r_['zoom']
+    b_ = ball_pos(max(0.0, tt))
+    return Vector((b_.x, HEAD_Y, b_.z)), 1.0
+
+
 def target(t):
-    acc_, wsum = Vector((0, 0, 0)), 0.0
-    for j in range(6):
-        wgt = 1.0 / (1 + j)
-        acc_ += ball_pos(max(0.0, t - j * 0.04)) * wgt
-        wsum += wgt
-    p = acc_ / wsum
-    # vertical: a smoothed blend toward the staff of the current row (the ball's arcs stay above it)
-    zs, ws = 0.0, 0.0
+    acc_, zf, ws = Vector((0, 0, 0)), 0.0, 0.0
     for j in range(-8, 9):
-        tt = t + j * 0.08
-        r_ = row_at(tt)
-        z_ = (r_['z'] + 2 * LS + 0.10) if r_ is not None else ball_pos(max(0.0, tt)).z
+        p_, z_ = frame_point(t + j * 0.08)
         w_ = math.exp(-(j / 5.0) ** 2)
-        zs += z_ * w_
+        acc_ += p_ * w_
+        zf += z_ * w_
         ws += w_
-    p.z = zs / ws
-    p.y = HEAD_Y
-    return p + Vector((0.18, 0, 0))
+    return acc_ / ws + Vector((0.18, 0, 0)), zf / ws
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
@@ -925,7 +1020,8 @@ REVEAL_T1 = T_END - 0.6
 
 
 def cam_at(t):
-    tg, off = target(t), OFF.copy()
+    tg, zf = target(t)
+    off = OFF * zf
     kh = smooth((t - (FIN['launch'] - 0.3)) / 0.6)
     tg = tg.lerp((CON[C[-2]['i']] + DRUM) / 2 + Vector((0, 0, 0.2)), kh * (1 - smooth((t - (TF + 0.2)) / 0.6)))
     tg = tg.lerp(DRUM + Vector((0, 0, 0.1)), smooth((t - (TF + 0.1)) / 0.6))
@@ -986,8 +1082,11 @@ import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
     json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
-                   gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()]), open(ev_path, 'w'))
-print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects))
+                   gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()], taps=TAPS), open(ev_path, 'w'))
+print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
+print('row zoom', ' '.join(f"{SONGS[r['s']]['key']}:{r['zoom']:.2f}" for r in ROWS), 'taps', len(TAPS), flush=True)
+if os.environ.get('EVENTS_ONLY'):
+    sys.exit(0)
 if a.stills:
     for fs in a.stills.split(','):
         sc.frame_set(int(fs))
