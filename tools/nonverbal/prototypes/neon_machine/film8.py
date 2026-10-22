@@ -419,6 +419,9 @@ def mouth_o(ch, t0, t1, s=1.9):
 # ================================================================ v8: the marble plays the score written on the wall
 FREESERIF = '/usr/share/fonts/truetype/freefont/FreeSerif.ttf'
 C, GAPS = S.timeline()
+for h_ in C:          # on the score every written note has its own head (no second bounce on one head)
+    if h_['mech'] == 'again':
+        h_['mech'] = 'pad'
 SONGS = S.SONGS
 FIN = C[-1]
 TF = FIN['t']
@@ -433,7 +436,12 @@ PAGE = {
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
-XS = 0.62                # metres per second along a staff row
+K_SP, GAP_MIN = 0.40, 0.14     # engraved spacing: the gap after a note grows with the square root of its value
+ACC_PAD = 0.075                # extra room in front of a note that carries an accidental
+
+
+def engr_gap(song, h):
+    return max(GAP_MIN, K_SP * math.sqrt(song['unit'] * h['nunit']))
 ROW_W = 2.9              # a row turns (carriage return) on a long note once it is this wide
 ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
@@ -506,6 +514,7 @@ for s, song in enumerate(SONGS):
     nunits = song.get('nunits') or [u for _, u in song['notes']]
     kalt, bu, pu = key_alt(song['keysig']), song['bar_units'], song['pickup_units']
     state, bar_now, pos = {}, None, 0.0
+    xc = row['x0']
     for j, h in enumerate(hs):
         h['nunit'] = nunits[j]
         # accidentals as engraved: only against the key signature, and they last until the bar line
@@ -517,7 +526,8 @@ for s, song in enumerate(SONGS):
         h['acc'] = None if alt == state.get((L, o), kalt[L]) else ACC_SYM[alt]
         state[(L, o)] = alt
         pos += h['nunit']
-        x = row['x0'] + XS * (h['t'] - row['t0'])
+        x = xc + (ACC_PAD if h['acc'] else 0.0)
+        xc = x + engr_gap(song, h)
         st = step_of(name, clef)
         head = Vector((x, HEAD_Y, row['z'] + st * LS / 2))
         HEAD[h['i']] = (head, st, row)
@@ -534,9 +544,10 @@ for s, song in enumerate(SONGS):
             RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new)
             row['x1'] = x + 0.25
             row = new
+            xc = row['x0']
             ROWS.append(row)
             sec_rows[s].append(row)
-    row['x1'] = row['x0'] + XS * (hs[-1]['t'] - row['t0']) + 0.25
+    row['x1'] = HEAD[hs[-1]['i']][0].x + 0.25
     row_z = row['z']
 # final drum after the double bar of the last row
 LASTROW = ROWS[-1]
@@ -990,7 +1001,7 @@ cam.data.dof.aperture_fstop = 4.0
 sc.camera = cam
 focus_empty = empty((0, HEAD_Y - 0.02, 0), 'focus')
 cam.data.dof.focus_object = focus_empty   # focus rides with the marble on the note-head plane
-OFF = Vector((0.20, -1.95, 0.16))
+OFF = Vector((0.20, -1.95, 0.16)) * 1.3     # wide enough that a pan crosses the frame in about 3 s
 
 
 def row_at(t):
@@ -1003,32 +1014,51 @@ def row_at(t):
 
 
 VIEW_H = 2 * OFF.length * 10.125 / 50.0        # visible height on the head plane at the base distance (50 mm)
-for row in ROWS:
-    zs_ = [HEAD[h['i']][0].z for h in row['notes']]
-    lo_ = min(row['z'] - 0.05, min(zs_) - R_HEAD[2] - 0.07)
-    hi_ = max(row['z'] + 4 * LS + 0.05, max(zs_) + 2 * R + 0.22)      # the highest hop above the highest note
-    row['zc'], row['zoom'] = (lo_ + hi_) / 2, max(1.0, (hi_ - lo_) / (0.86 * VIEW_H))
+
+
+def local_frame(r_, tt):
+    """Vertical centre and zoom for the stretch of the row on screen around time tt: the staff, the notes
+    in view (and just ahead), and the highest hop above them."""
+    lo_, hi_ = r_['z'] - 0.05, r_['z'] + 4 * LS + 0.05
+    for h in r_['notes']:
+        if tt - 1.1 <= h['t'] <= tt + 1.7:
+            z = HEAD[h['i']][0].z
+            lo_ = min(lo_, z - R_HEAD[2] - 0.07)
+            hi_ = max(hi_, z + 2 * R + 0.22)
+    return (lo_ + hi_) / 2, max(1.0, (hi_ - lo_) / (0.86 * VIEW_H))
+
+
+def row_x(r_, tt):
+    """The music's position along a row at time tt: from head to head at an even pace."""
+    ns = r_['notes']
+    for a_, b_ in zip(ns[:-1], ns[1:]):
+        if a_['t'] <= tt <= b_['t']:
+            xa, xb = HEAD[a_['i']][0].x, HEAD[b_['i']][0].x
+            return xa + (xb - xa) * (tt - a_['t']) / max(1e-6, b_['t'] - a_['t'])
+    return HEAD[ns[-1]['i']][0].x if tt > ns[-1]['t'] else HEAD[ns[0]['i']][0].x
 
 
 def frame_point(tt):
-    """Where the camera wants to look at time tt: on a row, the music's own position (x moves at XS per
-    second, the speed the notes are laid out at) and the middle of the row's notes; in a tube, the ball."""
+    """Where the camera wants to look at time tt: on a row, the music's position and the middle of the
+    notes in view; in a tube, the ball."""
     r_ = row_at(tt)
     if r_ is not None:
-        return Vector((r_['x0'] + XS * (tt - r_['t0']), HEAD_Y, r_['zc'])), r_['zoom']
+        zc_, zoom_ = local_frame(r_, tt)
+        return Vector((row_x(r_, tt), HEAD_Y, zc_)), zoom_
     b_ = ball_pos(max(0.0, tt))
     return Vector((b_.x, HEAD_Y, b_.z)), 1.0
 
 
 def target(t):
-    acc_, zf, ws = Vector((0, 0, 0)), 0.0, 0.0
-    for j in range(-8, 9):
+    """Smoothed look-at point and zoom: the pan is averaged over a wider window (an even glide through
+    fast runs), the height and zoom over a narrower one."""
+    px, wx, pz, zf, wz = 0.0, 0.0, 0.0, 0.0, 0.0
+    for j in range(-12, 13):
         p_, z_ = frame_point(t + j * 0.08)
-        w_ = math.exp(-(j / 5.0) ** 2)
-        acc_ += p_ * w_
-        zf += z_ * w_
-        ws += w_
-    return acc_ / ws + Vector((0.18, 0, 0)), zf / ws
+        w1, w2 = math.exp(-(j / 7.0) ** 2), math.exp(-(j / 5.0) ** 2)
+        px, wx = px + p_.x * w1, wx + w1
+        pz, zf, wz = pz + p_.z * w2, zf + z_ * w2, wz + w2
+    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
@@ -1102,7 +1132,7 @@ if ev_path:
     json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()], taps=TAPS), open(ev_path, 'w'))
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
-print('row zoom', ' '.join(f"{SONGS[r['s']]['key']}:{r['zoom']:.2f}" for r in ROWS), 'taps', len(TAPS), flush=True)
+print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
 if os.environ.get('EVENTS_ONLY'):
     sys.exit(0)
 if a.stills:
