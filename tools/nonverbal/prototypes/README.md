@@ -36,3 +36,4 @@
 ここで作った映像や音は、そのまま公開しません。公開前のルールは `../POLICY.md` です。
 | `neon_machine/` | ネオンの演奏機械の見た目テスト（静止画1枚）。光る玉・ネオンの木琴・ドラムパッド・台座に乗ったオリジナルキャラ2人 | Blender Cycles（CPU）720x1280・64サンプルで約1分。出力は `drafts/looks/neon_machine/` |
 | `neon_machine/short.py` ほか | 「エリーゼのために」を玉が1音ずつ叩いて演奏する縦型 Shorts の試作（約13秒）。`score.py` の時刻を映像と音で共有 | 540x960・12サンプルで約6秒/コマ、全386コマで約40分。出力は `drafts/videos/2026-10-21-neon-marble-fur-elise.mp4` |
+| `neon_machine/short4.py`・`score4.py`・`audio4.py` | v4：House of Marble 風（明るいグレーの壁・黒い装置・ネオン）。エリーゼのために → 無音のレールとスイッチ → 歓喜の歌 → 高い打ち上げ → 大ドラム。パッドは入射と反射から角度を計算 | 360x640・10サンプルで静止画を確認済み |
