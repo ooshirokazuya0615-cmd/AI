@@ -657,7 +657,8 @@ for h in C:
     up = st < 4
     sx = head.x + (0.045 if up else -0.045)
     z0s = row['z'] + st * LS / 2
-    cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * 3.5 * LS / 2), (0.006, 0.004, 3.5 * LS), ink)
+    stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * 3.5 * LS / 2), (0.006, 0.004, 3.5 * LS), ink)
+    wobble(stem_o, h['t'], axis=1, amp=2.2)
     cyl((head.x, WALL_Y, head.z), (head.x, head.y + 0.02, head.z), 0.006, ink, 8)          # the pin holding the head
     # ledger lines
     if st < -1 or st > 9:
@@ -681,6 +682,39 @@ for h in C:
     for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 5.0), (h['t'] + 0.35, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
+
+# ---------------------------------------------------------------- 3b. practical lights of the era
+M_BRASS8 = mat('brass8', (0.85, 0.62, 0.28), 0.25, metal=1.0)
+for row in ROWS:
+    era = SONGS[row['s']]['era']
+    if era not in ('baroque', 'romantic'):
+        continue
+    p = Vector((X_LEFT - 0.34, 0.50, row['z'] + 0.52))
+    cyl((p.x, WALL_Y, p.z - 0.10), (p.x, p.y, p.z - 0.10), 0.008, M_BRASS8, 10)          # wall arm
+    cyl(p + Vector((0, 0, -0.12)), p + Vector((0, 0, -0.10)), 0.035, M_BRASS8, 24)         # drip tray
+    ld = bpy.data.lights.new('practical', 'POINT')
+    lo = bpy.data.objects.new('practical', ld)
+    sc.collection.objects.link(lo)
+    if era == 'baroque':
+        cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.02)), 0.014, mat('wax', (0.92, 0.86, 0.72), 0.6), 16)
+        flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=40),
+                       scale=(0.7, 0.7, 1.6), segs=12)
+        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 9.0
+        lo.location = p + Vector((0, -0.02, 0.05))
+    else:
+        sphere(p + Vector((0, 0, -0.02)), 0.05, mat('gasglobe', (1.0, 0.85, 0.6), 0.2, emit=(1.0, 0.7, 0.4), emit_s=8), segs=24)
+        flame = None
+        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.74, 0.45), 0.05, 14.0
+        lo.location = p + Vector((0, -0.04, -0.02))
+    t_ = 0.0
+    while t_ <= T_END:
+        e_ = base_e * rng.uniform(0.82, 1.08) if era == 'baroque' else base_e * rng.uniform(0.95, 1.02)
+        ld.energy = e_
+        ld.keyframe_insert('energy', frame=fr(t_))
+        if flame is not None:
+            flame.scale = (0.7, 0.7, 1.6 * e_ / base_e)
+            flame.keyframe_insert('scale', frame=fr(t_))
+        t_ += 0.16
 
 # ---------------------------------------------------------------- 4. carriage-return tubes
 M_GLASS = mat('acrylic8', (0.92, 0.95, 1.0), 0.08, alpha=0.16)
@@ -803,9 +837,10 @@ for f in range(1, N + 1):
 bpy.ops.object.camera_add(location=(0, -4, 0))
 cam = bpy.context.object
 cam.data.dof.use_dof = True
-cam.data.dof.aperture_fstop = 5.6
+cam.data.dof.aperture_fstop = 2.8
 sc.camera = cam
-OFF = Vector((0.22, -2.35, 0.20))
+cam.data.dof.focus_object = ball      # focus rides on the marble, like a macro shot of a real model
+OFF = Vector((0.20, -1.95, 0.16))
 
 
 def target(t):
@@ -846,7 +881,7 @@ def cam_at(t):
         tg = Vector((X_MID, YB, Z_LAST + (Z_FIRST - Z_LAST) * k))
     else:
         tg = tg.lerp(Vector((X_MID, YB, Z_LAST)), kb)
-    return tg, off, 40.0
+    return tg, off, 50.0
 
 
 f = 1
@@ -856,11 +891,11 @@ while f <= N:
     cam.location = tg + off
     cam.rotation_euler = (-off).to_track_quat('-Z', 'Y').to_euler()
     cam.data.lens = lens
-    cam.data.dof.focus_distance = (Vector((0, HEAD_Y, 0)) - Vector((0, cam.location.y, 0))).length
     cam.keyframe_insert('location', frame=f)
     cam.keyframe_insert('rotation_euler', frame=f)
     cam.data.keyframe_insert('lens', frame=f)
-    cam.data.dof.keyframe_insert('focus_distance', frame=f)
+    cam.data.dof.aperture_fstop = 2.8 + 6.0 * smooth((t - (TF + 1.0)) / 1.0)   # deeper focus for the wide reveal
+    cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
     f += 2
 
 world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.55, 0.55, 0.56, 1)

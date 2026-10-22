@@ -12,6 +12,7 @@ import math
 import os
 from pathlib import Path
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs7'))
@@ -55,11 +56,32 @@ def card(draw, W, H, cx, top, lines, alpha, scale=1.0):
         y += th
 
 
+_VIG = {}
+
+
+def film_finish(im, f):
+    """What a real camera adds: a soft vignette, a hint of lateral colour fringing, and fine moving grain."""
+    x = np.asarray(im.convert('RGB')).astype(np.float32) / 255.0
+    H, W = x.shape[:2]
+    if (W, H) not in _VIG:
+        yy, xx = np.mgrid[0:H, 0:W]
+        r = np.sqrt(((xx - W / 2) / (W / 2)) ** 2 + ((yy - H / 2) / (H / 2)) ** 2)
+        _VIG[(W, H)] = (1.0 - 0.22 * np.clip(r - 0.35, 0, None) ** 1.6)[..., None]
+    x = x * _VIG[(W, H)]
+    sh = max(1, W // 1280)
+    x[:, sh:, 0] = x[:, :-sh, 0]          # red a pixel outward, blue inward: subtle chromatic fringe
+    x[:, :-sh, 2] = x[:, sh:, 2]
+    g = np.random.default_rng(f).normal(0, 0.012, (H, W, 1)).astype(np.float32)
+    x = np.clip(x + g * (0.6 + 0.4 * x), 0, 1)
+    return Image.fromarray((x * 255).astype(np.uint8)).convert('RGBA')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('src')
     ap.add_argument('dst')
     ap.add_argument('--fps', type=int, default=30)
+    ap.add_argument('--film', action='store_true', help='lens and film finish under the graphics')
     a = ap.parse_args()
     C, _ = S.timeline()
     starts = []
@@ -75,6 +97,8 @@ def main():
         f = int(fpath.stem.split('_')[1])
         t = (f - 1) / a.fps
         im = Image.open(fpath).convert('RGBA')
+        if a.film:
+            im = film_finish(im, f)
         W, H = im.size
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)

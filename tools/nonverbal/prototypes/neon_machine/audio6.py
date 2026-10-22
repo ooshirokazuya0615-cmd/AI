@@ -189,7 +189,11 @@ def main(out):
         place(mix, fn(h['midi']), h['t'], g, pan)
         if h['mech'] == 'cymbal':
             place(mix, cymbal_hit(), h['t'], 0.18)
-        place(mix, click(0.02, 3200), h['t'], 0.05)
+        if sampler.available():
+            place(mix, sampler.one(['Percussion/Claves1_Hit_v1_rr1_Sum.wav', 'Percussion/Claves1_Hit_v1_rr2_Sum.wav',
+                                    'Percussion/Claves1_Hit_v2_rr1_Sum.wav'][h['i'] % 3], 0.25), h['t'], 0.035, pan)
+        else:
+            place(mix, click(0.02, 3200), h['t'], 0.05)
     drums = getattr(S, 'DRUMS', False)
     for s, song in enumerate(S.SONGS):
         hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
@@ -254,8 +258,17 @@ def main(out):
     st = np.stack(outs, 1)[: int(SR * T)]
     fade = int(SR * 0.8)
     st[-fade:] *= np.linspace(1, 0, fade)[:, None]
-    st /= np.max(np.abs(st)) / 1.1
-    st = np.tanh(st * 1.2) / np.tanh(1.2 * 1.1) * 0.92        # gentle soft-clip master
+    blk = int(SR * 0.4)
+    ms = np.array([np.mean(st[k:k + blk] ** 2) for k in range(0, len(st) - blk, blk // 4)])
+    lufs = -0.691 + 10 * np.log10(ms + 1e-12)
+    gated = ms[lufs > -70]
+    rel = -0.691 + 10 * np.log10(np.mean(gated)) - 10
+    gated = ms[(lufs > -70) & (lufs > rel)]
+    integ = -0.691 + 10 * np.log10(np.mean(gated))
+    st *= 10 ** ((-14.0 - integ) / 20)
+    ceil = 10 ** (-1.0 / 20)
+    st = np.where(np.abs(st) > ceil * 0.8, np.sign(st) * (ceil * 0.8 + (ceil * 0.2) * np.tanh((np.abs(st) - ceil * 0.8) / (ceil * 0.2))), st)
+    print('integrated loudness before gain (approx LUFS):', round(float(integ), 1))
     with wave.open(out, 'wb') as w:
         w.setnchannels(2)
         w.setsampwidth(2)
