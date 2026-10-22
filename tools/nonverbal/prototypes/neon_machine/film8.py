@@ -68,7 +68,7 @@ sc.cycles.transmission_bounces = 4
 sc.cycles.caustics_reflective = sc.cycles.caustics_refractive = False
 sc.render.use_persistent_data = True
 sc.render.use_motion_blur = True
-sc.render.motion_blur_shutter = 0.45
+sc.render.motion_blur_shutter = 0.35
 sc.view_settings.view_transform = 'AgX'
 sc.view_settings.look = 'AgX - Punchy'
 world = bpy.data.worlds.new('w')
@@ -812,6 +812,8 @@ for h in C:
             cube((head.x, WALL_Y - 0.004, row['z'] + ls_ * LS / 2), (0.16, 0.004, 0.0045), ink)
     if h['acc']:
         accidental(h['acc'], head.x - 0.11, z0s, ink)
+    if h['j'] in song.get('fermata', ()):
+        text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, max(row['z'] + 4 * LS + 0.08, head.z + 0.15))), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
     emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 45.0), (h['t'] + 0.45, 3.0)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
@@ -1022,9 +1024,11 @@ def local_frame(r_, tt):
     lo_, hi_ = r_['z'] - 0.05, r_['z'] + 4 * LS + 0.05
     for h in r_['notes']:
         if tt - 1.1 <= h['t'] <= tt + 1.7:
-            z = HEAD[h['i']][0].z
+            z, st_ = HEAD[h['i']][0].z, HEAD[h['i']][1]
+            T_ = C[h['i'] + 1]['t'] - h['t']
+            apex = G / 8 * min(T_, T_HOP) ** 2                 # the hop that leaves this note
             lo_ = min(lo_, z - R_HEAD[2] - 0.07)
-            hi_ = max(hi_, z + 2 * R + 0.22)
+            hi_ = max(hi_, z + R_HEAD[2] + 2 * R + apex + 0.03, z + 3.5 * LS + 0.03 if st_ < 4 else z)
     return (lo_ + hi_) / 2, max(1.0, (hi_ - lo_) / (0.86 * VIEW_H))
 
 
@@ -1038,15 +1042,35 @@ def row_x(r_, tt):
     return HEAD[ns[-1]['i']][0].x if tt > ns[-1]['t'] else HEAD[ns[0]['i']][0].x
 
 
+V_REF = 0.70     # the fastest the score may slide past (metres per second at the base framing)
+
+
+def row_point(r_, tt):
+    """Look-at point and zoom on a row. When the music runs fast the camera pulls back a little, so the
+    page never slides past faster than V_REF (Mountain King's accelerando opens the view as it speeds up)."""
+    zc_, zoom_ = local_frame(r_, tt)
+    v_ = (row_x(r_, tt + 0.6) - row_x(r_, tt - 0.6)) / 1.2
+    return Vector((row_x(r_, tt), HEAD_Y, zc_)), max(zoom_, min(1.6, v_ / V_REF))
+
+
 def frame_point(tt):
     """Where the camera wants to look at time tt: on a row, the music's position and the middle of the
-    notes in view; in a tube, the ball."""
-    r_ = row_at(tt)
-    if r_ is not None:
-        zc_, zoom_ = local_frame(r_, tt)
-        return Vector((row_x(r_, tt), HEAD_Y, zc_)), zoom_
-    b_ = ball_pos(max(0.0, tt))
-    return Vector((b_.x, HEAD_Y, b_.z)), 1.0
+    notes in view. While the ball is in a tube (a carriage return, or the way to the next page), the camera
+    eases from the end of one row to the start of the next, pulling back a little on the way, so it is
+    settled before the next note."""
+    if tt <= C[0]['t']:
+        return row_point(ROWS[0], C[0]['t'])
+    for h0, h1 in zip(C[:-1], C[1:]):
+        if h0['t'] <= tt <= h1['t']:
+            r0 = HEAD[h0['i']][2]
+            r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
+            if r1 is r0:
+                return row_point(r0, tt)
+            k = smooth((tt - h0['t']) / (h1['t'] - h0['t']))
+            pa, za = row_point(r0, h0['t'])
+            pb, zb = row_point(r1, h1['t'])
+            return pa.lerp(pb, k), (za + (zb - za) * k) * (1 + 0.25 * math.sin(math.pi * k))
+    return row_point(ROWS[-1], C[-2]['t'])
 
 
 def target(t):

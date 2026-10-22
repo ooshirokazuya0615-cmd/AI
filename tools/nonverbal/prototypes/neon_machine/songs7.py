@@ -29,6 +29,9 @@ SONGS[0]['title'] = 'Canon in D'
 NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
             'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
+# fermatas, by note index, where the Mutopia editions have them (Toccata: on the held A and on the D that
+# closes each phrase; Fifth: on the E-flat and the tied D)
+FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
 #   canon: the ground bass; tm: the left hand of the theme; fe: the left-hand arpeggios under the long notes;
@@ -55,6 +58,7 @@ for s_ in SONGS:
     s_['clef'], s_['bar_units'], s_['pickup_units'] = NOTATION[s_['key']]
     s_['keysig'] = KEYSIG[s_['key']]
     s_['timesig'] = TIMESIG.get(s_['key'])
+    s_['fermata'] = FERMATA.get(s_['key'], ())
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
