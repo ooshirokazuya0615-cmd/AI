@@ -4,6 +4,7 @@ Look: House of Marble style (light studio wall, dark fixtures, neon light on eac
 characters. Every melody note is one contact; pads, cymbals and xylophone bars are tilted to give a true
 mirror bounce. Gaps ('rail', 'chute', 'launch') are counted in beats of the next song (see songs6.py).
 
+    SONGS_MODULE=songs_kimetsu python film6.py -- ...   (default: songs6, the classical medley)
     python film6.py -- --res 1280x720 --samples 10 --out frames/f_#### [--frames 1-400] [--stills 30,600]
 """
 import argparse
@@ -16,7 +17,9 @@ import bpy
 from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import songs6 as S  # noqa: E402
+import importlib  # noqa: E402
+import os  # noqa: E402
+S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs6'))   # which medley to build
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--res', default='1280x720')
@@ -876,14 +879,14 @@ wave.wave_type = 'RINGS'
 wave.inputs['Scale'].default_value = 2.6
 wave.inputs['Distortion'].default_value = 11.0
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-ramp.color_ramp.elements[0].color = (0.12, 0.0, 0.45, 1)
-ramp.color_ramp.elements[1].color = (0.0, 0.45, 0.4, 1)
+ramp.color_ramp.elements[0].color = (0.9, 0.02, 0.25, 1)
+ramp.color_ramp.elements[1].color = (0.05, 0.25, 0.9, 1)
 e = ramp.color_ramp.elements.new(0.5)
 e.color = (1.0, 0.35, 0.02, 1)
 nt_.links.new(wave.outputs['Fac'], ramp.inputs['Fac'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
-bsdf.inputs['Emission Strength'].default_value = 1.0
+bsdf.inputs['Emission Strength'].default_value = 2.4
 bsdf.inputs['Roughness'].default_value = 0.08
 bsdf.inputs['Coat Weight'].default_value = 1.0
 ball = sphere((0, 0, 0), R, core_m, segs=40)
@@ -916,7 +919,7 @@ cam = bpy.context.object
 cam.data.dof.use_dof = True
 cam.data.dof.aperture_fstop = 4.5
 sc.camera = cam
-OFF = Vector((0.55, -3.1, 0.42))
+OFF = Vector((0.48, -2.6, 0.36))
 LAUNCHES = [(gg['t_launch'], sec_first[s]['t'], (gg['cup'] + CON[sec_first[s]['i']]) / 2) for s, gg in GAPGEO.items()
             if gg['kind'] == 'launch']
 LAUNCHES.append((FIN['launch'], TF, (CON[LASTCUP['i']] + DC) / 2))

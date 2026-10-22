@@ -66,6 +66,7 @@ SONGS = [
 
 START = 0.4
 GAP_BEATS = 4
+FINAL_NOTE = 'C5'
 FINAL_REST_BEATS, FINAL_FLIGHT_BEATS = 4, 4
 OUTRO = 4.5
 
@@ -95,12 +96,14 @@ def assign(song):
     return out
 
 
-def timeline():
+def timeline(songs=None, final_note=None):
+    SONGS_ = songs if songs is not None else SONGS
+    final_note = final_note or FINAL_NOTE
     """Contacts for the whole film: dict(i, s (song index), j, t, midi, dur, mech).
     Gaps: dict(kind, t0 (silence starts), beats [t...], t1 (next song's first contact), s (next song))."""
     contacts, gaps = [], []
     t = START
-    for s, song in enumerate(SONGS):
+    for s, song in enumerate(SONGS_):
         if s > 0:
             beats = [t + b * song['beat'] for b in range(GAP_BEATS)]
             gaps.append(dict(kind=song['gap_in'], t0=t, beats=beats, t1=t + GAP_BEATS * song['beat'], s=s))
@@ -110,15 +113,15 @@ def timeline():
             contacts.append(dict(i=len(contacts), s=s, j=j, t=t, midi=midi(n), dur=u * song['unit'], mech=mechs[j]))
             t += u * song['unit']
     last = contacts[-1]
-    b = SONGS[-1]['beat']
+    b = SONGS_[-1]['beat']
     launch = last['t'] + FINAL_REST_BEATS * b
-    final = dict(i=len(contacts), s=len(SONGS) - 1, j=-1, t=launch + FINAL_FLIGHT_BEATS * b, midi=midi('C5'),
+    final = dict(i=len(contacts), s=len(SONGS_) - 1, j=-1, t=launch + FINAL_FLIGHT_BEATS * b, midi=midi(final_note),
                  dur=2.0, mech='bigdrum', launch=launch)
     last['mech'] = 'cup'
     contacts.append(final)
     return contacts, gaps
 
 
-def total_seconds():
-    c, _ = timeline()
+def total_seconds(songs=None, final_note=None):
+    c, _ = timeline(songs, final_note)
     return c[-1]['t'] + OUTRO
