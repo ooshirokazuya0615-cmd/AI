@@ -79,7 +79,7 @@ def main():
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         # ---- timeline
-        k = min(1.0, t / 1.2) * (1 - smooth((t - (t_final + 2.0)) / 0.8))
+        k = min(1.0, t / 1.2) * (1 - smooth((t - (t_final + 1.2)) / 0.8))
         if k > 0:
             bx0, bx1, by = int(W * 0.18), int(W * 0.82), int(H * 0.93)
             d.line((bx0, by, bx1, by), fill=(255, 255, 255, int(110 * k)), width=max(2, W // 640))
@@ -133,8 +133,8 @@ def main():
             tf = font(SERIF_B, int(H * 0.05))
             d.text((W * 0.05, H * 0.80), '300 Years of Music', font=tf, fill=(255, 255, 255, int(230 * a_)))
             d.text((W * 0.05, H * 0.86), 'one marble', font=font(SANS, int(H * 0.032)), fill=(255, 255, 255, int(200 * a_)))
-        if t > t_final + 2.2:
-            a_ = smooth((t - t_final - 2.2) / 0.5)
+        if t > T_END - 3.2:
+            a_ = smooth((t - (T_END - 3.2)) / 0.5)
             card(d, W, H, W // 2, int(H * 0.40), [('How many did you guess?', SERIF_B, 64, (255, 255, 255)),
                                                   ('1680  →  1876', SANS, 36, (255, 210, 140))], a_)
         Image.alpha_composite(im, layer).convert('RGB').save(dst / fpath.name)

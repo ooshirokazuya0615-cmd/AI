@@ -151,7 +151,9 @@ else:
 VOICE = dict(tile=(pluck, 0.24), pad=(marimba, 0.32), again=(marimba, 0.32), block=(wood, 0.34), cup=(marimba, 0.32),
              xylo=(marimba, 0.30), bell=(bellv, 0.22), cymbal=(marimba, 0.28), flask=(glass, 0.24), pipe=(organ, 0.20),
              bumper=(pluck, 0.26))
-if sampler.available():
+if sampler.available() and os.environ.get('VOICE_SET') == 'piano':
+    VOICE = {k: ((lambda m: sampler.note('piano', m, 1.9)), 0.36) for k in VOICE}
+elif sampler.available():
     VOICE.update(pad=(s_marimba, 0.36), again=(s_marimba, 0.36), cup=(s_marimba, 0.36), xylo=(s_marimba, 0.34),
                  cymbal=(s_marimba, 0.30), block=(s_marimba, 0.38), bell=(s_glock, 0.20), flask=(s_glock, 0.16),
                  tile=(s_glock, 0.18), bumper=(s_glock, 0.20))
@@ -216,7 +218,7 @@ def main(out):
             else:
                 for m in (S.midi(r), S.midi(f5)):
                     place(mix, pad(m, t1 - t0), t0, 0.05)
-    for g in GAPS:
+    for g in ([] if os.environ.get('EVENTS_IN') else GAPS):     # the score film has its own tube events
         if g['kind'] == 'rail':
             place(mix, roll(g['t_sw'] - g['t_rail0']), g['t_rail0'], 0.035)
             place(mix, click(0.07, 1500, 60), g['t_sw'], 0.55)          # the switch
@@ -229,6 +231,14 @@ def main(out):
             place(mix, click(0.05, 700, 45), g['t_launch'] - 0.28, 0.18)   # the cup winds once
             place(mix, click(0.08, 400, 35), g['t_launch'], 0.5)           # and fires
             place(mix, whoosh(g['t1'] - g['t_launch']), g['t_launch'], 0.05)
+    ev = os.environ.get('EVENTS_IN')
+    if ev and os.path.exists(ev):
+        import json
+        E = json.load(open(ev))
+        for r in E['returns'] + E['gaps']:
+            place(mix, click(0.04, 900, 60), r['t0'], 0.22)                  # into the funnel
+            place(mix, whoosh(max(0.2, r['t1'] - r['t0'])), r['t0'], 0.07)  # through the tube
+            place(mix, click(0.04, 1300, 70), r['t1'], 0.18)                 # out at the next row
     fin = C[-1]
     place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)

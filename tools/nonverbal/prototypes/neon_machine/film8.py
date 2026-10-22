@@ -588,7 +588,7 @@ for s, song in enumerate(SONGS):
     wp.scale = (W_X1 - W_X0, z_top - z_bot + 0.002, 1)
     if s > 0:
         nc = NEON[ERAS[era]['neon'][0]]
-        cyl((W_X0, WALL_Y - 0.01, z_top), (W_X1, WALL_Y - 0.01, z_top), 0.01, mat(f'trim{s}', nc, 0.3, emit=nc, emit_s=5), 10)
+        cyl((W_X0, WALL_Y - 0.01, z_top), (W_X1, WALL_Y - 0.01, z_top), 0.01, mat(f'trim{s}', nc, 0.3, emit=nc, emit_s=1.2), 10)
     ink = ink_mat(era)
     for row in sec_rows[s]:
         x0s, x1s = X_LEFT + 0.05, row['x1']
@@ -683,20 +683,20 @@ for h in C:
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
 
 # ---------------------------------------------------------------- 4. carriage-return tubes
-M_GLASS = mat('glass8', (0.95, 0.97, 1.0), 0.02, trans=1.0)
+M_GLASS = mat('acrylic8', (0.92, 0.95, 1.0), 0.08, alpha=0.16)
 for key, tube in list(RETURNS.items()) + [(('gap', s), g) for s, g in GAPTUBE.items()]:
     pts = tube['pts'][1:]
     era = SONGS[C[key]['s'] if not isinstance(key, tuple) else key[1]]['era']
     neon = NEON[ERAS[era]['neon'][0]]
     cone(pts[0] + Vector((0, 0, 0.06)), R + 0.012, R + 0.06, 0.10, ink_mat(era))     # funnel
     for p, q in zip(pts[1:-1], pts[2:]):
-        cyl(p, q, R + 0.014, M_GLASS, 28)
-        sphere(p, R + 0.014, M_GLASS, segs=20)
+        cyl(p, q, R + 0.008, M_GLASS, 28)
+        sphere(p, R + 0.008, M_GLASS, segs=20)
     for k in range(1, 9):
         kk = k / 9
         p = poly_at(pts, kk)
         rm = mat('tubering', neon, 0.2, emit=neon, emit_s=0.6)
-        torus(p, R + 0.02, 0.005, rm, rot=(0, math.radians(90), 0))
+        torus(p, R + 0.011, 0.003, rm, rot=(0, math.radians(90), 0))
         # time when the ball passes (inverse of the ease)
         lo_, hi_ = 0.0, 1.0
         for _ in range(30):
@@ -827,8 +827,10 @@ def target(t):
     return p + Vector((0.18, 0, 0))
 
 
-PAGE_FULL = Vector(((X_LEFT + max(r['x1'] for r in ROWS)) / 2, YB, (ROWS[0]['z'] + ROWS[-1]['z']) / 2))
-span = max(abs(ROWS[0]['z'] - ROWS[-1]['z']) * 1.9, (max(r['x1'] for r in ROWS) - X_LEFT) * 1.05)
+Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
+X_MID = (X_LEFT + max(r['x1'] for r in ROWS)) / 2
+REVEAL_T0 = TF + 1.6
+REVEAL_T1 = T_END - 0.6
 
 
 def cam_at(t):
@@ -836,9 +838,14 @@ def cam_at(t):
     kh = smooth((t - (FIN['launch'] - 0.3)) / 0.6)
     tg = tg.lerp((CON[C[-2]['i']] + DRUM) / 2 + Vector((0, 0, 0.2)), kh * (1 - smooth((t - (TF + 0.2)) / 0.6)))
     tg = tg.lerp(DRUM + Vector((0, 0, 0.1)), smooth((t - (TF + 0.1)) / 0.6))
-    kr = smooth((t - (TF + 1.4)) / 3.0)
-    tg = tg.lerp(PAGE_FULL, kr)
-    off = off.lerp(Vector((0.3, -span, 0.2)), kr)
+    # after the drum: pull back to see a few rows, then rise up the whole score, back to 1680
+    kb = smooth((t - (TF + 1.0)) / 0.8)
+    off = off.lerp(Vector((0.25, -5.2, 0.15)), kb)
+    if t > REVEAL_T0:
+        k = smooth((t - REVEAL_T0) / (REVEAL_T1 - REVEAL_T0))
+        tg = Vector((X_MID, YB, Z_LAST + (Z_FIRST - Z_LAST) * k))
+    else:
+        tg = tg.lerp(Vector((X_MID, YB, Z_LAST)), kb)
     return tg, off, 40.0
 
 
@@ -879,6 +886,11 @@ if hasattr(gl, 'threshold'):
 nt.links.new(nt.nodes['Render Layers'].outputs['Image'], gl.inputs['Image'])
 nt.links.new(gl.outputs['Image'], nt.nodes['Composite'].inputs['Image'])
 
+import json  # noqa: E402
+ev_path = os.environ.get('EVENTS_OUT')
+if ev_path:
+    json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
+                   gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()]), open(ev_path, 'w'))
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects))
 if a.stills:
     for fs in a.stills.split(','):

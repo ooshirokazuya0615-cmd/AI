@@ -43,7 +43,7 @@ ERA = {
     'beethoven': dict(wall=(0.34, 0.36, 0.42), fix=(0.55, 0.56, 0.6), fix_metal=0.9, neon=['cyan', 'magenta', 'violet', 'lime']),
     'romantic': dict(wall=(0.30, 0.06, 0.08), fix=(0.62, 0.48, 0.22), fix_metal=1.0, neon=['red', 'amber', 'magenta', 'white']),
 }
-START, OUTRO = base.START, base.OUTRO
+START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 
 def assign(song):
@@ -55,4 +55,4 @@ def timeline():
 
 
 def total_seconds():
-    return base.total_seconds(SONGS, FINAL_NOTE)
+    return base.total_seconds(SONGS, FINAL_NOTE) + 4.0
