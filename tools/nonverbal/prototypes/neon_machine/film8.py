@@ -28,6 +28,7 @@ ap.add_argument('--fps', type=int, default=30)
 ap.add_argument('--out', default='frames/f_####')
 ap.add_argument('--frames', default='')
 ap.add_argument('--stills', default='')
+ap.add_argument('--gpu', action='store_true', help='render on the graphics card (OptiX, CUDA, HIP or Metal)')
 a = ap.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 W, H = (int(v) for v in a.res.split('x'))
 FPS = a.fps
@@ -43,6 +44,23 @@ sc.render.resolution_x, sc.render.resolution_y = W, H
 sc.render.fps = FPS
 sc.render.engine = 'CYCLES'
 sc.cycles.device = 'CPU'
+if a.gpu:
+    prefs = bpy.context.preferences.addons['cycles'].preferences
+    for kind in ('OPTIX', 'CUDA', 'HIP', 'METAL', 'ONEAPI'):
+        try:
+            prefs.compute_device_type = kind
+        except TypeError:
+            continue
+        prefs.get_devices()
+        devs = [d for d in prefs.devices if d.type == kind]
+        if devs:
+            for d in prefs.devices:
+                d.use = d.type == kind
+            sc.cycles.device = 'GPU'
+            print('rendering on', kind, [d.name for d in devs], flush=True)
+            break
+    else:
+        print('no GPU found, rendering on the CPU', flush=True)
 sc.cycles.samples = a.samples
 sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 6
