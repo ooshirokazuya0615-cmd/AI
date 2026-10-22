@@ -690,6 +690,10 @@ for h in C:
     for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 5.0), (h['t'] + 0.35, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
+    # only exists while it glows (keeps ~250 lights out of the light tree), and only reaches nearby
+    ld.use_custom_distance = True
+    ld.cutoff_distance = 0.9
+    key_vis(lo, h['t'] - 2 / FPS, h['t'] + 0.4)
 
 # the opening ledge
 cyl(LEDGE_START - Vector((0.05, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0), 12)
@@ -923,6 +927,8 @@ fill.data.energy, fill.data.angle, fill.data.color = 0.5, math.radians(40), (0.9
 fill.rotation_euler = Vector((-0.8, 1.0, 0.1)).to_track_quat('-Z', 'Y').to_euler()
 sc.view_settings.look = 'AgX - Medium High Contrast'
 sc.view_settings.exposure = -0.3
+sc.cycles.use_adaptive_sampling = True
+sc.cycles.adaptive_threshold = 0.03
 sc.use_nodes = True
 nt = sc.node_tree
 gl = nt.nodes.new('CompositorNodeGlare')
