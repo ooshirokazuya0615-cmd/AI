@@ -5,8 +5,8 @@ count the gap before the song), centre (MIDI pitch at x = 0 of its section), not
 palette (which instrument families it uses), tonic/fifth drone for the soft accompaniment,
 and the gap that leads INTO the song ('rail', 'launch' or 'chute').
 
-The transcriptions are from memory of the standard melodies; check each against an IMSLP score
-and write the music ledger (POLICY ch. 7) before anything is published.
+Every melody was checked note by note against a public-domain Mutopia Project edition on 2026-10-22
+(see drafts/2026-10-22-楽曲台帳-300年メドレー.md).
 """
 _N = {}
 for octave in range(2, 7):
@@ -22,9 +22,9 @@ def midi(name):
 
 
 SONGS = [
-    dict(key='ekn', title='Eine kleine Nachtmusik', composer='Mozart (d. 1791)', unit=0.21, beat=0.42, centre=67,
-         notes=[('G4', 3), ('D4', 1), ('G4', 3), ('D4', 1), ('G4', 1), ('D4', 1), ('G4', 1), ('B4', 1), ('D5', 4),
-                ('C5', 3), ('A4', 1), ('C5', 3), ('A4', 1), ('C5', 1), ('A4', 1), ('F#4', 1), ('A4', 1), ('D4', 4)] * 2,
+    dict(key='ekn', title='Eine kleine Nachtmusik', composer='Mozart (d. 1791)', unit=0.21, beat=0.42, centre=79,
+         notes=[('G5', 3), ('D5', 1), ('G5', 3), ('D5', 1), ('G5', 1), ('D5', 1), ('G5', 1), ('B5', 1), ('D6', 4),
+                ('C6', 3), ('A5', 1), ('C6', 3), ('A5', 1), ('C6', 1), ('A5', 1), ('F#5', 1), ('A5', 1), ('D5', 4)],
          palette=dict(fast='tile', normal='bell', long='pad'), drone=('G2', 'D3'), gap_in=None),
     dict(key='fe', title='Für Elise', composer='Beethoven (d. 1827)', unit=0.23, beat=0.69, centre=70,
          notes=[('E5', 1), ('D#5', 1), ('E5', 1), ('D#5', 1), ('E5', 1), ('B4', 1), ('D5', 1), ('C5', 1),
@@ -35,20 +35,22 @@ SONGS = [
     dict(key='tm', title='Rondo alla Turca', composer='Mozart (d. 1791)', unit=0.15, beat=0.6, centre=76,
          notes=[('B4', 1), ('A4', 1), ('G#4', 1), ('A4', 1), ('C5', 4), ('D5', 1), ('C5', 1), ('B4', 1), ('C5', 1), ('E5', 4),
                 ('F5', 1), ('E5', 1), ('D#5', 1), ('E5', 1), ('B5', 1), ('A5', 1), ('G#5', 1), ('A5', 1),
-                ('B5', 1), ('A5', 1), ('G#5', 1), ('A5', 1), ('C6', 4)] * 2,
+                ('B5', 1), ('A5', 1), ('G#5', 1), ('A5', 1), ('C6', 4), ('A5', 2), ('C6', 2),
+                ('B5', 2), ('A5', 2), ('G5', 2), ('A5', 2), ('B5', 2), ('A5', 2), ('G5', 2), ('A5', 2),
+                ('B5', 2), ('A5', 2), ('G5', 2), ('F#5', 2), ('E5', 4)],
          palette=dict(fast='xylo', normal='pad', long='cymbal'), drone=('A2', 'E3'), gap_in='chute'),
     dict(key='b5', title='Symphony No. 5', composer='Beethoven (d. 1827)', unit=0.17, beat=0.68, centre=62,
-         notes=[('G4', 1), ('G4', 1), ('G4', 1), ('Eb4', 9), ('F4', 1), ('F4', 1), ('F4', 1), ('D4', 11),
-                ('G4', 1), ('G4', 1), ('G4', 1), ('Eb4', 1), ('Ab4', 1), ('Ab4', 1), ('Ab4', 1), ('G4', 1),
+         notes=[('G4', 1), ('G4', 1), ('G4', 1), ('Eb4', 9), ('F4', 1), ('F4', 1), ('F4', 1), ('D4', 12),
+                ('G4', 1), ('G4', 1), ('G4', 2), ('Ab4', 1), ('Ab4', 1), ('Ab4', 2),
                 ('Eb5', 1), ('Eb5', 1), ('Eb5', 1), ('C5', 9)],
          palette=dict(fast='pad', normal='pad', long='cymbal'), drone=('C3', 'G3'), gap_in='launch'),
-    dict(key='canon', title='Canon in D', composer='Pachelbel (d. 1706)', unit=0.26, beat=0.52, centre=69,
+    dict(key='canon', title='Canon in D', composer='Pachelbel (d. 1706)', unit=0.14, beat=0.56, centre=71,
          notes=[('F#5', 4), ('E5', 4), ('D5', 4), ('C#5', 4), ('B4', 4), ('A4', 4), ('B4', 4), ('C#5', 4),
-                ('D5', 2), ('C#5', 2), ('B4', 2), ('A4', 2), ('G4', 2), ('F#4', 2), ('G4', 2), ('E4', 2), ('D4', 6)],
+                ('D5', 4), ('C#5', 4), ('B4', 4), ('A4', 4), ('G4', 4), ('F#4', 4), ('G4', 4), ('E4', 4), ('D5', 8)],
          palette=dict(fast='flask', normal='flask', long='flask'), drone=('D3', 'A3'), gap_in='rail'),
     dict(key='toc', title='Toccata in D minor', composer='Bach (d. 1750)', unit=0.13, beat=0.52, centre=69,
-         notes=[('A5', 1), ('G5', 1), ('A5', 8), ('G5', 1), ('F5', 1), ('E5', 1), ('D5', 1), ('C#5', 3), ('D5', 10),
-                ('A4', 1), ('G4', 1), ('A4', 8), ('E4', 1), ('F4', 1), ('C#4', 3), ('D4', 12)],
+         notes=[('A5', 1), ('G5', 1), ('A5', 8), ('G5', 1), ('F5', 1), ('E5', 1), ('D5', 1), ('C#5', 1), ('D5', 12),
+                ('A4', 1), ('G4', 1), ('A4', 8), ('E4', 1), ('F4', 1), ('C#4', 1), ('D4', 14)],
          palette=dict(fast='pipe', normal='pipe', long='pipe'), drone=('D2', 'A2'), gap_in='chute'),
     dict(key='mk', title='In the Hall of the Mountain King', composer='Grieg (d. 1907)', unit=0.2, beat=0.4, centre=62,
          notes=[('A3', 1), ('B3', 1), ('C4', 1), ('D4', 1), ('E4', 1), ('C4', 1), ('E4', 2),

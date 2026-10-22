@@ -23,12 +23,10 @@ SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
     s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key])
-    if key == 'canon':
-        s['unit'] = 0.17          # a livelier opening: the famous line at a walking pace
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
 # notation: clef, bar length and pickup (in the song's duration units); None = no bar lines (free rhythm)
-NOTATION = {'canon': ('treble', 8, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
+NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
             'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
