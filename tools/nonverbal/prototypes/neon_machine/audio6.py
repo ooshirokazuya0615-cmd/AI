@@ -13,6 +13,8 @@ import wave
 
 import numpy as np
 
+import sampler
+
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs6'))
 SR = 48000
 rng = np.random.default_rng(9)
@@ -134,9 +136,25 @@ def whoosh(L):
     return x * np.sin(np.pi * np.arange(n) / n) ** 2
 
 
+if sampler.available():
+    def s_marimba(m):
+        return sampler.note('marimba', m, 1.8)
+
+    def s_glock(m):
+        return sampler.note('glock', max(m, 67), 2.2)
+
+    def s_piano(m, L=1.6):
+        return sampler.note('piano', m, L)
+else:
+    s_marimba, s_glock, s_piano = marimba, bellv, None
+
 VOICE = dict(tile=(pluck, 0.24), pad=(marimba, 0.32), again=(marimba, 0.32), block=(wood, 0.34), cup=(marimba, 0.32),
              xylo=(marimba, 0.30), bell=(bellv, 0.22), cymbal=(marimba, 0.28), flask=(glass, 0.24), pipe=(organ, 0.20),
              bumper=(pluck, 0.26))
+if sampler.available():
+    VOICE.update(pad=(s_marimba, 0.36), again=(s_marimba, 0.36), cup=(s_marimba, 0.36), xylo=(s_marimba, 0.34),
+                 cymbal=(s_marimba, 0.30), block=(s_marimba, 0.38), bell=(s_glock, 0.20), flask=(s_glock, 0.16),
+                 tile=(s_glock, 0.18), bumper=(s_glock, 0.20))
 CHORD = {'Dm': (38, [62, 65, 69]), 'C': (36, [60, 64, 67]), 'Bb': (34, [58, 62, 65]), 'A': (33, [61, 64, 69]),
          'Am': (33, [60, 64, 69]), 'G': (31, [59, 62, 67])}
 
@@ -155,7 +173,11 @@ def main(out):
     C, GAPS = S.timeline()
     for h in C:
         if h['mech'] == 'bigdrum':
-            place(mix, drum(), h['t'], 0.55)
+            if sampler.available():
+                place(mix, sampler.one('Percussion/BDrumNewhit_v5_rr1_Sum.wav', 3.0), h['t'], 0.6)
+                place(mix, sampler.one('Percussion/Timpani/Timpani3_Hit_v3_rr1_Sum.wav', 3.0), h['t'], 0.45)
+            else:
+                place(mix, drum(), h['t'], 0.55)
             place(mix, marimba(h['midi'], 2.5), h['t'], 0.34)
             for c in (h['midi'] - 24, h['midi'] - 17, h['midi'] - 12, h['midi'] - 9, h['midi'] - 5, h['midi']):
                 place(mix, pad(c, 3.2), h['t'], 0.06)
@@ -184,8 +206,16 @@ def main(out):
                     place(mix, pad(m, 4 * beat), tb, 0.025)
         else:
             r, f5 = song['drone']
-            for m in (S.midi(r), S.midi(f5)):
-                place(mix, pad(m, t1 - t0), t0, 0.05)
+            if sampler.available():
+                beat = song['beat']
+                k = 0
+                while t0 + k * 2 * beat < t1:
+                    for m in (S.midi(r) + 12, S.midi(f5) + 12):
+                        place(mix, s_piano(m, 2 * beat + 0.4), t0 + k * 2 * beat, 0.07)
+                    k += 1
+            else:
+                for m in (S.midi(r), S.midi(f5)):
+                    place(mix, pad(m, t1 - t0), t0, 0.05)
     for g in GAPS:
         if g['kind'] == 'rail':
             place(mix, roll(g['t_sw'] - g['t_rail0']), g['t_rail0'], 0.035)

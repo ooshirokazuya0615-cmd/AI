@@ -32,7 +32,7 @@ a = ap.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [
 W, H = (int(v) for v in a.res.split('x'))
 FPS = a.fps
 G = 9.81
-R = 0.05           # main marble
+R = 0.056          # main marble
 R2 = 0.03          # clone marble
 YB = 0.30          # depth of the ball's plane (wall is at y = 0.62)
 rng = random.Random(11)
@@ -403,6 +403,7 @@ for g in GAPS:
 GAPGEO = {}      # s -> geometry of the gap leading into song s
 
 
+SWOOPS = {}
 ROW = 3.0          # seconds of travel before the machine turns around
 TURN_DROP = 0.26   # extra drop at a turn
 ZP = 0.012         # metres of height per semitone (the melody's contour is visible)
@@ -445,10 +446,21 @@ def place_section(s, origin, d):
             else:
                 CON[h['i']] = Vector((bx, YB, bz + lift))
             k += 1
-        # turn around on a long note once the row is long enough (the pad's tilt makes the bounce reverse)
-        if k < len(hs) and h['dur'] >= 0.36 and h['t'] - t_turn >= ROW and h['mech'] not in ('again', 'cup'):
+        # turn around on a long note once the row is long enough: the ball lands on a coaster rail that swoops
+        # out, down and back underneath, so the next row runs the other way
+        nxt = hs[k] if k < len(hs) else None
+        if (nxt is not None and h['dur'] >= 0.36 and h['t'] - t_turn >= ROW and h['mech'] not in ('again', 'cup', 'tile')
+                and nxt['mech'] != 'again'):
+            c = CON[h['i']]
+            pts = [c + Vector((dx * d, 0, dz)) for dx, dz in ((0.0, 0.0), (0.18, -0.07), (0.36, -0.22), (0.40, -0.40),
+                                                             (0.24, -0.53), (0.02, -0.57))]
+            t_end = h['t'] + h['dur'] - 0.14
+            pts = [p - Vector((0, 0, R + 0.008)) for p in pts]
+            SWOOPS[h['i']] = dict(pts=pts, t0=h['t'], t1=t_end, d=d)
+            h['mech'] = 'swoop'
             d = -d
-            bz -= TURN_DROP
+            bx, bz = pts[-1].x + 0.10 * d, pts[-1].z - 0.06 - (R + 0.008)
+            tb = h['t'] + h['dur']
             t_turn = h['t']
     return d
 
@@ -508,6 +520,26 @@ for s, gg in GAPGEO.items():
         gg['rail_c'] = [p + Vector((0, 0, R + 0.008)) for p in rail]
 
 
+for i_, sw_ in SWOOPS.items():
+    rail = catmull(sw_['pts'], 90)
+    times = [0.0]
+    for p, q in zip(rail[:-1], rail[1:]):
+        v = math.sqrt(max(0.3, 1.0 + 2 * G * (rail[0].z - (p.z + q.z) / 2) * 0.5))
+        times.append(times[-1] + (q - p).length / v)
+    k_ = (sw_['t1'] - sw_['t0']) / times[-1]
+    sw_['rail'] = rail
+    sw_['rail_t'] = [sw_['t0'] + x * k_ for x in times]
+    sw_['rail_c'] = [p + Vector((0, 0, R + 0.008)) for p in rail]
+
+
+def swoop_pos(sw_, t):
+    rt, rc = sw_['rail_t'], sw_['rail_c']
+    for j in range(len(rt) - 1):
+        if t <= rt[j + 1]:
+            return rc[j].lerp(rc[j + 1], (t - rt[j]) / (rt[j + 1] - rt[j]))
+    return rc[-1]
+
+
 def gap_pos(s, t):
     gg = GAPGEO[s]
     L = sec_last[s - 1]
@@ -556,6 +588,11 @@ def ball_pos(t):
                 return gap_pos(h1['s'], t)
             if h0.get('roll'):
                 return p0.lerp(p1, (t - h0['t']) / (h1['t'] - h0['t']))
+            if h0['i'] in SWOOPS:
+                sw_ = SWOOPS[h0['i']]
+                if t <= sw_['t1']:
+                    return swoop_pos(sw_, t)
+                return ballistic(sw_['rail_c'][-1], sw_['t1'], p1, h1['t'], t)
             return ballistic(p0, h0['t'], p1, h1['t'], t)
     u = t - TF
     return CON[FIN['i']] + Vector((0, 0, max(0.0, 0.12 * math.exp(-u * 2.4) * abs(math.sin(u * 7.5)))))
@@ -782,7 +819,42 @@ def bumper(h):
     spark(h, col, 6)
 
 
-BUILD = dict(pad=pad, again=again, block=block, xylo=xylo, bell=bell, cymbal=cymbal, flask=flask, pipe=pipe,
+def swoop(h):
+    sw_ = SWOOPS[h['i']]
+    rail = sw_['rail']
+    for sgn in (-1, 1):
+        pts = [p + Vector((0, sgn * 0.03, 0)) for p in rail]
+        for p, q in zip(pts[:-1:3], pts[3::3]):
+            cyl(p, q, 0.005, M_RAIL, 8)
+    for p in rail[::15]:
+        cyl(p + Vector((0, -0.035, -0.006)), p + Vector((0, 0.035, -0.006)), 0.004, M_RAIL, 6)
+        cyl((p.x, 0.62, p.z - 0.05), (p.x, YB + 0.03, p.z - 0.006), 0.006, M_RAIL, 8)
+    col = ncol(h['midi'])
+    gm = mat(f'gate{h["i"]}', col, 0.2, emit=col, emit_s=3.0)
+    g0 = rail[0] + Vector((0, 0, 0.0))
+    torus(g0 + Vector((0, 0, R + 0.01)), R + 0.03, 0.008, gm, rot=(0, math.radians(90), 0))
+    flash(gm, h['t'], 3.0, 80.0, 9.0)
+    # LED strip along the rail that lights up behind the ball
+    for j, (p, tt_) in enumerate(zip(rail[6::10], sw_['rail_t'][6::10])):
+        lm = mat(f'swled{h["i"]}_{j}', col, 0.2, emit=col, emit_s=0.3)
+        sphere(p + Vector((0, -0.036, -0.004)), 0.006, lm, segs=8)
+        emit_keys(lm, ((tt_ - 1 / FPS, 0.3), (tt_, 30), (tt_ + 0.4, 3)))
+    spark(h, col, 6)
+
+
+def spill(h):
+    col = ncol(h['midi'])
+    ld = bpy.data.lights.new(f'spill{h["i"]}', 'POINT')
+    ld.color, ld.shadow_soft_size = col, 0.04
+    lo = bpy.data.objects.new(f'spill{h["i"]}', ld)
+    sc.collection.objects.link(lo)
+    lo.location = CON[h['i']] + Vector((0, -0.06, -R))
+    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 6.0), (h['t'] + 0.3, 0.0)):
+        ld.energy = e_
+        ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
+
+
+BUILD = dict(swoop=swoop, pad=pad, again=again, block=block, xylo=xylo, bell=bell, cymbal=cymbal, flask=flask, pipe=pipe,
              bumper=bumper)
 k = 0
 while k < len(C) - 1:
@@ -798,6 +870,8 @@ while k < len(C) - 1:
         pad(h, r=0.075, spring=True)
     else:
         BUILD[h['mech']](h)
+    if h['mech'] != 'again':
+        spill(h)
     k += 1
 
 # ---------------------------------------------------------------- 4. gap machinery
@@ -863,7 +937,18 @@ if blue_at is None:
     g0 = GAPGEO[min(GAPGEO)]
     blue_at = (g0.get('top') or g0.get('cup')) + Vector((-0.55 * g0['d'], 0, -0.15))   # beside the machine, not over it
 blue = character(blue_at.x + 0.05, blue_at.z + 0.62, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'blue')
-for ch in (yel, pink, blue):
+WATCHERS = []
+designs = [((0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears'), ((0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo'),
+           ((0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna')]
+for n_, (s_, gg_) in enumerate(sorted(GAPGEO.items())):
+    if n_ == 0:
+        continue                       # the first gap already has blue
+    anchor = gg_.get('sw') or gg_.get('top') or gg_.get('cup')
+    bc, ic, acc = designs[n_ % 3]
+    wch = character(anchor.x - 0.5 * gg_['d'], anchor.z + 0.45, bc, ic, acc, f'watch{n_}')
+    t_ev = gg_.get('t_sw') or gg_.get('t_in') or gg_.get('t_launch')
+    WATCHERS.append((wch, t_ev))
+for ch in (yel, pink, blue) + tuple(w for w, _ in WATCHERS):
     r0 = ch['root']
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
     bpy.context.view_layer.update()
@@ -919,8 +1004,11 @@ for f in range(1, N + 1):
     ball.keyframe_insert('rotation_euler', frame=f)
 
 # ---------------------------------------------------------------- 7. acting
-for ch in (yel, pink, blue):
+for ch in (yel, pink, blue) + tuple(w for w, _ in WATCHERS):
     track_eyes(ch, ball_pos)
+for wch, t_ev in WATCHERS:
+    mouth_o(wch, t_ev - 0.1, t_ev + 0.8, 1.7)
+    hop(wch, t_ev + 0.1, 0.12)
 g_blue = next((gg for gg in GAPGEO.values() if gg['kind'] == 'rail'), GAPGEO[min(GAPGEO)])
 t_blue = g_blue.get('t_sw') or g_blue.get('t_in') or g_blue.get('t_launch')
 mouth_o(blue, t_blue - 0.1, t_blue + 0.9, 1.7)
@@ -937,7 +1025,7 @@ cam = bpy.context.object
 cam.data.dof.use_dof = True
 cam.data.dof.aperture_fstop = 4.5
 sc.camera = cam
-OFF = Vector((0.48, -2.6, 0.36))
+OFF = Vector((0.42, -2.25, 0.32))
 LAUNCHES = [(gg['t_launch'], sec_first[s]['t'], (gg['cup'] + CON[sec_first[s]['i']]) / 2) for s, gg in GAPGEO.items()
             if gg['kind'] == 'launch']
 LAUNCHES.append((FIN['launch'], TF, (CON[LASTCUP['i']] + DC) / 2))
@@ -945,9 +1033,9 @@ LAUNCHES.append((FIN['launch'], TF, (CON[LASTCUP['i']] + DC) / 2))
 
 def target(t):
     acc, wsum = Vector((0, 0, 0)), 0.0
-    for j in range(9):
+    for j in range(6):
         wgt = 1.0 / (1 + j)
-        acc += ball_pos(max(0.0, t - j * 0.06)) * wgt
+        acc += ball_pos(max(0.0, t - j * 0.035)) * wgt
         wsum += wgt
     p = acc / wsum
     p.y = YB
