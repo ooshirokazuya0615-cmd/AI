@@ -638,11 +638,12 @@ pulse_ring(Vector((DX, YB, DZ + 0.01)), TF, NEON['magenta'], r0=0.2, r1=0.85, li
 burst(Vector((DX, YB - 0.04, DZ + 0.02)), TF, NEON['magenta'], n=18, speed=1.7, life=0.5)
 yel = character(DX + 0.55, DZ + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
 pink = character(DX - 0.55, DZ + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears', 'pink')
-blue = character(SW.x + 0.30, SW.z - 0.10, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'blue')
+blue = character(SW.x + 0.42, SW.z + 0.04, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'blue')
 
 for ch in (yel, pink, blue):
     r0 = ch['root']
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
+    bpy.context.view_layer.update()    # the new empty's world matrix must be current before parenting
     parent(r0, holder)
     holder.scale = (0.68, 0.68, 0.68)
 
@@ -675,10 +676,10 @@ wave.wave_type = 'RINGS'
 wave.inputs['Scale'].default_value = 2.6
 wave.inputs['Distortion'].default_value = 11.0
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-ramp.color_ramp.elements[0].color = (0.25, 0.03, 0.7, 1)
-ramp.color_ramp.elements[1].color = (0.0, 0.7, 0.55, 1)
+ramp.color_ramp.elements[0].color = (0.12, 0.0, 0.45, 1)
+ramp.color_ramp.elements[1].color = (0.0, 0.45, 0.4, 1)
 e = ramp.color_ramp.elements.new(0.5)
-e.color = (1.0, 0.55, 0.05, 1)
+e.color = (1.0, 0.35, 0.02, 1)
 nt_.links.new(wave.outputs['Fac'], ramp.inputs['Fac'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
