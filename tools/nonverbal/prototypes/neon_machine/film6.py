@@ -659,6 +659,9 @@ if ERAS:
         bpy.ops.mesh.primitive_plane_add(size=1, location=((W_X0 + W_X1) / 2, 0.62, (z0 + z1) / 2), rotation=(math.radians(90), 0, 0))
         wb = add(bpy.context.object, mat(f'wall_{s}', e['wall'], 0.8))
         wb.scale = (W_X1 - W_X0, z0 - z1 + 0.002, 1)
+        if s > 0:   # a glowing trim marks the door into the next era, so the seam reads as intentional
+            nc = NEON[e['neon'][0]]
+            cyl((W_X0, 0.61, z0), (W_X1, 0.61, z0), 0.012, mat(f'eratrim_{s}', nc, 0.3, emit=nc, emit_s=6.0), 10)
 else:
     bpy.ops.mesh.primitive_plane_add(size=1, location=((W_X0 + W_X1) / 2, 0.62, (min(zs_) + max(zs_)) / 2),
                                      rotation=(math.radians(90), 0, 0))
