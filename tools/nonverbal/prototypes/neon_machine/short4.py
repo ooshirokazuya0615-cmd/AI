@@ -814,6 +814,9 @@ if a.stills:
         bpy.ops.render.render(write_still=True)
 else:
     sc.render.filepath = str(Path(a.out).resolve())
+    # resumable: skip frames that already exist (a restart only loses the frame in progress)
+    sc.render.use_overwrite = False
+    sc.render.use_placeholder = True
     if a.frames:
         lo, hi = (int(v) for v in a.frames.split('-'))
         sc.frame_start, sc.frame_end = lo, hi
