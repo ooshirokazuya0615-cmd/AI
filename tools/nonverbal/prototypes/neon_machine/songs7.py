@@ -11,6 +11,7 @@ by = {s['key']: dict(s) for s in base.SONGS}
 mk = dict(by['mk'])
 phrase = mk['notes']
 mk['notes'] = phrase + [(n, u * 0.82) for n, u in phrase] + [(n, u * 0.66) for n, u in phrase]
+mk['nunits'] = [u for _, u in phrase] * 3          # notated values (the accelerando changes time, not notation)
 mk['palette'] = dict(fast='bumper', normal='pad', long='cymbal')
 
 ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
@@ -26,6 +27,15 @@ for (key, year, era), gap in zip(ORDER, GAPS_IN):
         s['unit'] = 0.17          # a livelier opening: the famous line at a walking pace
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
+# notation: clef, bar length and pickup (in the song's duration units); None = no bar lines (free rhythm)
+NOTATION = {'canon': ('treble', 8, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
+            'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
+KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
+TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
+for s_ in SONGS:
+    s_['clef'], s_['bar_units'], s_['pickup_units'] = NOTATION[s_['key']]
+    s_['keysig'] = KEYSIG[s_['key']]
+    s_['timesig'] = TIMESIG.get(s_['key'])
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
