@@ -845,6 +845,10 @@ pulse_ring(Vector((DX, YB, DZ + 0.01)), TF, NEON['magenta'], r0=0.2, r1=0.85, li
 burst(Vector((DX, YB - 0.04, DZ + 0.02)), TF, NEON['magenta'], n=18, speed=1.7, life=0.5)
 yel = character(DX + 0.55, DZ + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
 pink = character(DX - 0.55, DZ + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears', 'pink')
+# blue watches the first gap: the first switch if there is a rail gap, otherwise the first chute or cup
+if blue_at is None:
+    g0 = GAPGEO[min(GAPGEO)]
+    blue_at = g0.get('top') or g0.get('cup')
 blue = character(blue_at.x + 0.05, blue_at.z + 0.62, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'blue')
 for ch in (yel, pink, blue):
     r0 = ch['root']
@@ -904,9 +908,10 @@ for f in range(1, N + 1):
 # ---------------------------------------------------------------- 7. acting
 for ch in (yel, pink, blue):
     track_eyes(ch, ball_pos)
-g_blue = next(gg for gg in GAPGEO.values() if gg['kind'] == 'rail')
-mouth_o(blue, g_blue['t_sw'] - 0.1, g_blue['t_sw'] + 0.9, 1.7)
-hop(blue, g_blue['t_sw'] + 0.15, 0.14)
+g_blue = next((gg for gg in GAPGEO.values() if gg['kind'] == 'rail'), GAPGEO[min(GAPGEO)])
+t_blue = g_blue.get('t_sw') or g_blue.get('t_in') or g_blue.get('t_launch')
+mouth_o(blue, t_blue - 0.1, t_blue + 0.9, 1.7)
+hop(blue, t_blue + 0.15, 0.14)
 for ch in (yel, pink):
     mouth_o(ch, FIN['launch'] + 0.1, FIN['launch'] + 0.9, 1.5)
     hop(ch, TF + 0.02, 0.2)
