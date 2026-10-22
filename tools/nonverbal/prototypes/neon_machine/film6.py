@@ -621,17 +621,49 @@ def orient(o, n):
     o.rotation_quaternion = n.to_track_quat('Z', 'Y')
 
 
+ERAS = getattr(S, 'ERA', None)
+CUR_NEON = None
+
+
 def ncol(m):
+    if CUR_NEON:
+        return NEON[CUR_NEON[m % len(CUR_NEON)]]
     return NEON[NOTE_COL[m % 12]]
+
+
+def use_era(s):
+    """Switch fixture finish and neon palette to the era of section s (no-op without ERA)."""
+    global M_FIX, M_FIX2, M_RAIL, CUR_NEON
+    if not ERAS:
+        return
+    e = ERAS[SONGS[s]['era']]
+    key = SONGS[s]['era']
+    M_FIX = bpy.data.materials.get('fix_' + key) or mat('fix_' + key, e['fix'], 0.35, metal=e['fix_metal'], coat=0.5)
+    M_FIX2 = bpy.data.materials.get('fix2_' + key) or mat('fix2_' + key, tuple(min(1, c * 1.5 + 0.03) for c in e['fix']), 0.3,
+                                                          metal=e['fix_metal'])
+    M_RAIL = bpy.data.materials.get('rail_' + key) or mat('rail_' + key, tuple(c * 0.8 for c in e['fix']), 0.25, metal=0.9)
+    CUR_NEON = e['neon']
 
 
 # ---------------------------------------------------------------- 2. wall and floor
 xs_ = [p.x for p in CON.values()]
 zs_ = [p.z for p in CON.values()]
-bpy.ops.mesh.primitive_plane_add(size=1, location=((min(xs_) + max(xs_)) / 2, 0.62, (min(zs_) + max(zs_)) / 2),
-                                 rotation=(math.radians(90), 0, 0))
-w = add(bpy.context.object, M_WALL)
-w.scale = (max(xs_) - min(xs_) + 10, max(zs_) - min(zs_) + 8, 1)
+W_X0, W_X1 = min(xs_) - 5, max(xs_) + 5
+if ERAS:
+    tops = [max(CON[h['i']].z for h in C if h['s'] == s) for s in range(len(SONGS))]
+    bots = [min(CON[h['i']].z for h in C if h['s'] == s) for s in range(len(SONGS))]
+    bounds = [max(zs_) + 4] + [(bots[s - 1] + tops[s]) / 2 for s in range(1, len(SONGS))] + [min(zs_) - 4]
+    for s in range(len(SONGS)):
+        e = ERAS[SONGS[s]['era']]
+        z0, z1 = bounds[s], bounds[s + 1]
+        bpy.ops.mesh.primitive_plane_add(size=1, location=((W_X0 + W_X1) / 2, 0.62, (z0 + z1) / 2), rotation=(math.radians(90), 0, 0))
+        wb = add(bpy.context.object, mat(f'wall_{s}', e['wall'], 0.8))
+        wb.scale = (W_X1 - W_X0, z0 - z1 + 0.002, 1)
+else:
+    bpy.ops.mesh.primitive_plane_add(size=1, location=((W_X0 + W_X1) / 2, 0.62, (min(zs_) + max(zs_)) / 2),
+                                     rotation=(math.radians(90), 0, 0))
+    w = add(bpy.context.object, M_WALL)
+    w.scale = (W_X1 - W_X0, max(zs_) - min(zs_) + 8, 1)
 
 
 # ---------------------------------------------------------------- 3. instruments
@@ -857,8 +889,12 @@ def spill(h):
 BUILD = dict(swoop=swoop, pad=pad, again=again, block=block, xylo=xylo, bell=bell, cymbal=cymbal, flask=flask, pipe=pipe,
              bumper=bumper)
 k = 0
+cur_s = -1
 while k < len(C) - 1:
     h = C[k]
+    if h['s'] != cur_s:
+        cur_s = h['s']
+        use_era(cur_s)
     if h['mech'] == 'tile':
         run = [h]
         while k + len(run) < len(C) - 1 and C[k + len(run)]['mech'] == 'tile' and C[k + len(run)]['s'] == h['s']:
@@ -878,6 +914,7 @@ while k < len(C) - 1:
 blue_at = None
 for s, gg in GAPGEO.items():
     g = gap_into[s]
+    use_era(s)
     if gg['kind'] == 'rail':
         rail = gg['rail']
         for sgn in (-1, 1):
