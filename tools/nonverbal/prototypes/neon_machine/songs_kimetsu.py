@@ -36,10 +36,10 @@ SONGS = [
          palette=dict(fast='bell', normal='bell', long='cymbal'), gap_in=None,
          chords=['Dm', 'C', 'Bb', 'A']),
     dict(COMMON, key='verse', title='Verse + pre-chorus', centre=67, notes=VERSE + PRE,
-         palette=dict(fast='tile', normal='pad', long='block'), gap_in='chute',
+         palette=dict(fast='tile', normal='pad', long='block'), gap_in='chute', join='same',
          chords=['Dm', 'C', 'Dm', 'A', 'Bb', 'Bb', 'C', 'A']),
     dict(COMMON, key='chorus', title='Chorus', centre=76, notes=CHORUS,
-         palette=dict(fast='tile', normal='pad', long='cymbal'), gap_in='launch',
+         palette=dict(fast='xylo', normal='pad', long='cymbal'), gap_in='launch', join='same',
          chords=['Bb', 'C', 'Am', 'Dm', 'Bb', 'C', 'A', 'Dm']),
 ]
 FINAL_NOTE = 'D5'

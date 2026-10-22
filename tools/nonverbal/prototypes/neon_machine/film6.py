@@ -403,42 +403,57 @@ for g in GAPS:
 GAPGEO = {}      # s -> geometry of the gap leading into song s
 
 
-def place_section(s, origin):
+ROW = 3.0          # seconds of travel before the machine turns around
+TURN_DROP = 0.26   # extra drop at a turn
+ZP = 0.012         # metres of height per semitone (the melody's contour is visible)
+
+
+def place_section(s, origin, d):
+    """Lay out one section starting at origin, travelling in x-direction d (+1 right, -1 left).
+    The machine turns around on a long-enough note once it has travelled ROW seconds. Returns the end direction."""
     hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
     song = SONGS[s]
-    t0 = hs[0]['t']
-
-    def base(t):
-        return origin + Vector((DRIFT * (t - t0), 0, -DESC * (t - t0)))
-
     th = math.radians(8.0)
-    dirv = Vector((math.cos(th), 0, -math.sin(th)))
+    bx, bz, tb, t_turn = origin.x, origin.z, hs[0]['t'], hs[0]['t']
     k, side = 0, 1
     while k < len(hs):
         h = hs[k]
-        off = max(-0.45, min(0.45, (h['midi'] - song['centre']) * XS))
+        bx += DRIFT * d * (h['t'] - tb)
+        bz -= DESC * (h['t'] - tb)
+        tb = h['t']
+        lift = max(-0.18, min(0.18, (h['midi'] - song['centre']) * ZP))
         if h['mech'] == 'tile':
             run = [h]
             while k + len(run) < len(hs) and hs[k + len(run)]['mech'] == 'tile':
                 run.append(hs[k + len(run)])
-            p0 = base(h['t']) + Vector((off, 0, 0))
+            dirv = Vector((d * math.cos(th), 0, -math.sin(th)))
+            p0 = Vector((bx, YB, bz + lift))
             for j, r in enumerate(run):
                 CON[r['i']] = p0 + dirv * (0.5 * (r['t'] - h['t']))
                 r['roll'] = j < len(run) - 1
+            last = run[-1]
+            bx, bz, tb = CON[last['i']].x, CON[last['i']].z - lift, last['t']
             k += len(run)
-            continue
-        if h['mech'] == 'again':
-            CON[h['i']] = CON[h['i'] - 1].copy()
-        elif h['mech'] == 'bumper':
-            CON[h['i']] = base(h['t']) + Vector((0.13 * side, 0, 0))
-            h['side'] = side
-            side = -side
+            h = last
         else:
-            CON[h['i']] = base(h['t']) + Vector((off, 0, 0))
-        k += 1
-    return hs
+            if h['mech'] == 'again':
+                CON[h['i']] = CON[h['i'] - 1].copy()
+            elif h['mech'] == 'bumper':
+                CON[h['i']] = Vector((bx + 0.13 * side, YB, bz))
+                h['side'] = side
+                side = -side
+            else:
+                CON[h['i']] = Vector((bx, YB, bz + lift))
+            k += 1
+        # turn around on a long note once the row is long enough (the pad's tilt makes the bounce reverse)
+        if k < len(hs) and h['dur'] >= 0.36 and h['t'] - t_turn >= ROW and h['mech'] not in ('again', 'cup'):
+            d = -d
+            bz -= TURN_DROP
+            t_turn = h['t']
+    return d
 
 
+D = 1
 ORIGIN = Vector((-0.4, YB, 0.4))
 for s in range(len(SONGS)):
     if s > 0:
@@ -446,23 +461,25 @@ for s in range(len(SONGS)):
         L = sec_last[s - 1]
         PL = CON[L['i']]
         if g['kind'] == 'rail':
-            pts = [PL + Vector(d) for d in ((0.30, 0, -0.14), (0.58, 0, -0.30), (0.90, 0, -0.38), (1.20, 0, -0.33),
-                                            (1.42, 0, -0.24), (1.60, 0, -0.22))]
-            sw = pts[-1] + Vector((0.10, 0, 0))
-            GAPGEO[s] = dict(kind='rail', pts=pts, sw=sw, t_rail0=L['t'] + 0.32, t_sw=g['beats'][3])
-            ORIGIN = sw + Vector((0.26, 0, -0.42))
+            pts = [PL + Vector((dx * D, 0, dz)) for dx, dz in ((0.30, -0.14), (0.58, -0.30), (0.90, -0.38), (1.20, -0.33),
+                                                              (1.42, -0.24), (1.60, -0.22))]
+            sw = pts[-1] + Vector((0.10 * D, 0, 0))
+            GAPGEO[s] = dict(kind='rail', pts=pts, sw=sw, t_rail0=g['t_rail0'], t_sw=g['t_sw'], d=D)
+            ORIGIN = sw + Vector((0.26 * D, 0, -0.42))
         elif g['kind'] == 'chute':
-            top = PL + Vector((0.34, 0, -0.18))
+            top = PL + Vector((0.34 * D, 0, -0.18))
             bot = top + Vector((0.0, 0, -1.05))
-            GAPGEO[s] = dict(kind='chute', top=top, bot=bot, t_in=L['t'] + 0.33, t_out=g['beats'][3] + 0.06)
-            ORIGIN = bot + Vector((0.30, 0, -0.30))
-        else:  # launch from the cup
-            GAPGEO[s] = dict(kind='launch', cup=PL, t_launch=g['beats'][2])
-            ORIGIN = PL + Vector((0.95, 0, -0.26))
-    place_section(s, ORIGIN)
+            GAPGEO[s] = dict(kind='chute', top=top, bot=bot, t_in=g['t_in'], t_out=g['t_out'], d=D)
+            D = -D                                  # come out of the tube going the other way
+            ORIGIN = bot + Vector((0.30 * D, 0, -0.30))
+        else:  # launch from the cup, across to the other side
+            D = -D
+            GAPGEO[s] = dict(kind='launch', cup=PL, t_launch=g['t_launch'], d=D)
+            ORIGIN = PL + Vector((0.95 * D, 0, -0.26))
+    D = place_section(s, ORIGIN, D)
 # the final drum after the last cup
 LASTCUP = sec_last[len(SONGS) - 1]
-CON[FIN['i']] = CON[LASTCUP['i']] + Vector((1.25, 0, -0.30))
+CON[FIN['i']] = CON[LASTCUP['i']] + Vector((-1.25 * D, 0, -0.30))   # the last launch crosses back
 
 
 def catmull(pts, n=120):
@@ -504,7 +521,7 @@ def gap_pos(s, t):
             for j in range(len(rt) - 1):
                 if t <= rt[j + 1]:
                     return rc[j].lerp(rc[j + 1], (t - rt[j]) / (rt[j + 1] - rt[j]))
-        hit = gg['sw'] + Vector((-R - 0.012, 0, 0.02))
+        hit = gg['sw'] + Vector((-(R + 0.012) * gg['d'], 0, 0.02))
         if t <= gg['t_sw']:
             return rc[-1].lerp(hit, (t - rt[-1]) / max(1e-3, gg['t_sw'] - rt[-1]))
         return ballistic(hit, gg['t_sw'], PF, F['t'], t)
@@ -795,23 +812,17 @@ for s, gg in GAPGEO.items():
                 cyl(p, q, 0.005, M_RAIL, 8)
         for p in rail[::12]:
             cyl((p.x, 0.62, p.z - 0.05), (p.x, YB + 0.03, p.z - 0.006), 0.006, M_RAIL, 8)
-        for tb in g['beats'][:3]:
-            if gg['t_rail0'] < tb < gg['rail_t'][-1]:
-                p = ball_pos(tb) - Vector((0, 0, R + 0.008))
-                cyl(p + Vector((0, -0.05, -0.01)), p + Vector((0, 0.05, -0.01)), 0.009, M_FIX2, 10)
-                jm = mat('jointled', NEON['white'], 0.2, emit=NEON['white'], emit_s=0.0)
-                sphere(p + Vector((0, -0.05, -0.01)), 0.007, jm, segs=8)
-                emit_keys(jm, ((tb - 1 / FPS, 0), (tb, 25), (tb + 0.3, 2)))
         sw = gg['sw']
-        cube(sw + Vector((0.035, 0.24, 0.0)), (0.07, 0.02, 0.12), mat('switchplate', (0.85, 0.86, 0.88), 0.3, metal=0.9), bevel=0.006)
-        tog = empty(sw + Vector((0.035, 0.22, 0.0)), f'toggle{s}')
-        lever = cube(sw + Vector((0.035, 0.13, 0.02)), (0.018, 0.17, 0.018), M_FIX, bevel=0.004)
+        sx = 0.035 * gg['d']
+        cube(sw + Vector((sx, 0.24, 0.0)), (0.07, 0.02, 0.12), mat('switchplate', (0.85, 0.86, 0.88), 0.3, metal=0.9), bevel=0.006)
+        tog = empty(sw + Vector((sx, 0.22, 0.0)), f'toggle{s}')
+        lever = cube(sw + Vector((sx, 0.13, 0.02)), (0.018, 0.17, 0.018), M_FIX, bevel=0.004)
         parent(lever, tog)
         for t, ang in ((gg['t_sw'] - 1 / FPS, 0.0), (gg['t_sw'] + 0.05, -35.0)):
             tog.rotation_euler.x = math.radians(ang)
             tog.keyframe_insert('rotation_euler', index=0, frame=fr(t))
         led = mat(f'swled{s}', NEON['lime'], 0.2, emit=NEON['lime'], emit_s=0.0)
-        sphere(sw + Vector((0.035, 0.225, 0.045)), 0.008, led, segs=10)
+        sphere(sw + Vector((sx, 0.225, 0.045)), 0.008, led, segs=10)
         emit_keys(led, ((gg['t_sw'] - 1 / FPS, 0.0), (gg['t_sw'], 25.0)))
         if blue_at is None:
             blue_at = sw
@@ -819,15 +830,17 @@ for s, gg in GAPGEO.items():
         top, bot = gg['top'], gg['bot']
         cone(top + Vector((0, 0, 0.05)), 0.03 + R, 0.10, 0.10, M_FIX2)
         tube = cyl(top, bot, R + 0.012, M_GLASS, 32)
-        for j, tb in enumerate(g['beats']):
-            k_ = (tb - gg['t_in']) / (gg['t_out'] - gg['t_in'])
-            if 0 < k_ < 1:
-                p = top.lerp(bot, k_ * k_ * 0.35 + k_ * 0.65)
-                rm = mat(f'chutering{s}_{j}', NEON['cyan'], 0.2, emit=NEON['cyan'], emit_s=0.5)
-                torus(p, R + 0.016, 0.006, rm)
-                emit_keys(rm, ((tb - 1 / FPS, 0.5), (tb, 40), (tb + 0.35, 4)))
+        for j, k_ in enumerate((0.25, 0.5, 0.75)):
+            # time when the ball passes this point of the tube (inverse of the easing used in gap_pos)
+            a_, b_ = 0.35, 0.65
+            kk = (-b_ + math.sqrt(b_ * b_ + 4 * a_ * k_)) / (2 * a_)
+            tb = gg['t_in'] + kk * (gg['t_out'] - gg['t_in'])
+            p = top.lerp(bot, k_)
+            rm = mat(f'chutering{s}_{j}', NEON['cyan'], 0.2, emit=NEON['cyan'], emit_s=0.5)
+            torus(p, R + 0.016, 0.006, rm)
+            emit_keys(rm, ((tb - 1 / FPS, 0.5), (tb, 40), (tb + 0.35, 4)))
         stem(top.lerp(bot, 0.5), 0)
-        cyl(bot, bot + Vector((0.12, 0, -0.04)), R + 0.01, M_FIX2, 24)
+        cyl(bot, bot + Vector((0.12 * -gg['d'], 0, -0.04)), R + 0.01, M_FIX2, 24)
     # launch gaps reuse the cup (built above)
 
 # ---------------------------------------------------------------- 5. final drum and characters
@@ -848,7 +861,7 @@ pink = character(DX - 0.55, DZ + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ea
 # blue watches the first gap: the first switch if there is a rail gap, otherwise the first chute or cup
 if blue_at is None:
     g0 = GAPGEO[min(GAPGEO)]
-    blue_at = g0.get('top') or g0.get('cup')
+    blue_at = (g0.get('top') or g0.get('cup')) + Vector((-0.55 * g0['d'], 0, -0.15))   # beside the machine, not over it
 blue = character(blue_at.x + 0.05, blue_at.z + 0.62, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'blue')
 for ch in (yel, pink, blue):
     r0 = ch['root']

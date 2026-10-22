@@ -30,20 +30,35 @@ def env(t, a, d):
     return np.minimum(1, t / a) * np.exp(-t * d)
 
 
-def marimba(m, L=1.4):
+def marimba(m, L=1.6):
+    """modal marimba: partials near 1 : 3.93 : 9.2 with their own decays, a soft mallet click"""
     f, t = hz(m), tt(L)
-    return (np.sin(2 * np.pi * f * t) * np.exp(-t * 3.4) + 0.35 * np.sin(2 * np.pi * f * 3.99 * t) * np.exp(-t * 12)) * np.minimum(1, t / 0.003)
+    dec = 2.6 + (m - 60) * 0.05
+    s = (np.sin(2 * np.pi * f * t) * np.exp(-t * dec) + 0.32 * np.sin(2 * np.pi * f * 3.93 * t) * np.exp(-t * dec * 3.5)
+         + 0.08 * np.sin(2 * np.pi * f * 9.2 * t) * np.exp(-t * dec * 9))
+    click_ = rng.standard_normal(len(t)) * np.exp(-t * 900) * 0.25
+    return (s + click_) * np.minimum(1, t / 0.0015)
 
 
-def pluck(m, L=1.1):
+def pluck(m, L=1.2):
+    """Karplus-Strong plucked string: a bright, natural decay for the LED tiles"""
+    f = hz(m)
+    n, period = int(SR * L), max(2, int(round(SR / f)))
+    buf = rng.uniform(-1, 1, period)
+    out = np.empty(n)
+    for i in range(n):
+        out[i] = buf[i % period]
+        buf[i % period] = 0.996 * 0.5 * (buf[i % period] + buf[(i + 1) % period])
+    return out * 0.9
+
+
+def bellv(m, L=2.4):
+    """FM bell (carrier : modulator 1 : 1.4, decaying index)"""
     f, t = hz(m), tt(L)
-    return sum(np.sin(2 * np.pi * f * k * t) / k * np.exp(-t * (2.5 + k * 1.8)) for k in range(1, 9)) * np.minimum(1, t / 0.002)
-
-
-def bellv(m, L=2.2):
-    f, t = hz(m), tt(L)
-    return sum(a * np.sin(2 * np.pi * f * r * t) * np.exp(-t * d) for r, a, d in
-               ((1, 1, 1.6), (2.76, .45, 2.8), (5.4, .25, 4.5), (8.93, .12, 7))) * np.minimum(1, t / 0.002)
+    idx = 3.5 * np.exp(-t * 2.2)
+    s = np.sin(2 * np.pi * f * t + idx * np.sin(2 * np.pi * f * 1.4 * t)) * np.exp(-t * 1.5)
+    s += 0.25 * np.sin(2 * np.pi * f * 2.0 * t) * np.exp(-t * 3)
+    return s * np.minimum(1, t / 0.0015)
 
 
 def glass(m, L=2.0):
@@ -126,16 +141,17 @@ CHORD = {'Dm': (38, [62, 65, 69]), 'C': (36, [60, 64, 67]), 'Bb': (34, [58, 62, 
          'Am': (33, [60, 64, 69]), 'G': (31, [59, 62, 67])}
 
 
-def place(mix, s, t, g):
+def place(mix, s, t, g, pan=0.0):
     a = int(t * SR)
     if 0 <= a < len(mix):
         s = s[: len(mix) - a]
-        mix[a:a + len(s)] += s * g
+        mix[a:a + len(s), 0] += s * g * np.sqrt(0.5 * (1 - pan))
+        mix[a:a + len(s), 1] += s * g * np.sqrt(0.5 * (1 + pan))
 
 
 def main(out):
     T = S.total_seconds()
-    mix = np.zeros(int(SR * (T + 0.5)))
+    mix = np.zeros((int(SR * (T + 0.5)), 2))
     C, GAPS = S.timeline()
     for h in C:
         if h['mech'] == 'bigdrum':
@@ -145,7 +161,8 @@ def main(out):
                 place(mix, pad(c, 3.2), h['t'], 0.06)
             continue
         fn, g = VOICE[h['mech']]
-        place(mix, fn(h['midi']), h['t'], g)
+        pan = max(-0.4, min(0.4, (h['midi'] - 67) / 30))
+        place(mix, fn(h['midi']), h['t'], g, pan)
         if h['mech'] == 'cymbal':
             place(mix, cymbal_hit(), h['t'], 0.18)
         place(mix, click(0.02, 3200), h['t'], 0.05)
@@ -171,35 +188,34 @@ def main(out):
                 place(mix, pad(m, t1 - t0), t0, 0.05)
     for g in GAPS:
         if g['kind'] == 'rail':
-            place(mix, roll(g['beats'][3] - g['t0']), g['t0'], 0.035)
-            for tb in g['beats'][:3]:
-                place(mix, click(0.04, 1100, 80), tb, 0.22)
-            place(mix, click(0.07, 1500, 60), g['beats'][3], 0.55)
+            place(mix, roll(g['t_sw'] - g['t_rail0']), g['t_rail0'], 0.035)
+            place(mix, click(0.07, 1500, 60), g['t_sw'], 0.55)          # the switch
+            place(mix, click(0.03, 4000, 120), g['t_sw'] + 0.05, 0.2)
         elif g['kind'] == 'chute':
-            for j, tb in enumerate(g['beats']):
-                place(mix, click(0.05, 1800 + 200 * j, 70), tb, 0.2)
+            place(mix, click(0.05, 900, 60), g['t_in'], 0.3)            # into the funnel
+            place(mix, roll(g['t_out'] - g['t_in']), g['t_in'], 0.02)
+            place(mix, click(0.06, 600, 50), g['t_out'], 0.35)          # out of the tube
         else:
-            for tb in g['beats'][:2]:
-                place(mix, click(0.05, 700, 45), tb, 0.25)
-            place(mix, click(0.08, 400, 35), g['beats'][2], 0.5)
-            place(mix, whoosh(g['t1'] - g['beats'][2]), g['beats'][2], 0.05)
+            place(mix, click(0.05, 700, 45), g['t_launch'] - 0.28, 0.18)   # the cup winds once
+            place(mix, click(0.08, 400, 35), g['t_launch'], 0.5)           # and fires
+            place(mix, whoosh(g['t1'] - g['t_launch']), g['t_launch'], 0.05)
     fin = C[-1]
-    b = S.SONGS[-1]['beat']
-    for j in (2, 3):
-        place(mix, click(0.05, 600 + 150 * j, 45), C[-2]['t'] + j * b, 0.25)
+    place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)
     place(mix, whoosh(fin['t'] - fin['launch']), fin['launch'], 0.05)
-    ir_len = int(SR * 1.6)
-    ir = rng.standard_normal(ir_len) * np.exp(-np.arange(ir_len) / (SR * 0.4)) * 0.010
-    ir[0] = 1.0
-    L = len(mix) + ir_len
-    wet = np.fft.irfft(np.fft.rfft(mix, L) * np.fft.rfft(ir, L))[: len(mix)]
-    mix = (0.76 * mix + 0.24 * wet)[: int(SR * T)]
+    ir_len = int(SR * 1.8)
+    outs = []
+    for ch in range(2):
+        ir = rng.standard_normal(ir_len) * np.exp(-np.arange(ir_len) / (SR * 0.45)) * 0.010
+        ir[0] = 1.0
+        L = len(mix) + ir_len
+        wet = np.fft.irfft(np.fft.rfft(mix[:, ch], L) * np.fft.rfft(ir, L))[: len(mix)]
+        outs.append(0.74 * mix[:, ch] + 0.26 * wet)
+    st = np.stack(outs, 1)[: int(SR * T)]
     fade = int(SR * 0.8)
-    mix[-fade:] *= np.linspace(1, 0, fade)
-    mix /= np.max(np.abs(mix)) / 0.89
-    d = int(SR * 0.004)
-    st = np.stack([mix, 0.85 * mix + 0.15 * np.concatenate([np.zeros(d), mix[:-d]])], 1)
+    st[-fade:] *= np.linspace(1, 0, fade)[:, None]
+    st /= np.max(np.abs(st)) / 1.1
+    st = np.tanh(st * 1.2) / np.tanh(1.2 * 1.1) * 0.92        # gentle soft-clip master
     with wave.open(out, 'wb') as w:
         w.setnchannels(2)
         w.setsampwidth(2)

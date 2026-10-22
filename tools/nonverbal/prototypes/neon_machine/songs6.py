@@ -65,7 +65,8 @@ SONGS = [
 ]
 
 START = 0.4
-GAP_BEATS = 4
+GAP_BEATS = 4          # (kept for older callers)
+NEW_SONG_GAP = 1.4     # extra silence before a NEW song, after (at most 0.8 s of) the last note ringing out
 FINAL_NOTE = 'C5'
 FINAL_REST_BEATS, FINAL_FLIGHT_BEATS = 4, 4
 OUTRO = 4.5
@@ -97,25 +98,44 @@ def assign(song):
 
 
 def timeline(songs=None, final_note=None):
+    """Contacts for the whole film and the gaps between sections.
+
+    How long a gap is ("ma"):
+      join='same' (the next section continues the same piece): no extra time at all. The gap machine
+        (chute, launch...) runs while the last note is held, and the ball lands on the next downbeat.
+      join='new' (a different piece): the last note rings for at most 0.8 s, then NEW_SONG_GAP of silence,
+        so about 2 s from the last hit to the next song, as in the reference videos.
+    The final drum lands about 1.9 s after the last note: the ball rests in the cup while the note rings
+    (at most 1 s), then flies 0.9 s.
+    """
     SONGS_ = songs if songs is not None else SONGS
     final_note = final_note or FINAL_NOTE
-    """Contacts for the whole film: dict(i, s (song index), j, t, midi, dur, mech).
-    Gaps: dict(kind, t0 (silence starts), beats [t...], t1 (next song's first contact), s (next song))."""
     contacts, gaps = [], []
     t = START
     for s, song in enumerate(SONGS_):
         if s > 0:
-            beats = [t + b * song['beat'] for b in range(GAP_BEATS)]
-            gaps.append(dict(kind=song['gap_in'], t0=t, beats=beats, t1=t + GAP_BEATS * song['beat'], s=s))
-            t += GAP_BEATS * song['beat']
+            last = contacts[-1]
+            if song.get('join', 'new') == 'same':
+                t1 = last['t'] + last['dur']
+            else:
+                t1 = last['t'] + min(last['dur'], 0.8) + NEW_SONG_GAP
+            g = dict(kind=song['gap_in'], t0=last['t'], t1=t1, s=s, join=song.get('join', 'new'),
+                     beats=[t1 - song['beat'] * (GAP_BEATS - b) for b in range(GAP_BEATS)])
+            # when the machine in the gap does its one audible thing
+            g['t_rail0'] = last['t'] + 0.30                  # rail: ball reaches the rail
+            g['t_sw'] = t1 - 0.42                            # rail: the switch click, then a short drop
+            g['t_in'] = last['t'] + 0.30                     # chute: enters the funnel
+            g['t_out'] = t1 - 0.32                           # chute: leaves the tube
+            g['t_launch'] = t1 - min(0.85, 0.5 * (t1 - last['t']))   # launch: the cup fires
+            gaps.append(g)
+            t = t1
         mechs = assign(song)
         for j, (n, u) in enumerate(song['notes']):
             contacts.append(dict(i=len(contacts), s=s, j=j, t=t, midi=midi(n), dur=u * song['unit'], mech=mechs[j]))
             t += u * song['unit']
     last = contacts[-1]
-    b = SONGS_[-1]['beat']
-    launch = last['t'] + FINAL_REST_BEATS * b
-    final = dict(i=len(contacts), s=len(SONGS_) - 1, j=-1, t=launch + FINAL_FLIGHT_BEATS * b, midi=midi(final_note),
+    launch = last['t'] + min(last['dur'], 1.0)
+    final = dict(i=len(contacts), s=len(SONGS_) - 1, j=-1, t=launch + 0.9, midi=midi(final_note),
                  dur=2.0, mech='bigdrum', launch=launch)
     last['mech'] = 'cup'
     contacts.append(final)
