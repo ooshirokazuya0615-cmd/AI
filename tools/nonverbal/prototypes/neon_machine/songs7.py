@@ -31,7 +31,8 @@ NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treb
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
-#   canon: the ground bass; fe: the left-hand arpeggios under the long notes; otj: the bass part (moved to C);
+#   canon: the ground bass; tm: the left hand of the theme; fe: the left-hand arpeggios under the long notes;
+#   otj: the bass part (moved to C);
 #   unison pieces (the orchestra/organ plays the line in octaves): the melody an octave lower
 ACCOMP = {
     'canon': dict(bass=[('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)] * 2 + [('D2', 8)]),
@@ -40,6 +41,13 @@ ACCOMP = {
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
                       ('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1), ('G2', 1), ('C2', 2)]),
+    # tm: Mozart's left hand under the theme (8ths: bass note, then the chord; None = the pickup rest)
+    'tm': dict(staccato=True, bass=[(None, 4)]
+               + [('A3', 2), ('C4+E4', 2), ('C4+E4', 2), ('C4+E4', 2)] * 2
+               + [('A3', 2), ('C4+E4', 2), ('A3', 2), ('C4+E4', 2)]
+               + [('A3', 2), ('C4+E4', 2), ('C4+E4', 2), ('C4+E4', 2)]
+               + [('E3', 2), ('B3+E4', 2), ('B3+E4', 2), ('B3+E4', 2)] * 2
+               + [('E3', 2), ('B3+E4', 2), ('B2', 2), ('B3', 2), ('E3', 4)]),
     'ekn': dict(octave=True), 'b5': dict(octave=True), 'toc': dict(octave=True), 'mk': dict(octave=True),
 }
 for s_ in SONGS:

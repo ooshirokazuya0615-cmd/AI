@@ -380,7 +380,7 @@ rng = random.Random(31)
 PAGE = {
     'baroque': dict(paper=(0.80, 0.70, 0.52), ink=(0.16, 0.10, 0.06), ink_metal=0.0, rough=0.9),
     'classical': dict(paper=(0.90, 0.89, 0.86), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),
-    'beethoven': dict(paper=(0.30, 0.31, 0.36), ink=(0.85, 0.86, 0.9), ink_metal=0.9, rough=0.6),
+    'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
@@ -390,18 +390,28 @@ ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
 CLEF_W = 0.55
 WALL_Y = 0.62
-HEAD_Y = 0.42            # note heads stand out from the wall; the ball travels in front of them
+HEAD_Y = 0.54            # note heads stand just off the page (stems on the page read as attached)
 R_HEAD = (0.052, 0.045, 0.037)
-LETTER = {0: 0, 1: 0, 2: 1, 3: 1, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5, 11: 6}   # sharps spelled up
-SHARP = {1, 3, 6, 8, 10}
+LETTERS = 'CDEFGAB'
+KS_SHARPS, KS_FLATS = 'FCGDAEB', 'BEADGCF'
+ACC_SYM = {1: '♯', -1: '♭', 0: '♮'}
 
 
-def step_of(midi, clef):
-    """Staff step (0 = bottom line) for a pitch: treble bottom line E4, bass bottom line G2."""
-    oct_, pc = midi // 12 - 1, midi % 12
-    dia = oct_ * 7 + LETTER[pc]
+def spell(name):
+    """'Eb4' -> ('E', -1, 4): the letter, the alteration and the octave, as the score spells it."""
+    alt = {'#': 1, 'b': -1}.get(name[1], 0) if len(name) > 2 else 0
+    return name[0], alt, int(name[-1])
+
+
+def step_of(name, clef):
+    """Staff step (0 = bottom line) for a spelled pitch: treble bottom line E4, bass bottom line G2."""
+    L, _, o = spell(name)
     ref = 4 * 7 + 2 if clef == 'treble' else 2 * 7 + 4
-    return dia - ref
+    return o * 7 + LETTERS.index(L) - ref
+
+
+def key_alt(ks):
+    return {L: 1 if ks > 0 and L in KS_SHARPS[:ks] else -1 if ks < 0 and L in KS_FLATS[:-ks] else 0 for L in LETTERS}
 
 
 def ballistic(p0, t0, p1, t1, t):
@@ -424,10 +434,21 @@ for s, song in enumerate(SONGS):
     ROWS.append(row)
     sec_rows[s] = [row]
     nunits = song.get('nunits') or [u for _, u in song['notes']]
+    kalt, bu, pu = key_alt(song['keysig']), song['bar_units'], song['pickup_units']
+    state, bar_now, pos = {}, None, 0.0
     for j, h in enumerate(hs):
         h['nunit'] = nunits[j]
+        # accidentals as engraved: only against the key signature, and they last until the bar line
+        name = song['notes'][h['j']][0]
+        bar = int((pos - pu) // bu) if bu else 0
+        if bar != bar_now:
+            state, bar_now = {}, bar
+        L, alt, o = spell(name)
+        h['acc'] = None if alt == state.get((L, o), kalt[L]) else ACC_SYM[alt]
+        state[(L, o)] = alt
+        pos += h['nunit']
         x = row['x0'] + XS * (h['t'] - row['t0'])
-        st = step_of(h['midi'], clef)
+        st = step_of(name, clef)
         head = Vector((x, HEAD_Y, row['z'] + st * LS / 2))
         HEAD[h['i']] = (head, st, row)
         CON[h['i']] = head + Vector((0, HEAD_Y - HEAD_Y, R_HEAD[2] + R))
@@ -449,7 +470,7 @@ for s, song in enumerate(SONGS):
     row_z = row['z']
 # final drum after the double bar of the last row
 LASTROW = ROWS[-1]
-DRUM = Vector((LASTROW['x1'] + 0.55, YB, LASTROW['z'] - 0.35))
+DRUM = Vector((LASTROW['x1'] + 0.55, HEAD_Y, LASTROW['z'] - 0.35))
 CON[FIN['i']] = DRUM + Vector((0, 0, 0.004 + R))
 
 
@@ -458,9 +479,9 @@ def tube_path(ret, h):
     a = CON[h['i']]
     rf, rt = ret['row_from'], ret['row_to']
     zt_ = rf['z'] - 0.42
-    pts = [a, Vector((a.x + 0.16, YB, a.z - 0.10)), Vector((a.x + 0.22, YB, zt_ + 0.05)), Vector((a.x + 0.12, YB, zt_)),
-           Vector((X_LEFT + 0.15, YB, zt_)), Vector((X_LEFT + 0.05, YB, zt_ - 0.10)),
-           Vector((X_LEFT + 0.12, YB, rt['z'] + 0.55))]
+    pts = [a, Vector((a.x + 0.16, HEAD_Y, a.z - 0.10)), Vector((a.x + 0.22, HEAD_Y, zt_ + 0.05)), Vector((a.x + 0.12, HEAD_Y, zt_)),
+           Vector((X_LEFT + 0.15, HEAD_Y, zt_)), Vector((X_LEFT + 0.05, HEAD_Y, zt_ - 0.10)),
+           Vector((X_LEFT + 0.12, HEAD_Y, rt['z'] + 0.55))]
     return pts
 
 
@@ -487,9 +508,9 @@ for g in GAPS:
     pa = CON[L_['i']]
     rf, rt = HEAD[L_['i']][2], HEAD[F_['i']][2]
     zt_ = rf['z'] - 0.42
-    pts = [pa, Vector((pa.x + 0.18, YB, pa.z - 0.10)), Vector((pa.x + 0.26, YB, zt_ + 0.05)), Vector((pa.x + 0.12, YB, zt_)),
-           Vector((X_LEFT + 0.15, YB, zt_)), Vector((X_LEFT - 0.05, YB, (zt_ + rt['z']) / 2)),
-           Vector((X_LEFT + 0.12, YB, rt['z'] + 0.62))]
+    pts = [pa, Vector((pa.x + 0.18, HEAD_Y, pa.z - 0.10)), Vector((pa.x + 0.26, HEAD_Y, zt_ + 0.05)), Vector((pa.x + 0.12, HEAD_Y, zt_)),
+           Vector((X_LEFT + 0.15, HEAD_Y, zt_)), Vector((X_LEFT - 0.05, HEAD_Y, (zt_ + rt['z']) / 2)),
+           Vector((X_LEFT + 0.12, HEAD_Y, rt['z'] + 0.62))]
     GAPTUBE[s] = dict(pts=pts, t0=L_['t'] + 0.12, t1=F_['t'] - 0.18, L=L_, F=F_)
 
 
@@ -578,6 +599,12 @@ def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER'):
     return o
 
 
+def accidental(sym, x, z, ink):
+    """An accidental whose optical centre sits on the note's line (the flat's bowl, the sharp's box)."""
+    lift = {'♯': 0.0085, '♮': 0.009, '♭': 0.014}[sym]
+    return text_obj(sym, Vector((x, WALL_Y - 0.008, z + lift)), 0.1, ink)
+
+
 xs_all = [p.x for p in CON.values()]
 W_X0, W_X1 = X_LEFT - 4, max(xs_all) + 4
 page_bounds = []
@@ -613,7 +640,7 @@ for s, song in enumerate(SONGS):
         sharp_steps, flat_steps = [8, 5, 9, 6, 3, 7, 4], [4, 7, 3, 6, 2, 5, 1]
         for q in range(abs(ks)):
             stp = (sharp_steps if ks > 0 else flat_steps)[q]
-            text_obj('♯' if ks > 0 else '♭', Vector((x0s + 0.27 + q * 0.045, WALL_Y - 0.008, row['z'] + stp * LS / 2)), 0.1, ink)
+            accidental('♯' if ks > 0 else '♭', x0s + 0.27 + q * 0.045, row['z'] + stp * LS / 2, ink)
         if row is sec_rows[s][0] and song.get('timesig'):
             n_, d_ = song['timesig']
             xt = x0s + 0.30 + abs(ks) * 0.045 + 0.04
@@ -627,7 +654,7 @@ for s, song in enumerate(SONGS):
         for j, h in enumerate(hs):
             nxt = hs[j + 1] if j + 1 < len(hs) else None
             acc2 = acc + h['nunit']
-            if nxt is not None and int((acc2 - pu) // bu) > int((acc - pu) // bu) and acc2 - pu > 1e-6:
+            if nxt is not None and int((acc2 - pu) // bu) > int((acc - pu) // bu):
                 xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
                 if HEAD[h['i']][2] is HEAD[nxt['i']][2]:
                     xbar = xb - min(0.09, (xb - xa) * 0.45)
@@ -673,8 +700,8 @@ for h in C:
         rng_ = range(-2, st - 1, -2) if st < -1 else range(10, st + 1, 2)
         for ls_ in rng_:
             cube((head.x, WALL_Y - 0.004, row['z'] + ls_ * LS / 2), (0.16, 0.004, 0.0045), ink)
-    if h['midi'] % 12 in SHARP:
-        text_obj('♯', Vector((head.x - 0.11, WALL_Y - 0.008, z0s)), 0.1, ink)
+    if h['acc']:
+        accidental(h['acc'], head.x - 0.11, z0s, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
     emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 45.0), (h['t'] + 0.45, 3.0)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
@@ -739,7 +766,7 @@ for key, tube in list(RETURNS.items()) + [(('gap', s), g) for s, g in GAPTUBE.it
     pts = tube['pts'][1:]
     era = SONGS[C[key]['s'] if not isinstance(key, tuple) else key[1]]['era']
     neon = NEON[ERAS[era]['neon'][0]]
-    cone(pts[0] + Vector((0, 0, 0.06)), R + 0.012, R + 0.06, 0.10, ink_mat(era))     # funnel
+    cone(pts[0] + Vector((0, 0, 0.035)), R + 0.010, R + 0.032, 0.06, M_BRASS8)     # small brass funnel
     for p, q in zip(pts[1:-1], pts[2:]):
         cyl(p, q, R + 0.008, M_GLASS, 28)
         sphere(p, R + 0.008, M_GLASS, segs=20)
@@ -760,16 +787,16 @@ for key, tube in list(RETURNS.items()) + [(('gap', s), g) for s, g in GAPTUBE.it
         emit_keys(rm, ((tp - 1 / FPS, 0.6), (tp, 30.0), (tp + 0.3, 1.5)))
 
 # ---------------------------------------------------------------- 5. finale, characters
-cyl((DRUM.x, YB, DRUM.z - 0.12), (DRUM.x, YB, DRUM.z), 0.2, mat('bigshell', (0.05, 0.05, 0.06), 0.25, coat=1.0), 48)
+cyl((DRUM.x, HEAD_Y, DRUM.z - 0.12), (DRUM.x, HEAD_Y, DRUM.z), 0.2, mat('bigshell', (0.05, 0.05, 0.06), 0.25, coat=1.0), 48)
 big_rim = mat('bigrim', NEON['amber'], 0.2, emit=NEON['amber'], emit_s=4.0)
-torus((DRUM.x, YB, DRUM.z), 0.2, 0.012, big_rim)
+torus((DRUM.x, HEAD_Y, DRUM.z), 0.2, 0.012, big_rim)
 big_head = mat('bighead', (0.95, 0.92, 0.85), 0.35, emit=(1.0, 0.5, 0.2), emit_s=0.0)
-cyl((DRUM.x, YB, DRUM.z), (DRUM.x, YB, DRUM.z + 0.004), 0.186, big_head, 48)
+cyl((DRUM.x, HEAD_Y, DRUM.z), (DRUM.x, HEAD_Y, DRUM.z + 0.004), 0.186, big_head, 48)
 emit_keys(big_rim, ((TF - 1 / FPS, 4.0), (TF, 60), (TF + 1.2, 10)))
 emit_keys(big_head, ((TF - 1 / FPS, 0.0), (TF, 22), (TF + 1.2, 2)))
-cyl((DRUM.x, YB, DRUM.z - 0.12), (DRUM.x, YB, DRUM.z - 1.0), 0.04, mat('drumpole', (0.6, 0.45, 0.2), 0.3, metal=1.0))
-pulse_ring(Vector((DRUM.x, YB, DRUM.z + 0.01)), TF, NEON['amber'], r0=0.2, r1=0.85, life=0.5, rot=(0, 0, 0))
-burst(Vector((DRUM.x, YB - 0.04, DRUM.z + 0.02)), TF, NEON['amber'], n=18, speed=1.7, life=0.5)
+cyl((DRUM.x, HEAD_Y, DRUM.z - 0.12), (DRUM.x, HEAD_Y, DRUM.z - 1.0), 0.04, mat('drumpole', (0.6, 0.45, 0.2), 0.3, metal=1.0))
+pulse_ring(Vector((DRUM.x, HEAD_Y, DRUM.z + 0.01)), TF, NEON['amber'], r0=0.2, r1=0.85, life=0.5, rot=(0, 0, 0))
+burst(Vector((DRUM.x, HEAD_Y - 0.04, DRUM.z + 0.02)), TF, NEON['amber'], n=18, speed=1.7, life=0.5)
 # the launch cup at the end of the last row
 cup_i = C[-2]['i']
 cupc = CON[cup_i] - Vector((0, 0, R + 0.01))
@@ -807,7 +834,7 @@ for kk in range(90):
     o = cube((0, 0, 0), (0.018, 0.004, 0.011), mat(f'conf{kk}', NEON[cn], 0.3, emit=NEON[cn], emit_s=rng.uniform(6, 14)))
     key_vis(o, t_c)
     v = Vector((rng.uniform(-1.4, 1.4), rng.uniform(-0.9, 0.1), rng.uniform(2.6, 4.6)))
-    p0 = Vector((DRUM.x + rng.uniform(-0.1, 0.1), YB - 0.05, DRUM.z + 0.05))
+    p0 = Vector((DRUM.x + rng.uniform(-0.1, 0.1), HEAD_Y - 0.05, DRUM.z + 0.05))
     sp = Vector((rng.uniform(-14, 14), rng.uniform(-14, 14), rng.uniform(-14, 14)))
     u = 0.0
     while t_c + u <= T_END + 0.2:
@@ -854,10 +881,20 @@ for f in range(1, N + 1):
 bpy.ops.object.camera_add(location=(0, -4, 0))
 cam = bpy.context.object
 cam.data.dof.use_dof = True
-cam.data.dof.aperture_fstop = 2.8
+cam.data.dof.aperture_fstop = 4.0
 sc.camera = cam
-cam.data.dof.focus_object = ball      # focus rides on the marble, like a macro shot of a real model
+focus_empty = empty((0, HEAD_Y - 0.02, 0), 'focus')
+cam.data.dof.focus_object = focus_empty   # focus rides with the marble on the note-head plane
 OFF = Vector((0.20, -1.95, 0.16))
+
+
+def row_at(t):
+    for h0, h1 in zip(C[:-1], C[1:]):
+        if h0['t'] <= t <= h1['t']:
+            if h0['i'] in HEAD and h1['i'] in HEAD and HEAD[h0['i']][2] is HEAD[h1['i']][2]:
+                return HEAD[h0['i']][2]
+            return None
+    return None
 
 
 def target(t):
@@ -867,15 +904,17 @@ def target(t):
         acc_ += ball_pos(max(0.0, t - j * 0.04)) * wgt
         wsum += wgt
     p = acc_ / wsum
-    # keep the staff of the current row in view: aim between the ball and the row's middle line
-    row_z = None
-    for h0, h1 in zip(C[:-1], C[1:]):
-        if h0['t'] <= t <= h1['t'] and h0['i'] in HEAD:
-            row_z = HEAD[h0['i']][2]['z'] + 2 * LS
-            break
-    if row_z is not None:
-        p.z = 0.5 * p.z + 0.5 * (row_z + 0.12)
-    p.y = YB
+    # vertical: a smoothed blend toward the staff of the current row (the ball's arcs stay above it)
+    zs, ws = 0.0, 0.0
+    for j in range(-8, 9):
+        tt = t + j * 0.08
+        r_ = row_at(tt)
+        z_ = (r_['z'] + 2 * LS + 0.10) if r_ is not None else ball_pos(max(0.0, tt)).z
+        w_ = math.exp(-(j / 5.0) ** 2)
+        zs += z_ * w_
+        ws += w_
+    p.z = zs / ws
+    p.y = HEAD_Y
     return p + Vector((0.18, 0, 0))
 
 
@@ -911,7 +950,10 @@ while f <= N:
     cam.keyframe_insert('location', frame=f)
     cam.keyframe_insert('rotation_euler', frame=f)
     cam.data.keyframe_insert('lens', frame=f)
-    cam.data.dof.aperture_fstop = 2.8 + 6.0 * smooth((t - (TF + 1.0)) / 1.0)   # deeper focus for the wide reveal
+    cam.data.dof.aperture_fstop = 4.0 + 6.0 * smooth((t - (TF + 1.0)) / 1.0)   # deeper focus for the wide reveal
+    bp_ = ball_pos(t)
+    focus_empty.location = (bp_.x, HEAD_Y - 0.02, bp_.z)
+    focus_empty.keyframe_insert('location', frame=f)
     cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
     f += 2
 

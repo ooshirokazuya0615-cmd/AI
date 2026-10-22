@@ -214,8 +214,11 @@ def main(out):
             acc = song['accomp']
             if 'bass' in acc:
                 tb = t0
-                for n_, u_ in acc['bass']:
-                    place(mix, s_piano(S.midi(n_), u_ * song['unit'] + 0.5), tb, 0.16, -0.25)
+                for n_, u_ in acc['bass']:          # None = rest, 'C4+E4' = chord
+                    ring = u_ * song['unit'] * 0.85 + 0.10 if acc.get('staccato') else u_ * song['unit'] + 0.5
+                    parts = n_.split('+') if n_ else []
+                    for m_ in parts:
+                        place(mix, s_piano(S.midi(m_), ring), tb, 0.16 / len(parts) ** 0.5, -0.25)
                     tb += u_ * song['unit']
             if acc.get('arpeggio'):
                 lh = {69: ['A2', 'E3', 'A3'], 71: ['E2', 'E3', 'G#3'], 72: ['A2', 'E3', 'A3']}

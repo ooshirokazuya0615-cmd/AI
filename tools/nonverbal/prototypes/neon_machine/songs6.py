@@ -54,7 +54,7 @@ SONGS = [
          palette=dict(fast='pipe', normal='pipe', long='pipe'), drone=('D2', 'A2'), gap_in='chute'),
     dict(key='mk', title='In the Hall of the Mountain King', composer='Grieg (d. 1907)', unit=0.2, beat=0.4, centre=62,
          notes=[('A3', 1), ('B3', 1), ('C4', 1), ('D4', 1), ('E4', 1), ('C4', 1), ('E4', 2),
-                ('D#4', 1), ('B3', 1), ('D#4', 2), ('D4', 1), ('A#3', 1), ('D4', 2),
+                ('D#4', 1), ('B3', 1), ('D#4', 2), ('D4', 1), ('Bb3', 1), ('D4', 2),
                 ('A3', 1), ('B3', 1), ('C4', 1), ('D4', 1), ('E4', 1), ('C4', 1), ('E4', 1), ('A4', 1),
                 ('G4', 1), ('E4', 1), ('C4', 1), ('E4', 1), ('G4', 4)],
          palette=dict(fast='bumper', normal='pad', long='block'), drone=('A2', 'E3'), gap_in='launch'),
