@@ -30,7 +30,20 @@ NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treb
             'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
+# accompaniment, only where it is certain (checked against the same Mutopia editions):
+#   canon: the ground bass; fe: the left-hand arpeggios under the long notes; otj: the bass part (moved to C);
+#   unison pieces (the orchestra/organ plays the line in octaves): the melody an octave lower
+ACCOMP = {
+    'canon': dict(bass=[('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)] * 2 + [('D2', 8)]),
+    'fe': dict(arpeggio=True),
+    'otj': dict(bass=[('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
+                      ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
+                      ('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
+                      ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1), ('G2', 1), ('C2', 2)]),
+    'ekn': dict(octave=True), 'b5': dict(octave=True), 'toc': dict(octave=True), 'mk': dict(octave=True),
+}
 for s_ in SONGS:
+    s_['accomp'] = ACCOMP.get(s_['key'], {})
     s_['clef'], s_['bar_units'], s_['pickup_units'] = NOTATION[s_['key']]
     s_['keysig'] = KEYSIG[s_['key']]
     s_['timesig'] = TIMESIG.get(s_['key'])

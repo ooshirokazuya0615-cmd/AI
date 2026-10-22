@@ -210,6 +210,23 @@ def main(out):
                     place(mix, bassn(root + 12 * (q == 3), beat * 0.9), tb + q * beat, 0.16)
                 for m in tri:
                     place(mix, pad(m, 4 * beat), tb, 0.025)
+        elif song.get('accomp') and sampler.available():
+            acc = song['accomp']
+            if 'bass' in acc:
+                tb = t0
+                for n_, u_ in acc['bass']:
+                    place(mix, s_piano(S.midi(n_), u_ * song['unit'] + 0.5), tb, 0.16, -0.25)
+                    tb += u_ * song['unit']
+            if acc.get('arpeggio'):
+                lh = {69: ['A2', 'E3', 'A3'], 71: ['E2', 'E3', 'G#3'], 72: ['A2', 'E3', 'A3']}
+                for h in hs:
+                    if h['dur'] >= 3 * song['unit'] - 1e-6 and h['midi'] in lh:
+                        for j, n_ in enumerate(lh[h['midi']]):
+                            place(mix, s_piano(S.midi(n_), 1.2), h['t'] + j * song['unit'], 0.14, -0.25)
+            if acc.get('octave'):
+                for h in hs:
+                    if h['mech'] != 'again' or True:
+                        place(mix, s_piano(h['midi'] - 12, max(0.4, h['dur'] + 0.3)), h['t'], 0.14, -0.2)
         else:
             r, f5 = song['drone']
             if sampler.available():

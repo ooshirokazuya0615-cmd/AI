@@ -493,13 +493,21 @@ for g in GAPS:
     GAPTUBE[s] = dict(pts=pts, t0=L_['t'] + 0.12, t1=F_['t'] - 0.18, L=L_, F=F_)
 
 
+LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
+LEDGE_START = LEDGE_END + Vector((-0.32, 0, 0.025))
+
+
 def ease(k):
     return k * k * (3 - 2 * k)
 
 
 def ball_pos(t):
     if t <= C[0]['t']:
-        return CON[0] + Vector((0, 0, 0.5 * G * (C[0]['t'] - t) ** 2))
+        # first frame: already rolling in along the opening ledge, it drops onto the first note
+        start = LEDGE_END
+        if t <= C[0]['t'] - 0.18:
+            return LEDGE_START.lerp(start, max(0.0, t) / (C[0]['t'] - 0.18))
+        return ballistic(start, C[0]['t'] - 0.18, CON[0], C[0]['t'], t)
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= t <= h1['t']:
             p0, p1 = CON[h0['i']], CON[h1['i']]
@@ -682,6 +690,11 @@ for h in C:
     for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 5.0), (h['t'] + 0.35, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
+
+# the opening ledge
+cyl(LEDGE_START - Vector((0.05, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0), 12)
+for p_ in (LEDGE_START, LEDGE_END):
+    cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, YB, p_.z - R - 0.006), 0.006, mat('ledgepin', (0.85, 0.62, 0.28), 0.25, metal=1.0), 8)
 
 # ---------------------------------------------------------------- 3b. practical lights of the era
 M_BRASS8 = mat('brass8', (0.85, 0.62, 0.28), 0.25, metal=1.0)
