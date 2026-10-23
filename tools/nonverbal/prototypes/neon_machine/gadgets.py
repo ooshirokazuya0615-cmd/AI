@@ -204,6 +204,13 @@ class Machine:
             z = z + (zc - z) * k
         return z
 
+    def closeness(self, t):
+        """How far into a close-up the camera is at t (0..1); the wide view of the machine gives way to it."""
+        k = 0.0
+        for a, b, _, c in self.closeups:
+            k = max(k, smooth((t - (a - 0.35)) / 0.35) * (1 - smooth((t - b) / 0.4)))
+        return k
+
     def attention(self, t):
         """What the camera follows: the marble, or a mechanism's centre while the marble circles in it."""
         p = self.pos(t)
@@ -353,7 +360,7 @@ def mech_loop(m, p, v, t, th):
         y = Y + 0.04 - 0.08 * ph / (2 * math.pi)      # a gentle helix: in at the back, out in front
         return Vector((Cl.x - rl * math.sin(ph), y, Cl.z - rl * math.cos(ph)))
     m.rolls.append(dict(t0=t, t1=t + Tl, v0=v_B, v1=v_B, style='loop'))
-    m.closeups.append((t - Tq - 0.5, t + Tl + 0.2, 1.0, Cl.copy()))   # in close for the loop itself
+    m.closeups.append((t - Tq - 0.5, t + Tl + 0.2, 0.7, Cl.copy()))   # in close for the loop itself
     t = m.seg(t, t + Tl, loop)
     m.parts.append(('loop', O, rq, Cl, rl))
     # run out, back to the machine's depth

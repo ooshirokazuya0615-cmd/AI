@@ -1656,6 +1656,7 @@ def frame_point(tt):
                 zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
                 # the pull-back starts on the piece's last hit (not before), holds, then follows the marble
                 w = smooth((tt - (h0['t'] + 0.2)) / 0.9) * (1 - smooth((tt - (h0['t'] + 2.0)) / 0.8))
+                w *= 1 - m_.closeness(tt)                 # a close-up (the loop, the rim) wins over the wide view
                 zf_ = m_.zoom(tt, MACH_ZOOM)
                 att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
                 el_, yw_ = m_.elev(tt) * (1 - w), m_.yaw(tt)
