@@ -509,7 +509,11 @@ for s, song in enumerate(SONGS):
     hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
     clef = song['clef']
     if s > 0:
-        row_z -= ROW_H * 1.25 + (MACH_DROP if song.get('machine') else 0.0)   # a new page starts lower
+        drop_ = 0.0
+        if song.get('machine'):                # room for the machine that carries the marble here
+            x_l = HEAD[[h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]['i']][0].x
+            drop_ = max(MACH_DROP, GD.height_need(song['machine'], x_l + 0.14 - (X_LEFT + 0.58)) - 0.10)
+        row_z -= ROW_H * 1.25 + drop_          # a new page starts lower
     row = dict(s=s, z=row_z, t0=hs[0]['t'], x0=X_LEFT + CLEF_W + (0.35 if s == 0 or True else 0), notes=[], first=True)
     ROWS.append(row)
     sec_rows[s] = [row]
@@ -593,7 +597,7 @@ for g in GAPS:
     s = g['s']
     L_ = [h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]
     F_ = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum'][0]
-    mk_ = GD.plan(SONGS[s].get('machine', 'stairs'), SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], F_['t'],
+    mk_ = GD.plan(SONGS[s].get('machine', ['stairs']), SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], F_['t'],
                   HEAD[L_['i']][2]['z'], HEAD[F_['i']][2]['z'], R, HEAD_Y)
     mk_.L, mk_.F = L_, F_
     mk_.swing = 1.0 if len(GAPMACH) % 2 == 0 else -1.0
@@ -603,7 +607,7 @@ for g in GAPS:
     if os.environ.get('MACH_PACE'):              # the interlude each machine needs at a lively 7-9 degrees
         need = []
         for deg in (7, 8, 9):
-            m8 = GD._simulate(mk_.kind, SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], HEAD[L_['i']][2]['z'],
+            m8 = GD._simulate(mk_.kinds, SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], HEAD[L_['i']][2]['z'],
                               HEAD[F_['i']][2]['z'], R, HEAD_Y, math.radians(deg))
             need.append(round(m8.t_arrive - L_['t'] + GD.T_KICK + 0.05 + GD.T_HOP_OUT - min(L_['dur'], 0.8), 2)
                         if m8 else None)
@@ -822,7 +826,11 @@ for s, song in enumerate(SONGS):
     wp.scale = (W_X1 - W_X0, z_top - z_bot + 0.002, 1)
     if s > 0:
         nc = NEON[ERAS[era]['neon'][0]]
-        cyl((W_X0, WALL_Y - 0.01, z_top), (W_X1, WALL_Y - 0.01, z_top), 0.01, mat(f'trim{s}', nc, 0.3, emit=nc, emit_s=1.2), 10)
+        trim_m = mat(f'trim{s}', nc, 0.3, emit=nc, emit_s=1.2)
+        cyl((W_X0, WALL_Y - 0.01, z_top), (W_X1, WALL_Y - 0.01, z_top), 0.01, trim_m, 10)
+        if s in GAPMACH:                        # the new page's border flares as the marble arrives
+            tF = GAPMACH[s].F['t']
+            emit_keys(trim_m, ((tF - 0.02, 1.2), (tF + 0.06, 18.0), (tF + 0.9, 1.6)))
     ink = ink_mat(era)
     for row in sec_rows[s]:
         x0s, x1s = X_LEFT + 0.05, row['x1']
@@ -1017,7 +1025,7 @@ def revolve(centre, profile, m, segs=48):
 from types import SimpleNamespace  # noqa: E402
 M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
 for s_, m_ in GAPMACH.items():
-    HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, mat=mat, emit_keys=emit_keys, fr=fr,
+    HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, cone=cone, mat=mat, emit_keys=emit_keys, fr=fr,
                            revolve=revolve, glass=M_GLASS, clear=M_CLEAR, WALL_Y=WALL_Y,
                            neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]])
     GD.build(m_, HELP)
@@ -1402,7 +1410,12 @@ def frame_point(tt):
                 return rescue_view(tt)
             if h0['s'] != h1['s'] and h1['s'] in GAPMACH:       # a machine: follow the marble through it
                 m_ = GAPMACH[h1['s']]
-                return m_.attention(tt), MACH_ZOOM, (m_.elev(tt), m_.yaw(tt))
+                x0_, x1_, z0_, z1_ = m_.box               # first, the whole machine: what is it going to do?
+                wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
+                zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
+                w = 1 - smooth((tt - (h0['t'] + 0.55)) / 0.75)
+                return (m_.attention(tt).lerp(wide, w), MACH_ZOOM + (zw - MACH_ZOOM) * w,
+                        (m_.elev(tt) * (1 - w), m_.yaw(tt)))
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:

@@ -1,24 +1,32 @@
-"""Interlude machines for the score film: a short Pythagora-switch run between two pieces.
+"""Interlude machines for the score film: a Pythagora-switch run between two pieces.
 
-While the music rests, the marble leaves the last note of one piece and travels through a small machine to
-the first note of the next: a short rail to the right, one mechanism, a long rail back across the page, and
-a spring that flicks it onto the first note. The mechanisms:
-  stairs    wooden steps, a knock on each one
-  xylo      eight tuned bars as steps: a descending C major scale on the way down
+While the music rests, the marble leaves the last note of one piece and runs through a machine to the first
+note of the next. A machine is a chain, flowing right to left and down: a short rail, then one to three
+mechanisms joined by rails, a last rail, and a spring that flicks the marble onto the first note. The film
+builds up: the first machine has one mechanism, the middle ones two, the last one three.
+
+Mechanisms
+  stairs    wooden steps, a knock on each
+  xylo      eight tuned bars as steps: a descending C major scale
   dominoes  the marble topples a line of dominoes and rattles over them as they fall
+  bells     it rolls past a row of little bells and rings a rising phrase
   loop      a drop into a quarter-pipe and a loop-the-loop
-  tilt      a seesaw plank that flips when the marble rolls past its pivot
-  spiral    a funnel: the marble circles faster and faster and drops through the hole (seen from above)
-  loopdom   a loop, then dominoes
+  jump      a steep run, a kicker, a flight over a gap into a catching cup
+  tilt      a seesaw plank that flips when the marble passes its pivot
+  spiral    a funnel: it circles faster and faster and drops through the hole (seen from above)
+  helix     a corkscrew: two turns down around a pole
+  plinko    a pegboard: it bounces down through the pins (each pin a note) into a slot
+
 Nothing is keyframed by hand; the motion is computed:
-  rolling on rails   a = 5/7 g sin(angle) (a rolling solid sphere), less rolling resistance DRAG * v
-  falls and hops     ballistic, g = 9.81
-  the loop           energy: v^2 = v_in^2 - 10/7 g dh, so the marble slows over the top
-  the funnel         angular momentum: it spins faster as it nears the hole
-The machine has to take exactly the time the music leaves for it, so the rail angle is solved for that; if
+  rolling          a = 5/7 g sin(angle) (a rolling solid sphere), less rolling resistance DRAG * v
+  falls, flights   ballistic, g = 9.81
+  the loop         energy: v^2 = v_in^2 - 10/7 g dh, so the marble slows over the top
+  the funnel       angular momentum: it spins faster as it nears the hole
+Each machine has to take exactly the time the music leaves for it: the rail angle is searched for that; if
 even the gentlest angle is too quick, the spring holds the marble a moment before it fires.
 """
 import math
+import random
 
 from mathutils import Vector
 
@@ -27,11 +35,19 @@ ROLL_K = 5 / 7            # a rolling solid sphere accelerates at 5/7 of g sin(a
 DRAG = 1.1                # rolling resistance on the rails (1/s): speed settles near a / DRAG
 RAIL_HALF, RAIL_R = 0.030, 0.006
 T_HOP_IN, T_HOP_OUT, T_KICK = 0.40, 0.42, 0.06
+W_T1, W_LINK, W_LAST_MIN = 0.50, 0.35, 0.45
 XYLO_MIDI = [84, 83, 81, 79, 77, 76, 74, 72]          # C6 B5 A5 G5 F5 E5 D5 C5
 XYLO_HUE = [(0.95, 0.2, 0.25), (1.0, 0.5, 0.1), (1.0, 0.85, 0.15), (0.3, 0.85, 0.3),
             (0.15, 0.7, 0.95), (0.25, 0.4, 0.95), (0.6, 0.3, 0.9), (0.95, 0.3, 0.7)]
+BELL_MIDI = [76, 79, 81, 84, 88, 91]                  # a rising pentatonic phrase
+PLINKO_MIDI = [72, 74, 76, 79, 81, 84, 86, 88, 91]    # pins sound by column (pentatonic)
 STYLE = {'baroque': 'wood', 'classical': 'gold', 'beethoven': 'steel', 'romantic': 'brass'}
 DOM_GAP, DOM_DT = 0.042, 0.034                        # domino spacing and the time between falls
+# how far left and down each mechanism takes the marble (for planning the room it needs)
+WIDTH = {'stairs': 0.73, 'xylo': 0.87, 'dominoes': 1.30, 'bells': 1.05, 'loop': 0.95, 'jump': 1.15,
+         'tilt': 0.70, 'spiral': 0.40, 'helix': 0.15, 'plinko': 0.75}
+HEIGHT = {'stairs': 0.60, 'xylo': 0.63, 'dominoes': 0.36, 'bells': 0.12, 'loop': 0.62, 'jump': 0.55,
+          'tilt': 0.20, 'spiral': 0.57, 'helix': 0.32, 'plinko': 0.78}
 
 
 def ballistic(p0, t0, p1, t1, t):
@@ -59,6 +75,8 @@ def roll_v(u, v0, a0):
 
 def roll_time(L, v0, a0):
     """(time, end speed) to roll L; None if the marble stops first (uphill)."""
+    if L <= 0:
+        return 0.0, v0
     vt = a0 / DRAG
     if vt <= 0:
         if v0 <= 0:
@@ -81,6 +99,16 @@ def roll_time(L, v0, a0):
     return hi, roll_v(hi, v0, a0)
 
 
+def width_need(kinds):
+    return W_T1 + sum(WIDTH[k] for k in kinds) + W_LINK * (len(kinds) - 1) + W_LAST_MIN + 0.1
+
+
+def height_need(kinds, span_x):
+    """Height (marble centre, top rail to spring) a chain needs, with its rails at about 8 degrees."""
+    rails = W_T1 + W_LINK * (len(kinds) - 1) + max(W_LAST_MIN, span_x - width_need(kinds) + W_LAST_MIN)
+    return sum(HEIGHT[k] for k in kinds) + rails * math.tan(math.radians(8)) + 0.22
+
+
 class Track:
     """A straight run of the marble's centre from a to b (the rails lie `lift` below it, along the normal)."""
 
@@ -90,7 +118,7 @@ class Track:
         self.L = d.length
         self.d = d / self.L
         n = Vector((-self.d.z, 0, self.d.x))
-        self.n = n if n.z > 0 else -n
+        self.n = n.normalized() if n.z > 0 else -n.normalized()
         self.sin = -self.d.z                    # > 0 going downhill
 
     def at(self, s):
@@ -98,13 +126,12 @@ class Track:
 
 
 class Machine:
-    def __init__(self, kind, style, R, Y):
-        self.kind, self.style, self.R, self.Y = kind, style, R, Y
+    def __init__(self, kinds, style, R, Y):
+        self.kinds, self.style, self.R, self.Y = kinds, style, R, Y
+        self.kind = '+'.join(kinds)
         self.lift = math.sqrt((R + RAIL_R) ** 2 - RAIL_HALF ** 2)   # marble centre above the rail axes
-        self.segs, self.hits, self.rolls, self.parts = [], [], [], []
-        self.spiral = None                      # (t0, t1, funnel centre): the camera looks down into it
-        self.t_kick, self.wait = None, 0.0
-        self.swing = 1.0
+        self.segs, self.hits, self.rolls, self.parts, self.views = [], [], [], [], []
+        self.t_kick, self.wait, self.swing = None, 0.0, 1.0
 
     # -- motion ---------------------------------------------------------------------------------------
     def seg(self, t0, t1, fn):
@@ -118,7 +145,7 @@ class Machine:
         t0, t1, fn = self.segs[-1]
         return fn(t1)
 
-    def roll(self, tr, t0, v0, s0=0.0, s1=None, bump=None):
+    def roll(self, tr, t0, v0, s0=0.0, s1=None, bump=None, sound=True):
         """Roll along track tr from distance s0 to s1; bump(s) lifts the marble (over fallen dominoes)."""
         s1 = tr.L if s1 is None else s1
         a0 = ROLL_K * G * tr.sin
@@ -131,8 +158,14 @@ class Machine:
             s = s0 + roll_s(min(t - t0, T), v0, a0)
             return tr.at(s) + Vector((0, 0, bump(s) if bump else 0.0))
         self.seg(t0, t0 + T, fn)
-        self.rolls.append(dict(t0=t0, t1=t0 + T, v0=v0, v1=v1, style=self.style))
+        if sound:
+            self.rolls.append(dict(t0=t0, t1=t0 + T, v0=v0, v1=v1, style=self.style))
         return t0 + T, v1
+
+    def t_at(self, tr, t0, v0, s):
+        """When a marble that set off at t0 with speed v0 along tr reaches distance s."""
+        res = roll_time(s, v0, ROLL_K * G * tr.sin)
+        return t0 + res[0] if res else None
 
     def hop(self, p0, t0, p1, t1):
         return self.seg(t0, t1, lambda t, p0=p0.copy(), p1=p1.copy(), t0=t0, t1=t1: ballistic(p0, t0, p1, t1, t))
@@ -147,299 +180,444 @@ class Machine:
     def hit(self, t, kind, g=1.0, midi=None):
         self.hits.append(dict(t=t, kind=kind, g=g, midi=midi))
 
+    # -- the camera's view of it ------------------------------------------------------------------------
     def elev(self, t):
-        """Camera elevation (radians): it rises to look down into the funnel, then comes back down."""
-        if not self.spiral:
-            return 0.0
-        a, b, _ = self.spiral
-        return math.radians(40) * smooth((t - (a - 0.7)) / 0.7) * (1 - smooth((t - b) / 0.6))
+        """Camera elevation (radians): it rises to look down into the funnel or the corkscrew."""
+        e = 0.0
+        for a, b, deg, _ in self.views:
+            e = max(e, math.radians(deg) * smooth((t - (a - 0.7)) / 0.7) * (1 - smooth((t - b) / 0.6)))
+        return e
 
     def yaw(self, t):
-        """A slow sideways swing of the camera through the machine, so its depth shows (alternate machines
-        swing the other way)."""
+        """A slow sideways swing through the machine, so its depth shows (alternate machines swing the
+        other way)."""
         t0, t1 = self.segs[0][0], self.segs[-1][1]
         u = (t - t0) / (t1 - t0)
         return self.swing * math.radians(16) * math.sin(math.pi * min(1.0, max(0.0, u)))
 
-    def time_at_x(self, x, t0, t1):
-        """When the marble passes x (moving left) between t0 and t1."""
-        lo, hi = t0, t1
-        for _ in range(40):
-            mid = (lo + hi) / 2
-            if self.pos(mid).x > x:
-                lo = mid
-            else:
-                hi = mid
-        return hi
-
     def attention(self, t):
-        """What the camera follows: the marble, or the funnel's centre while the marble circles in it."""
+        """What the camera follows: the marble, or a mechanism's centre while the marble circles in it."""
         p = self.pos(t)
-        if self.spiral:
-            a, b, c = self.spiral
-            k = smooth((t - (a - 0.5)) / 0.5) * (1 - smooth((t - b) / 0.5))
-            p = p.lerp(Vector((c.x, p.y, c.z - 0.08)), k)
+        for a, b, _, c in self.views:
+            if c is not None:
+                k = smooth((t - (a - 0.5)) / 0.5) * (1 - smooth((t - b) / 0.5))
+                p = p.lerp(Vector((c.x, p.y, c.z - 0.08)), k)
         return p
+
+    def frame_box(self):
+        """The whole machine's extent (x and z of everything the marble passes), for the opening wide view."""
+        t0, t1 = self.segs[0][0], self.segs[-1][1]
+        ps = [self.pos(t0 + (t1 - t0) * k / 200) for k in range(201)]
+        xs, zs = [p.x for p in ps], [p.z for p in ps]
+        return (min(xs), max(xs), min(zs), max(zs))
+
+
+# ======================================================================================== mechanisms
+# Each takes the marble at p (moving left) with speed v at time t, and returns (p, v, t) where it leaves,
+# or None if it cannot be laid out at this rail angle.
+def rail(m, p, v, t, L, th):
+    tr = Track(p, p + Vector((-L * math.cos(th), 0, -L * math.sin(th))))
+    r = m.roll(tr, t, v)
+    if r is None:
+        return None
+    m.parts.append(('rail', tr))
+    return tr.b, r[1], r[0]
+
+
+def mech_stairs(m, p, v, t, th, xylo=False):
+    n, ws, hs, Ts = (8, 0.10, 0.07, 0.17) if xylo else (6, 0.11, 0.085, 0.19)
+    steps, prev = [], p
+    for k in range(n):
+        q = Vector((p.x - (k + 0.5) * ws, m.Y, p.z - (k + 1) * hs))
+        t = m.hop(prev, t, q, t + Ts)
+        steps.append((q, t))
+        if xylo:
+            m.hit(t, 'glock', 1.0, XYLO_MIDI[k])
+        else:
+            m.hit(t, 'wood', 0.85 - 0.05 * k)
+        prev = q
+    out = Vector((p.x - n * ws - 0.07, m.Y, p.z - (n + 1) * hs))
+    t = m.hop(prev, t, out, t + Ts)
+    m.hit(t, 'land', 0.7)
+    m.parts.append(('xylo' if xylo else 'stairs', steps, hs, ws))
+    return out, 0.35, t
+
+
+def mech_xylo(m, p, v, t, th):
+    return mech_stairs(m, p, v, t, th, xylo=True)
+
+
+def mech_dominoes(m, p, v, t, th):
+    m.hit(t, 'wall', 0.7)
+    m.parts.append(('wall', p))
+    t = m.fall(p, t, 0.15)
+    c = p - Vector((0, 0, 0.15))
+    m.hit(t, 'land', 0.8)
+    Ld, ang = 1.3, math.radians(9)
+    tr = Track(c, c + Vector((-Ld * math.cos(ang), 0, -Ld * math.sin(ang))))
+    s_d0 = 0.28
+    r = m.roll(tr, t, 0.0, 0.0, s_d0)
+    if r is None:
+        return None
+    t, v = r
+    n_dom = int((Ld - s_d0 - 0.25) / DOM_GAP)
+    m.hit(t, 'domino', 1.0)
+    doms = [(s_d0 + 0.02 + k * DOM_GAP, t + k * DOM_DT) for k in range(n_dom)]
+    for s_k, t_k in doms[1:]:
+        m.hit(t_k, 'domino', 0.55)
+    s_end = doms[-1][0] + 0.06
+
+    def bump(s, s_d0=s_d0, s_end=s_end):
+        return 0.034 * smooth((s - s_d0) / 0.05) * (1 - smooth((s - s_end) / 0.05))
+    r = m.roll(tr, t, min(v, 0.12), s_d0, tr.L, bump)
+    if r is None:
+        return None
+    m.parts.append(('rail', tr))
+    m.parts.append(('dominoes', tr, doms))
+    return tr.b, r[1], r[0]
+
+
+def mech_bells(m, p, v, t, th):
+    Lb, ang = 1.05, math.radians(6)
+    tr = Track(p, p + Vector((-Lb * math.cos(ang), 0, -Lb * math.sin(ang))))
+    v0, t0 = max(v, 0.25), t
+    bells = []
+    for k, mid in enumerate(BELL_MIDI):
+        s_k = 0.15 + k * 0.165
+        tk = m.t_at(tr, t0, v0, s_k)
+        if tk is None:
+            return None
+        bells.append((s_k, tk, mid))
+        m.hit(tk, 'bell', 1.0, mid)
+    r = m.roll(tr, t0, v0)
+    if r is None:
+        return None
+    m.parts.append(('rail', tr))
+    m.parts.append(('bells', tr, bells))
+    return tr.b, r[1], r[0]
+
+
+def mech_loop(m, p, v, t, th):
+    Y = m.Y
+    h_ff, rq = 0.12, 0.42
+    O = Vector((p.x - rq, Y, p.z - h_ff))
+    B = Vector((p.x - rq, Y + 0.04, p.z - h_ff - rq))
+    m.hit(t, 'wall', 0.6)
+    m.parts.append(('wall', p))
+    t = m.fall(p, t, h_ff)
+    v_ff = math.sqrt(2 * G * h_ff)
+    v_B = math.sqrt(0.8 * v_ff ** 2 + 10 / 7 * G * rq)
+    Tq = (math.pi / 2 * rq) / ((v_ff + v_B) / 2)
+
+    def quarter(tt, O=O, rq=rq, t0=t, Tq=Tq, v_ff=v_ff, v_B=v_B):
+        u = (tt - t0) / Tq
+        frac = min(1.0, (v_ff * u + 0.5 * (v_B - v_ff) * u * u) / ((v_ff + v_B) / 2))
+        a = -math.pi / 2 * frac              # from the right (0) down to the bottom (-pi/2)
+        return Vector((O.x + rq * math.cos(a), Y + 0.04 * frac, O.z + rq * math.sin(a)))
+    m.rolls.append(dict(t0=t, t1=t + Tq, v0=v_ff, v1=v_B, style='loop'))
+    t = m.seg(t, t + Tq, quarter)
+    rl = min(0.16, 0.55 * v_B ** 2 / (27 / 7 * G))
+    Cl = Vector((B.x, Y, B.z + rl))
+    table, phi, tt, dt_ = [], 0.0, 0.0, 0.002
+    while phi < 2 * math.pi:
+        vv = math.sqrt(max(0.05, v_B ** 2 - 10 / 7 * G * rl * (1 - math.cos(phi))))
+        table.append(phi)
+        phi += vv / rl * dt_
+        tt += dt_
+    Tl = tt
+
+    def loop(t_, Cl=Cl, rl=rl, t0=t, table=table):
+        ph = table[min(len(table) - 1, int((t_ - t0) / 0.002))]
+        y = Y + 0.04 - 0.08 * ph / (2 * math.pi)      # a gentle helix: in at the back, out in front
+        return Vector((Cl.x - rl * math.sin(ph), y, Cl.z - rl * math.cos(ph)))
+    m.rolls.append(dict(t0=t, t1=t + Tl, v0=v_B, v1=v_B, style='loop'))
+    t = m.seg(t, t + Tl, loop)
+    m.parts.append(('loop', O, rq, Cl, rl))
+    # run out, back to the machine's depth
+    B2 = Vector((B.x, Y - 0.04, B.z))
+    out = Vector((B.x - 0.32 * math.cos(th), Y, B.z - 0.32 * math.sin(th)))
+    tr = Track(B2, out)
+    r = m.roll(tr, t, v_B)
+    if r is None:
+        return None
+    m.parts.append(('rail', tr))
+    return out, r[1], r[0]
+
+
+def mech_jump(m, p, v, t, th):
+    """A steep run, a kicker, a flight over a gap and a cup that catches the marble."""
+    Y = m.Y
+    a_run, Lr, rk, a_up = math.radians(30), 0.45, 0.18, math.radians(20)
+    run = Track(p, p + Vector((-Lr * math.cos(a_run), 0, -Lr * math.sin(a_run))))
+    r = m.roll(run, t, v)
+    if r is None:
+        return None
+    t, v_r = r
+    m.parts.append(('rail', run))
+    # the kicker: a short arc from 30 degrees down to 20 degrees up (centre above its lowest point)
+    q = run.b
+    O = q + Vector((-rk * math.sin(a_run), 0, rk * math.cos(a_run)))
+    arc_len = rk * (a_run + a_up)
+    v_k = math.sqrt(max(0.01, v_r ** 2 - 10 / 7 * G * (rk * (1 - math.cos(a_up)) - rk * (1 - math.cos(a_run)))))
+    if v_k < 1.1:
+        return None
+    Tk = arc_len / ((v_r + v_k) / 2)
+
+    def kick(tt, O=O, t0=t, Tk=Tk):
+        a = a_run - (a_run + a_up) * min(1.0, (tt - t0) / Tk)   # angle from straight down (+ = right side)
+        return O + Vector((rk * math.sin(a), 0, -rk * math.cos(a)))
+    t = m.seg(t, t + Tk, kick)
+    launch = kick(t)
+    m.hit(t, 'clack', 0.6)
+    vx, vz = -v_k * math.cos(a_up), v_k * math.sin(a_up)
+    dz = 0.12
+    T_f = (vz + math.sqrt(vz * vz + 2 * G * dz)) / G
+    rim = launch + Vector((vx * T_f, 0, -dz))      # it lands on the cup's rim...
+    cup = rim + Vector((-0.045, 0, -0.02))
+    t = m.hop(launch, t, rim, t + T_f)
+    m.hit(t, 'catch', 1.0)
+    T_r = 0.5                                      # ...rattles round it (will it drop in?)...
+
+    def rattle(tt, t0=t, cup=cup, T_r=T_r):
+        u = min(1.0, (tt - t0) / T_r)
+        ang = math.pi * 1.7 * u
+        r = 0.045 * (1 - u ** 1.5)
+        return cup + Vector((r * math.cos(ang), r * math.sin(ang) * 0.8, 0.02 * (1 - u)))
+    for k in range(7):
+        m.hit(t + 0.06 * k, 'rattle', 1.0 - 0.12 * k)
+    t = m.seg(t, t + T_r, rattle)
+    out = cup - Vector((0.06, 0, 0.13))           # ...and in, and through
+    t = m.hop(cup, t, out, t + 0.2)
+    m.hit(t, 'land', 0.6)
+    m.parts.append(('jump', O, rk, a_run, a_up, cup))
+    return out, 0.3, t
+
+
+def mech_tilt(m, p, v, t, th):
+    Lp, thp = 0.56, math.radians(6.0)
+    r = None
+    while r is None and thp > math.radians(0.8):
+        piv = p + Vector((-Lp / 2 * math.cos(thp), 0, Lp / 2 * math.sin(thp)))
+        r = m.roll(Track(p, piv), t, max(v, 0.3))
+        if r is None:
+            thp *= 0.6
+    if r is None:
+        return None
+    t, v = r
+    v = max(v, 0.08)
+    T_tilt, t_p = 0.24, t
+
+    def ride(tt, piv=piv, t_p=t_p, v=v, thp=thp, T_tilt=T_tilt):
+        u = tt - t_p
+        ang = thp - 2 * thp * smooth(u / T_tilt)    # the plank's rise to the left: +thp, then -thp
+        return piv + Vector((-math.cos(ang), 0, math.sin(ang))) * (v * u)
+    t = m.seg(t, t + T_tilt, ride)
+    m.hit(t, 'clack', 0.9)
+    dn = Vector((-math.cos(thp), 0, -math.sin(thp)))
+    down = Track(piv + dn * (v * T_tilt), piv + dn * (Lp / 2))
+    r = m.roll(down, t, v)
+    if r is None:
+        return None
+    t, v = r
+    out = down.b + Vector((-0.08, 0, -0.14))
+    t = m.hop(down.b, t, out, t + 0.28)
+    m.hit(t, 'land', 0.7)
+    m.parts.append(('tilt', piv, Lp, thp, t_p, T_tilt))
+    return out, 0.3, t
+
+
+def mech_spiral(m, p, v, t, th):
+    Y = m.Y
+    Rf, r_hole, depth = 0.26, 0.04, 0.2
+    Oc = Vector((p.x, Y - Rf, p.z))
+    D, v_in, steps = 2.0, max(v, 0.6), 240
+    traj, phi = [], math.pi / 2
+
+    def r_at(u):
+        return r_hole + (Rf - r_hole) * (1 - u ** 1.7)
+    for k in range(steps + 1):
+        u = k / steps
+        rr = r_at(u)
+        zz = p.z - depth * ((Rf - rr) / (Rf - r_hole)) ** 1.5
+        traj.append((t + u * D, Vector((Oc.x + rr * math.cos(phi), Oc.y + rr * math.sin(phi), zz))))
+        if k < steps:
+            phi += v_in * Rf / r_at((k + 0.5) / steps) ** 2 * 0.85 * D / steps   # angular momentum
+
+    def spin(tt, traj=traj):
+        for (ta, pa), (tb, pb) in zip(traj[:-1], traj[1:]):
+            if tt <= tb:
+                return pa.lerp(pb, (tt - ta) / max(1e-9, tb - ta))
+        return traj[-1][1]
+    m.views.append((t, t + D, 40, Oc.copy()))
+    m.rolls.append(dict(t0=t, t1=t + D, v0=v_in, v1=v_in * 3, style='funnel'))
+    t = m.seg(t, t + D, spin)
+    hole = traj[-1][1]
+    below = Vector((Oc.x, Oc.y, hole.z - 0.12))
+    t = m.hop(hole, t, below, t + 0.15)
+    m.hit(t, 'clunk', 0.8)
+    out = Vector((Oc.x - Rf - 0.12, Y, below.z - 0.2))
+    chute = Track(below, out)
+    t2 = t + max(0.25, chute.L / 1.3)
+    t = m.seg(t, t2, lambda tt, ch=chute, t0=t, t2=t2: ch.at(ch.L * smooth((tt - t0) / (t2 - t0))))
+    m.hit(t, 'land', 0.6)
+    m.parts.append(('spiral', Oc, Rf, r_hole, p.z, depth, below, out))
+    return out, 0.4, t
+
+
+def mech_helix(m, p, v, t, th):
+    """Two turns down a corkscrew around a pole; in and out at the back, still moving left."""
+    Y = m.Y
+    rh, turns, pitch = 0.11, 2, 0.15
+    circ = 2 * math.pi * rh
+    Lh = turns * math.hypot(circ, pitch)
+    sin_a, cos_a = pitch / math.hypot(circ, pitch), circ / math.hypot(circ, pitch)
+    a0 = ROLL_K * G * sin_a
+    res = roll_time(Lh, max(v, 0.3), a0)
+    if res is None:
+        return None
+    T, v1 = res
+    ctr = Vector((p.x, Y - rh, p.z))
+    v0 = max(v, 0.3)
+
+    def screw(tt, t0=t, T=T, v0=v0):
+        s = roll_s(min(tt - t0, T), v0, a0)
+        ph = math.pi / 2 + s * cos_a / rh
+        return Vector((ctr.x + rh * math.cos(ph), ctr.y + rh * math.sin(ph), ctr.z - s * sin_a))
+    m.views.append((t, t + T, 24, None))
+    m.rolls.append(dict(t0=t, t1=t + T, v0=v0, v1=v1, style=m.style))
+    t = m.seg(t, t + T, screw)
+    m.parts.append(('helix', ctr, rh, turns, pitch, p.z))
+    return screw(t), v1, t
+
+
+def mech_plinko(m, p, v, t, th):
+    """A pegboard: the marble bounces down through the pins, a note on each, into a slot."""
+    Y = m.Y
+    rows, dx, dz = 7, 0.085, 0.07
+    cx, top = p.x - 0.32, p.z - 0.10
+    rng = random.Random(int(abs(p.x) * 1000) + 7)
+    pin_r = 0.008
+    j = 0
+    contact = []                                   # marble centre at each pin it strikes
+    for k in range(rows):
+        x = cx + (j - k / 2) * dx
+        contact.append((k, j, Vector((x, Y, top - k * dz + m.R + pin_r - 0.01))))
+        j += rng.choice((0, 1))
+    entry = contact[0][2] + Vector((0, 0, 0.0))
+    t = m.hop(p, t, entry, t + 0.26)
+    path = []
+    for (k, jj, q), nxt in zip(contact, contact[1:] + [None]):
+        col = int(round((q.x - cx) / dx * 2)) + rows
+        m.hit(t, 'peg', 1.0, PLINKO_MIDI[min(len(PLINKO_MIDI) - 1, max(0, col // 2))])
+        path.append((k, jj, t))
+        if nxt is None:
+            break
+        t = m.hop(q, t, nxt[2], t + 0.135)
+    x_slot = contact[-1][2].x + (dx / 2 if rng.random() < 0.5 else -dx / 2)
+    slot = Vector((x_slot, Y, top - rows * dz - 0.02))
+    t = m.hop(contact[-1][2], t, slot, t + 0.16)
+    m.hit(t, 'land', 0.6)
+    t = m.fall(slot, t, 0.09)                      # through the slot's trapdoor onto the chute beneath
+    under = slot - Vector((0, 0, 0.09))
+    out = Vector((cx - (rows / 2 + 1) * dx, Y, under.z - 0.06))
+    chute = Track(under, out)
+    r = m.roll(chute, t, 0.15)
+    if r is None:
+        return None
+    m.parts.append(('plinko', cx, top, rows, dx, dz, path, pin_r, chute))
+    return out, r[1], r[0]
+
+
+MECH = {'stairs': mech_stairs, 'xylo': mech_xylo, 'dominoes': mech_dominoes, 'bells': mech_bells,
+        'loop': mech_loop, 'jump': mech_jump, 'tilt': mech_tilt, 'spiral': mech_spiral, 'helix': mech_helix,
+        'plinko': mech_plinko}
 
 
 # ======================================================================================== planning
-def plan(kind, era, P_L, t_L, P_F, t_F, z_rowA, z_rowB, R, Y):
-    """Lay out and time one interlude machine from the last note (P_L at t_L) to the first note of the
-    next piece (P_F at t_F). The rail angle is chosen so the marble reaches the spring on time: every
-    angle from 2 to 20 degrees is tried, then the best one is refined."""
+WHY = []
+
+
+def plan(kinds, era, P_L, t_L, P_F, t_F, z_rowA, z_rowB, R, Y):
+    """Lay out and time one machine from the last note (P_L at t_L) to the first note of the next piece
+    (P_F at t_F). Every rail angle from 2 to 20 degrees is tried; the gentlest that arrives in time wins
+    (refined between it and the last late one)."""
     target = t_F - T_HOP_OUT - T_KICK - 0.05          # arrival at the spring (a short squeeze before it fires)
     WHY.clear()
 
     def sim(th):
-        return _simulate(kind, era, P_L, t_L, P_F, z_rowA, z_rowB, R, Y, th)
+        return _simulate(kinds, era, P_L, t_L, P_F, z_rowA, z_rowB, R, Y, th)
     grid = [(math.radians(2.0 + 0.25 * k), None) for k in range(73)]
-    grid = [(th, sim(th)) for th, _ in grid]
-    ok = [(th, m) for th, m in grid if m is not None]
+    ok = [(th, mm) for th, mm in ((th, sim(th)) for th, _ in grid) if mm is not None]
     if not ok:
-        raise ValueError(f'no layout for the {kind} machine between t={t_L:.2f} and t={t_F:.2f}: '
-                         'give this interlude more time or room; tried: ' + ' | '.join(WHY[-4:]))
-    early = [(th, m) for th, m in ok if m.t_arrive <= target]
+        raise ValueError(f"no layout for the {'+'.join(kinds)} machine between t={t_L:.2f} and t={t_F:.2f}: "
+                         'give it more time or room; tried: ' + ' | '.join(WHY[-4:]))
+    early = [(th, mm) for th, mm in ok if mm.t_arrive <= target]
     if not early:
-        th, best = min(ok, key=lambda x: x[1].t_arrive)        # as quick as it gets (the hop will be late)
+        th, best = min(ok, key=lambda x: x[1].t_arrive)
     else:
-        th, best = min(early, key=lambda x: x[0])               # the gentlest rails that make it in time
+        th, best = min(early, key=lambda x: x[0])
         late = [(t2, m2) for t2, m2 in ok if t2 < th and m2.t_arrive > target]
-        if late:                                                # refine between the last late and first early
+        if late:
             lo, hi = max(late, key=lambda x: x[0])[0], th
             for _ in range(30):
                 mid = (lo + hi) / 2
-                m = sim(mid)
-                if m is None:
+                mm = sim(mid)
+                if mm is None:
                     break
-                if m.t_arrive > target:
+                if mm.t_arrive > target:
                     lo = mid
                 else:
-                    hi, best = mid, m
+                    hi, best = mid, mm
     _finish(best, P_F, t_F)
+    best.box = best.frame_box()
     return best
 
 
-WHY = []
-
-
-def _why(where, env):
-    """Note why a layout failed (for the error message), and fail."""
-    keys = ('dz', 'hs', 'rq', 'depth', 'thp', 'W2')
-    WHY.append(f"{where} " + ' '.join(f"{k}={env[k]:.3f}" for k in keys if isinstance(env.get(k), float)))
-    return None
-
-
-def _simulate(kind, era, P_L, t_L, P_F, z_rowA, z_rowB, R, Y, th):
-    """Everything flows right to left: under the last note, a short rail, the mechanism, a longer rail,
-    and the spring above the start of the next page."""
-    m = Machine(kind, STYLE[era], R, Y)
+def _simulate(kinds, era, P_L, t_L, P_F, z_rowA, z_rowB, R, Y, th):
+    m = Machine(kinds, STYLE[era], R, Y)
     m.theta = th
-    tn = math.tan(th)
-    mech = 'loop' if kind == 'loopdom' else kind
-    y2 = Y - 0.04 if mech == 'loop' else Y           # after the loop's helix the rail runs 4 cm further out
     E = Vector((P_F.x - 0.32, Y, z_rowB + 0.80))
-    n_st, ws = (8, 0.10) if mech == 'xylo' else (6, 0.11)
-    Lp, Rf = 0.56, 0.26
-    W_m = {'stairs': n_st * ws + 0.07, 'xylo': n_st * ws + 0.07, 'dominoes': 0.0, 'tilt': Lp + 0.07,
-           'spiral': Rf + 0.12, 'loop': 0.55}[mech]
-    C1 = Vector((max(P_L.x + 0.14, E.x + W_m + 1.0), Y, min(P_L.z - 0.30, z_rowA - 0.36)))
-    W_roll = C1.x - E.x - W_m
-    W1 = min(1.1, max(0.45, 0.35 * W_roll))
-    x1e = C1.x - W1
+    C1 = Vector((max(P_L.x + 0.14, E.x + width_need(kinds)), Y, min(P_L.z - 0.30, z_rowA - 0.36)))
     t = m.hop(P_L, t_L, C1, t_L + T_HOP_IN)
     m.hit(t, 'land', 0.6)
-    tr1 = Track(C1, Vector((x1e, Y, C1.z - W1 * tn)))
-    r = m.roll(tr1, t, 0.3)
+    st = rail(m, C1, 0.3, t, W_T1, th)
+    if st is None:
+        WHY.append('first rail')
+        return None
+    p, v, t = st
+    m.parts.append(('cap', C1))
+    for k, kind in enumerate(kinds):
+        st = MECH[kind](m, p, v, t, th)
+        if st is None:
+            WHY.append(f'{kind} at {math.degrees(th):.1f} deg')
+            return None
+        p, v, t = st
+        if k < len(kinds) - 1:
+            st = rail(m, p, v, t, W_LINK, th)
+            if st is None:
+                WHY.append('link rail')
+                return None
+            p, v, t = st
+    # a drop onto the last rail, which runs to the spring
+    c = Vector((p.x - 0.04, Y, 0.0))
+    c.z = E.z + (c.x - E.x) * math.tan(th)
+    dz = p.z - c.z
+    if dz < 0.04 or dz > 0.75 or c.x - E.x < W_LAST_MIN:
+        WHY.append(f'last drop dz={dz:.2f} room={c.x - E.x:.2f} at {math.degrees(th):.1f} deg')
+        return None
+    m.hit(t, 'wall', 0.5)
+    m.parts.append(('wall', p))
+    t = m.fall(p, t, dz)
+    m.hit(t, 'land', 0.7)
+    tr = Track(Vector((p.x, Y, c.z)), E)
+    r = m.roll(tr, t, 0.0)
     if r is None:
+        WHY.append('last rail')
         return None
-    t, v = r
-    m.parts.append(('rail', tr1, 'T1'))
-    p = tr1.b
-
-    def rail2_start(x):
-        return Vector((x, y2, E.z + (x - E.x) * tn))
-    # ---------------------------------------------------------------- the mechanism
-    if mech in ('stairs', 'xylo'):
-        c2 = rail2_start(x1e - n_st * ws - 0.07)
-        dz = p.z - c2.z
-        hs = dz / (n_st + 1)
-        if not 0.035 <= hs <= 0.2:
-            return None
-        Ts = 0.17 if mech == 'xylo' else 0.19
-        prev, steps = p, []
-        for k in range(n_st):
-            q = Vector((x1e - (k + 0.5) * ws, Y, p.z - (k + 1) * hs))
-            t = m.hop(prev, t, q, t + Ts)
-            steps.append((q, t))
-            if mech == 'xylo':
-                m.hit(t, 'glock', 1.0, XYLO_MIDI[k])
-            else:
-                m.hit(t, 'wood', 0.85 - 0.05 * k)
-            prev = q
-        t = m.hop(prev, t, c2, t + Ts)
-        m.hit(t, 'land', 0.7)
-        m.parts.append((mech, steps, hs, ws))
-        v = 0.35
-    elif mech == 'dominoes':
-        c2 = rail2_start(x1e + 0.03)
-        dz = p.z - c2.z
-        if dz < 0.12:
-            return None
-        m.hit(t, 'wall', 0.7)
-        t = m.fall(p, t, dz)
-        m.hit(t, 'land', 0.8)
-        m.parts.append(('wall', p))
-        v = 0.0
-    elif mech == 'tilt':
-        thp = math.radians(6.0)
-        c2 = rail2_start(x1e - Lp - 0.07)
-        r = None
-        while r is None and thp > math.radians(0.8):
-            piv = p + Vector((-Lp / 2 * math.cos(thp), 0, Lp / 2 * math.sin(thp)))
-            r = m.roll(Track(p, piv), t, v)
-            if r is None:
-                thp *= 0.6
-        if r is None:
-            return None
-        t, v = r
-        v = max(v, 0.08)
-        T_tilt, t_p = 0.24, t
-
-        def ride(tt, piv=piv, t_p=t_p, v=v, thp=thp, T_tilt=T_tilt):
-            u = tt - t_p
-            ang = thp - 2 * thp * smooth(u / T_tilt)    # the plank's rise to the left: +thp, then -thp
-            return piv + Vector((-math.cos(ang), 0, math.sin(ang))) * (v * u)
-        t = m.seg(t, t + T_tilt, ride)
-        m.hit(t, 'clack', 0.9)
-        dn = Vector((-math.cos(thp), 0, -math.sin(thp)))
-        down = Track(piv + dn * (v * T_tilt), piv + dn * (Lp / 2))
-        r = m.roll(down, t, v)
-        if r is None:
-            return None
-        t, v = r
-        end = down.b
-        if end.z - c2.z < 0.06:
-            return _why('tilt drop', dict(dz=end.z - c2.z))
-        t = m.hop(end, t, c2, t + 0.30)
-        m.hit(t, 'land', 0.7)
-        m.parts.append(('tilt', piv, Lp, thp, t_p, T_tilt))
-        v = 0.3
-    elif mech == 'spiral':
-        r_hole = 0.04
-        c2 = rail2_start(x1e - Rf - 0.12)
-        dz = p.z - c2.z
-        depth = min(0.22, dz - 0.32)
-        if depth < 0.08:
-            return None
-        Oc = Vector((x1e, Y - Rf, p.z))
-        D, v_in, steps = 2.1, max(v, 0.6), 240
-        traj, phi = [], math.pi / 2
-
-        def r_at(u):
-            return r_hole + (Rf - r_hole) * (1 - u ** 1.7)
-        for k in range(steps + 1):
-            u = k / steps
-            rr = r_at(u)
-            zz = p.z - depth * ((Rf - rr) / (Rf - r_hole)) ** 1.5
-            traj.append((t + u * D, Vector((Oc.x + rr * math.cos(phi), Oc.y + rr * math.sin(phi), zz))))
-            if k < steps:
-                phi += v_in * Rf / r_at((k + 0.5) / steps) ** 2 * 0.85 * D / steps   # angular momentum
-
-        def spin(tt, traj=traj):
-            for (ta, pa), (tb, pb) in zip(traj[:-1], traj[1:]):
-                if tt <= tb:
-                    return pa.lerp(pb, (tt - ta) / max(1e-9, tb - ta))
-            return traj[-1][1]
-        m.spiral = (t, t + D, Oc.copy())
-        m.rolls.append(dict(t0=t, t1=t + D, v0=v_in, v1=v_in * 3, style='funnel'))
-        t = m.seg(t, t + D, spin)
-        hole = traj[-1][1]
-        below = Vector((Oc.x, Oc.y, hole.z - 0.12))
-        t = m.hop(hole, t, below, t + 0.15)
-        m.hit(t, 'clunk', 0.8)
-        chute = Track(below, c2)
-        t2 = t + max(0.25, chute.L / 1.3)
-        t = m.seg(t, t2, lambda tt, ch=chute, t0=t, t2=t2: ch.at(ch.L * smooth((tt - t0) / (t2 - t0))))
-        m.hit(t, 'land', 0.6)
-        m.parts.append(('spiral', Oc, Rf, r_hole, p.z, depth, below, c2))
-        v = 0.4
-    elif mech == 'loop':
-        h_ff = 0.12
-        # the quarter-pipe's bottom starts the second rail; its radius takes up the remaining height
-        rq = (p.z - h_ff - E.z - (x1e - E.x) * tn) / (1 - tn)
-        if not 0.2 <= rq <= 1.3:
-            return None
-        O = Vector((x1e - rq, Y, p.z - h_ff))
-        c2 = Vector((x1e - rq, y2, p.z - h_ff - rq))
-        m.hit(t, 'wall', 0.6)
-        m.parts.append(('wall', p))
-        t = m.fall(p, t, h_ff)
-        v_ff = math.sqrt(2 * G * h_ff)
-        v_B = math.sqrt(0.8 * v_ff ** 2 + 10 / 7 * G * rq)
-        Tq = (math.pi / 2 * rq) / ((v_ff + v_B) / 2)
-
-        def quarter(tt, O=O, rq=rq, t0=t, Tq=Tq, v_ff=v_ff, v_B=v_B):
-            u = (tt - t0) / Tq
-            frac = min(1.0, (v_ff * u + 0.5 * (v_B - v_ff) * u * u) / ((v_ff + v_B) / 2))
-            a = -math.pi / 2 * frac              # from the right (0) down to the bottom (-pi/2)
-            return Vector((O.x + rq * math.cos(a), Y + 0.04 * frac, O.z + rq * math.sin(a)))
-        t = m.seg(t, t + Tq, quarter)
-        rl = min(0.17, 0.55 * v_B ** 2 / (27 / 7 * G))
-        Cl = Vector((c2.x, Y, c2.z + rl))
-        table, phi, tt, dt_ = [], 0.0, 0.0, 0.002
-        while phi < 2 * math.pi:
-            vv = math.sqrt(max(0.05, v_B ** 2 - 10 / 7 * G * rl * (1 - math.cos(phi))))
-            table.append(phi)
-            phi += vv / rl * dt_
-            tt += dt_
-        Tl = tt
-
-        def loop(t_, Cl=Cl, rl=rl, t0=t, table=table):
-            ph = table[min(len(table) - 1, int((t_ - t0) / 0.002))]
-            y = Y + 0.04 - 0.08 * ph / (2 * math.pi)      # a gentle helix: in at the back, out in front
-            return Vector((Cl.x - rl * math.sin(ph), y, Cl.z - rl * math.cos(ph)))
-        m.rolls.append(dict(t0=t, t1=t + Tl, v0=v_B, v1=v_B, style='loop'))
-        t = m.seg(t, t + Tl, loop)
-        m.parts.append(('loop', O, rq, Cl, rl))
-        v = v_B
-    # ---------------------------------------------------------------- the rail on to the spring
-    E_ = Vector((E.x, y2, E.z))
-    W2 = c2.x - E.x
-    if W2 < 0.4:
-        return None
-    tr2 = Track(c2, E_)
-    if tr2.sin <= 0:
-        return None
-    m.parts.append(('rail', tr2, 'T2'))
-    m.t_T2 = t
-    if kind in ('dominoes', 'loopdom'):
-        s_d0 = 0.28 if kind == 'dominoes' else 0.55
-        n_dom = int(min(26, (tr2.L - s_d0 - 0.3) / DOM_GAP))
-        if n_dom < 8:
-            return None
-        r = m.roll(tr2, t, v, 0.0, s_d0)
-        if r is None:
-            return None
-        t, v = r
-        m.hit(t, 'domino', 1.0)
-        doms = [(s_d0 + 0.02 + k * DOM_GAP, t + k * DOM_DT) for k in range(n_dom)]
-        for s_k, t_k in doms[1:]:
-            m.hit(t_k, 'domino', 0.55)
-        s_end = doms[-1][0] + 0.06
-
-        def bump(s, s_d0=s_d0, s_end=s_end):
-            return 0.034 * smooth((s - s_d0) / 0.05) * (1 - smooth((s - s_end) / 0.05))
-        r = m.roll(tr2, t, min(v, 0.12), s_d0, tr2.L, bump)
-        if r is None:
-            return None
-        t, v = r
-        m.parts.append(('dominoes', tr2, doms))
-    else:
-        r = m.roll(tr2, t, v)
-        if r is None:
-            return None
-        t, v = r
-    m.t_arrive, m.v_arrive, m.E_ = t, v, E_
+    m.parts.append(('rail', tr))
+    m.parts.append(('rings', tr, t))
+    m.t_arrive, m.v_arrive, m.E_ = r[0], r[1], E
+    m.t_last_rail = t
     return m
 
 
@@ -458,10 +636,22 @@ def _finish(m, P_F, t_F):
     m.hop(squeeze, m.t_kick, P_F, t_F)
 
 
+def time_at_x(m, x, t0, t1):
+    """When the marble passes x (moving left) between t0 and t1."""
+    lo, hi = t0, t1
+    for _ in range(40):
+        mid = (lo + hi) / 2
+        if m.pos(mid).x > x:
+            lo = mid
+        else:
+            hi = mid
+    return hi
+
+
 # ======================================================================================== building
 def build(m, h):
-    """Make the machine's parts. h holds the film's helpers: cube, cyl, sphere, torus, mat, emit_keys,
-    fr, revolve (a surface of revolution), glass (material), WALL_Y."""
+    """Make the machine's parts. h holds the film's helpers: cube, cyl, sphere, torus, cone, mat, emit_keys,
+    fr, revolve (a surface of revolution), glass, clear (materials), neon (colour), WALL_Y."""
     st = m.style
     if st == 'wood':
         rail_m = h.mat('m_wood', (0.33, 0.18, 0.08), 0.45, coat=0.4)
@@ -475,19 +665,21 @@ def build(m, h):
     else:
         rail_m = h.mat('m_brass2', (0.9, 0.62, 0.28), 0.2, metal=1.0)
         arm_m = h.mat('m_walnut', (0.25, 0.12, 0.06), 0.4, coat=0.5)
+    brass = h.mat('m_brass3', (0.88, 0.64, 0.26), 0.22, metal=1.0)
     lift, W, R, Y = m.lift, h.WALL_Y, m.R, m.Y
 
     def rails(a, b, n, arms=True):
         """Two rails under the marble's path from a to b (marble-centre points); n points from the rails
         towards the marble's centre."""
         a0, b0 = a - n * lift, b - n * lift
+        side = (b0 - a0).cross(n)
+        side = side.normalized() * RAIL_HALF if side.length > 1e-6 else Vector((0, RAIL_HALF, 0))
         for sy in (-1, 1):
-            off = Vector((0, sy * RAIL_HALF, 0))
-            h.cyl(a0 + off, b0 + off, RAIL_R, rail_m, 10)
+            h.cyl(a0 + side * sy, b0 + side * sy, RAIL_R, rail_m, 10)
         if not arms:
             return
         L = (b0 - a0).length
-        k = max(2, int(L / 0.45) + 1)
+        k = max(1, int(L / 0.45) + 1)
         for j in range(k):
             q = a0.lerp(b0, (j + 0.5) / k) - Vector((0, 0, 0.012))
             h.cyl(Vector((q.x, W, q.z)), Vector((q.x, q.y - RAIL_HALF, q.z)), 0.005, arm_m, 8)
@@ -501,31 +693,30 @@ def build(m, h):
         for k, (a_, b_) in enumerate(zip(points[:-1], points[1:])):
             mid = (a_ + b_) / 2
             c = centre_of(mid)
-            n = Vector((c.x - mid.x, 0, c.z - mid.z)).normalized()
+            n = (c - mid)
+            n = Vector((n.x, 0, n.z)).normalized() if abs(n.x) + abs(n.z) > 1e-6 else Vector((0, 0, 1))
             rails(a_, b_, n, arms=(k % arms_every == 0))
 
     for part in m.parts:
         kind = part[0]
         if kind == 'rail':
-            tr, side = part[1], part[2]
+            tr = part[1]
             rails(tr.a, tr.b, tr.n)
-            if side == 'T2' and not any(pp[0] == 'dominoes' for pp in m.parts):
-                # neon rings along the long rail, each flashing as the marble runs through it
-                n_r = max(3, int(tr.L / 0.32))
-                for k in range(n_r):
-                    s_k = tr.L * (k + 0.7) / (n_r + 0.4)
-                    c = tr.at(s_k)
-                    rm = h.mat('railring', h.neon, 0.2, emit=h.neon, emit_s=0.4)
-                    ang = math.atan2(tr.d.z, tr.d.x)
-                    h.torus(c - tr.n * 0.004, R + 0.022, 0.0035, rm, rot=(0, math.pi / 2 - ang, 0))
-                    tp = m.time_at_x(c.x, m.t_T2, m.t_arrive)
-                    h.emit_keys(rm, ((tp - 0.05, 0.4), (tp, 28.0), (tp + 0.35, 1.5)))
-            if side == 'T1':
-                endstop(tr.a, +1)               # a cap behind the marble where it lands
-            elif m.kind not in ('loop', 'loopdom'):
-                endstop(tr.a, +1)
+        elif kind == 'cap':
+            endstop(part[1], +1)
         elif kind == 'wall':
-            endstop(part[1], -1)                # the marble runs into it and drops
+            endstop(part[1], -1)
+        elif kind == 'rings':
+            tr, t0 = part[1], part[2]
+            n_r = max(3, int(tr.L / 0.32))
+            for k in range(n_r):
+                s_k = tr.L * (k + 0.7) / (n_r + 0.4)
+                c = tr.at(s_k)
+                rm = h.mat('railring', h.neon, 0.2, emit=h.neon, emit_s=0.4)
+                ang = math.atan2(tr.d.z, tr.d.x)
+                h.torus(c - tr.n * 0.004, R + 0.022, 0.0035, rm, rot=(0, math.pi / 2 - ang, 0))
+                tp = time_at_x(m, c.x, t0, m.t_arrive)
+                h.emit_keys(rm, ((tp - 0.05, 0.4), (tp, 28.0), (tp + 0.35, 1.5)))
         elif kind in ('stairs', 'xylo'):
             steps, hs, ws = part[1], part[2], part[3]
             for k, (q, t_hit) in enumerate(steps):
@@ -551,8 +742,7 @@ def build(m, h):
                 final = math.radians(76 if k < len(doms) - 1 else 88)
                 for u in (-0.5, 0.0, 0.04, 0.08, 0.11, 0.13):
                     a = final * min(1.0, max(0.0, u / 0.13)) ** 2       # it tips, then speeds up
-                    # turn about the left edge of the foot (it falls to the left, the way the marble goes)
-                    piv = foot + Vector((-0.006, 0, 0))
+                    piv = foot + Vector((-0.006, 0, 0))                  # it turns about its left edge
                     vx, vz = 0.006, 0.036
                     o.location = piv + Vector((vx * math.cos(a) - vz * math.sin(a), 0, vx * math.sin(a) + vz * math.cos(a)))
                     o.rotation_euler = (0, -a, 0)
@@ -561,6 +751,37 @@ def build(m, h):
             mid = tr.at((doms[0][0] + doms[-1][0]) / 2) + board - Vector((0, 0, 0.004))
             plank = h.cube(tuple(mid), (doms[-1][0] - doms[0][0] + 0.1, 0.05, 0.006), arm_m)
             plank.rotation_euler = (0, -math.atan2(tr.d.z, tr.d.x) + math.pi, 0)
+        elif kind == 'bells':
+            tr, bells = part[1], part[2]
+            for k, (s_k, t_k, mid) in enumerate(bells):
+                c = tr.at(s_k)
+                bm = h.mat(f'bell{k}', (0.95, 0.74, 0.32), 0.15, metal=1.0, emit=(1.0, 0.8, 0.4), emit_s=0.0)
+                top = Vector((c.x, Y - 0.085, c.z + 0.10))
+                bell = h.cone(top - Vector((0, 0, 0.035)), 0.034, 0.008, 0.05, bm, 24)
+                h.cyl(Vector((c.x, W, top.z + 0.01)), Vector((c.x, top.y, top.z + 0.01)), 0.004, arm_m, 8)
+                h.cyl(top - Vector((0, 0, 0.03)), Vector((c.x, Y - 0.05, c.z)), 0.0025, arm_m, 6)   # its striker
+                h.emit_keys(bm, ((t_k - 0.03, 0.0), (t_k, 9.0), (t_k + 0.6, 0.3)))
+                for u, ang in ((-0.4, 0.0), (0.0, 0.0), (0.06, 0.25), (0.2, -0.15), (0.38, 0.08), (0.6, 0.0)):
+                    bell.rotation_euler = (0, ang, 0)                     # it swings as it rings
+                    bell.keyframe_insert('rotation_euler', frame=h.fr(t_k + u))
+        elif kind == 'loop':
+            O, rq, Cl, rl = part[1:]
+            pts = [Vector((O.x + rq * math.cos(-math.pi / 2 * k / 30), Y + 0.04 * k / 30,
+                           O.z + rq * math.sin(-math.pi / 2 * k / 30))) for k in range(31)]
+            curve(pts, lambda mid: O)                          # the quarter-pipe
+            lp = [Vector((Cl.x - rl * math.sin(2 * math.pi * k / 48), Y + 0.04 - 0.08 * k / 48,
+                          Cl.z - rl * math.cos(2 * math.pi * k / 48))) for k in range(49)]
+            curve(lp, lambda mid: Cl, arms_every=8)            # and the loop
+        elif kind == 'jump':
+            O, rk, a_run, a_up, cup = part[1:]
+            pts = []
+            for k in range(13):
+                a = a_run - (a_run + a_up) * k / 12
+                pts.append(O + Vector((rk * math.sin(a), 0, -rk * math.cos(a))))
+            curve(pts, lambda mid: O)
+            cm = h.mat('cup', (0.9, 0.66, 0.3), 0.18, metal=1.0)
+            h.revolve(Vector((cup.x, Y, 0)), [(0.03, cup.z - R - 0.02), (0.06, cup.z - R + 0.02), (0.085, cup.z - R + 0.06)], cm)
+            h.cyl(Vector((cup.x, W, cup.z - R)), Vector((cup.x, Y + 0.06, cup.z - R)), 0.006, arm_m, 8)
         elif kind == 'tilt':
             piv, Lp, thp, t_p, T_tilt = part[1:]
             centre = piv - Vector((0, 0, lift + 0.008))
@@ -574,7 +795,7 @@ def build(m, h):
                 h.cube((centre.x + sx * (Lp / 2 - 0.03), centre.y, centre.z - Lp / 2 * math.sin(thp) - 0.025),
                        (0.02, 0.05, 0.03), arm_m)
         elif kind == 'spiral':
-            Oc, Rf, r_hole, z_rim, depth, below, c2 = part[1:]
+            Oc, Rf, r_hole, z_rim, depth, below, out = part[1:]
             fm = h.mat('funnel', (0.9, 0.66, 0.3) if st != 'steel' else (0.88, 0.9, 0.95), 0.12, metal=1.0)
             prof = []
             for k in range(25):
@@ -584,18 +805,48 @@ def build(m, h):
             prof.append((Rf + 0.05, z_rim - R + 0.02))   # the lip
             h.revolve(Oc, prof, fm)
             h.cyl(Vector((Oc.x, Oc.y, prof[0][1])), below - Vector((0, 0, 0.03)), r_hole + 0.006, fm, 20)
-            h.cyl(below, c2, R + 0.004, h.clear, 24)         # the glass chute back to the rail
+            h.cyl(below, out, R + 0.004, h.clear, 24)          # the glass chute back to the rails
             for a_ in (0.7, 2.45):
                 q = Vector((Oc.x + Rf * math.cos(a_), Oc.y + Rf * math.sin(a_), z_rim - R))
                 h.cyl(Vector((q.x, W, q.z)), q, 0.006, arm_m, 8)
-        elif kind == 'loop':
-            O, rq, Cl, rl = part[1:]
-            pts = [Vector((O.x + rq * math.cos(-math.pi / 2 * k / 30), Y + 0.04 * k / 30,
-                           O.z + rq * math.sin(-math.pi / 2 * k / 30))) for k in range(31)]
-            curve(pts, lambda mid: O)
-            lp = [Vector((Cl.x - rl * math.sin(2 * math.pi * k / 48), Y + 0.04 - 0.08 * k / 48,
-                          Cl.z - rl * math.cos(2 * math.pi * k / 48))) for k in range(49)]
-            curve(lp, lambda mid: Cl, arms_every=8)
+        elif kind == 'helix':
+            ctr, rh, turns, pitch, z0 = part[1:]
+            n_seg = 28 * turns
+            for sgn in (-1, 1):                               # two rails, inside and outside of the track
+                rr = rh + sgn * RAIL_HALF
+                prev = None
+                for k in range(n_seg + 1):
+                    ph = math.pi / 2 + 2 * math.pi * turns * k / n_seg
+                    q = Vector((ctr.x + rr * math.cos(ph), ctr.y + rr * math.sin(ph), z0 - lift - pitch * turns * k / n_seg))
+                    if prev is not None:
+                        h.cyl(prev, q, RAIL_R, rail_m, 8)
+                    prev = q
+            h.cyl(Vector((ctr.x, ctr.y, z0 + 0.08)), Vector((ctr.x, ctr.y, z0 - pitch * turns - 0.12)), 0.014, brass, 16)
+            h.cyl(Vector((ctr.x, W, z0 + 0.06)), Vector((ctr.x, ctr.y, z0 + 0.06)), 0.007, arm_m, 8)
+            for k in range(turns * 4):                         # spokes from the pole to the track
+                ph = math.pi / 2 + math.pi / 2 * k + math.pi / 4
+                zq = z0 - lift - 0.012 - pitch * (k + 0.5) / 4
+                h.cyl(Vector((ctr.x, ctr.y, zq)), Vector((ctr.x + (rh + RAIL_HALF) * math.cos(ph), ctr.y + (rh + RAIL_HALF) * math.sin(ph), zq)),
+                      0.004, arm_m, 6)
+        elif kind == 'plinko':
+            cx, top, rows, dx, dz, path, pin_r, chute = part[1:]
+            board_m = h.mat('pegboard', (0.1, 0.08, 0.07) if st != 'gold' else (0.92, 0.9, 0.86), 0.5, coat=0.5)
+            wdt = (rows + 1) * dx + 0.06
+            h.cube((cx, Y + 0.075, top - (rows * dz) / 2 + 0.02), (wdt, 0.01, rows * dz + 0.18), board_m)
+            struck = {(k, j): t for k, j, t in path}
+            for k in range(rows):
+                for j in range(k + 1):
+                    x = cx + (j - k / 2) * dx
+                    z = top - k * dz
+                    pm = h.mat(f'pin{k}_{j}', (0.92, 0.8, 0.5), 0.2, metal=1.0, emit=h.neon, emit_s=0.0)
+                    h.cyl(Vector((x, Y + 0.07, z)), Vector((x, Y - 0.035, z)), pin_r, pm, 8)
+                    if (k, j) in struck:
+                        tk = struck[(k, j)]
+                        h.emit_keys(pm, ((tk - 0.02, 0.0), (tk, 18.0), (tk + 0.4, 0.6)))
+            for j in range(rows + 2):                           # slot dividers at the bottom
+                x = cx + (j - (rows + 1) / 2) * dx
+                h.cube((x, Y, top - rows * dz - 0.05), (0.006, 0.09, 0.07), arm_m)
+            rails(chute.a, chute.b, chute.n)
     # the spring at the end: a plate on a coil, against a block on the wall
     E = m.E_
     px = E.x - R - 0.008

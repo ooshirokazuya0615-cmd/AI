@@ -24,10 +24,10 @@ COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'J. S. Bach', 'tm': 'W. A. Mozar
             'b5': 'L. van Beethoven', 'fe': 'L. van Beethoven', 'otj': 'L. van Beethoven', 'mk': 'Edvard Grieg'}
 # the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
 # rests for it (after the last note has rung)
-MACHINE = {'toc': 'stairs', 'tm': 'dominoes', 'ekn': 'loop', 'b5': 'tilt', 'fe': 'spiral', 'otj': 'xylo',
-           'mk': 'loopdom'}
+MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'b5': ['plinko', 'tilt'],
+           'fe': ['spiral', 'helix'], 'otj': ['jump', 'xylo'], 'mk': ['helix', 'loop', 'dominoes']}
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
-INTERLUDE = {'toc': 3.4, 'tm': 5.8, 'ekn': 3.5, 'b5': 6.2, 'fe': 4.9, 'otj': 3.6, 'mk': 4.9}
+INTERLUDE = {'toc': 4.0, 'tm': 7.1, 'ekn': 5.1, 'b5': 8.3, 'fe': 7.3, 'otj': 6.4, 'mk': 8.6}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])

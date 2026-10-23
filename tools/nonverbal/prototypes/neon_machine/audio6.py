@@ -320,6 +320,17 @@ def main(out):
                 if sampler.available():
                     for d_, m_ in ((0.0, 96), (0.06, 100), (0.12, 103)):
                         place(mix, sampler.note('glock', m_, 1.4), hh['t'] + d_, 0.10 * g_, 0.3)
+            elif kind == 'bell' and sampler.available():
+                place(mix, sampler.note('glock', hh['midi'], 2.4), hh['t'], 0.22 * g_, 0.15)
+            elif kind == 'peg':
+                if sampler.available():
+                    place(mix, sampler.note('glock', hh['midi'], 0.9), hh['t'], 0.09 * g_, -0.1)
+                place(mix, click(0.008, 5200, 300), hh['t'], 0.05 * g_)
+            elif kind == 'rattle':
+                place(mix, click(0.01, 2900, 220), hh['t'], 0.05 * g_)
+            elif kind == 'catch':
+                place(mix, click(0.06, 520, 40), hh['t'], 0.16 * g_)
+                place(mix, click(0.03, 2400, 90), hh['t'], 0.06 * g_)
             elif kind == 'whoosh':
                 place(mix, whoosh(hh.get('L', 0.6)), hh['t'], 0.07 * g_)
             elif kind == 'net':
