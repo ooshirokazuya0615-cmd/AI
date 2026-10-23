@@ -26,8 +26,10 @@ CHOICE = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'          # has the ch
 CHOICE_B = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 Y0, Y1 = 1650, 1900
 ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'beethoven': (200, 120, 255), 'romantic': (255, 90, 80)}
-GUESS = 3.0          # seconds the question stays (with a 3-2-1 countdown)
+GUESS = 3.0          # seconds from the first note to the answer (three dots drain, one a second)
 SHOW = 3.0           # seconds the answer stays
+LEAD = 1.2           # the question is up this long before the first note (from the second piece on)
+ERA_NAME = {'baroque': 'BAROQUE', 'classical': 'CLASSICAL', 'beethoven': 'BEETHOVEN', 'romantic': 'ROMANTIC'}
 # the three choices for each piece: (decoys..., with the answer at index ANSWER_AT); all public domain
 QUIZ = {
     'canon': ['Air on the G String  (Bach)', None, 'Spring, The Four Seasons  (Vivaldi)'],
@@ -53,9 +55,9 @@ def font(path, size, cache={}):
     return cache[key]
 
 
-def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=None):
-    """Rounded translucent card with lines [(text, font_path, size, colour[, alpha of the line])], centred
-    (or left-aligned for a list of choices)."""
+def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=None, centre_first=False):
+    """Rounded translucent card with lines [(text, font_path, size, colour[, alpha of the line])], centred,
+    or left-aligned (a list of choices; with centre_first, the heading above them stays centred)."""
     if alpha <= 0:
         return
     sizes = [(ln[0], font(ln[1], int(ln[2] * W / 1920 * scale)), ln[3], ln[4] if len(ln) > 4 else 1.0) for ln in lines]
@@ -68,8 +70,8 @@ def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=No
     draw.rounded_rectangle((x0, y0, x0 + w, y0 + h), radius=int(22 * W / 1920 * scale),
                            fill=(14, 14, 20, int(170 * alpha)), outline=(255, 255, 255, int(60 * alpha)), width=2)
     y = y0 + pad
-    for (t, f, c, la), tw, th in zip(sizes, widths, heights):
-        x = x0 + pad if left and f.size < max(ff.size for _, ff, _, _ in sizes) else cx - tw // 2
+    for j, ((t, f, c, la), tw, th) in enumerate(zip(sizes, widths, heights)):
+        x = x0 + pad if left and not (centre_first and j == 0) else cx - tw // 2
         draw.text((x, y), t, font=f, fill=(*c, int(255 * alpha * la)))
         y += th
 
@@ -123,14 +125,16 @@ def main():
         # ---- timeline
         k = min(1.0, t / 1.2) * (1 - smooth((t - (t_final + 1.2)) / 0.8))
         if k > 0:
-            bx0, bx1, by = int(W * 0.18), int(W * 0.82), int(H * 0.93)
-            d.line((bx0, by, bx1, by), fill=(255, 255, 255, int(110 * k)), width=max(2, W // 640))
+            bx0, bx1, by = int(W * 0.30), int(W * 0.84), int(H * 0.885)    # clear of the player's progress bar
+            d.line((bx0, by + 1, bx1, by + 1), fill=(12, 10, 16, int(70 * k)), width=max(2, W // 640) + 2)
+            d.line((bx0, by, bx1, by), fill=(255, 255, 255, int(150 * k)), width=max(2, W // 640))
             for yr in (1700, 1800, 1900):
                 x = bx0 + (bx1 - bx0) * (yr - Y0) / (Y1 - Y0)
                 d.line((x, by - H * 0.008, x, by + H * 0.008), fill=(255, 255, 255, int(150 * k)), width=max(1, W // 960))
-                tf = font(SANS, int(H * 0.022))
+                tf = font(SANS, int(H * 0.026))
                 tw = d.textbbox((0, 0), str(yr), font=tf)[2]
-                d.text((x - tw / 2, by + H * 0.012), str(yr), font=tf, fill=(255, 255, 255, int(170 * k)))
+                d.text((x - tw / 2, by + H * 0.012), str(yr), font=tf, fill=(255, 255, 255, int(190 * k)),
+                       stroke_width=max(1, H // 720), stroke_fill=(12, 10, 16, int(110 * k)))
             # marker: glides to the current piece's year (during a gap it travels to the next one)
             yr_now, col = starts[0][2]['year'], ERA_COL[starts[0][2]['era']]
             for j, (t0, t1, song) in enumerate(starts):
@@ -152,35 +156,53 @@ def main():
             layer = Image.alpha_composite(layer, glow.filter(ImageFilter.GaussianBlur(r * 1.5)))
             d = ImageDraw.Draw(layer)
             d.ellipse((x - r, by - r, x + r, by + r), fill=(255, 255, 255, int(255 * k)))
-            yf = font(SANS_B, int(H * 0.03))
-            ys = str(int(round(yr_now)))
-            tw = d.textbbox((0, 0), ys, font=yf)[2]
-            d.text((x - tw / 2, by - H * 0.06), ys, font=yf, fill=(*col, int(255 * k)))
+            # the year, big, rolling through the decades between pieces; the era under it; a dot per piece,
+            # filled in its era's colour once it has been guessed
+            era_now = starts[0][2]['era']
+            for t0, t1, song in starts:
+                if t >= t0 - LEAD:
+                    era_now = song['era']
+            yf = font(SERIF_B, int(H * 0.075))
+            ink_ = (12, 10, 16, int(150 * k))
+            d.text((W * 0.045, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
+                   stroke_width=max(2, H // 300), stroke_fill=ink_)
+            d.text((W * 0.047, by - H * 0.020), ERA_NAME[era_now], font=font(SANS_B, int(H * 0.024)),
+                   fill=(255, 255, 255, int(220 * k)), stroke_width=max(1, H // 540), stroke_fill=ink_)
+            r = H * 0.0075
+            for j, (t0, t1, song) in enumerate(starts):
+                x = W * 0.047 + r + j * r * 3.0
+                yv = by + H * 0.030
+                if t >= t0 + GUESS:
+                    d.ellipse((x - r, yv - r, x + r, yv + r), fill=(*ERA_COL[song['era']], int(255 * k)))
+                else:
+                    d.ellipse((x - r, yv - r, x + r, yv + r), outline=(255, 255, 255, int(150 * k)), width=max(1, W // 960))
         # ---- the quiz: a question with three choices and a countdown, then the answer lights up
-        for t0, t1, song in starts:
-            u = t - (t0 - 0.15)
-            if not 0 <= u < GUESS + SHOW:
+        for idx, (t0, t1, song) in enumerate(starts):
+            lead = 0.15 if idx == 0 else LEAD
+            u = t - t0                                    # 0 at the first note; the countdown runs from there
+            if not -lead <= u < GUESS + SHOW:
                 continue
             opts = QUIZ.get(song['key'], [None, None, None])
             right = opts.index(None)
-            names = [song['title'] if o is None else o for o in opts]
+            # every choice in the same form (a title only), so the layout never gives the answer away
+            names = [song['title'] if o is None else o.split('  (')[0] for o in opts]
             col = ERA_COL[song['era']]
-            a_ = smooth(u / 0.25) * (1 - smooth((u - GUESS - SHOW + 0.4) / 0.4))
+            a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - GUESS - SHOW + 0.4) / 0.4))
             if u < GUESS:
-                n_left = 3 - int(u / (GUESS / 3))                     # 3, 2, 1
-                head = f'?    {n_left}'
-                lines = [(head, SERIF_B, 64, (255, 255, 255))]
-                lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 30, (235, 235, 240)) for k in range(3)]
+                n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
+                lines = [(f'{idx + 1}/{len(starts)}     ' + '●' * n_left + '○' * (3 - n_left), CHOICE_B, 40, (255, 255, 255))]
+                lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244)) for k in range(3)]
             else:
                 v = u - GUESS
-                lines = [(song['title'], SERIF_B, 52, col)]
+                lines = [(song['title'], SERIF_B, 58, col)]
                 for k in range(3):
                     if k == right:
-                        lines.append((f'✓   {names[k]}', CHOICE_B, 30, col, 1.0))
+                        lines.append((f'✓   {names[k]}', CHOICE_B, 44, col, 1.0))
                     else:
-                        lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 30, (235, 235, 240), 1 - 0.7 * smooth(v / 0.3)))
-                lines.append((f"{song['composer_name']}  ·  {song['year']}", SANS, 30, col, smooth((v - 0.15) / 0.3)))
-            card(d, W, H, W // 2, int(H * 0.04), lines, a_, 0.86, left=True, right_edge=int(W * 0.97))   # top right, clear of the marble
+                        lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244), 1 - 0.7 * smooth(v / 0.3)))
+                lines.append((f"{song['composer_name']}  ·  {song['year']}", SANS_B, 40, col, smooth((v - 0.15) / 0.3)))
+            card(d, W, H, W // 2, int(H * 0.04), lines, a_, 1.0, left=True, right_edge=int(W * 0.97),
+                 centre_first=u >= GUESS)                                   # top right, clear of the marble
         # ---- closing question
         if t > T_END - 3.2:
             a_ = smooth((t - (T_END - 3.2)) / 0.5)
