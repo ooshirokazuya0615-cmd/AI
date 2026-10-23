@@ -350,10 +350,10 @@ def main(out):
             # the opening: the pendulum's tick-tock counting in (growing a little), the gate's latch, the roll
             for k, t_ in enumerate(it['ticks']):
                 g_ = 0.55 + 0.45 * min(1.0, k / 3)
-                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.11 * g_)
-                place(mix, click(0.030, 820, 85), t_, 0.05 * g_)
-            place(mix, click(0.05, 1500, 70), it['gate'], 0.16)
-            place(mix, click(0.02, 4200, 150), it['gate'] + 0.004, 0.06)
+                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.075 * g_)
+                place(mix, click(0.030, 820, 85), t_, 0.035 * g_)
+            place(mix, click(0.05, 1500, 70), it['gate'], 0.055)
+            place(mix, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
             r0_, r1_, v_ = it['roll']
             place(mix, roll(r1_ - r0_) * np.linspace(0.3, 1.0, int(SR * (r1_ - r0_))), r0_, 0.012 + 0.012 * v_)
         for k, tp in enumerate(E.get('taps', [])):                          # the held ball settling on its note
