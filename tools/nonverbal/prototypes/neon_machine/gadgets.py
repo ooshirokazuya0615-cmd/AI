@@ -734,6 +734,7 @@ def build(m, h):
                 h.sphere(top + Vector((0, 0, 0.014)), 0.016, rm, segs=16)
                 tp = time_at_x(m, c.x, t0, m.t_arrive)
                 h.emit_keys(rm, ((tp - 0.05, 0.3), (tp, 22.0), (tp + 0.4, 2.0)))
+                m.hit(tp, 'chase', 0.55)                  # a note each; film8 tunes them up into the next piece
         elif kind in ('stairs', 'xylo'):
             steps, hs, ws = part[1], part[2], part[3]
             for k, (q, t_hit) in enumerate(steps):

@@ -422,6 +422,8 @@ def main(out):
                 if sampler.available():
                     for d_, m_ in ((0.0, 96), (0.06, 100), (0.12, 103)):
                         place(mix, sampler.note('glock', m_, 1.4), hh['t'] + d_, 0.10 * g_, 0.3)
+            elif kind == 'chase' and sampler.available() and hh.get('midi'):
+                place(mix, sampler.note('glock', hh['midi'], 1.4), hh['t'], 0.16 * g_, 0.2)
             elif kind == 'bell' and sampler.available():
                 place(mix, sampler.note('glock', hh['midi'], 2.4), hh['t'], 0.22 * g_, 0.15)
             elif kind == 'peg':
@@ -446,14 +448,14 @@ def main(out):
                 place(mix, whirr(L_), rr['t0'], 0.05)
             else:
                 v_ = min(2.5, max(0.2, (rr['v0'] + rr['v1']) / 2))
-                place(mix, roll(L_), rr['t0'], 0.012 + 0.012 * v_)
+                place(mix, roll(L_), rr['t0'], 0.02 + 0.02 * v_)
         it = E.get('intro')
         if it:
             # the opening: the pendulum's tick-tock counting in (growing a little), the gate's latch, the roll
             for k, t_ in enumerate(it['ticks']):
                 g_ = 0.55 + 0.45 * min(1.0, k / 3)
-                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.075 * g_)
-                place(mix, click(0.030, 820, 85), t_, 0.035 * g_)
+                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.13 * g_)
+                place(mix, click(0.030, 820, 85), t_, 0.06 * g_)
             place(mix, click(0.05, 1500, 70), it['gate'], 0.055)
             place(mix, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
             r0_, r1_, v_ = it['roll']

@@ -172,14 +172,16 @@ def main():
                     era_now = song['era']
             yf = font(SERIF_B, int(H * 0.075))
             ink_ = (12, 10, 16, int(150 * k))
+            d.rounded_rectangle((W * 0.030, by - H * 0.115, W * 0.030 + H * 0.45, by + H * 0.058), radius=int(H * 0.02),
+                                fill=(10, 8, 14, int(105 * k)))           # its own plate, over any page
             d.text((W * 0.045, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
                    stroke_width=max(2, H // 300), stroke_fill=ink_)
             d.text((W * 0.047, by - H * 0.020), ERA_NAME[era_now], font=font(SANS_B, int(H * 0.024)),
                    fill=(255, 255, 255, int(220 * k)), stroke_width=max(1, H // 540), stroke_fill=ink_)
-            r = H * 0.0075
+            r = H * 0.013
             for j, (t0, t1, song) in enumerate(starts):
-                x = W * 0.047 + r + j * r * 3.0
-                yv = by + H * 0.030
+                x = W * 0.047 + r + j * r * 2.9
+                yv = by + H * 0.031
                 if t >= t0 + GUESS:
                     d.ellipse((x - r, yv - r, x + r, yv + r), fill=(*ERA_COL[song['era']], int(255 * k)))
                 else:
@@ -212,7 +214,8 @@ def main():
                         lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244), 1 - 0.7 * smooth(v / 0.3)))
                 lines.append((f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
                               smooth((v - 0.15) / 0.3)))
-            card(d, W, H, W // 2, int(H * 0.04), lines, a_, 1.0, left=True, right_edge=int(W * 0.97),
+            pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
+            card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
         # ---- closing question
         if t > T_END - 3.2:

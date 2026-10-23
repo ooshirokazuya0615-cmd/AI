@@ -432,7 +432,7 @@ rng = random.Random(31)
 # paper and ink for each era (the wall is the page)
 PAGE = {
     'baroque': dict(paper=(0.80, 0.70, 0.52), ink=(0.16, 0.10, 0.06), ink_metal=0.0, rough=0.9),
-    'classical': dict(paper=(0.50, 0.59, 0.60), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),   # duck-egg salon
+    'classical': dict(paper=(0.66, 0.52, 0.50), ink=(0.05, 0.03, 0.03), ink_metal=0.0, rough=0.85),   # dusty-rose salon
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
     # pieces with a page of their own, so two pieces of one era never look alike
@@ -1011,9 +1011,9 @@ for fc_ in pend.animation_data.action.fcurves:
         kp_.interpolation = 'BEZIER'
         kp_.handle_left_type = kp_.handle_right_type = 'AUTO_CLAMPED'
 TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.80   # in the opening view, above the first row's framing
-text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.15, ink_mat(SONGS[0]['era']),
+text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
-text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.13)), 0.075, ink_mat(SONGS[0]['era']),
+text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)), 0.10, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf')
 
 # ---------------------------------------------------------------- 3b. practical lights of the era
@@ -1103,6 +1103,21 @@ for s_, m_ in GAPMACH.items():
                            revolve=revolve, glass=M_GLASS, clear=M_CLEAR, WALL_Y=WALL_Y,
                            neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]])
     GD.build(m_, HELP)
+    # the chase lamps along the last rail play a rising line that lands a step below the next piece's first
+    # note, so the machine leads the ear into the music (a glockenspiel, in the bell's range)
+    chase = sorted((x for x in m_.hits if x['kind'] == 'chase'), key=lambda x: x['t'])
+    if chase:
+        target = [h for h in C if h['s'] == s_ and h['mech'] != 'bigdrum'][0]['midi']
+        while target < 84:
+            target += 12
+        steps = [2, 2, 1, 2, 2, 2, 1]                       # a major scale, walked down from the target
+        m_note = target - 2
+        line = []
+        for k_ in range(len(chase)):
+            line.append(m_note)
+            m_note -= steps[k_ % len(steps)]
+        for x, mi in zip(chase, reversed(line)):
+            x['midi'] = mi
 
 # ---------------------------------------------------------------- 4c. signature moments inside the pieces
 # Each piece gets one thing of its own, always driven by the notes the marble plays:
@@ -1189,19 +1204,19 @@ if tm_:
             xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
             xbar = xb - min(0.09, (xb - xa) * 0.45)
             rz = HEAD[h['i']][2]['z']
-            dc = Vector((xbar, HEAD_Y - 0.03, rz - 0.19))
-            HEAD[h['i']][2]['below'] = 0.30
-            cyl(dc - Vector((0, 0, 0.03)), dc + Vector((0, 0, 0.03)), 0.05, drum_m, 24)
+            dc = Vector((xbar, HEAD_Y - 0.03, rz - 0.21))
+            HEAD[h['i']][2]['below'] = 0.36
+            cyl(dc - Vector((0, 0, 0.045)), dc + Vector((0, 0, 0.045)), 0.075, drum_m, 28)
             sk_m = mat(f'davulskin{j}', (0.95, 0.9, 0.8), 0.5, emit=(1.0, 0.8, 0.5), emit_s=0.0)
-            skin_o = cyl(dc + Vector((0, 0, 0.03)), dc + Vector((0, 0, 0.034)), 0.048, sk_m, 24)
+            skin_o = cyl(dc + Vector((0, 0, 0.045)), dc + Vector((0, 0, 0.050)), 0.072, sk_m, 28)
             emit_keys(sk_m, ((nxt['t'] - 0.02, 0.0), (nxt['t'], 5.0), (nxt['t'] + 0.3, 0.0)))
-            torus(dc + Vector((0, 0, 0.032)), 0.05, 0.004, M_BRASS)
-            cyl(Vector((xbar, WALL_Y, rz - 0.22)), Vector((xbar, HEAD_Y - 0.03, rz - 0.22)), 0.005, M_BRASS, 8)
-            piv = dc + Vector((0.11, 0, 0.11))
+            torus(dc + Vector((0, 0, 0.048)), 0.075, 0.006, M_BRASS)
+            cyl(Vector((xbar, WALL_Y, rz - 0.25)), Vector((xbar, HEAD_Y - 0.03, rz - 0.25)), 0.007, M_BRASS, 8)
+            piv = dc + Vector((0.15, 0, 0.15))
             hold = empty(piv, 'mallet')
             bpy.context.view_layer.update()
-            o1 = cyl(piv, dc + Vector((0.01, 0, 0.05)), 0.004, mat('stick', (0.4, 0.25, 0.1), 0.4), 8)
-            o2 = sphere(dc + Vector((0.01, 0, 0.05)), 0.016, mat('malletball', (0.95, 0.9, 0.8), 0.5))
+            o1 = cyl(piv, dc + Vector((0.015, 0, 0.07)), 0.005, mat('stick', (0.4, 0.25, 0.1), 0.4), 8)
+            o2 = sphere(dc + Vector((0.015, 0, 0.07)), 0.022, mat('malletball', (0.95, 0.9, 0.8), 0.5))
             for o in (o1, o2):
                 parent(o, hold)
             tb = nxt['t']
@@ -1307,6 +1322,13 @@ for j, h in enumerate(toc_):
     cube((foot.x, foot.y - 0.0145, foot.z + 0.050), (0.016, 0.004, 0.010), mat('pipemouth', (0.02, 0.015, 0.01), 0.6))
     cube((foot.x, foot.y - 0.0150, foot.z + 0.057), (0.018, 0.003, 0.003), pm)
     emit_keys(pm, ((h['t'] - 1 / FPS, 0.35), (h['t'], 7.0), (h['t'] + max(0.3, h['dur']), 0.9)))
+    if os.environ.get('DEBUG_PIPES'):
+        print('pipe', j, h['i'], h['midi'], round(h['t'], 2), round(h['dur'], 2), round(foot.x, 3), pm.name, flush=True)
+        if os.environ['DEBUG_PIPES'] == 'paint':           # paint each pipe a different flat colour
+            pm.node_tree.nodes['Principled BSDF'].inputs['Emission Color'].default_value = (j % 3 == 0, j % 3 == 1, j % 3 == 2, 1)
+            for fc_ in (pm.node_tree.animation_data.action.fcurves if pm.node_tree.animation_data else []):
+                for kp_ in fc_.keyframe_points:
+                    kp_.co[1] = 4.0
 
 
 # ---------------------------------------------------------------- 5. finale, characters
@@ -1436,10 +1458,10 @@ wave.inputs['Distortion'].default_value = 11.0
 # the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
 # it takes that piece's colour; one band of its swirl keeps each colour, so it strikes the final drum as a rainbow
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-# (each against its page: cobalt on candlelit parchment, crimson in the organ loft, emerald in the pink salon,
-#  gold in the night, orange in the storm, lime in the violet evening, violet in daylight, cyan in the red hall)
-PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.05, 0.80, 0.40), 'ekn': (1.0, 0.72, 0.12),
-             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.50, 0.18, 1.0), 'mk': (0.15, 0.85, 1.0)}
+# (each against its page: cobalt on candlelit parchment, crimson in the organ loft, deep violet in the rose
+#  salon, gold in the night, orange in the storm, lime in the violet evening, teal on gold, cyan in the red hall)
+PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
+             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.45, 0.48), 'mk': (0.15, 0.85, 1.0)}
 PEARL = (0.86, 0.87, 0.92, 1)
 els = ramp.color_ramp.elements
 while len(els) < len(SONGS):
@@ -1587,7 +1609,7 @@ def frame_point(tt):
                 wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
                 zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
                 # the pull-back starts on the piece's last hit (not before), holds, then follows the marble
-                w = smooth((tt - (h0['t'] + 0.2)) / 0.9) * (1 - smooth((tt - (h0['t'] + 1.4)) / 0.8))
+                w = smooth((tt - (h0['t'] + 0.2)) / 0.9) * (1 - smooth((tt - (h0['t'] + 2.0)) / 0.8))
                 zf_ = m_.zoom(tt, MACH_ZOOM)
                 att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
                 el_, yw_ = m_.elev(tt) * (1 - w), m_.yaw(tt)
@@ -1668,7 +1690,7 @@ OPEN_YAW = 0.12
 def cam_at(t):
     tg, zf, (el, yw) = target(t)
     if t < OPEN_T1:
-        k = smooth(t / OPEN_T1)
+        k = smooth((t - 0.6) / (OPEN_T1 - 0.6))        # hold the whole view a moment, then push in
         tg, zf, yw = OPEN_C.lerp(tg, k), OPEN_Z + (zf - OPEN_Z) * k, OPEN_YAW * (1 - k) + yw * k
     off = OFF * zf
     if el:                                       # rise and look down (into the funnel)
