@@ -389,15 +389,15 @@ def mech_jump(m, p, v, t, th):
     cup = rim + Vector((-0.045, 0, -0.02))
     t = m.hop(launch, t, rim, t + T_f)
     m.hit(t, 'catch', 1.0)
-    T_r = 0.5                                      # ...rattles round it (will it drop in?)...
+    T_r = 0.9                                      # ...rattles twice round it (will it drop in?)...
 
     def rattle(tt, t0=t, cup=cup, T_r=T_r):
         u = min(1.0, (tt - t0) / T_r)
-        ang = math.pi * 1.7 * u
-        r = 0.045 * (1 - u ** 1.5)
+        ang = math.pi * 3.4 * u
+        r = 0.045 * (1 - u ** 2.2)                 # it stays out on the rim, then spirals in
         return cup + Vector((r * math.cos(ang), r * math.sin(ang) * 0.8, 0.02 * (1 - u)))
-    for k in range(7):
-        m.hit(t + 0.06 * k, 'rattle', 1.0 - 0.12 * k)
+    for k in range(12):
+        m.hit(t + 0.072 * k, 'rattle', 1.0 - 0.07 * k)
     m.closeups.append((t, t + T_r, 0.95, cup.copy()))
     t = m.seg(t, t + T_r, rattle)
     out = cup - Vector((0.06, 0, 0.13))           # ...and in, and through

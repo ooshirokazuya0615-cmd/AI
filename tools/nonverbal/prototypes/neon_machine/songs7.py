@@ -31,7 +31,7 @@ YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'b5': ['plinko', 'tilt'],
            'fe': ['spiral', 'helix'], 'otj': ['jump', 'xylo'], 'mk': ['helix', 'loop', 'dominoes']}
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
-INTERLUDE = {'toc': 4.0, 'tm': 7.1, 'ekn': 5.1, 'b5': 8.3, 'fe': 7.3, 'otj': 6.4, 'mk': 8.6}
+INTERLUDE = {'toc': 4.0, 'tm': 6.4, 'ekn': 4.6, 'b5': 8.3, 'fe': 7.3, 'otj': 6.4, 'mk': 8.6}   # tm, ekn trimmed: dead rolling
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
@@ -84,7 +84,7 @@ ERA = {
 }
 # the opening before the first note: room tone, a pendulum on the page counting in at the first piece's tempo,
 # then a gate opens and the marble rolls down onto the first note (nothing starts out of silence)
-base.START = 3.0
+base.START = 2.5                      # a one-bar count-in: four ticks
 START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 

@@ -29,7 +29,6 @@ ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'beethoven':
 GUESS = 3.0          # seconds from the first note to the answer (three dots drain, one a second)
 SHOW = 3.0           # seconds the answer stays
 LEAD = 1.2           # the question is up this long before the first note (from the second piece on)
-ERA_NAME = {'baroque': 'BAROQUE', 'classical': 'CLASSICAL', 'beethoven': 'BEETHOVEN', 'romantic': 'ROMANTIC'}
 # the three choices for each piece: (decoys..., with the answer at index ANSWER_AT); all public domain
 QUIZ = {
     'canon': ['Air on the G String  (Bach)', None, 'Spring, The Four Seasons  (Vivaldi)'],
@@ -166,10 +165,9 @@ def main():
             d.ellipse((x - r, by - r, x + r, by + r), fill=(255, 255, 255, int(255 * k)))
             # the year, big, rolling through the decades between pieces; the era under it; a dot per piece,
             # filled in its era's colour once it has been guessed
-            era_now = starts[0][2]['era']
-            for t0, t1, song in starts:
-                if t >= t0 - LEAD:
-                    era_now = song['era']
+            # the period named from the year shown (Classical from 1750, Romantic from 1820), so the label
+            # changes as the counter crosses the line, not when the next piece starts
+            era_now = 'BAROQUE' if yr_now < 1750 else 'CLASSICAL' if yr_now < 1820 else 'ROMANTIC'
             yf = font(SERIF_B, int(H * 0.075))
             ink_ = (12, 10, 16, int(150 * k))
             xb_ = W * 0.968 - H * 0.45                       # bottom right: rows start (clef, first notes) at the left
@@ -177,7 +175,7 @@ def main():
                                 fill=(10, 8, 14, int(105 * k)))           # its own plate, over any page
             d.text((xb_ + H * 0.025, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
                    stroke_width=max(2, H // 300), stroke_fill=ink_)
-            d.text((xb_ + H * 0.028, by - H * 0.020), ERA_NAME[era_now], font=font(SANS_B, int(H * 0.024)),
+            d.text((xb_ + H * 0.028, by - H * 0.020), era_now, font=font(SANS_B, int(H * 0.024)),
                    fill=(255, 255, 255, int(220 * k)), stroke_width=max(1, H // 540), stroke_fill=ink_)
             r = H * 0.013
             for j, (t0, t1, song) in enumerate(starts):
@@ -192,7 +190,7 @@ def main():
             lead = 0.15 if idx == 0 else LEAD
             u = t - t0                                    # 0 at the first note; the countdown runs from there
             # the answer leaves with the piece's last note: the marble exits top right, where the card is
-            end = min(GUESS + SHOW, last_hit[idx] - t0 + 0.25)
+            end = min(GUESS + SHOW, last_hit[idx] - t0 - 0.2)
             if not -lead <= u < end:
                 continue
             opts = QUIZ.get(song['key'], [None, None, None])

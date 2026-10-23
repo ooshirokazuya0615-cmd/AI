@@ -447,12 +447,13 @@ ACC_PAD = 0.075                # extra room in front of a note that carries an a
 def engr_gap(song, h):
     return max(GAP_MIN, K_SP * math.sqrt(song['unit'] * h['nunit']))
 ROW_W = 2.9              # a row turns (carriage return) on a long note once it is this wide
+BAR_PAD = 0.08           # extra room at a bar line, about a space before the next head
 ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
 # how far a row may run past ROW_W looking for a bar line it can turn on. Rondo alla Turca and Für Elise
 # never end a bar on a note long enough for the tube ride (their bars end on sixteenths), so they keep to one
 # long line each instead of breaking mid-bar, as no engraver would
-ROW_EXTRA = float(os.environ.get('ROW_EXTRA', 4.0))
+ROW_EXTRA = float(os.environ.get('ROW_EXTRA', 5.5))
 CLEF_W = 0.55
 KS_DX = 0.072            # spacing of the key-signature accidentals
 MACH_DROP = 1.0          # extra room between pages for the machine that carries the marble across
@@ -553,6 +554,8 @@ for s, song in enumerate(SONGS):
         # a new line starts at a bar line, as on a printed page; only when no bar ends on a note long
         # enough for the tube ride does the row run on a little and break mid-bar
         at_bar = bool(bu) and int((pos - pu) // bu) != bar
+        if at_bar:
+            xc += BAR_PAD
         if nxt is not None and h['dur'] >= 0.34 and (
                 x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
@@ -565,7 +568,7 @@ for s, song in enumerate(SONGS):
             xc = row['x0']
             ROWS.append(row)
             sec_rows[s].append(row)
-    row['x1'] = HEAD[hs[-1]['i']][0].x + 0.25
+    row['x1'] = HEAD[hs[-1]['i']][0].x + max(0.25, engr_gap(song, hs[-1]) + 0.06)
     row_z = row['z']
 # final drum after the double bar of the last row
 LASTROW = ROWS[-1]
@@ -872,7 +875,7 @@ for s, song in enumerate(SONGS):
         # system bracket and clef
         cube((x0s, WALL_Y - 0.004, row['z'] + 2 * LS), (0.006, 0.004, 4 * LS), ink)
         glyph = '\U0001D11E' if song['clef'] == 'treble' else '\U0001D122'
-        clef_z = row['z'] + (1.31 * LS if song['clef'] == 'treble' else 2.6 * LS)
+        clef_z = row['z'] + (1.81 * LS if song['clef'] == 'treble' else 2.6 * LS)
         text_obj(glyph, Vector((x0s + 0.12, WALL_Y - 0.008, clef_z)), 0.52 if song['clef'] == 'treble' else 0.24, ink)
         # key signature
         ks = song['keysig']
@@ -901,7 +904,7 @@ for s, song in enumerate(SONGS):
                     cube((xbar, WALL_Y - 0.004, rz + 2 * LS), (0.006, 0.004, 4 * LS), ink)
                 else:                                   # the bar ends with the line: its bar line closes the line
                     rw = HEAD[h['i']][2]
-                    cube((rw['x1'] - 0.03, WALL_Y - 0.004, rw['z'] + 2 * LS), (0.006, 0.004, 4 * LS), ink)
+                    cube((rw['x1'] - 0.003, WALL_Y - 0.004, rw['z'] + 2 * LS), (0.006, 0.004, 4 * LS), ink)
             acc = acc2
     # double bar at the end of the piece
     lr = sec_rows[s][-1]
@@ -935,8 +938,16 @@ for h in C:
     sx = head.x + (0.045 if up else -0.045)
     z0s = row['z'] + st * LS / 2
     stem_l = max(3.5 * LS, abs(st - 4) * LS / 2)          # two or more ledger lines: the stem reaches the middle line
-    stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * stem_l / 2), (0.006, 0.004, stem_l), ink)
-    wobble(stem_o, h['t'], axis=1, amp=2.2)
+    # halves and wholes are open heads (an ink ring round the paper); a whole note has no stem
+    ts_, bu_ = song.get('timesig'), song.get('bar_units')
+    frac = h['nunit'] * ts_[0] / ts_[1] / bu_ if ts_ and bu_ else 0.0
+    if frac >= 0.5 - 1e-6:
+        hole = sphere((0, 0, 0), 1.0, paper_mat(page_of(song)), scale=(0.58, 0.13, 0.46), segs=24)
+        hole.parent = o                                   # in the head's own (unit-sphere) space
+        hole.location, hole.rotation_euler = (0, -0.93, 0), (0, math.radians(-18), 0)
+    if frac < 1.0 - 1e-6:
+        stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * stem_l / 2), (0.006, 0.004, stem_l), ink)
+        wobble(stem_o, h['t'], axis=1, amp=2.2)
     cyl((head.x, WALL_Y, head.z), (head.x, head.y + 0.02, head.z), 0.006, ink, 8)          # the pin holding the head
     # ledger lines
     if st < -1 or st > 9:
@@ -1319,6 +1330,8 @@ for j, h in enumerate(toc_):
     head, st, row = HEAD[h['i']]
     ph = 0.10 + 0.010 * (h['midi'] - 48)              # higher notes, longer pipes
     foot = Vector((head.x, WALL_Y - 0.01, row['z'] + 4 * LS + 0.10))     # flat against the wall, behind the marble
+    if h['j'] in SONGS[KEY_S['toc']].get('fermata', ()):
+        foot.z = max(foot.z, head.z + 0.30)                                  # clear of the fermata over the note
     # an organ flue pipe: a conical foot, the mouth (a dark slot with its upper lip), the body; burnished,
     # not mirror metal (a mirror pipe only reflects the dark loft and reads black), with a faint glow
     pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.32, metal=0.9, emit=(1.0, 0.75, 0.4), emit_s=0.35)
@@ -1810,6 +1823,14 @@ if hasattr(gl, 'threshold'):
 nt.links.new(nt.nodes['Render Layers'].outputs['Image'], gl.inputs['Image'])
 nt.links.new(gl.outputs['Image'], nt.nodes['Composite'].inputs['Image'])
 
+if os.environ.get('DEBUG_PIPES') == 'keys':       # which action drives each pipe's glow, and its values
+    for m_ in bpy.data.materials:
+        if m_.name.startswith('pipe') and m_.node_tree and m_.node_tree.animation_data:
+            act = m_.node_tree.animation_data.action
+            vals = [round(kp.co[1], 2) for fc in act.fcurves for kp in fc.keyframe_points][:6] if act else None
+            users = [mm.name for mm in bpy.data.materials if mm.node_tree and mm.node_tree.animation_data
+                     and mm.node_tree.animation_data.action == act and mm is not m_][:4]
+            print('pipe-mat', m_.name, act.name if act else None, vals, 'shared with', users, flush=True)
 import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
