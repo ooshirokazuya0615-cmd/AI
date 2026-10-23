@@ -211,11 +211,22 @@ def main():
             pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
+        # ---- the opening promise, for viewers who meet it muted in the feed
+        if t < 2.6:
+            a_ = smooth((t - 0.25) / 0.3) * (1 - smooth((t - 2.15) / 0.35))
+            if a_ > 0:
+                pf = font(SANS_B, int(H * 0.048))
+                line = '8 pieces  ·  300 years  ·  can you name them all?'
+                tw = d.textbbox((0, 0), line, font=pf)[2]
+                d.text(((W - tw) / 2, H * 0.84), line, font=pf, fill=(255, 250, 240, int(240 * a_)),
+                       stroke_width=max(2, H // 300), stroke_fill=(12, 10, 16, int(170 * a_)))
         # ---- closing question
         if t > T_END - 3.2:
             a_ = smooth((t - (T_END - 3.2)) / 0.5)
-            card(d, W, H, W // 2, int(H * 0.40), [('How many did you guess?', SERIF_B, 64, (255, 255, 255)),
-                                                  ('1680  →  1876', SANS, 36, (255, 210, 140))], a_)
+            card(d, W, H, W // 2, int(H * 0.34), [('How many did you guess?', SERIF_B, 64, (255, 255, 255)),
+                                                  ('1680  →  1876', SANS, 36, (255, 210, 140)),
+                                                  ('8  Maestro   ·   6–7  Virtuoso   ·   4–5  Apprentice   ·   0–3  Listener',
+                                                   SANS_B, 30, (235, 235, 240))], a_)
         Image.alpha_composite(im, layer).convert('RGB').save(dst / fpath.name)
 
 

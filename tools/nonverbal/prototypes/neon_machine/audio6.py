@@ -188,6 +188,7 @@ def place(mix, s, t, g, pan=0.0):
         mix[a:a + len(s), 1] += s * g * np.sqrt(0.5 * (1 + pan))
 
 
+MACHINE_GAIN = 2.0     # machine sounds about 6 dB up: rides read as near-silence on phone speakers
 # the room each era is heard in: reverberation time (s) and how much of it
 HALL = {'baroque': (2.4, 0.34), 'classical': (1.5, 0.24), 'beethoven': (1.9, 0.28), 'romantic': (2.1, 0.30)}
 
@@ -259,7 +260,21 @@ def lufs(st):
     return float(-0.691 + 10 * np.log10(np.mean(ms[(lk > -70) & (lk > rel)])))
 
 
-def limit(st, ceil_db=-1.3, look=3, release=0.08):
+def level_up(st, floor_db=-27.0, most_db=7.0, win=1.5):
+    """Lift stretches quieter than floor_db (RMS over win seconds) by up to most_db, slowly, so the gaps
+    between pieces keep up with the music on small speakers without touching the pieces' own dynamics."""
+    hop = SR // 10
+    m = st.mean(axis=1)
+    n = len(m) // hop
+    rms = np.sqrt(np.convolve(np.mean(m[: n * hop].reshape(n, hop) ** 2, axis=1),
+                              np.ones(int(win * 10)) / int(win * 10), mode='same') + 1e-12)
+    g_db = np.clip(floor_db - 20 * np.log10(rms), 0.0, most_db)
+    g_db = np.convolve(g_db, np.ones(15) / 15, mode='same')          # glide, no pumping
+    g = 10 ** (np.interp(np.arange(len(st)), np.arange(n) * hop + hop / 2, g_db) / 20)
+    return st * g[:, None]
+
+
+def limit(st, ceil_db=-1.8, look=3, release=0.08):
     """A look-ahead peak limiter on 1 ms blocks: no peak above the ceiling, gain recovers in ~80 ms."""
     ceil, blk = 10 ** (ceil_db / 20), SR // 1000
     nb = len(st) // blk + 1
@@ -376,6 +391,7 @@ def main(out):
             place(mix, click(0.08, 400, 35), g['t_launch'], 0.5)           # and fires
             place(mix, whoosh(g['t1'] - g['t_launch']), g['t_launch'], 0.05)
     ev = os.environ.get('EVENTS_IN')
+    music, mix = mix, np.zeros_like(mix)          # machine sounds go on their own bus (lifted below)
     if ev and os.path.exists(ev):
         import json
         E = json.load(open(ev))
@@ -452,18 +468,19 @@ def main(out):
         it = E.get('intro')
         if it:
             # the opening: the pendulum's tick-tock counting in (growing a little), the gate's latch, the roll
-            for k, t_ in enumerate(it['ticks']):
+            for k, t_ in enumerate(it['ticks']):               # (on the music bus: already balanced)
                 g_ = 0.55 + 0.45 * min(1.0, k / 3)
-                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.13 * g_)
-                place(mix, click(0.030, 820, 85), t_, 0.06 * g_)
-            place(mix, click(0.05, 1500, 70), it['gate'], 0.055)
-            place(mix, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
+                place(music, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.13 * g_)
+                place(music, click(0.030, 820, 85), t_, 0.06 * g_)
+            place(music, click(0.05, 1500, 70), it['gate'], 0.055)
+            place(music, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
             r0_, r1_, v_ = it['roll']
-            place(mix, roll(r1_ - r0_) * np.linspace(0.3, 1.0, int(SR * (r1_ - r0_))), r0_, 0.012 + 0.012 * v_)
+            place(music, roll(r1_ - r0_) * np.linspace(0.3, 1.0, int(SR * (r1_ - r0_))), r0_, 0.012 + 0.012 * v_)
         for k, tp in enumerate(E.get('taps', [])):                          # the held ball settling on its note
             tap = (sampler.one('Percussion/Claves1_Hit_v1_rr2_Sum.wav', 0.2) if sampler.available()
                    else click(0.015, 3400))
             place(mix, tap, tp['t'], 0.012 * tp['g'])
+    mix = music + MACHINE_GAIN * mix
     fin = C[-1]
     place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)
@@ -481,6 +498,7 @@ def main(out):
     st[-fade:] *= np.linspace(1, 0, fade)[:, None]
     integ = lufs(st)
     st *= 10 ** ((-14.0 - integ) / 20)
+    st = level_up(st)
     # room tone under everything (a warm, quiet hall), so no moment is digital silence; it fades in from the
     # first frame and out with the music
     fq = np.fft.rfftfreq(len(st), 1 / SR)

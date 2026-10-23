@@ -567,8 +567,9 @@ def plan(kinds, era, P_L, t_L, P_F, t_F, z_rowA, z_rowB, R, Y):
         raise ValueError(f"no layout for the {'+'.join(kinds)} machine between t={t_L:.2f} and t={t_F:.2f}: "
                          'give it more time or room; tried: ' + ' | '.join(WHY[-4:]))
     early = [(th, mm) for th, mm in ok if mm.t_arrive <= target]
-    if not early:
+    if not early:                    # even the steepest rails arrive late: say so, never pass it off as on time
         th, best = min(ok, key=lambda x: x[1].t_arrive)
+        best.late = best.t_arrive - target
     else:
         th, best = min(early, key=lambda x: x[0])
         late = [(t2, m2) for t2, m2 in ok if t2 < th and m2.t_arrive > target]
@@ -583,6 +584,7 @@ def plan(kinds, era, P_L, t_L, P_F, t_F, z_rowA, z_rowB, R, Y):
                     lo = mid
                 else:
                     hi, best = mid, mm
+    best.late = getattr(best, 'late', 0.0)
     _finish(best, P_F, t_F)
     best.box = best.frame_box()
     return best

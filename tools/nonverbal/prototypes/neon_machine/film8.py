@@ -521,16 +521,21 @@ def ballistic(p0, t0, p1, t1, t):
 CON, HEAD, ROWS, RETURNS = {}, {}, [], {}
 sec_rows = {}
 row_z = 0.0
+PAGE_X = {}           # how far right each page starts: after a long line the next page starts further right,
+SPAN_MAX = 1.2        # so a machine never rolls back more than this beyond its own mechanisms
 for s, song in enumerate(SONGS):
     hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
     clef = song['clef']
+    px = 0.0
     if s > 0:
         drop_ = 0.0
         if song.get('machine'):                # room for the machine that carries the marble here
             x_l = HEAD[[h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]['i']][0].x
-            drop_ = max(MACH_DROP, GD.height_need(song['machine'], x_l + 0.14 - (X_LEFT + 0.58)) - 0.10)
+            px = max(0.0, x_l + 0.14 - (X_LEFT + 0.58) - GD.width_need(song['machine']) - SPAN_MAX)
+            drop_ = max(MACH_DROP, GD.height_need(song['machine'], x_l + 0.14 - (X_LEFT + px + 0.58)) - 0.10)
         row_z -= ROW_H * 1.25 + drop_          # a new page starts lower
-    row = dict(s=s, z=row_z, t0=hs[0]['t'], x0=X_LEFT + CLEF_W + (0.35 if s == 0 or True else 0), notes=[], first=True)
+    PAGE_X[s] = px
+    row = dict(s=s, z=row_z, t0=hs[0]['t'], x0=X_LEFT + px + CLEF_W + 0.35, notes=[], first=True, px=px)
     ROWS.append(row)
     sec_rows[s] = [row]
     nunits = song.get('nunits') or [u for _, u in song['notes']]
@@ -568,7 +573,8 @@ for s, song in enumerate(SONGS):
                 x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H
-            new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + CLEF_W + KS_DX * abs(song['keysig']), notes=[], first=False)
+            new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + px + CLEF_W + KS_DX * abs(song['keysig']), notes=[],
+                       first=False, px=px)
             RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new,
                                    at_bar=at_bar or not bu, width=x - row['x0'])
             row['x1'] = x + 0.25
@@ -586,6 +592,7 @@ if os.environ.get('LAYOUT_ONLY'):              # quick check of the line breaks,
     print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}({r['width']:.1f})"
                                   for i, r in RETURNS.items()), flush=True)
     print('rows', ' '.join(f"{SONGS[r['s']]['key']}:{r['x1'] - r['x0']:.1f}" for r in ROWS), flush=True)
+    print('page x', {SONGS[k]['key']: round(v, 2) for k, v in PAGE_X.items()}, flush=True)
     sys.exit(0)
 
 
@@ -595,8 +602,8 @@ def tube_path(ret, h):
     rf, rt = ret['row_from'], ret['row_to']
     zt_ = rf['z'] - 0.42
     pts = [a, Vector((a.x + 0.16, HEAD_Y, a.z - 0.10)), Vector((a.x + 0.22, HEAD_Y, zt_ + 0.05)), Vector((a.x + 0.12, HEAD_Y, zt_)),
-           Vector((X_LEFT + 0.15, HEAD_Y, zt_)), Vector((X_LEFT + 0.05, HEAD_Y, zt_ - 0.10)),
-           Vector((X_LEFT + 0.12, HEAD_Y, rt['z'] + 0.55))]
+           Vector((X_LEFT + rt['px'] + 0.15, HEAD_Y, zt_)), Vector((X_LEFT + rt['px'] + 0.05, HEAD_Y, zt_ - 0.10)),
+           Vector((X_LEFT + rt['px'] + 0.12, HEAD_Y, rt['z'] + 0.55))]
     return pts
 
 
@@ -626,7 +633,10 @@ for g in GAPS:
     mk_.swing = 1.0 if len(GAPMACH) % 2 == 0 else -1.0
     GAPMACH[s] = mk_
     print(f"machine {SONGS[s]['key']}: {mk_.kind}, rail angle {math.degrees(mk_.theta):.1f} deg, "
-          f"spring waits {mk_.wait:.2f} s", flush=True)
+          f"spring waits {mk_.wait:.2f} s" + (f", LATE by {mk_.late:.2f} s" if mk_.late > 0 else ''), flush=True)
+    if mk_.late > 0.02 and not os.environ.get('ALLOW_LATE'):
+        raise SystemExit(f"the machine into {SONGS[s]['key']} arrives {mk_.late:.2f} s after the music needs it: "
+                         'give it a longer interlude or a shorter path')
     if os.environ.get('MACH_PACE'):              # the interlude each machine needs at a lively 7-9 degrees
         need = []
         for deg in (7, 8, 9):
@@ -876,7 +886,7 @@ for s, song in enumerate(SONGS):
             emit_keys(trim_m, ((tF - 0.02, 0.0), (tF + 0.06, 9.0), (tF + 0.9, 0.0)))
     ink = ink_mat(page_of(song))
     for row in sec_rows[s]:
-        x0s, x1s = X_LEFT + 0.05, row['x1']
+        x0s, x1s = X_LEFT + row['px'] + 0.05, row['x1']
         for ln in range(5):
             z = row['z'] + ln * LS
             cube(((x0s + x1s) / 2, WALL_Y - 0.004, z), (x1s - x0s, 0.004, 0.0045), ink)
@@ -1043,7 +1053,7 @@ for row in ROWS:
     era = SONGS[row['s']]['era']
     if era not in ('baroque', 'romantic'):
         continue
-    p = Vector((X_LEFT - 0.34, 0.50, row['z'] + 0.52))
+    p = Vector((X_LEFT + row['px'] - 0.34, 0.50, row['z'] + 0.52))
     cyl((p.x, WALL_Y, p.z - 0.10), (p.x, p.y, p.z - 0.10), 0.008, M_BRASS8, 10)          # wall arm
     cyl(p + Vector((0, 0, -0.12)), p + Vector((0, 0, -0.10)), 0.035, M_BRASS8, 24)         # drip tray
     ld = bpy.data.lights.new('practical', 'POINT')
@@ -1685,6 +1695,17 @@ def target(t):
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
 X_MID = (X_LEFT + max(r['x1'] for r in ROWS)) / 2
+_RX = sorted(((r['z'] + 2 * LS, (X_LEFT + r['px'] + r['x1']) / 2) for r in ROWS))
+
+
+def reveal_x(z):
+    """Middle of the rows at height z, for the closing rise (pages may step to the right)."""
+    if z <= _RX[0][0]:
+        return _RX[0][1]
+    for (za, xa), (zb, xb) in zip(_RX[:-1], _RX[1:]):
+        if za <= z <= zb:
+            return xa + (xb - xa) * smooth((z - za) / max(1e-6, zb - za))
+    return _RX[-1][1]
 REVEAL_T0 = TF + 1.6
 REVEAL_T1 = T_END - 0.6
 
@@ -1746,9 +1767,10 @@ def cam_at(t):
     off = off.lerp(Vector((0.25, -5.2, 0.15)), kb)
     if t > REVEAL_T0:
         k = smooth((t - REVEAL_T0) / (REVEAL_T1 - REVEAL_T0))
-        tg = Vector((X_MID, YB, Z_LAST + (Z_FIRST - Z_LAST) * k))
+        zr_ = Z_LAST + (Z_FIRST - Z_LAST) * k
+        tg = Vector((reveal_x(zr_), YB, zr_))
     else:
-        tg = tg.lerp(Vector((X_MID, YB, Z_LAST)), kb)
+        tg = tg.lerp(Vector((reveal_x(Z_LAST), YB, Z_LAST)), kb)
     for t_s in SHAKES:                           # the hammer's jolt
         u = t - t_s
         if 0.0 <= u < 0.45:
