@@ -1558,6 +1558,34 @@ REVEAL_T0 = TF + 1.6
 REVEAL_T1 = T_END - 0.6
 
 
+def reveal_time(z):
+    """When the rising camera's centre passes height z during the closing reveal."""
+    goal = (z - Z_LAST) / (Z_FIRST - Z_LAST)
+    lo, hi = 0.0, 1.0
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if smooth(mid) < goal else (lo, mid)
+    return REVEAL_T0 + lo * (REVEAL_T1 - REVEAL_T0)
+
+
+# the payoff: as the camera rises back through the 300 years, every row it passes lights up again, a ripple
+# from its first note to its last with a soft bell on the row's opening pitch, and stays lit, so the whole
+# score glows in the colours of its eras by the time the camera is back at 1680
+for row in ROWS:
+    hs_ = [h for h in row['notes'] if h['mech'] != 'again']
+    if not hs_:
+        continue
+    t_row = reveal_time(row['z'] + 2 * LS)
+    xs_ = [HEAD[h['i']][0].x for h in hs_]
+    for h in hs_:
+        m_ = bpy.data.materials.get(f"head{h['i']}")
+        if m_ is None:
+            continue
+        tr_ = t_row - 0.30 + 0.55 * (HEAD[h['i']][0].x - min(xs_)) / max(1e-6, max(xs_) - min(xs_))
+        emit_keys(m_, ((tr_ - 1 / FPS, 3.0), (tr_, 28.0), (tr_ + 0.6, 9.0)))
+    SIG_HITS.append(dict(t=t_row - 0.30, kind='bell', midi=max(72, min(96, hs_[0]['midi'] + 12)), g=0.45))
+
+
 # the opening view: the whole top of the first page (candle, pendulum, gate, title, the first bars), then a
 # slow push in that arrives on the first note's framing just after it plays
 _ox0, _ox1 = X_LEFT - 0.42, max(CON[0].x + 0.85, TITLE_X + 0.80)
