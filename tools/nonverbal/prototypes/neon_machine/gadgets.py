@@ -131,6 +131,7 @@ class Machine:
         self.kind = '+'.join(kinds)
         self.lift = math.sqrt((R + RAIL_R) ** 2 - RAIL_HALF ** 2)   # marble centre above the rail axes
         self.segs, self.hits, self.rolls, self.parts, self.views = [], [], [], [], []
+        self.closeups = []                      # (t0, t1, zoom, centre): moments the camera moves in on
         self.t_kick, self.wait, self.swing = None, 0.0, 1.0
 
     # -- motion ---------------------------------------------------------------------------------------
@@ -195,9 +196,20 @@ class Machine:
         u = (t - t0) / (t1 - t0)
         return self.swing * math.radians(16) * math.sin(math.pi * min(1.0, max(0.0, u)))
 
+    def zoom(self, t, base):
+        """The camera's framing: base, or closer for a moment that deserves it (the rattle on the rim)."""
+        z = base
+        for a, b, zc, c in self.closeups:
+            k = smooth((t - (a - 0.35)) / 0.35) * (1 - smooth((t - b) / 0.4))
+            z = z + (zc - z) * k
+        return z
+
     def attention(self, t):
         """What the camera follows: the marble, or a mechanism's centre while the marble circles in it."""
         p = self.pos(t)
+        for a, b, _, c in self.closeups:
+            k = smooth((t - (a - 0.35)) / 0.35) * (1 - smooth((t - b) / 0.4))
+            p = p.lerp(Vector((c.x, p.y, c.z)), k)
         for a, b, _, c in self.views:
             if c is not None:
                 k = smooth((t - (a - 0.5)) / 0.5) * (1 - smooth((t - b) / 0.5))
@@ -385,6 +397,7 @@ def mech_jump(m, p, v, t, th):
         return cup + Vector((r * math.cos(ang), r * math.sin(ang) * 0.8, 0.02 * (1 - u)))
     for k in range(7):
         m.hit(t + 0.06 * k, 'rattle', 1.0 - 0.12 * k)
+    m.closeups.append((t, t + T_r, 0.95, cup.copy()))
     t = m.seg(t, t + T_r, rattle)
     out = cup - Vector((0.06, 0, 0.13))           # ...and in, and through
     t = m.hop(cup, t, out, t + 0.2)
@@ -505,6 +518,7 @@ def mech_plinko(m, p, v, t, th):
         j += rng.choice((0, 1))
     entry = contact[0][2] + Vector((0, 0, 0.0))
     t = m.hop(p, t, entry, t + 0.26)
+    m.closeups.append((t, t + 0.135 * rows + 0.1, 1.15, Vector((cx, Y, top - rows * dz / 2))))
     path = []
     for (k, jj, q), nxt in zip(contact, contact[1:] + [None]):
         col = int(round((q.x - cx) / dx * 2)) + rows

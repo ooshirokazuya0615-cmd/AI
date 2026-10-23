@@ -1414,7 +1414,8 @@ def frame_point(tt):
                 wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
                 zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
                 w = 1 - smooth((tt - (h0['t'] + 0.55)) / 0.75)
-                return (m_.attention(tt).lerp(wide, w), MACH_ZOOM + (zw - MACH_ZOOM) * w,
+                zf_ = m_.zoom(tt, MACH_ZOOM)
+                return (m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w,
                         (m_.elev(tt) * (1 - w), m_.yaw(tt)))
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
