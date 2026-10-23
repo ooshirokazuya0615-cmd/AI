@@ -130,6 +130,24 @@ def roll(L):
     return x * np.minimum(1, np.arange(n) / (0.1 * SR)) * np.minimum(1, (n - np.arange(n)) / (0.1 * SR))
 
 
+def boing(L=0.35):
+    """The spring letting go: a falling tone with a quick wobble."""
+    t = tt(L)
+    f = 520 * np.exp(-t * 5) + 160
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9) * (1 + 0.3 * np.sin(2 * np.pi * 22 * t))
+
+
+def whirr(L):
+    """A marble circling a metal funnel: rolling noise that rises in pitch and level as it speeds up."""
+    n = int(SR * L)
+    t = np.arange(n) / SR
+    k = t / L
+    x = np.convolve(rng.standard_normal(n), np.ones(24) / 24, mode='same') * (0.4 + 0.9 * k)
+    f = 180 + 700 * k ** 2
+    x += 0.25 * np.sin(2 * np.pi * np.cumsum(f) / SR) * (0.3 + k)
+    return x * np.minimum(1, t / 0.1) * np.minimum(1, (L - t) / 0.05)
+
+
 def whoosh(L):
     n = int(SR * L)
     x = np.convolve(rng.standard_normal(n), np.ones(30) / 30, mode='same')
@@ -263,6 +281,35 @@ def main(out):
             place(mix, click(0.04, 900, 60), r['t0'], 0.22)                  # into the funnel
             place(mix, whoosh(max(0.2, r['t1'] - r['t0'])), r['t0'], 0.07)  # through the tube
             place(mix, click(0.04, 1300, 70), r['t1'], 0.18)                 # out at the next row
+        # the machines between pieces
+        clv = ['Percussion/Claves1_Hit_v1_rr1_Sum.wav', 'Percussion/Claves1_Hit_v1_rr2_Sum.wav',
+               'Percussion/Claves1_Hit_v2_rr1_Sum.wav']
+        for k, hh in enumerate(E.get('mhits', [])):
+            kind, g_ = hh['kind'], hh['g']
+            if kind == 'glock' and sampler.available():
+                place(mix, sampler.note('glock', hh['midi'], 1.8), hh['t'], 0.30 * g_, (hh['midi'] - 78) / 30)
+            elif kind in ('wood', 'land', 'wall', 'clack'):
+                tap = sampler.one(clv[k % 3], 0.25) if sampler.available() else click(0.02, 2400)
+                place(mix, tap, hh['t'], {'wood': 0.13, 'land': 0.07, 'wall': 0.09, 'clack': 0.16}[kind] * g_)
+                if kind in ('land', 'clack'):
+                    place(mix, click(0.05, 420, 45), hh['t'], 0.10 * g_)
+            elif kind == 'domino':
+                place(mix, click(0.012, 4200, 260), hh['t'], 0.07 * g_)
+            elif kind == 'spring':
+                place(mix, click(0.03, 900, 80), hh['t'], 0.10 * g_)
+            elif kind == 'boing':
+                place(mix, boing(), hh['t'], 0.10 * g_)
+            elif kind == 'clunk':
+                place(mix, click(0.06, 300, 30), hh['t'], 0.18 * g_)
+        for rr in E.get('mrolls', []):
+            L_ = rr['t1'] - rr['t0']
+            if L_ < 0.05:
+                continue
+            if rr['style'] == 'funnel':
+                place(mix, whirr(L_), rr['t0'], 0.05)
+            else:
+                v_ = min(2.5, max(0.2, (rr['v0'] + rr['v1']) / 2))
+                place(mix, roll(L_), rr['t0'], 0.012 + 0.012 * v_)
         for k, tp in enumerate(E.get('taps', [])):                          # the held ball settling on its note
             tap = (sampler.one('Percussion/Claves1_Hit_v1_rr2_Sum.wav', 0.2) if sampler.available()
                    else click(0.015, 3400))

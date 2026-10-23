@@ -19,10 +19,17 @@ ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'cla
 GAPS_IN = [None, 'chute', 'rail', 'launch', 'chute', 'rail', 'launch', 'chute']
 COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'J. S. Bach', 'tm': 'W. A. Mozart', 'ekn': 'W. A. Mozart',
             'b5': 'L. van Beethoven', 'fe': 'L. van Beethoven', 'otj': 'L. van Beethoven', 'mk': 'Edvard Grieg'}
+# the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
+# rests for it (after the last note has rung)
+MACHINE = {'toc': 'stairs', 'tm': 'dominoes', 'ekn': 'loop', 'b5': 'tilt', 'fe': 'spiral', 'otj': 'xylo',
+           'mk': 'loopdom'}
+INTERLUDE = {'toc': 4.6, 'tm': 4.8, 'ekn': 4.4, 'b5': 4.6, 'fe': 5.2, 'otj': 4.8, 'mk': 5.2}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
     s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key])
+    if key in MACHINE:
+        s.update(machine=MACHINE[key], interlude=INTERLUDE[key])
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
 # notation: clef, bar length and pickup (in the song's duration units); None = no bar lines (free rhythm)

@@ -106,7 +106,8 @@ def timeline(songs=None, final_note=None):
       join='same' (the next section continues the same piece): no extra time at all. The gap machine
         (chute, launch...) runs while the last note is held, and the ball lands on the next downbeat.
       join='new' (a different piece): the last note rings for at most 0.8 s, then NEW_SONG_GAP of silence,
-        so about 2 s from the last hit to the next song, as in the reference videos.
+        so about 2 s from the last hit to the next song, as in the reference videos (a song may ask for a
+        longer 'interlude' instead: the score film runs a small machine there).
     The final drum lands about 1.9 s after the last note: the ball rests in the cup while the note rings
     (at most 1 s), then flies 0.9 s.
     """
@@ -120,7 +121,7 @@ def timeline(songs=None, final_note=None):
             if song.get('join', 'new') == 'same':
                 t1 = last['t'] + last['dur']
             else:
-                t1 = last['t'] + min(last['dur'], 0.8) + NEW_SONG_GAP
+                t1 = last['t'] + min(last['dur'], 0.8) + song.get('interlude', NEW_SONG_GAP)
             g = dict(kind=song['gap_in'], t0=last['t'], t1=t1, s=s, join=song.get('join', 'new'),
                      beats=[t1 - song['beat'] * (GAP_BEATS - b) for b in range(GAP_BEATS)])
             # when the machine in the gap does its one audible thing

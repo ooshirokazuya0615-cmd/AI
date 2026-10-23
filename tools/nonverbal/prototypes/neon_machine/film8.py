@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import importlib  # noqa: E402
 import os  # noqa: E402
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs6'))   # which medley to build
+import gadgets as GD  # noqa: E402   the Pythagora-switch machines between pieces
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--res', default='1280x720')
@@ -447,6 +448,7 @@ ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
 CLEF_W = 0.55
 KS_DX = 0.072            # spacing of the key-signature accidentals
+MACH_DROP = 1.0          # extra room between pages for the machine that carries the marble across
 WALL_Y = 0.62
 HEAD_Y = 0.54            # note heads stand just off the page (stems on the page read as attached)
 R_HEAD = (0.052, 0.045, 0.037)
@@ -507,7 +509,7 @@ for s, song in enumerate(SONGS):
     hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
     clef = song['clef']
     if s > 0:
-        row_z -= ROW_H * 1.25           # a new page (era) starts a little lower
+        row_z -= ROW_H * 1.25 + (MACH_DROP if song.get('machine') else 0.0)   # a new page starts lower
     row = dict(s=s, z=row_z, t0=hs[0]['t'], x0=X_LEFT + CLEF_W + (0.35 if s == 0 or True else 0), notes=[], first=True)
     ROWS.append(row)
     sec_rows[s] = [row]
@@ -585,19 +587,18 @@ def poly_at(pts, k):
 for i, ret in RETURNS.items():
     ret['pts'] = tube_path(ret, C[i])
 
-# gaps between songs: the same tube, longer, into the next page
-GAPTUBE = {}
+# gaps between songs: a small Pythagora-switch machine carries the marble to the next page (gadgets.py)
+GAPMACH = {}
 for g in GAPS:
     s = g['s']
     L_ = [h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]
     F_ = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum'][0]
-    pa = CON[L_['i']]
-    rf, rt = HEAD[L_['i']][2], HEAD[F_['i']][2]
-    zt_ = rf['z'] - 0.42
-    pts = [pa, Vector((pa.x + 0.18, HEAD_Y, pa.z - 0.10)), Vector((pa.x + 0.26, HEAD_Y, zt_ + 0.05)), Vector((pa.x + 0.12, HEAD_Y, zt_)),
-           Vector((X_LEFT + 0.15, HEAD_Y, zt_)), Vector((X_LEFT - 0.05, HEAD_Y, (zt_ + rt['z']) / 2)),
-           Vector((X_LEFT + 0.12, HEAD_Y, rt['z'] + 0.62))]
-    GAPTUBE[s] = dict(pts=pts, t0=L_['t'] + 0.12, t1=F_['t'] - 0.18, L=L_, F=F_)
+    mk_ = GD.plan(SONGS[s].get('machine', 'stairs'), SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], F_['t'],
+                  HEAD[L_['i']][2]['z'], HEAD[F_['i']][2]['z'], R, HEAD_Y)
+    mk_.L, mk_.F = L_, F_
+    GAPMACH[s] = mk_
+    print(f"machine {SONGS[s]['key']}: {mk_.kind}, rail angle {math.degrees(mk_.theta):.1f} deg, "
+          f"spring waits {mk_.wait:.2f} s", flush=True)
 
 
 LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
@@ -613,7 +614,7 @@ def kick_time(h0):
     if h0['i'] + 1 >= len(C):
         return None
     h1 = C[h0['i'] + 1]
-    if h1['mech'] == 'bigdrum' or RETURNS.get(h0['i']) or (h0['s'] != h1['s'] and GAPTUBE.get(h1['s'])):
+    if h1['mech'] == 'bigdrum' or RETURNS.get(h0['i']) or h0['s'] != h1['s']:
         return None
     return h1['t'] - T_HOP if is_held(h0, h1) else None
 
@@ -642,7 +643,9 @@ def ball_pos(t):
                 if t <= h1['launch']:
                     return p0
                 return ballistic(p0, h1['launch'], p1, h1['t'], t)
-            tube = RETURNS.get(h0['i']) or (GAPTUBE.get(h1['s']) if h0['s'] != h1['s'] else None)
+            if h0['s'] != h1['s'] and h1['s'] in GAPMACH:
+                return GAPMACH[h1['s']].pos(t)
+            tube = RETURNS.get(h0['i'])
             if tube:
                 pts = tube['pts']
                 if t <= tube['t0']:
@@ -885,9 +888,9 @@ for row in ROWS:
 
 # ---------------------------------------------------------------- 4. carriage-return tubes
 M_GLASS = mat('acrylic8', (0.92, 0.95, 1.0), 0.08, alpha=0.16)
-for key, tube in list(RETURNS.items()) + [(('gap', s), g) for s, g in GAPTUBE.items()]:
+for key, tube in RETURNS.items():
     pts = tube['pts'][1:]
-    era = SONGS[C[key]['s'] if not isinstance(key, tuple) else key[1]]['era']
+    era = SONGS[C[key]['s']]['era']
     neon = NEON[ERAS[era]['neon'][0]]
     cone(pts[0] + Vector((0, 0, 0.035)), R + 0.010, R + 0.032, 0.06, M_BRASS8)     # small brass funnel
     for p, q in zip(pts[1:-1], pts[2:]):
@@ -909,6 +912,33 @@ for key, tube in list(RETURNS.items()) + [(('gap', s), g) for s, g in GAPTUBE.it
         tp = tube['t0'] + lo_ * (tube['t1'] - tube['t0'])
         emit_keys(rm, ((tp - 1 / FPS, 0.6), (tp, 30.0), (tp + 0.3, 1.5)))
 
+# ---------------------------------------------------------------- 4b. the machines between pieces
+def revolve(centre, profile, m, segs=48):
+    """An open surface of revolution about a vertical axis through centre; profile = [(radius, z), ...]."""
+    verts, faces = [], []
+    for r_, z_ in profile:
+        for k in range(segs):
+            a = 2 * math.pi * k / segs
+            verts.append((centre.x + r_ * math.cos(a), centre.y + r_ * math.sin(a), z_))
+    for i in range(len(profile) - 1):
+        for k in range(segs):
+            a0, a1 = i * segs + k, i * segs + (k + 1) % segs
+            faces.append((a0, a1, a1 + segs, a0 + segs))
+    me = bpy.data.meshes.new('revolve')
+    me.from_pydata(verts, [], faces)
+    me.shade_smooth()
+    me.materials.append(m)
+    o = bpy.data.objects.new('revolve', me)
+    bpy.context.collection.objects.link(o)
+    return o
+
+
+from types import SimpleNamespace  # noqa: E402
+HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, mat=mat, emit_keys=emit_keys, fr=fr,
+                       revolve=revolve, glass=M_GLASS, WALL_Y=WALL_Y)
+for m_ in GAPMACH.values():
+    GD.build(m_, HELP)
+
 # ---------------------------------------------------------------- 5. finale, characters
 cyl((DRUM.x, HEAD_Y, DRUM.z - 0.12), (DRUM.x, HEAD_Y, DRUM.z), 0.2, mat('bigshell', (0.05, 0.05, 0.06), 0.25, coat=1.0), 48)
 big_rim = mat('bigrim', NEON['amber'], 0.2, emit=NEON['amber'], emit_s=4.0)
@@ -928,11 +958,10 @@ cone(cupc, 0.03, 0.07, 0.05, mat('cup', (0.6, 0.45, 0.2), 0.3, metal=1.0))
 chars = []
 designs = [((0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears'), ((0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo'),
            ((0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna')]
-for n_, (s, g) in enumerate(sorted(GAPTUBE.items())):
+for n_, (s, m_) in enumerate(sorted(GAPMACH.items())):
     bc, ic, acc = designs[n_ % 3]
-    pts = g['pts']
-    ch = character(X_LEFT - 0.55, pts[-1].z + 0.15, bc, ic, acc, f'watch{n_}')
-    chars.append((ch, g['t1']))
+    ch = character(X_LEFT - 0.55, m_.E_.z + 0.15, bc, ic, acc, f'watch{n_}')
+    chars.append((ch, m_.t_kick))
 yel = character(DRUM.x + 0.55, DRUM.z + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
 pink = character(DRUM.x - 0.55, DRUM.z + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears', 'pink')
 for ch in [c for c, _ in chars] + [yel, pink]:
@@ -993,11 +1022,11 @@ spin, prev = 0.0, ball_pos(0.0)
 for f in range(1, N + 1):
     t = (f - 1) / FPS
     p = ball_pos(t)
-    spin += (p - prev).length / R
+    spin -= (p.x - prev.x) / R                  # it turns the way it travels (rolling on the rails)
     prev = p
     ball.location = p
     ball.keyframe_insert('location', frame=f)
-    ball.rotation_euler = (0, spin, spin * 0.3)
+    ball.rotation_euler = (0, spin, 0)
     ball.keyframe_insert('rotation_euler', frame=f)
 
 # ---------------------------------------------------------------- 7. camera: reads the score like a page
@@ -1048,6 +1077,7 @@ def row_x(r_, tt):
 
 
 V_REF = 0.70     # the fastest the score may slide past (metres per second at the base framing)
+MACH_ZOOM = 1.45 # a wider view while the marble runs through a machine
 
 
 def row_point(r_, tt):
@@ -1064,30 +1094,33 @@ def frame_point(tt):
     eases from the end of one row to the start of the next, pulling back a little on the way, so it is
     settled before the next note."""
     if tt <= C[0]['t']:
-        return row_point(ROWS[0], C[0]['t'])
+        return (*row_point(ROWS[0], C[0]['t']), 0.0)
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= tt <= h1['t']:
+            if h0['s'] != h1['s'] and h1['s'] in GAPMACH:       # a machine: follow the marble through it
+                m_ = GAPMACH[h1['s']]
+                return m_.attention(tt), MACH_ZOOM, m_.elev(tt)
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:
-                return row_point(r0, tt)
+                return (*row_point(r0, tt), 0.0)
             k = smooth((tt - h0['t']) / (h1['t'] - h0['t']))
             pa, za = row_point(r0, h0['t'])
             pb, zb = row_point(r1, h1['t'])
-            return pa.lerp(pb, k), (za + (zb - za) * k) * (1 + 0.25 * math.sin(math.pi * k))
-    return row_point(ROWS[-1], C[-2]['t'])
+            return pa.lerp(pb, k), (za + (zb - za) * k) * (1 + 0.25 * math.sin(math.pi * k)), 0.0
+    return (*row_point(ROWS[-1], C[-2]['t']), 0.0)
 
 
 def target(t):
     """Smoothed look-at point and zoom: the pan is averaged over a wider window (an even glide through
     fast runs), the height and zoom over a narrower one."""
-    px, wx, pz, zf, wz = 0.0, 0.0, 0.0, 0.0, 0.0
+    px, wx, pz, zf, el, wz = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     for j in range(-12, 13):
-        p_, z_ = frame_point(t + j * 0.08)
+        p_, z_, e_ = frame_point(t + j * 0.08)
         w1, w2 = math.exp(-(j / 7.0) ** 2), math.exp(-(j / 5.0) ** 2)
         px, wx = px + p_.x * w1, wx + w1
-        pz, zf, wz = pz + p_.z * w2, zf + z_ * w2, wz + w2
-    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz
+        pz, zf, el, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, wz + w2
+    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz, el / wz
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
@@ -1097,8 +1130,11 @@ REVEAL_T1 = T_END - 0.6
 
 
 def cam_at(t):
-    tg, zf = target(t)
+    tg, zf, el = target(t)
     off = OFF * zf
+    if el:                                       # rise and look down (into the funnel)
+        rho, a0 = math.hypot(off.y, off.z), math.atan2(off.z, -off.y)
+        off = Vector((off.x, -rho * math.cos(a0 + el), rho * math.sin(a0 + el)))
     kh = smooth((t - (FIN['launch'] - 0.3)) / 0.6)
     tg = tg.lerp((CON[C[-2]['i']] + DRUM) / 2 + Vector((0, 0, 0.2)), kh * (1 - smooth((t - (TF + 0.2)) / 0.6)))
     tg = tg.lerp(DRUM + Vector((0, 0, 0.1)), smooth((t - (TF + 0.1)) / 0.6))
@@ -1159,7 +1195,8 @@ import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
     json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
-                   gaps=[dict(t0=g['t0'], t1=g['t1']) for g in GAPTUBE.values()], taps=TAPS), open(ev_path, 'w'))
+                   gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits],
+                   mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
 print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}" for i, r in RETURNS.items()), flush=True)
 print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
