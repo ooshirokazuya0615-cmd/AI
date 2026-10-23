@@ -435,6 +435,9 @@ PAGE = {
     'classical': dict(paper=(0.62, 0.70, 0.70), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),   # duck-egg salon
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
+    # pieces with a page of their own, so two pieces of one era never look alike
+    'ekn': dict(paper=(0.12, 0.17, 0.26), ink=(0.88, 0.86, 0.78), ink_metal=0.6, rough=0.7),    # night blue
+    'otj': dict(paper=(0.88, 0.76, 0.50), ink=(0.10, 0.07, 0.04), ink_metal=0.0, rough=0.85),   # sunlit gold
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
 K_SP, GAP_MIN = 0.40, 0.14     # engraved spacing: the gap after a note grows with the square root of its value
@@ -777,6 +780,11 @@ def ball_pos(t):
 
 
 # ---------------------------------------------------------------- 2. the page: paper, staves, clefs, bars
+def page_of(song):
+    """The page style of a piece: its own if it has one, else its era's."""
+    return song['key'] if song['key'] in PAGE else song['era']
+
+
 def ink_mat(era):
     pg = PAGE[era]
     return bpy.data.materials.get('ink_' + era) or mat('ink_' + era, pg['ink'], 0.35, metal=pg['ink_metal'])
@@ -846,7 +854,7 @@ for s, song in enumerate(SONGS):
     z_bot = page_bounds[s][1] if s < len(SONGS) - 1 else page_bounds[s][1] - 4
     bpy.ops.mesh.primitive_plane_add(size=1, location=((W_X0 + W_X1) / 2, WALL_Y, (z_top + z_bot) / 2),
                                      rotation=(math.radians(90), 0, 0))
-    wp = add(bpy.context.object, paper_mat(era))
+    wp = add(bpy.context.object, paper_mat(page_of(song)))
     wp.scale = (W_X1 - W_X0, z_top - z_bot + 0.002, 1)
     if s > 0:
         nc = NEON[ERAS[era]['neon'][0]]
@@ -855,7 +863,7 @@ for s, song in enumerate(SONGS):
         if s in GAPMACH:                        # the new page's border flares as the marble arrives
             tF = GAPMACH[s].F['t']
             emit_keys(trim_m, ((tF - 0.02, 0.0), (tF + 0.06, 9.0), (tF + 0.9, 0.0)))
-    ink = ink_mat(era)
+    ink = ink_mat(page_of(song))
     for row in sec_rows[s]:
         x0s, x1s = X_LEFT + 0.05, row['x1']
         for ln in range(5):
@@ -904,7 +912,7 @@ for h in C:
         continue
     song = SONGS[h['s']]
     era = song['era']
-    ink = ink_mat(era)
+    ink = ink_mat(page_of(song))
     head, st, row = HEAD[h['i']]
     neon = NEON[ERAS[era]['neon'][h['midi'] % len(ERAS[era]['neon'])]]
     if h['mech'] == 'again':
@@ -915,7 +923,7 @@ for h in C:
             emit_keys(m, ((h['t'] - 1 / FPS, 1.5), (h['t'], 22.0), (h['t'] + 0.12, 6.0), (h['t'] + 0.4, 1.5)))
         burst(CON[h['i']] + Vector((0, -0.04, -R)), h['t'], neon, n=4, speed=0.6, life=0.25, size=0.006)
         continue
-    pg = PAGE[era]
+    pg = PAGE[page_of(song)]
     hm = mat(f'head{h["i"]}', pg['ink'], 0.12, metal=pg['ink_metal'] * 0.6, emit=neon, emit_s=0.0, coat=1.0)
     o = sphere(head, 1.0, hm, scale=R_HEAD, segs=32)
     o.rotation_euler = (0, math.radians(-20), 0)        # the slant of an engraved note head
@@ -1710,7 +1718,7 @@ LOOK = {   # key (strength, colour, direction to the light), fill (strength, col
     'canon': ((0.75, (1.0, 0.74, 0.46), (0.6, -1.0, 0.9)), (0.10, (1.0, 0.8, 0.6)), ((0.30, 0.20, 0.12), 0.10)),  # candlelight
     'toc': ((1.35, (1.0, 0.93, 0.82), (-0.5, -0.6, 1.6)), (0.06, (0.6, 0.7, 1.0)), ((0.10, 0.10, 0.16), 0.08)),   # organ loft
     'tm': ((1.9, (1.0, 0.88, 0.82), (0.5, -1.0, 1.0)), (0.45, (1.0, 0.82, 0.78)), ((0.55, 0.45, 0.45), 0.25)),    # salon
-    'ekn': ((0.65, (0.62, 0.72, 1.0), (-0.4, -1.0, 1.2)), (0.16, (1.0, 0.72, 0.42)), ((0.05, 0.07, 0.16), 0.14)),  # night
+    'ekn': ((0.95, (0.62, 0.72, 1.0), (-0.4, -1.0, 1.2)), (0.18, (1.0, 0.72, 0.42)), ((0.05, 0.07, 0.16), 0.16)),  # night
     'b5': ((0.85, (0.72, 0.80, 1.0), (0.3, -1.0, 1.5)), (0.08, (0.5, 0.6, 1.0)), ((0.04, 0.05, 0.10), 0.10)),     # storm
     'fe': ((0.55, (0.95, 0.80, 0.95), (0.6, -1.0, 0.8)), (0.12, (0.7, 0.6, 1.0)), ((0.06, 0.05, 0.10), 0.12)),    # evening
     'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
