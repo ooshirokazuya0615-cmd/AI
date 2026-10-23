@@ -274,7 +274,17 @@ def mech_dominoes(m, p, v, t, th):
     t, v = r
     n_dom = int((Ld - s_d0 - 0.25) / DOM_GAP)
     m.hit(t, 'domino', 1.0)
-    doms = [(s_d0 + 0.02 + k * DOM_GAP, t + k * DOM_DT) for k in range(n_dom)]
+    # the chain runs ahead at its own pace, but each domino is always down before the marble gets to it
+    # (t_at ignores drag, so it errs early: safe)
+    v0_ = min(v, 0.12)
+    doms, prev_ = [], t - 0.02
+    for k in range(n_dom):
+        s_k = s_d0 + 0.02 + k * DOM_GAP
+        t_m = m.t_at(tr, t, v0_, max(0.0, s_k - 0.07 - s_d0))
+        t_k = t + k * DOM_DT if t_m is None else min(t + k * DOM_DT, t_m - 0.12)
+        t_k = max(t_k, prev_ + 0.02)
+        doms.append((s_k, t_k))
+        prev_ = t_k
     for s_k, t_k in doms[1:]:
         m.hit(t_k, 'domino', 0.55)
     s_end = doms[-1][0] + 0.06
