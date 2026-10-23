@@ -614,8 +614,22 @@ for g in GAPS:
         print(f"  pace {SONGS[s]['key']}: interlude at 7/8/9 deg = {need}", flush=True)
 
 
+# the opening: the marble waits behind a small brass gate at the top of a long ledge while a pendulum on the
+# page counts in at the first piece's tempo (soft ticks over room tone, so nothing starts out of silence). On
+# the third tick before the first note the gate swings open and the marble rolls down from rest, gathering
+# speed, and drops onto the first note.
+BEAT0 = SONGS[0]['beat']
+T_HOP0 = 0.18
+TICKS = [C[0]['t'] - k * BEAT0 for k in range(8, 0, -1) if C[0]['t'] - k * BEAT0 > 0.1]
+T_GATE = C[0]['t'] - 3 * BEAT0
+LEDGE_LEN = 0.48
+LEDGE_ACC = 2 * LEDGE_LEN / (C[0]['t'] - T_HOP0 - T_GATE) ** 2      # rolling from rest: reaches the end on time
+LEDGE_TH = math.asin(LEDGE_ACC / (5 / 7 * 9.81))
+LEDGE_V = LEDGE_ACC * (C[0]['t'] - T_HOP0 - T_GATE)
 LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
-LEDGE_START = LEDGE_END + Vector((-0.32, 0, 0.025))
+LEDGE_START = LEDGE_END + Vector((-LEDGE_LEN * math.cos(LEDGE_TH), 0, LEDGE_LEN * math.sin(LEDGE_TH)))
+print(f'opening: ticks {[round(t_, 2) for t_ in TICKS]}, gate {T_GATE:.2f} s, ledge {math.degrees(LEDGE_TH):.1f} deg, '
+      f'leaves at {LEDGE_V:.2f} m/s', flush=True)
 
 
 def ease(k):
@@ -714,11 +728,12 @@ def rescue_view(t):
 
 def ball_pos(t):
     if t <= C[0]['t']:
-        # first frame: already rolling in along the opening ledge, it drops onto the first note
-        start = LEDGE_END
-        if t <= C[0]['t'] - 0.18:
-            return LEDGE_START.lerp(start, max(0.0, t) / (C[0]['t'] - 0.18))
-        return ballistic(start, C[0]['t'] - 0.18, CON[0], C[0]['t'], t)
+        # the opening: it waits behind the gate, rolls down the ledge from rest, and drops onto the first note
+        if t <= T_GATE:
+            return LEDGE_START.copy()
+        if t <= C[0]['t'] - T_HOP0:
+            return LEDGE_START.lerp(LEDGE_END, 0.5 * LEDGE_ACC * (t - T_GATE) ** 2 / LEDGE_LEN)
+        return ballistic(LEDGE_END, C[0]['t'] - T_HOP0, CON[0], C[0]['t'], t)
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= t <= h1['t']:
             p0, p1 = CON[h0['i']], CON[h1['i']]
@@ -786,10 +801,10 @@ def paper_mat(era):
     return m
 
 
-def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER'):
+def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER', font=None):
     cu = bpy.data.curves.new('txt', 'FONT')
     cu.body = txt
-    cu.font = bpy.data.fonts.load(FREESERIF, check_existing=True)
+    cu.font = bpy.data.fonts.load(font or FREESERIF, check_existing=True)
     cu.size = size
     cu.align_x = align
     cu.align_y = 'CENTER'
@@ -937,10 +952,42 @@ for h in C:
     ld.cutoff_distance = 0.9
     key_vis(lo, h['t'] - 2 / FPS, h['t'] + 0.4)
 
-# the opening ledge
-cyl(LEDGE_START - Vector((0.05, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0), 12)
-for p_ in (LEDGE_START, LEDGE_END):
-    cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, YB, p_.z - R - 0.006), 0.006, mat('ledgepin', (0.85, 0.62, 0.28), 0.25, metal=1.0), 8)
+# the opening: the ledge, the gate that holds the marble, the pendulum that counts in, the title on the page
+M_LEDGE = mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0)
+cyl(LEDGE_START - Vector((0.07, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, M_LEDGE, 12)
+for p_ in (LEDGE_START - Vector((0.05, 0, 0)), LEDGE_END):
+    cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, YB, p_.z - R - 0.006), 0.006, M_LEDGE, 8)
+cyl(LEDGE_START - Vector((R + 0.012, 0, R + 0.006)), LEDGE_START - Vector((R + 0.012, 0, -0.02)), 0.006, M_LEDGE, 10)  # back stop
+GATE_H = 2 * R + 0.016
+gate = empty(LEDGE_START + Vector((R + 0.008, 0, R + 0.012)), 'gate_hinge')
+cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, YB - 0.032, gate.location.z), 0.0045, M_LEDGE, 10)
+gate_plate = cube((0, 0, 0), (0.006, 0.05, GATE_H), M_LEDGE, bevel=0.0015)
+gate_plate.parent = gate
+gate_plate.location = (0, 0, -GATE_H / 2)
+for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE + 0.17, -1.30), (T_GATE + 0.25, -1.38)):
+    gate.rotation_euler = (0, a_, 0)                 # swings up and away downhill, with a little bounce
+    gate.keyframe_insert('rotation_euler', frame=fr(t_))
+PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
+PEND_A = 0.22
+pend = empty(Vector((LEDGE_START.x - 0.30, YB + 0.12, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
+cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
+for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0028, M_LEDGE, 8),
+           sphere((0, 0, -PEND_L), 0.038, M_LEDGE, scale=(1, 0.32, 1), segs=32)):
+    o_.parent = pend
+k_ = -int(C[0]['t'] / BEAT0) - 1                    # from before the first frame, so it is already swinging
+while C[0]['t'] + k_ * BEAT0 <= T_END + BEAT0:      # at the far end of each swing, the tick
+    pend.rotation_euler = (0, PEND_A * (1 if k_ % 2 else -1), 0)
+    pend.keyframe_insert('rotation_euler', frame=fr(C[0]['t'] + k_ * BEAT0))
+    k_ += 1
+for fc_ in pend.animation_data.action.fcurves:
+    for kp_ in fc_.keyframe_points:
+        kp_.interpolation = 'BEZIER'
+        kp_.handle_left_type = kp_.handle_right_type = 'AUTO_CLAMPED'
+TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.50
+text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.15, ink_mat(SONGS[0]['era']),
+         font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
+text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.13)), 0.075, ink_mat(SONGS[0]['era']),
+         font='/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf')
 
 # ---------------------------------------------------------------- 3b. practical lights of the era
 M_BRASS8 = mat('brass8', (0.85, 0.62, 0.28), 0.25, metal=1.0)
@@ -1501,8 +1548,21 @@ REVEAL_T0 = TF + 1.6
 REVEAL_T1 = T_END - 0.6
 
 
+# the opening view: the whole top of the first page (candle, pendulum, gate, title, the first bars), then a
+# slow push in that arrives on the first note's framing just after it plays
+_ox0, _ox1 = X_LEFT - 0.42, max(CON[0].x + 0.85, TITLE_X + 0.80)
+_oz0, _oz1 = ROWS[0]['z'] - 0.10, TITLE_Z + 0.14
+OPEN_C = Vector(((_ox0 + _ox1) / 2, HEAD_Y, (_oz0 + _oz1) / 2))
+OPEN_Z = max((_ox1 - _ox0) / (VIEW_H * 16 / 9), (_oz1 - _oz0) / VIEW_H)
+OPEN_T1 = C[0]['t'] + 0.35
+OPEN_YAW = 0.12
+
+
 def cam_at(t):
     tg, zf, (el, yw) = target(t)
+    if t < OPEN_T1:
+        k = smooth(t / OPEN_T1)
+        tg, zf, yw = OPEN_C.lerp(tg, k), OPEN_Z + (zf - OPEN_Z) * k, OPEN_YAW * (1 - k) + yw * k
     off = OFF * zf
     if el:                                       # rise and look down (into the funnel)
         rho, a0 = math.hypot(off.y, off.z), math.atan2(off.z, -off.y)
@@ -1573,9 +1633,11 @@ nt.links.new(gl.outputs['Image'], nt.nodes['Composite'].inputs['Image'])
 import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
-    json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
+    json.dump(dict(intro=dict(first=C[0]['t'], ticks=TICKS, gate=T_GATE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
+                   returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits] + RESCUE_HITS + SIG_HITS,
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
+print('opening view zoom', round(OPEN_Z, 2), 'centre', tuple(round(v, 2) for v in OPEN_C), flush=True)
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
 print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}" for i, r in RETURNS.items()), flush=True)
 print('rescue', (RESCUE['h0']['t'], RESCUE['h1']['t'], tuple(round(v, 2) for v in RESCUE['stand'])) if RESCUE else None, flush=True)

@@ -4,7 +4,7 @@
               famous pieces of the same era that are not in the film, so nothing later is given away);
               then the right one lights up with its composer and year
   bottom:     a timeline 1650-1900; a glowing marker travels to the year of the piece now playing
-  start/end:  the series title, and a closing question for the comments
+  end:        a closing question for the comments (the title is engraved on the first page, in the scene)
 
     SONGS_MODULE=songs7 python overlay.py frames_in/ frames_out/ [--fps 30]
 """
@@ -181,12 +181,7 @@ def main():
                         lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 30, (235, 235, 240), 1 - 0.7 * smooth(v / 0.3)))
                 lines.append((f"{song['composer_name']}  ·  {song['year']}", SANS, 30, col, smooth((v - 0.15) / 0.3)))
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, 0.86, left=True, right_edge=int(W * 0.97))   # top right, clear of the marble
-        # ---- series title and closing question
-        if t < 3.4:
-            a_ = smooth((t - 0.3) / 0.4) * (1 - smooth((t - 3.0) / 0.4))
-            tf = font(SERIF_B, int(H * 0.05))
-            d.text((W * 0.05, H * 0.80), '300 Years of Music', font=tf, fill=(255, 255, 255, int(230 * a_)))
-            d.text((W * 0.05, H * 0.86), 'one marble', font=font(SANS, int(H * 0.032)), fill=(255, 255, 255, int(200 * a_)))
+        # ---- closing question
         if t > T_END - 3.2:
             a_ = smooth((t - (T_END - 3.2)) / 0.5)
             card(d, W, H, W // 2, int(H * 0.40), [('How many did you guess?', SERIF_B, 64, (255, 255, 255)),

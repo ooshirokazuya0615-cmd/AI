@@ -77,6 +77,9 @@ ERA = {
     'beethoven': dict(wall=(0.34, 0.36, 0.42), fix=(0.55, 0.56, 0.6), fix_metal=0.9, neon=['cyan', 'magenta', 'violet', 'lime']),
     'romantic': dict(wall=(0.30, 0.06, 0.08), fix=(0.62, 0.48, 0.22), fix_metal=1.0, neon=['red', 'amber', 'magenta', 'white']),
 }
+# the opening before the first note: room tone, a pendulum on the page counting in at the first piece's tempo,
+# then a gate opens and the marble rolls down onto the first note (nothing starts out of silence)
+base.START = 3.0
 START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 

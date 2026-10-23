@@ -345,6 +345,17 @@ def main(out):
             else:
                 v_ = min(2.5, max(0.2, (rr['v0'] + rr['v1']) / 2))
                 place(mix, roll(L_), rr['t0'], 0.012 + 0.012 * v_)
+        it = E.get('intro')
+        if it:
+            # the opening: the pendulum's tick-tock counting in (growing a little), the gate's latch, the roll
+            for k, t_ in enumerate(it['ticks']):
+                g_ = 0.55 + 0.45 * min(1.0, k / 3)
+                place(mix, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.11 * g_)
+                place(mix, click(0.030, 820, 85), t_, 0.05 * g_)
+            place(mix, click(0.05, 1500, 70), it['gate'], 0.16)
+            place(mix, click(0.02, 4200, 150), it['gate'] + 0.004, 0.06)
+            r0_, r1_, v_ = it['roll']
+            place(mix, roll(r1_ - r0_) * np.linspace(0.3, 1.0, int(SR * (r1_ - r0_))), r0_, 0.012 + 0.012 * v_)
         for k, tp in enumerate(E.get('taps', [])):                          # the held ball settling on its note
             tap = (sampler.one('Percussion/Claves1_Hit_v1_rr2_Sum.wav', 0.2) if sampler.available()
                    else click(0.015, 3400))
@@ -353,6 +364,11 @@ def main(out):
     place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)
     place(mix, whoosh(fin['t'] - fin['launch']), fin['launch'], 0.05)
+    it = E.get('intro') if ev and os.path.exists(ev) else None
+    if it:          # the music starts softly and reaches its full level over the first phrase
+        tt_ = np.arange(len(mix)) / SR
+        k_ = np.clip((tt_ - it['first']) / 5.0, 0, 1)
+        mix *= (0.5 + 0.5 * k_ * k_ * (3 - 2 * k_))[:, None]
     ir_len = int(SR * 1.8)
     outs = []
     for ch in range(2):
@@ -372,6 +388,16 @@ def main(out):
     gated = ms[(lufs > -70) & (lufs > rel)]
     integ = -0.691 + 10 * np.log10(np.mean(gated))
     st *= 10 ** ((-14.0 - integ) / 20)
+    # room tone under everything (a warm, quiet hall), so no moment is digital silence; it fades in from the
+    # first frame and out with the music
+    fq = np.fft.rfftfreq(len(st), 1 / SR)
+    shape = (fq > 45) / np.sqrt(np.maximum(fq, 45.0)) * np.exp(-fq / 2500)      # pinkish, low and soft
+    bed = np.stack([np.fft.irfft(np.fft.rfft(rng.standard_normal(len(st))) * shape, len(st)) for _ in range(2)], 1)
+    bed *= 10 ** (-52 / 20) / (np.sqrt(np.mean(bed ** 2)) + 1e-12)
+    fi_, fo_ = int(SR * 0.8), int(SR * 0.8)
+    bed[:fi_] *= np.linspace(0, 1, fi_)[:, None]
+    bed[-fo_:] *= np.linspace(1, 0, fo_)[:, None]
+    st += bed
     ceil = 10 ** (-1.0 / 20)
     st = np.where(np.abs(st) > ceil * 0.8, np.sign(st) * (ceil * 0.8 + (ceil * 0.2) * np.tanh((np.abs(st) - ceil * 0.8) / (ceil * 0.2))), st)
     print('integrated loudness before gain (approx LUFS):', round(float(integ), 1))
