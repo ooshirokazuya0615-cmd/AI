@@ -210,7 +210,8 @@ def main():
                         lines.append((f'✓   {names[k]}', CHOICE_B, 44, col, 1.0))
                     else:
                         lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244), 1 - 0.7 * smooth(v / 0.3)))
-                lines.append((f"{song['composer_name']}  ·  {song['year']}", SANS_B, 40, col, smooth((v - 0.15) / 0.3)))
+                lines.append((f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
+                              smooth((v - 0.15) / 0.3)))
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, 1.0, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
         # ---- closing question

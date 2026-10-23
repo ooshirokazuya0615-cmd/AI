@@ -432,7 +432,7 @@ rng = random.Random(31)
 # paper and ink for each era (the wall is the page)
 PAGE = {
     'baroque': dict(paper=(0.80, 0.70, 0.52), ink=(0.16, 0.10, 0.06), ink_metal=0.0, rough=0.9),
-    'classical': dict(paper=(0.62, 0.70, 0.70), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),   # duck-egg salon
+    'classical': dict(paper=(0.50, 0.59, 0.60), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),   # duck-egg salon
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
     # pieces with a page of their own, so two pieces of one era never look alike
@@ -836,7 +836,7 @@ def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER', fo
 
 def accidental(sym, x, z, ink):
     """An accidental whose optical centre sits on the note's line (the flat's bowl, the sharp's box)."""
-    lift = {'♯': 0.021, '♮': 0.022, '♭': 0.035}[sym]      # engraved size: a sharp is about 2.6 spaces tall
+    lift = {'♯': 0.021, '♮': 0.022, '♭': 0.008}[sym]      # engraved size: a sharp is about 2.6 spaces tall
     return text_obj(sym, Vector((x, WALL_Y - 0.008, z + lift)), 0.25, ink)
 
 
@@ -872,8 +872,8 @@ for s, song in enumerate(SONGS):
         # system bracket and clef
         cube((x0s, WALL_Y - 0.004, row['z'] + 2 * LS), (0.006, 0.004, 4 * LS), ink)
         glyph = '\U0001D11E' if song['clef'] == 'treble' else '\U0001D122'
-        clef_z = row['z'] + (1.25 * LS if song['clef'] == 'treble' else 2.6 * LS)
-        text_obj(glyph, Vector((x0s + 0.12, WALL_Y - 0.008, clef_z)), 0.42 if song['clef'] == 'treble' else 0.24, ink)
+        clef_z = row['z'] + (1.31 * LS if song['clef'] == 'treble' else 2.6 * LS)
+        text_obj(glyph, Vector((x0s + 0.12, WALL_Y - 0.008, clef_z)), 0.52 if song['clef'] == 'treble' else 0.24, ink)
         # key signature
         ks = song['keysig']
         sharp_steps, flat_steps = [8, 5, 9, 6, 3, 7, 4], [4, 7, 3, 6, 2, 5, 1]
@@ -899,6 +899,9 @@ for s, song in enumerate(SONGS):
                     xbar = xb - min(0.09, (xb - xa) * 0.45)
                     rz = HEAD[h['i']][2]['z']
                     cube((xbar, WALL_Y - 0.004, rz + 2 * LS), (0.006, 0.004, 4 * LS), ink)
+                else:                                   # the bar ends with the line: its bar line closes the line
+                    rw = HEAD[h['i']][2]
+                    cube((rw['x1'] - 0.03, WALL_Y - 0.004, rw['z'] + 2 * LS), (0.006, 0.004, 4 * LS), ink)
             acc = acc2
     # double bar at the end of the piece
     lr = sec_rows[s][-1]
@@ -931,7 +934,8 @@ for h in C:
     up = st < 4
     sx = head.x + (0.045 if up else -0.045)
     z0s = row['z'] + st * LS / 2
-    stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * 3.5 * LS / 2), (0.006, 0.004, 3.5 * LS), ink)
+    stem_l = max(3.5 * LS, abs(st - 4) * LS / 2)          # two or more ledger lines: the stem reaches the middle line
+    stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * stem_l / 2), (0.006, 0.004, stem_l), ink)
     wobble(stem_o, h['t'], axis=1, amp=2.2)
     cyl((head.x, WALL_Y, head.z), (head.x, head.y + 0.02, head.z), 0.006, ink, 8)          # the pin holding the head
     # ledger lines
@@ -942,7 +946,8 @@ for h in C:
     if h['acc']:
         accidental(h['acc'], head.x - 0.11, z0s, ink)
     if h['j'] in song.get('fermata', ()):
-        text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, max(row['z'] + 4 * LS + 0.08, head.z + 0.15))), 0.42, ink)
+        fz = max(row['z'] + 4 * LS + 0.08, head.z + 0.15, z0s + stem_l + 0.08 if up else -1e9)   # clear of an up-stem
+        text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, fz)), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
     emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.12, 6.0), (h['t'] + 0.45, 1.5)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
@@ -972,14 +977,15 @@ for h in C:
 # the opening: the ledge, the gate that holds the marble, the pendulum that counts in, the title on the page
 M_LEDGE = mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0)
 cyl(LEDGE_START - Vector((0.07, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, M_LEDGE, 12)
+BALL_Y = LEDGE_START.y
 for p_ in (LEDGE_START - Vector((0.05, 0, 0)), LEDGE_END):
-    cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, YB, p_.z - R - 0.006), 0.006, M_LEDGE, 8)
+    cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, BALL_Y - 0.012, p_.z - R - 0.006), 0.006, M_LEDGE, 8)
 cyl(LEDGE_START - Vector((R + 0.012, 0, R + 0.006)), LEDGE_START - Vector((R + 0.012, 0, -0.02)), 0.006, M_LEDGE, 10)  # back stop
-GATE_H = 2 * R + 0.016 + 0.006
+GATE_H = 2 * R + 0.012          # clears the rail under it
 gate = empty(LEDGE_START + Vector((R + 0.008, 0, R + 0.018)), 'gate_hinge')
-cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, YB - 0.036, gate.location.z), 0.008, M_LEDGE, 12)
-cyl((gate.location.x, YB - 0.036, gate.location.z), (gate.location.x, YB + 0.036, gate.location.z), 0.008, M_LEDGE, 16)  # knuckle
-cyl((gate.location.x, YB + 0.075, LEDGE_START.z - R - 0.006), (gate.location.x, YB + 0.075, gate.location.z + 0.01),
+cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, BALL_Y - 0.036, gate.location.z), 0.008, M_LEDGE, 12)
+cyl((gate.location.x, BALL_Y - 0.036, gate.location.z), (gate.location.x, BALL_Y + 0.036, gate.location.z), 0.008, M_LEDGE, 16)
+cyl((gate.location.x, BALL_Y + 0.066, LEDGE_START.z - R - 0.006), (gate.location.x, BALL_Y + 0.066, gate.location.z + 0.01),
     0.006, M_LEDGE, 10)                                              # the post, behind the marble's path
 gate_plate = cube((0, 0, 0), (0.014, 0.06, GATE_H), M_LEDGE, bevel=0.002)
 gate_plate.parent = gate
@@ -989,7 +995,7 @@ for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE
     gate.keyframe_insert('rotation_euler', frame=fr(t_))
 PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
 PEND_A = 0.22
-pend = empty(Vector((LEDGE_START.x - 0.19, YB + 0.12, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
+pend = empty(Vector((LEDGE_START.x - 0.19, WALL_Y - 0.035, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, WALL_Y - 0.008, pend.location.z), 0.045, M_LEDGE, 32)  # rosette
 for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0035, M_LEDGE, 8),
@@ -1488,9 +1494,6 @@ for f in range(1, N + 1, 2):
     follow.rotation_euler = (-FOLLOW_OFF).to_track_quat('-Z', 'Y').to_euler()
     follow.keyframe_insert('location', frame=f)
     follow.keyframe_insert('rotation_euler', frame=f)
-for t_, e_ in ((0.0, 110.0), (TF + 1.0, 110.0), (TF + 2.4, 0.0)):    # gone for the wide rise at the end
-    fsd.energy = e_
-    fsd.keyframe_insert('energy', frame=fr(t_))
 
 # ---------------------------------------------------------------- 7. camera: reads the score like a page
 bpy.ops.object.camera_add(location=(0, -4, 0))
@@ -1735,7 +1738,13 @@ fill.rotation_euler = Vector((-0.8, 1.0, 0.1)).to_track_quat('-Z', 'Y').to_euler
 bg_ = world.node_tree.nodes['Background']
 
 
-def set_look(lk, t):
+# the follow-spot's strength in each room (strong in the dark ones, a touch in the bright ones)
+FOLLOW_E = {'canon': 55.0, 'toc': 75.0, 'tm': 45.0, 'ekn': 95.0, 'b5': 95.0, 'fe': 95.0, 'otj': 35.0, 'mk': 70.0}
+
+
+def set_look(lk, t, key=None):
+    fsd.energy = FOLLOW_E.get(key, 0.0)
+    fsd.keyframe_insert('energy', frame=fr(t))
     (ke, kc, kd), (fe_, fc), (wc, ws) = lk
     sun.data.energy, sun.data.color = ke, kc
     sun.rotation_euler = (-Vector(kd)).to_track_quat('-Z', 'Y').to_euler()
@@ -1752,13 +1761,13 @@ for k, song in enumerate(SONGS):
     hs_ = [h for h in C if h['s'] == k and h['mech'] != 'bigdrum']
     lk = LOOK.get(song['key'], GALLERY)
     if k == 0:
-        set_look(lk, 0.0)
+        set_look(lk, 0.0, song['key'])
     else:                                         # the ride into the piece is the change of room
         prev = [h for h in C if h['s'] == k - 1 and h['mech'] != 'bigdrum'][-1]
-        set_look(LOOK.get(SONGS[k - 1]['key'], GALLERY), prev['t'] + 0.3)
-        set_look(lk, hs_[0]['t'] - 0.2)
-set_look(LOOK.get(SONGS[-1]['key'], GALLERY), TF + 0.8)
-set_look(GALLERY, TF + 2.6)
+        set_look(LOOK.get(SONGS[k - 1]['key'], GALLERY), prev['t'] + 0.3, SONGS[k - 1]['key'])
+        set_look(lk, hs_[0]['t'] - 0.2, song['key'])
+set_look(LOOK.get(SONGS[-1]['key'], GALLERY), TF + 0.8, SONGS[-1]['key'])
+set_look(GALLERY, TF + 2.6)                       # no follow-spot for the wide rise at the end
 sc.view_settings.look = 'AgX - Medium High Contrast'
 sc.view_settings.exposure = -0.3
 sc.cycles.use_adaptive_sampling = True

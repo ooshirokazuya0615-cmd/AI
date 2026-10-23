@@ -20,8 +20,12 @@ mk['gp'] = {2 * len(phrase) - 1: 2.2}
 ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
          ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1876, 'romantic')]
 GAPS_IN = [None, 'chute', 'rail', 'launch', 'chute', 'rail', 'launch', 'chute']
-COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'J. S. Bach', 'tm': 'W. A. Mozart', 'ekn': 'W. A. Mozart',
-            'b5': 'L. van Beethoven', 'fe': 'L. van Beethoven', 'otj': 'L. van Beethoven', 'mk': 'Edvard Grieg'}
+COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'Johann Sebastian Bach', 'tm': 'Wolfgang Amadeus Mozart',
+            'ekn': 'Wolfgang Amadeus Mozart', 'b5': 'Ludwig van Beethoven', 'fe': 'Ludwig van Beethoven',
+            'otj': 'Ludwig van Beethoven', 'mk': 'Edvard Grieg'}
+# the year as shown on the answer card, where the date is not certain (Canon is undated, c. 1680-1706;
+# BWV 565's date and even its authorship are debated)
+YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 # the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
 # rests for it (after the last note has rung)
 MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'b5': ['plinko', 'tilt'],
@@ -31,11 +35,12 @@ INTERLUDE = {'toc': 4.0, 'tm': 7.1, 'ekn': 5.1, 'b5': 8.3, 'fe': 7.3, 'otj': 6.4
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
-    s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key])
+    s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key], year_label=YEAR_LABEL.get(key, str(year)))
     if key in MACHINE:
         s.update(machine=MACHINE[key], interlude=INTERLUDE[key])
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
+SONGS[1]['title'] = 'Toccata and Fugue in D minor'      # "Toccata in D minor" alone is also BWV 913
 # notation: clef, bar length and pickup (in the song's duration units); None = no bar lines (free rhythm)
 NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
             'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
@@ -49,7 +54,7 @@ TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4
 #   otj: the bass part (moved to C);
 #   unison pieces (the orchestra/organ plays the line in octaves): the melody an octave lower
 ACCOMP = {
-    'canon': dict(bass=[('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)] * 2 + [('D2', 8)]),
+    'canon': dict(bass=[('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)] * 2 + [('D2', 16)]),
     'fe': dict(arpeggio=True),
     'otj': dict(bass=[('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
@@ -83,8 +88,15 @@ base.START = 3.0
 START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 
+_base_assign = base.assign
+
+
 def assign(song):
-    return base.assign(song)
+    # every sounded note gets a head of its own, as engraved: no second bounce on the same head ('again')
+    return ['pad' if m == 'again' else m for m in _base_assign(song)]
+
+
+base.assign = assign                  # base.timeline looks it up in its own module
 
 
 def timeline():

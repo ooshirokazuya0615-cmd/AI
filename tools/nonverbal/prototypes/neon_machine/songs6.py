@@ -46,7 +46,7 @@ SONGS = [
          palette=dict(fast='pad', normal='pad', long='cymbal'), drone=('C3', 'G3'), gap_in='launch'),
     dict(key='canon', title='Canon in D', composer='Pachelbel (d. 1706)', unit=0.14, beat=0.56, centre=71,
          notes=[('F#5', 4), ('E5', 4), ('D5', 4), ('C#5', 4), ('B4', 4), ('A4', 4), ('B4', 4), ('C#5', 4),
-                ('D5', 4), ('C#5', 4), ('B4', 4), ('A4', 4), ('G4', 4), ('F#4', 4), ('G4', 4), ('E4', 4), ('D5', 8)],
+                ('D5', 4), ('C#5', 4), ('B4', 4), ('A4', 4), ('G4', 4), ('F#4', 4), ('G4', 4), ('E4', 4), ('D4', 16)],
          palette=dict(fast='flask', normal='flask', long='flask'), drone=('D3', 'A3'), gap_in='rail'),
     dict(key='toc', title='Toccata in D minor', composer='Bach (d. 1750)', unit=0.13, beat=0.52, centre=69,
          notes=[('A5', 1), ('G5', 1), ('A5', 8), ('G5', 1), ('F5', 1), ('E5', 1), ('D5', 1), ('C#5', 1), ('D5', 12),
