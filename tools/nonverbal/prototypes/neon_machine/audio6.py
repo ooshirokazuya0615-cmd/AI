@@ -301,6 +301,30 @@ def main(out):
                 place(mix, boing(), hh['t'], 0.10 * g_)
             elif kind == 'clunk':
                 place(mix, click(0.06, 300, 30), hh['t'], 0.18 * g_)
+            elif kind == 'ratchet':
+                place(mix, click(0.012, 3600, 220), hh['t'], 0.07 * g_)
+                place(mix, click(0.01, 1800, 300), hh['t'] + 0.012, 0.04 * g_)
+            elif kind == 'thunder':
+                if sampler.available():
+                    place(mix, sampler.one('Percussion/Timpani/Timpani3_Hit_v3_rr1_Sum.wav', 3.0), hh['t'], 0.32 * g_)
+                    place(mix, sampler.one('Percussion/BDrumNewhit_v5_rr1_Sum.wav', 2.0), hh['t'], 0.22 * g_)
+                n_ = int(SR * 1.8)
+                rum = np.convolve(rng.standard_normal(n_), np.ones(400) / 400, mode='same')
+                rum *= np.exp(-np.arange(n_) / (SR * 0.6)) * np.minimum(1, np.arange(n_) / (SR * 0.03))
+                place(mix, rum / (np.abs(rum).max() + 1e-9), hh['t'] + 0.05, 0.10 * g_)
+            elif kind == 'davul':
+                if sampler.available():
+                    place(mix, sampler.one('Percussion/BDrumNewhit_v5_rr1_Sum.wav', 1.2), hh['t'], 0.10 * g_)
+                place(mix, click(0.03, 160, 40), hh['t'], 0.06 * g_)
+            elif kind == 'sparkle':
+                if sampler.available():
+                    for d_, m_ in ((0.0, 96), (0.06, 100), (0.12, 103)):
+                        place(mix, sampler.note('glock', m_, 1.4), hh['t'] + d_, 0.10 * g_, 0.3)
+            elif kind == 'whoosh':
+                place(mix, whoosh(hh.get('L', 0.6)), hh['t'], 0.07 * g_)
+            elif kind == 'net':
+                place(mix, click(0.09, 180, 22), hh['t'], 0.16 * g_)
+                place(mix, roll(0.25), hh['t'], 0.02 * g_)
         for rr in E.get('mrolls', []):
             L_ = rr['t1'] - rr['t0']
             if L_ < 0.05:

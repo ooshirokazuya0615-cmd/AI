@@ -136,6 +136,7 @@ def timeline(songs=None, final_note=None):
         for j, (n, u) in enumerate(song['notes']):
             contacts.append(dict(i=len(contacts), s=s, j=j, t=t, midi=midi(n), dur=u * song['unit'], mech=mechs[j]))
             t += u * song['unit']
+            t += song.get('gp', {}).get(j, 0.0)      # a general pause after this note (the score film's rescue)
     last = contacts[-1]
     launch = last['t'] + min(last['dur'], 1.0)
     final = dict(i=len(contacts), s=len(SONGS_) - 1, j=-1, t=launch + 0.9, midi=midi(final_note),

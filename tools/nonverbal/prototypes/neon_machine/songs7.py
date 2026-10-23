@@ -13,6 +13,9 @@ phrase = mk['notes']
 mk['notes'] = phrase + [(n, u * 0.82) for n, u in phrase] + [(n, u * 0.66) for n, u in phrase]
 mk['nunits'] = [u for _, u in phrase] * 3          # notated values (the accelerando changes time, not notation)
 mk['palette'] = dict(fast='bumper', normal='pad', long='cymbal')
+# a breath before the last, fastest pass: the marble flies past the funnel and is rescued (film8, RESCUE);
+# the notes are untouched, the music only waits
+mk['gp'] = {2 * len(phrase) - 1: 2.2}
 
 ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
          ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1876, 'romantic')]

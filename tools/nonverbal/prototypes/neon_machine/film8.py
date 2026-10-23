@@ -638,6 +638,76 @@ for h_ in C[:-1]:
                 TAPS.append(dict(t=b0 + Tk, g=math.sqrt(hk / 0.035)))
 
 
+# ---------------------------------------------------------------- the rescue
+# Before Mountain King's last, fastest pass the marble hits its note too hard, sails past the funnel and off
+# the end of the line. The music stops (a general pause in the medley). The blue character on a stand beside
+# the line catches it in a net; it wobbles there, nearly tipping out; then the net tosses it back into the
+# funnel, the tube carries it to the next line, and it lands on the first note exactly on the beat: the
+# fastest pass begins.
+RESCUE = None
+for i_, ret_ in RETURNS.items():
+    if SONGS[C[i_]['s']].get('gp', {}).get(C[i_]['j']):
+        RESCUE = dict(h0=C[i_], h1=C[i_ + 1], ret=ret_)
+if RESCUE:
+    rs_ = RESCUE
+    row_ = rs_['ret']['row_from']
+    rs_['stand'] = Vector((row_['x1'] + 0.95, 0.18, row_['z'] - 0.62))      # the catcher's feet
+    rs_['t_c'] = rs_['h0']['t'] + 0.72                                       # caught
+    rs_['t_t'] = rs_['t_c'] + 0.95                                           # tossed back
+    rs_['t_in'] = rs_['t_t'] + 0.45                                          # into the funnel
+    rs_['ret']['t0'], rs_['ret']['t1'] = rs_['t_in'], rs_['h1']['t'] - 0.16  # the tube ride, as usual
+    NET_LOW = rs_['stand'] + Vector((-0.20, 0.12, 0.30))
+    NET_UP = rs_['stand'] + Vector((-0.34, 0.14, 0.76))
+
+
+def net_ring(t):
+    """Centre of the catcher's net: lowered, raised to catch, sagging and rocking, wound back, swung."""
+    tc, tt_ = RESCUE['t_c'], RESCUE['t_t']
+    p = NET_LOW.lerp(NET_UP, smooth((t - (tc - 0.45)) / 0.4))
+    if tc <= t:                                          # it sags with the catch and rocks: will it tip out?
+        u = t - tc
+        p = p + Vector((0.05 * math.sin(u * 9) * math.exp(-u * 1.2), 0,
+                        -0.07 * math.exp(-u * 4) * min(1.0, u * 25) - 0.02 * math.sin(u * 7) * math.exp(-u * 0.8)))
+    wind = smooth((t - (tt_ - 0.3)) / 0.3) * (1 - smooth((t - tt_) / 0.08))
+    swing = smooth((t - tt_) / 0.12) * (1 - smooth((t - (tt_ + 0.5)) / 0.5))
+    return p + Vector((0.12, 0, -0.10)) * wind + Vector((-0.18, 0, 0.14)) * swing
+
+
+def rescue_pos(t):
+    rs = RESCUE
+    bag = lambda tt: net_ring(tt) - Vector((0, 0, 0.05))   # noqa: E731
+    if t <= rs['t_c']:
+        return ballistic(CON[rs['h0']['i']], rs['h0']['t'], bag(rs['t_c']), rs['t_c'], t)
+    if t <= rs['t_t']:
+        return bag(t)
+    pts, tub = rs['ret']['pts'], rs['ret']
+    if t <= rs['t_in']:
+        return ballistic(bag(rs['t_t']), rs['t_t'], pts[1], rs['t_in'], t)
+    if t <= tub['t1']:
+        return poly_at(pts[1:], ease((t - tub['t0']) / (tub['t1'] - tub['t0'])))
+    return ballistic(pts[-1], tub['t1'], CON[rs['h1']['i']], rs['h1']['t'], t)
+
+
+def rescue_view(t):
+    """The camera through the rescue: follow the lob, come close on the wobbling net, then pull right back
+    to see the long throw land on the next line."""
+    rs = RESCUE
+    p0, p1, nc = CON[rs['h0']['i']], CON[rs['h1']['i']], net_ring(rs['t_c'])
+    mid = Vector((nc.x + 0.12, nc.y, rs['stand'].z + 0.42))      # the net and the whole catcher in view
+    if t <= rs['t_c']:
+        k = smooth((t - rs['h0']['t']) / (rs['t_c'] - rs['h0']['t']))
+        return p0.lerp(mid, k) + Vector((0, 0, 0.25 * math.sin(math.pi * k))), 1.55, (0.0, 0.0)
+    if t <= rs['t_t']:
+        return mid, 1.38, (0.0, 0.0)
+    fun = rs['ret']['pts'][1]
+    if t <= rs['t_in']:
+        k = smooth((t - rs['t_t']) / (rs['t_in'] - rs['t_t']))
+        return mid.lerp(fun, k), 1.38 - 0.08 * k, (0.0, 0.0)
+    k = smooth((t - rs['t_in']) / (rs['h1']['t'] - rs['t_in']))
+    pb, zb = row_point(HEAD[rs['h1']['i']][2], rs['h1']['t'])
+    return fun.lerp(pb, k), (1.3 + (zb - 1.3) * k) * (1 + 0.25 * math.sin(math.pi * k)), (0.0, 0.0)
+
+
 def ball_pos(t):
     if t <= C[0]['t']:
         # first frame: already rolling in along the opening ledge, it drops onto the first note
@@ -654,6 +724,8 @@ def ball_pos(t):
                 return ballistic(p0, h1['launch'], p1, h1['t'], t)
             if h0['s'] != h1['s'] and h1['s'] in GAPMACH:
                 return GAPMACH[h1['s']].pos(t)
+            if RESCUE and h0 is RESCUE['h0']:
+                return rescue_pos(t)
             tube = RETURNS.get(h0['i'])
             if tube:
                 pts = tube['pts']
@@ -950,6 +1022,152 @@ for s_, m_ in GAPMACH.items():
                            neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]])
     GD.build(m_, HELP)
 
+# ---------------------------------------------------------------- 4c. signature moments inside the pieces
+# Each piece gets one thing of its own, always driven by the notes the marble plays:
+#   Symphony No. 5   a hammer over each long note: the three repeated notes ratchet it up, click by click,
+#                    and the fourth brings it down (da-da-da-DUM), with lightning, thunder and a jolt
+#   Rondo alla Turca a little Turkish drum at every bar line, struck on the downbeat (Mozart was imitating
+#                    the Janissary band)
+#   Eine kleine      fireworks on the top note of the rising arpeggio
+#   Ode to Joy       little figures below the staff bounce on every beat
+#   Toccata          organ pipes behind the line glow with each note
+SIG_HITS, SHAKES = [], []
+KEY_S = {song['key']: k for k, song in enumerate(SONGS)}
+
+
+def notes_of(key):
+    return [h for h in C if h['s'] == KEY_S.get(key) and h['mech'] != 'bigdrum']
+
+
+def hammer_for(hits, k_strike):
+    """A hammer over note k_strike, cocked by the three notes before it."""
+    hs = hits[k_strike]
+    head, st, row = HEAD[hs['i']]
+    yb = HEAD_Y - 0.13                                  # in front of the marble's plane, clear of it
+    anvil = Vector((head.x + 0.085, yb, head.z - 0.035))
+    face = anvil + Vector((0, 0, 0.055))                 # where the mallet's centre is at the strike
+    piv = Vector((head.x + 0.40, yb, head.z + 0.40))
+    hm_m = mat('hammer', (0.85, 0.62, 0.25), 0.25, metal=1.0)
+    cube((anvil.x, anvil.y, anvil.z), (0.05, 0.06, 0.03), mat('anvil', (0.15, 0.15, 0.17), 0.3, metal=0.9))
+    cyl(Vector((piv.x, WALL_Y, piv.z)), piv, 0.008, M_BRASS, 10)                   # the bracket
+    hold = empty(piv, 'hammer_pivot')
+    bpy.context.view_layer.update()
+    arm = cyl(piv, face, 0.007, mat('arm', (0.3, 0.18, 0.08), 0.4), 10)
+    d_ = (face - piv).normalized()
+    across = Vector((-d_.z, 0, d_.x)) * 0.06              # the head lies across the handle: a T seen from the front
+    mallet = cyl(face - across, face + across, 0.03, hm_m, 20)
+    for o in (arm, mallet):
+        parent(o, hold)
+    t_s = hs['t']
+    cocks = [hits[k_strike - 3 + j]['t'] for j in range(3)]
+    keys = [(cocks[0] - 0.5, 25.0)]
+    ang = 25.0
+    for tc in cocks:
+        keys += [(tc - 0.01, ang), (tc + 0.05, ang + 17.0), (tc + 0.09, ang + 15.0)]
+        ang += 15.0
+        SIG_HITS.append(dict(t=tc + 0.04, kind='ratchet', g=1.0))
+    keys += [(t_s - 0.075, ang), (t_s - 0.03, ang * 0.55), (t_s, 0.0), (t_s + 0.05, 7.0), (t_s + 0.11, 0.0),
+             (t_s + 0.9, 0.0), (t_s + 1.6, 25.0)]
+    for tk, a_ in keys:
+        hold.rotation_euler = (0, math.radians(a_), 0)
+        hold.keyframe_insert('rotation_euler', frame=fr(max(0.0, tk)))
+    pulse_ring(Vector((face.x, yb - 0.02, face.z - 0.03)), t_s, (0.7, 0.85, 1.0), r0=0.05, r1=0.5, life=0.4, rot=(0, 0, 0))
+    burst(Vector((face.x, yb - 0.02, face.z - 0.03)), t_s, (0.8, 0.9, 1.0), n=14, speed=1.3, life=0.45)
+    SIG_HITS.append(dict(t=t_s, kind='thunder', g=1.0))
+    SHAKES.append(t_s)
+    return t_s
+
+
+b5_ = notes_of('b5')
+if b5_:
+    strikes = [hammer_for(b5_, k) for k in (3, 7, 17) if k < len(b5_)]
+    page_z = HEAD[b5_[0]['i']][2]['z']
+    ld = bpy.data.lights.new('lightning', 'AREA')
+    ld.color, ld.size, ld.energy = (0.75, 0.85, 1.0), 5.0, 0.0
+    lo_ = bpy.data.objects.new('lightning', ld)
+    sc.collection.objects.link(lo_)
+    lo_.location = (HEAD[b5_[len(b5_) // 2]['i']][0].x, -1.2, page_z + 1.6)
+    lo_.rotation_euler = (math.radians(40), 0, 0)
+    for t_s in strikes:
+        for u, e in ((-0.02, 0.0), (0.0, 9000.0), (0.04, 1200.0), (0.08, 6500.0), (0.14, 600.0), (0.3, 0.0)):
+            ld.energy = e
+            ld.keyframe_insert('energy', frame=fr(t_s + u))
+
+tm_ = notes_of('tm')
+if tm_:
+    song_ = SONGS[KEY_S['tm']]
+    bu, pu, pos_ = song_['bar_units'], song_['pickup_units'], 0.0
+    drum_m = mat('davul', (0.55, 0.08, 0.06), 0.35, coat=0.6)
+    DRUM_SKINS = []
+    for j, h in enumerate(tm_[:-1]):
+        nxt = tm_[j + 1]
+        p2 = pos_ + h['nunit']
+        if int((p2 - pu) // bu) > int((pos_ - pu) // bu) and HEAD[h['i']][2] is HEAD[nxt['i']][2]:
+            xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
+            xbar = xb - min(0.09, (xb - xa) * 0.45)
+            rz = HEAD[h['i']][2]['z']
+            dc = Vector((xbar, HEAD_Y - 0.03, rz - 0.19))
+            HEAD[h['i']][2]['below'] = 0.30
+            cyl(dc - Vector((0, 0, 0.03)), dc + Vector((0, 0, 0.03)), 0.05, drum_m, 24)
+            sk_m = mat(f'davulskin{j}', (0.95, 0.9, 0.8), 0.5, emit=(1.0, 0.8, 0.5), emit_s=0.0)
+            skin_o = cyl(dc + Vector((0, 0, 0.03)), dc + Vector((0, 0, 0.034)), 0.048, sk_m, 24)
+            emit_keys(sk_m, ((nxt['t'] - 0.02, 0.0), (nxt['t'], 5.0), (nxt['t'] + 0.3, 0.0)))
+            torus(dc + Vector((0, 0, 0.032)), 0.05, 0.004, M_BRASS)
+            cyl(Vector((xbar, WALL_Y, rz - 0.22)), Vector((xbar, HEAD_Y - 0.03, rz - 0.22)), 0.005, M_BRASS, 8)
+            piv = dc + Vector((0.11, 0, 0.11))
+            hold = empty(piv, 'mallet')
+            bpy.context.view_layer.update()
+            o1 = cyl(piv, dc + Vector((0.01, 0, 0.05)), 0.004, mat('stick', (0.4, 0.25, 0.1), 0.4), 8)
+            o2 = sphere(dc + Vector((0.01, 0, 0.05)), 0.016, mat('malletball', (0.95, 0.9, 0.8), 0.5))
+            for o in (o1, o2):
+                parent(o, hold)
+            tb = nxt['t']
+            for u, a_ in ((-0.35, 0.0), (-0.12, 28.0), (0.0, -2.0), (0.06, 6.0), (0.2, 0.0)):
+                hold.rotation_euler = (0, math.radians(-a_), 0)
+                hold.keyframe_insert('rotation_euler', frame=fr(tb + u))
+            SIG_HITS.append(dict(t=tb, kind='davul', g=1.0))
+            DRUM_SKINS.append((skin_o, tb))
+        pos_ = p2
+
+ekn_ = notes_of('ekn')
+if len(ekn_) > 8:
+    top = ekn_[8]                                       # D6, the top of the rising arpeggio
+    pt = HEAD[top['i']][0] + Vector((0, -0.05, 0.12))
+    for col_ in ('magenta', 'cyan', 'amber'):
+        burst(pt, top['t'], NEON[col_], n=12, speed=1.6, life=0.7, size=0.009)
+    pulse_ring(pt, top['t'], NEON['white'], r0=0.05, r1=0.45, life=0.5)
+    SIG_HITS.append(dict(t=top['t'], kind='sparkle', g=1.0))
+
+otj_ = notes_of('otj')
+DANCERS = []
+if otj_:
+    rows_ = []
+    for h in otj_:
+        r_ = HEAD[h['i']][2]
+        if r_ not in rows_:
+            rows_.append(r_)
+    looks = [((0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears'), ((0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo'),
+             ((0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna')]
+    for r_ in rows_:
+        xs_ = [HEAD[h['i']][0].x for h in otj_ if HEAD[h['i']][2] is r_]
+        for k, fx in enumerate((0.2, 0.55, 0.88)):
+            x_ = xs_[0] + (xs_[-1] - xs_[0]) * fx
+            bc, ic, acc = looks[k % 3]
+            ch = character(x_, r_['z'] - 0.52 + 0.49, bc, ic, acc, f'dancer{len(DANCERS)}')
+            r_['below'] = 0.55
+            DANCERS.append((ch, [h['t'] for h in otj_ if HEAD[h['i']][2] is r_]))
+
+toc_ = notes_of('toc')
+for j, h in enumerate(toc_):
+    head, st, row = HEAD[h['i']]
+    ph = 0.10 + 0.010 * (h['midi'] - 48)              # higher notes, longer pipes
+    foot = Vector((head.x, WALL_Y - 0.01, row['z'] + 4 * LS + 0.10))     # flat against the wall, behind the marble
+    pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.2, metal=1.0, emit=(1.0, 0.75, 0.4), emit_s=0.0)
+    cyl(foot, foot + Vector((0, 0, ph)), 0.009, pm, 12)
+    cone(foot - Vector((0, 0, 0.012)), 0.002, 0.009, 0.024, pm, 12)
+    emit_keys(pm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 6.0), (h['t'] + max(0.3, h['dur']), 0.4)))
+
+
 # ---------------------------------------------------------------- 5. finale, characters
 cyl((DRUM.x, HEAD_Y, DRUM.z - 0.12), (DRUM.x, HEAD_Y, DRUM.z), 0.2, mat('bigshell', (0.05, 0.05, 0.06), 0.25, coat=1.0), 48)
 big_rim = mat('bigrim', NEON['amber'], 0.2, emit=NEON['amber'], emit_s=4.0)
@@ -975,12 +1193,20 @@ for n_, (s, m_) in enumerate(sorted(GAPMACH.items())):
     chars.append((ch, m_.t_kick))
 yel = character(DRUM.x + 0.55, DRUM.z + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
 pink = character(DRUM.x - 0.55, DRUM.z + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears', 'pink')
-for ch in [c for c, _ in chars] + [yel, pink]:
+catcher = None
+if RESCUE:
+    st_ = RESCUE['stand']
+    catcher = character(st_.x, st_.z + 0.49, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'catcher')
+    cube((st_.x, 0.30, st_.z - 0.012), (0.34, 0.40, 0.024), M_BRASS, bevel=0.006)       # its stand
+    for sx in (-1, 1):
+        cyl(Vector((st_.x + sx * 0.12, WALL_Y, st_.z - 0.03)), Vector((st_.x + sx * 0.12, 0.12, st_.z - 0.03)), 0.008, M_BRASS, 10)
+for ch in [c for c, _ in chars] + [yel, pink] + ([catcher] if catcher else []) + [d for d, _ in DANCERS]:
     r0 = ch['root']
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
     bpy.context.view_layer.update()
     parent(r0, holder)
-    holder.scale = (0.62, 0.62, 0.62)
+    sc_ = 0.40 if r0.name.startswith('dancer') else 0.62
+    holder.scale = (sc_, sc_, sc_)
 for ch, t_ev in chars:
     track_eyes(ch, ball_pos)
     mouth_o(ch, t_ev - 0.3, t_ev + 0.6, 1.7)
@@ -991,6 +1217,55 @@ for ch in (yel, pink):
     hop(ch, TF + 0.02, 0.2)
     hop(ch, TF + 0.65, 0.12)
     mouth_o(ch, TF, TF + 1.8, 2.0)
+for ch, beats in DANCERS:                         # bouncing on every beat of Ode to Joy
+    for tb in beats:
+        hop(ch, tb, 0.07)
+    track_eyes(ch, ball_pos)
+if catcher:
+    rs_ = RESCUE
+    t0r, t1r, tcr, ttr = rs_['h0']['t'], rs_['h1']['t'], rs_['t_c'], rs_['t_t']
+    track_eyes(catcher, ball_pos)
+    mouth_o(catcher, t0r + 0.12, tcr + 0.25, 2.0)                     # it sees the marble fly off
+    hop(catcher, tcr - 0.32, 0.10)                                     # jumps to catch it
+    rr_ = catcher['root']
+    for u, ang_ in ((-0.01, 0.0), (0.12, 0.16), (0.34, -0.13), (0.58, 0.09), (0.86, -0.04), (1.1, 0.0)):
+        rr_.rotation_euler = (0, ang_, 0)                              # teeters with the weight in the net
+        rr_.keyframe_insert('rotation_euler', frame=fr(tcr + u))
+    hop(catcher, t1r + 0.04, 0.16)                                     # and cheers when it lands
+    mouth_o(catcher, t1r, t1r + 0.9, 1.6)
+    net_m = mat('netring', (0.85, 0.85, 0.9), 0.2, metal=1.0)
+    ring_o = torus(Vector((0, 0, 0)), 0.085, 0.006, net_m)
+    bag_o = revolve(Vector((0, 0, 0)), [(0.085, 0.0), (0.075, -0.035), (0.05, -0.07), (0.02, -0.09), (0.004, -0.095)],
+                    mat('netbag', (0.95, 0.95, 0.92), 0.6, alpha=0.45), segs=32)
+    handle_o = cyl(Vector((0, 0, -0.5)), Vector((0, 0, 0.5)), 0.006, mat('handle', (0.5, 0.3, 0.12), 0.4), 10)
+    handle_o.rotation_mode = 'QUATERNION'
+
+    def hand_at(t):
+        return st_ + Vector((-0.08, 0.06, 0.30))
+    f = max(1, int(fr(t0r - 0.8)))
+    while f <= min(N, int(fr(t1r + 1.2))):
+        t = (f - 1) / FPS
+        rc = net_ring(t)
+        tilt = -0.5 * smooth((t - ttr) / 0.12) * (1 - smooth((t - (ttr + 0.5)) / 0.5)) + 0.25 * smooth((t - (ttr - 0.3)) / 0.3) * (1 - smooth((t - ttr) / 0.08))
+        for o in (ring_o, bag_o):
+            o.location = rc
+            o.rotation_euler = (0, tilt, 0)
+            o.keyframe_insert('location', frame=f)
+            o.keyframe_insert('rotation_euler', frame=f)
+        hd = hand_at(t)
+        d = rc - hd
+        handle_o.location = (hd + rc) / 2
+        handle_o.rotation_quaternion = d.to_track_quat('Z', 'Y')
+        handle_o.scale = (1, 1, d.length)
+        for path_ in ('location', 'rotation_quaternion', 'scale'):
+            handle_o.keyframe_insert(path_, frame=f)
+        f += 1
+    RESCUE_HITS = [dict(t=t0r + 0.03, kind='whoosh', g=1.0, L=0.7), dict(t=tcr, kind='land', g=0.5),
+                   dict(t=tcr + 0.02, kind='net', g=1.0), dict(t=ttr - 0.28, kind='spring', g=0.5),
+                   dict(t=ttr, kind='whoosh', g=0.8, L=0.45)]
+else:
+    RESCUE_HITS = []
+
 t_c = TF + 0.9
 for kk in range(90):
     cn = rng.choice(list(NEON))
@@ -1066,7 +1341,7 @@ VIEW_H = 2 * OFF.length * 10.125 / 50.0        # visible height on the head plan
 def local_frame(r_, tt):
     """Vertical centre and zoom for the stretch of the row on screen around time tt: the staff, the notes
     in view (and just ahead), and the highest hop above them."""
-    lo_, hi_ = r_['z'] - 0.05, r_['z'] + 4 * LS + 0.05
+    lo_, hi_ = r_['z'] - r_.get('below', 0.05), r_['z'] + 4 * LS + 0.05
     for h in r_['notes']:
         if tt - 1.1 <= h['t'] <= tt + 1.7:
             z, st_ = HEAD[h['i']][0].z, HEAD[h['i']][1]
@@ -1108,6 +1383,8 @@ def frame_point(tt):
         return (*row_point(ROWS[0], C[0]['t']), (0.0, 0.0))
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= tt <= h1['t']:
+            if RESCUE and h0 is RESCUE['h0']:
+                return rescue_view(tt)
             if h0['s'] != h1['s'] and h1['s'] in GAPMACH:       # a machine: follow the marble through it
                 m_ = GAPMACH[h1['s']]
                 return m_.attention(tt), MACH_ZOOM, (m_.elev(tt), m_.yaw(tt))
@@ -1159,6 +1436,11 @@ def cam_at(t):
         tg = Vector((X_MID, YB, Z_LAST + (Z_FIRST - Z_LAST) * k))
     else:
         tg = tg.lerp(Vector((X_MID, YB, Z_LAST)), kb)
+    for t_s in SHAKES:                           # the hammer's jolt
+        u = t - t_s
+        if 0.0 <= u < 0.45:
+            amp = 0.022 * math.exp(-u * 9)
+            tg = tg + Vector((amp * math.sin(u * 95), 0, amp * math.cos(u * 73)))
     return tg, off, 50.0
 
 
@@ -1177,7 +1459,7 @@ while f <= N:
     focus_empty.location = (bp_.x, HEAD_Y - 0.02, bp_.z)
     focus_empty.keyframe_insert('location', frame=f)
     cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
-    f += 2
+    f += 1 if any(-0.1 <= t - t_s < 0.5 for t_s in SHAKES) else 2      # every frame through a jolt
 
 world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.55, 0.55, 0.56, 1)
 world.node_tree.nodes['Background'].inputs['Strength'].default_value = 0.35
@@ -1208,10 +1490,11 @@ import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
     json.dump(dict(returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
-                   gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits],
+                   gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits] + RESCUE_HITS + SIG_HITS,
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
 print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}" for i, r in RETURNS.items()), flush=True)
+print('rescue', (RESCUE['h0']['t'], RESCUE['h1']['t'], tuple(round(v, 2) for v in RESCUE['stand'])) if RESCUE else None, flush=True)
 print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
 if os.environ.get('EVENTS_ONLY'):
     sys.exit(0)
