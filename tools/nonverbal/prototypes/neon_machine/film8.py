@@ -936,7 +936,7 @@ for h in C:
     if h['j'] in song.get('fermata', ()):
         text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, max(row['z'] + 4 * LS + 0.08, head.z + 0.15))), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
-    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 45.0), (h['t'] + 0.45, 3.0)))
+    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.45, 3.0)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
@@ -1015,7 +1015,7 @@ for row in ROWS:
         cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.02)), 0.014, mat('wax', (0.92, 0.86, 0.72), 0.6), 16)
         flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=40),
                        scale=(0.7, 0.7, 1.6), segs=12)
-        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 9.0
+        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 16.0
         lo.location = p + Vector((0, -0.02, 0.05))
     else:
         sphere(p + Vector((0, 0, -0.02)), 0.05, mat('gasglobe', (1.0, 0.85, 0.6), 0.2, emit=(1.0, 0.7, 0.4), emit_s=8), segs=24)
@@ -1413,7 +1413,7 @@ wave.wave_type = 'RINGS'
 wave.inputs['Scale'].default_value = 2.6
 wave.inputs['Distortion'].default_value = 11.0
 # the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
-# one band of its swirl takes that piece's colour; it strikes the final drum as a rainbow
+# it takes that piece's colour; one band of its swirl keeps each colour, so it strikes the final drum as a rainbow
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
 PIECE_COL = {'canon': (1.0, 0.72, 0.2), 'toc': (0.9, 0.1, 0.15), 'tm': (0.1, 0.8, 1.0), 'ekn': (0.6, 0.25, 1.0),
              'b5': (0.15, 0.3, 1.0), 'fe': (1.0, 0.35, 0.65), 'otj': (0.5, 1.0, 0.25), 'mk': (1.0, 0.45, 0.1)}
@@ -1428,11 +1428,18 @@ nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
 glow = bsdf.inputs['Emission Strength']
 starts = [[h for h in C if h['s'] == k][0]['t'] for k in range(len(SONGS))]
+for j in range(len(SONGS)):
+    els[j].color = PEARL
+    els[j].keyframe_insert('color', frame=fr(0.0))
 for k, t_k in enumerate(starts):
+    # the whole marble takes the new piece's colour, except the bands earlier pieces already claimed: it
+    # reads as one colour at a time on screen, and still ends as a band of every piece it played
     col = (*PIECE_COL.get(SONGS[k]['key'], (1, 1, 1)), 1)
-    for tt, c_ in ((0.0, PEARL), (max(0.0, t_k - 1 / FPS), PEARL), (t_k + 0.12, col)):
-        els[k].color = c_
-        els[k].keyframe_insert('color', frame=fr(tt))
+    was = PEARL if k == 0 else (*PIECE_COL.get(SONGS[k - 1]['key'], (1, 1, 1)), 1)
+    for j in range(k, len(SONGS)):
+        for tt, c_ in ((max(0.0, t_k - 1 / FPS), was), (t_k + 0.12, col)):
+            els[j].color = c_
+            els[j].keyframe_insert('color', frame=fr(tt))
     for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.7 + 0.25 * k), (t_k + 0.05, 6.0), (t_k + 0.5, 0.7 + 0.25 * (k + 1))):
         glow.default_value = g_
         glow.keyframe_insert('default_value', frame=fr(tt))
@@ -1643,16 +1650,56 @@ while f <= N:
     cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
     f += 1 if any(-0.1 <= t - t_s < 0.5 for t_s in SHAKES) else 2      # every frame through a jolt
 
-world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.55, 0.55, 0.56, 1)
-world.node_tree.nodes['Background'].inputs['Strength'].default_value = 0.35
+# ---------------------------------------------------------------- 8. light: each piece in its own light
+# The camera only ever sees one page at a time, so the light is keyed in time: each piece has its own key
+# (direction, colour, strength), fill and ambient, and the machine ride into a piece crossfades to it, so the
+# marble arrives in a new room. Low-key where the era asks for it, so the glowing marble and notes carry
+# the frame. After the final drum the light opens up to an even gallery light for the rise through 300 years.
+LOOK = {   # key (strength, colour, direction to the light), fill (strength, colour), ambient (colour, strength)
+    'canon': ((0.75, (1.0, 0.74, 0.46), (0.6, -1.0, 0.9)), (0.10, (1.0, 0.8, 0.6)), ((0.30, 0.20, 0.12), 0.10)),  # candlelight
+    'toc': ((1.35, (1.0, 0.93, 0.82), (-0.5, -0.6, 1.6)), (0.06, (0.6, 0.7, 1.0)), ((0.10, 0.10, 0.16), 0.08)),   # organ loft
+    'tm': ((1.9, (1.0, 0.88, 0.82), (0.5, -1.0, 1.0)), (0.45, (1.0, 0.82, 0.78)), ((0.55, 0.45, 0.45), 0.25)),    # salon
+    'ekn': ((0.65, (0.62, 0.72, 1.0), (-0.4, -1.0, 1.2)), (0.16, (1.0, 0.72, 0.42)), ((0.05, 0.07, 0.16), 0.14)),  # night
+    'b5': ((0.85, (0.72, 0.80, 1.0), (0.3, -1.0, 1.5)), (0.08, (0.5, 0.6, 1.0)), ((0.04, 0.05, 0.10), 0.10)),     # storm
+    'fe': ((0.55, (0.95, 0.80, 0.95), (0.6, -1.0, 0.8)), (0.12, (0.7, 0.6, 1.0)), ((0.06, 0.05, 0.10), 0.12)),    # evening
+    'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
+    'mk': ((0.60, (1.0, 0.55, 0.42), (-0.6, -1.0, 0.7)), (0.08, (1.0, 0.4, 0.3)), ((0.12, 0.03, 0.03), 0.10)),    # red hall
+}
+GALLERY = ((1.6, (1.0, 0.96, 0.9), (0.5, -1.0, 1.0)), (0.35, (0.9, 0.93, 1.0)), ((0.40, 0.40, 0.42), 0.22))
 bpy.ops.object.light_add(type='SUN', location=(0, -3, 5))
 sun = bpy.context.object
-sun.data.energy, sun.data.angle, sun.data.color = 2.2, math.radians(20), (1.0, 0.96, 0.9)
-sun.rotation_euler = Vector((0.5, 1.0, -1.0)).to_track_quat('-Z', 'Y').to_euler()
+sun.data.angle = math.radians(20)
 bpy.ops.object.light_add(type='SUN', location=(0, -3, 5))
 fill = bpy.context.object
-fill.data.energy, fill.data.angle, fill.data.color = 0.5, math.radians(40), (0.9, 0.93, 1.0)
+fill.data.angle = math.radians(40)
 fill.rotation_euler = Vector((-0.8, 1.0, 0.1)).to_track_quat('-Z', 'Y').to_euler()
+bg_ = world.node_tree.nodes['Background']
+
+
+def set_look(lk, t):
+    (ke, kc, kd), (fe_, fc), (wc, ws) = lk
+    sun.data.energy, sun.data.color = ke, kc
+    sun.rotation_euler = (-Vector(kd)).to_track_quat('-Z', 'Y').to_euler()
+    fill.data.energy, fill.data.color = fe_, fc
+    bg_.inputs['Color'].default_value, bg_.inputs['Strength'].default_value = (*wc, 1), ws
+    for o_, path_ in ((sun.data, 'energy'), (sun.data, 'color'), (sun, 'rotation_euler'), (fill.data, 'energy'),
+                      (fill.data, 'color')):
+        o_.keyframe_insert(path_, frame=fr(t))
+    bg_.inputs['Color'].keyframe_insert('default_value', frame=fr(t))
+    bg_.inputs['Strength'].keyframe_insert('default_value', frame=fr(t))
+
+
+for k, song in enumerate(SONGS):
+    hs_ = [h for h in C if h['s'] == k and h['mech'] != 'bigdrum']
+    lk = LOOK.get(song['key'], GALLERY)
+    if k == 0:
+        set_look(lk, 0.0)
+    else:                                         # the ride into the piece is the change of room
+        prev = [h for h in C if h['s'] == k - 1 and h['mech'] != 'bigdrum'][-1]
+        set_look(LOOK.get(SONGS[k - 1]['key'], GALLERY), prev['t'] + 0.3)
+        set_look(lk, hs_[0]['t'] - 0.2)
+set_look(LOOK.get(SONGS[-1]['key'], GALLERY), TF + 0.8)
+set_look(GALLERY, TF + 2.6)
 sc.view_settings.look = 'AgX - Medium High Contrast'
 sc.view_settings.exposure = -0.3
 sc.cycles.use_adaptive_sampling = True
@@ -1662,9 +1709,9 @@ nt = sc.node_tree
 gl = nt.nodes.new('CompositorNodeGlare')
 gl.glare_type = 'FOG_GLOW'
 gl.quality = 'HIGH'
-gl.size = 7
+gl.size = 6
 if hasattr(gl, 'threshold'):
-    gl.threshold = 1.5
+    gl.threshold = 2.0
 nt.links.new(nt.nodes['Render Layers'].outputs['Image'], gl.inputs['Image'])
 nt.links.new(gl.outputs['Image'], nt.nodes['Composite'].inputs['Image'])
 
