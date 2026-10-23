@@ -446,6 +446,10 @@ def engr_gap(song, h):
 ROW_W = 2.9              # a row turns (carriage return) on a long note once it is this wide
 ROW_H = 1.05             # distance between rows
 X_LEFT = -1.6
+# how far a row may run past ROW_W looking for a bar line it can turn on. Rondo alla Turca and Für Elise
+# never end a bar on a note long enough for the tube ride (their bars end on sixteenths), so they keep to one
+# long line each instead of breaking mid-bar, as no engraver would
+ROW_EXTRA = float(os.environ.get('ROW_EXTRA', 4.0))
 CLEF_W = 0.55
 KS_DX = 0.072            # spacing of the key-signature accidentals
 MACH_DROP = 1.0          # extra room between pages for the machine that carries the marble across
@@ -547,12 +551,12 @@ for s, song in enumerate(SONGS):
         # enough for the tube ride does the row run on a little and break mid-bar
         at_bar = bool(bu) and int((pos - pu) // bu) != bar
         if nxt is not None and h['dur'] >= 0.34 and (
-                x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + 0.9):
+                x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H
             new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + CLEF_W + KS_DX * abs(song['keysig']), notes=[], first=False)
             RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new,
-                                   at_bar=at_bar or not bu)
+                                   at_bar=at_bar or not bu, width=x - row['x0'])
             row['x1'] = x + 0.25
             row = new
             xc = row['x0']
@@ -564,6 +568,11 @@ for s, song in enumerate(SONGS):
 LASTROW = ROWS[-1]
 DRUM = Vector((LASTROW['x1'] + 0.55, HEAD_Y, LASTROW['z'] - 0.35))
 CON[FIN['i']] = DRUM + Vector((0, 0, 0.004 + R))
+if os.environ.get('LAYOUT_ONLY'):              # quick check of the line breaks, without building the scene
+    print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}({r['width']:.1f})"
+                                  for i, r in RETURNS.items()), flush=True)
+    print('rows', ' '.join(f"{SONGS[r['s']]['key']}:{r['x1'] - r['x0']:.1f}" for r in ROWS), flush=True)
+    sys.exit(0)
 
 
 def tube_path(ret, h):
@@ -1640,7 +1649,8 @@ if ev_path:
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
 print('opening view zoom', round(OPEN_Z, 2), 'centre', tuple(round(v, 2) for v in OPEN_C), flush=True)
 print('frames total', N, 'seconds', round(T_END, 2), 'rows', len(ROWS), 'objects', len(bpy.data.objects), flush=True)
-print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}" for i, r in RETURNS.items()), flush=True)
+print('line breaks', ' '.join(f"{SONGS[C[i]['s']]['key']}:{'bar' if r['at_bar'] else 'MID'}({r['width']:.1f})"
+                              for i, r in RETURNS.items()), flush=True)
 print('rescue', (RESCUE['h0']['t'], RESCUE['h1']['t'], tuple(round(v, 2) for v in RESCUE['stand'])) if RESCUE else None, flush=True)
 print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
 if os.environ.get('EVENTS_ONLY'):
