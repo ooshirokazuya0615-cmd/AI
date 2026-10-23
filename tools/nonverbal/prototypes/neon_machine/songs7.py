@@ -31,7 +31,9 @@ YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'b5': ['plinko', 'tilt'],
            'fe': ['spiral', 'helix'], 'otj': ['jump', 'xylo'], 'mk': ['helix', 'loop', 'dominoes']}
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
-INTERLUDE = {'toc': 4.0, 'tm': 6.4, 'ekn': 4.6, 'b5': 8.3, 'fe': 7.3, 'otj': 6.4, 'mk': 8.6}   # tm, ekn trimmed: dead rolling
+# (set from MACH_PACE=1 so each machine runs at about 10 degrees: brisk, and always on time; film8 stops the
+#  build if a machine would arrive after the music needs it)
+INTERLUDE = {'toc': 3.9, 'tm': 6.8, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
