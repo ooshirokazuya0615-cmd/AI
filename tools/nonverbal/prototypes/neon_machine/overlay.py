@@ -208,7 +208,8 @@ def main():
             a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - end + 0.4) / 0.4))
             if u < GUESS:
                 n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
-                lines = [(f'{idx + 1}/{len(starts)}     ' + '●' * n_left + '○' * (3 - n_left), CHOICE_B, 40, (255, 255, 255))]
+                # "6 of 8", not "6/8": over a staff a slash reads as a time signature
+                lines = [(f'{idx + 1} of {len(starts)}     ' + '●' * n_left + '○' * (3 - n_left), CHOICE_B, 40, (255, 255, 255))]
                 lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244)) for k in range(3)]
             else:
                 v = u - GUESS

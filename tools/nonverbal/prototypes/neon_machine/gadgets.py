@@ -132,6 +132,7 @@ class Machine:
         self.lift = math.sqrt((R + RAIL_R) ** 2 - RAIL_HALF ** 2)   # marble centre above the rail axes
         self.segs, self.hits, self.rolls, self.parts, self.views = [], [], [], [], []
         self.closeups = []                      # (t0, t1, zoom, centre): moments the camera moves in on
+        self.sharp = []                         # (t0, t1): fast orbits seen close, shot with a short shutter
         self.t_kick, self.wait, self.swing = None, 0.0, 1.0
 
     # -- motion ---------------------------------------------------------------------------------------
@@ -482,6 +483,8 @@ def mech_spiral(m, p, v, t, th):
                 return pa.lerp(pb, (tt - ta) / max(1e-9, tb - ta))
         return traj[-1][1]
     m.views.append((t, t + D, 40, Oc.copy()))
+    m.closeups.append((t, t + D, 0.75, Oc.copy()))   # in close for the whole orbit, not just its last laps
+    m.sharp.append((t, t + D))                        # ...and sharp: at full blur the marble smeared into a worm
     m.rolls.append(dict(t0=t, t1=t + D, v0=v_in, v1=v_in * 3, style='funnel'))
     t = m.seg(t, t + D, spin)
     hole = traj[-1][1]
@@ -518,6 +521,13 @@ def mech_helix(m, p, v, t, th):
         return Vector((ctr.x + rh * math.cos(ph), ctr.y + rh * math.sin(ph), ctr.z - s * sin_a))
     m.views.append((t, t + T, 24, None))
     m.rolls.append(dict(t0=t, t1=t + T, v0=v0, v1=v1, style=m.style))
+    # a music-box tick each quarter turn, stepping down as the marble winds down (a plain pentatonic fall,
+    # nothing from the next piece)
+    fall = (91, 88, 86, 84, 81, 79, 76, 74)
+    for k in range(4 * turns):
+        rt = roll_time((k + 0.5) * (math.pi / 2) * rh / cos_a, v0, a0)
+        if rt and rt[0] < T:
+            m.hit(t + rt[0], 'glock', 0.32, fall[k % len(fall)])
     t = m.seg(t, t + T, screw)
     m.parts.append(('helix', ctr, rh, turns, pitch, p.z))
     return screw(t), v1, t

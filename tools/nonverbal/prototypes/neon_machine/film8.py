@@ -460,6 +460,7 @@ PAGE = {
     # pieces with a page of their own, so two pieces of one era never look alike
     'ekn': dict(paper=(0.20, 0.19, 0.42), ink=(0.95, 0.93, 0.86), ink_metal=0.2, rough=0.7, stars=True),  # indigo night
     'b5': dict(paper=(0.30, 0.33, 0.38), ink=(0.95, 0.96, 0.98), ink_metal=0.25, rough=0.6),       # slate storm
+    'fe': dict(paper=(0.30, 0.20, 0.36), ink=(0.96, 0.91, 0.96), ink_metal=0.2, rough=0.6),        # violet dusk
     'otj': dict(paper=(0.88, 0.76, 0.50), ink=(0.10, 0.07, 0.04), ink_metal=0.0, rough=0.85),   # sunlit gold
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
@@ -1020,7 +1021,8 @@ for h in C:
     era = song['era']
     ink = ink_mat(page_of(song))
     head, st, row = HEAD[h['i']]
-    neon = NEON[ERAS[era]['neon'][h['midi'] % len(ERAS[era]['neon'])]]
+    pal_ = song.get('neon') or ERAS[era]['neon']
+    neon = NEON[pal_[h['midi'] % len(pal_)]]
     if h['mech'] == 'again':
         m = bpy.data.materials.get(f'head{h["i"] - 1}')
         while m is None and h['i'] > 0:
@@ -1400,18 +1402,23 @@ if otj_:
             DANCERS.append((ch, [h['t'] for h in otj_ if HEAD[h['i']][2] is r_]))
 
 fe_ = notes_of('fe')                              # Fur Elise: a firefly rises from every note it plays
+FF_LIFE = 6.0                                     # they linger, so the sky fills as the piece goes on
 for j, h in enumerate(fe_):
     head = HEAD[h['i']][0]
-    col_ = (1.0, 0.85, 0.35) if j % 3 else (0.7, 1.0, 0.45)
-    fm_ = mat(f'firefly{j}', col_, 0.3, emit=col_, emit_s=0.0)
-    o = sphere(head + Vector((0.0, -0.03, 0.02)), 0.006, fm_, segs=10)
-    key_vis(o, h['t'], h['t'] + 2.4)
-    sway = 0.03 * (1 if j % 2 else -1)
-    for k in range(7):
-        u = k / 6
-        o.location = head + Vector((sway * math.sin(u * 5), -0.03 - 0.05 * u, 0.02 + 0.32 * u))
-        o.keyframe_insert('location', frame=fr(h['t'] + 2.3 * u))
-    emit_keys(fm_, ((h['t'], 0.0), (h['t'] + 0.15, 16.0), (h['t'] + 1.2, 8.0), (h['t'] + 2.3, 0.0)))
+    for n_ in range(2 if h['dur'] > 0.5 else 1):  # the long notes send up two
+        col_ = (1.0, 0.78, 0.30) if (j + n_) % 2 else (1.0, 0.66, 0.24)     # warm amber only (the marble is lime)
+        fm_ = mat(f'firefly{j}_{n_}', col_, 0.3, emit=col_, emit_s=0.0)
+        t0_ = h['t'] + 0.12 * n_
+        o = sphere(head + Vector((0.0, -0.03, 0.07)), 0.016, fm_, segs=12)
+        key_vis(o, t0_, t0_ + FF_LIFE)
+        sway, ph_ = 0.08 * (1 if (j + n_) % 2 else -1), rng.uniform(0, 3)
+        for k in range(13):
+            u = k / 12
+            o.location = head + Vector((sway * math.sin(u * 7 + ph_) + 0.06 * n_, -0.03 - 0.08 * u, 0.07 + 0.6 * u ** 0.8))
+            o.keyframe_insert('location', frame=fr(t0_ + FF_LIFE * u))
+        # a glow that breathes as it drifts up, then fades
+        emit_keys(fm_, ((t0_, 0.0), (t0_ + 0.15, 14.0), (t0_ + 1.0, 7.0), (t0_ + 2.2, 11.0), (t0_ + 3.6, 6.0),
+                        (t0_ + 4.8, 8.0), (t0_ + FF_LIFE, 0.0)))
 
 # era atmosphere: dust drifting in the candlelight of the baroque pages; a red spotlight sweeping the last page
 bq_ = [h for h in C if h['mech'] != 'bigdrum' and SONGS[h['s']]['era'] == 'baroque']
@@ -1727,7 +1734,7 @@ def row_point(r_, tt):
     page never slides past faster than V_REF (Mountain King's accelerando opens the view as it speeds up)."""
     zc_, zoom_ = local_frame(r_, tt)
     v_ = (row_x(r_, tt + 0.6) - row_x(r_, tt - 0.6)) / 1.2
-    return Vector((row_x(r_, tt), HEAD_Y, zc_)), max(zoom_, min(1.6, v_ / V_REF))
+    return Vector((row_x(r_, tt), HEAD_Y, zc_)), max(zoom_, min(1.6, v_ / V_REF)) * SONGS[r_['s']].get('frame_zoom', 1.0)
 
 
 _POS = {h['i']: k for k, h in enumerate(C)}
@@ -1790,6 +1797,13 @@ def frame_point(tt):
     return (*row_point(ROWS[-1], C[-2]['t']), (0.0, 0.0))
 
 
+BREATHS = []
+for k_, song_ in enumerate(SONGS):
+    if song_.get('breath'):
+        hs_ = [h for h in C if h['s'] == k_ and h['mech'] != 'bigdrum']
+        BREATHS.append((hs_[song_['breath'][0]]['t'], hs_[song_['breath'][1]]['t']))
+
+
 def target(t):
     """Smoothed look-at point and zoom: the pan is averaged over a wider window (an even glide through
     fast runs), the height and zoom over a narrower one."""
@@ -1800,7 +1814,11 @@ def target(t):
         px, wx = px + p_.x * w1, wx + w1
         pz, zf, el, yw, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, yw + y_ * w1, wz + w2
     # the music sits a little above the middle, so the timeline band at the bottom stays clear of it
-    return Vector((px / wx + 0.18, HEAD_Y, pz / wz - 0.05 * VIEW_H * zf / wz)), zf / wz, (el / wz, yw / wx)
+    zf, pz = zf / wz, pz / wz - 0.05 * VIEW_H * zf / wz
+    for a_, b_ in BREATHS:                          # ease back and look up a little, then settle again
+        w_ = smooth((t - (a_ - 0.3)) / 1.0) * (1 - smooth((t - b_) / 1.2))
+        zf, pz = zf * (1 + 0.15 * w_), pz + 0.12 * w_
+    return Vector((px / wx + 0.18, HEAD_Y, pz)), zf, (el / wz, yw / wx)
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
@@ -1906,6 +1924,14 @@ while f <= N:
     cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
     f += 1 if any(-0.1 <= t - t_s < 0.5 for t_s in SHAKES) else 2      # every frame through a jolt
 
+# a short shutter through the fast orbits the camera watches close (the funnel), the usual one elsewhere
+for m_ in GAPMACH.values():
+    for a_, b_ in m_.sharp:
+        for tt_, sh_ in ((a_ - 0.4, 0.35), (a_ - 0.1, 0.12), (b_ + 0.1, 0.12), (b_ + 0.4, 0.35)):
+            sc.render.motion_blur_shutter = sh_
+            sc.keyframe_insert('render.motion_blur_shutter', frame=fr(tt_))
+sc.render.motion_blur_shutter = 0.35
+
 # ---------------------------------------------------------------- 8. light: each piece in its own light
 # The camera only ever sees one page at a time, so the light is keyed in time: each piece has its own key
 # (direction, colour, strength), fill and ambient, and the machine ride into a piece crossfades to it, so the
@@ -1917,7 +1943,7 @@ LOOK = {   # key (strength, colour, direction to the light), fill (strength, col
     'tm': ((1.3, (1.0, 0.86, 0.80), (0.5, -1.0, 1.0)), (0.30, (1.0, 0.80, 0.76)), ((0.55, 0.42, 0.42), 0.16)),    # salon
     'ekn': ((1.30, (0.70, 0.74, 1.0), (-0.4, -1.0, 1.2)), (0.26, (1.0, 0.74, 0.46)), ((0.10, 0.09, 0.22), 0.24)),  # moonlit night
     'b5': ((0.80, (0.80, 0.86, 1.0), (0.3, -1.0, 1.5)), (0.13, (0.62, 0.70, 0.90)), ((0.14, 0.16, 0.20), 0.13)),   # storm
-    'fe': ((0.55, (0.95, 0.80, 0.95), (0.6, -1.0, 0.8)), (0.12, (0.7, 0.6, 1.0)), ((0.06, 0.05, 0.10), 0.12)),    # evening
+    'fe': ((1.0, (1.0, 0.80, 0.84), (-0.9, -1.0, 0.45)), (0.25, (0.76, 0.68, 1.0)), ((0.12, 0.09, 0.16), 0.16)),   # dusk
     'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
     'mk': ((0.60, (1.0, 0.55, 0.42), (-0.6, -1.0, 0.7)), (0.08, (1.0, 0.4, 0.3)), ((0.12, 0.03, 0.03), 0.10)),    # red hall
 }

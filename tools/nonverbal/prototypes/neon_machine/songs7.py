@@ -60,6 +60,13 @@ WHOLE_UNITS = {'b5': 8}
 # where a piece's line breaks, when the general rule would break it on a short note (the Fifth: after the
 # held D, so the marble sits on the fermata and then has a ride of about a second to the next line)
 BREAK_AFTER = {'b5': (7,)}
+# where the camera eases back for a moment (note indices): Für Elise, as the opening motif returns, to show
+# the fireflies gathered over the page
+BREATH = {'fe': (17, 30)}
+# lit-note colours of a piece's own (else its era's): Für Elise in white and pink, so its lime marble stands alone
+NEON_OF = {'fe': ['white', 'magenta', 'white', 'cyan']}
+# a piece framed a little wider than the rest (Für Elise: a gentler pan for a gentle piece, and the swarm in view)
+FRAME_ZOOM = {'fe': 1.2}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
@@ -91,6 +98,9 @@ for s_ in SONGS:
     s_['note_value'] = NOTE_VALUE.get(s_['key'], {})
     s_['whole_units'] = WHOLE_UNITS.get(s_['key'])
     s_['break_after'] = BREAK_AFTER.get(s_['key'], ())
+    s_['breath'] = BREATH.get(s_['key'])
+    s_['neon'] = NEON_OF.get(s_['key'])
+    s_['frame_zoom'] = FRAME_ZOOM.get(s_['key'], 1.0)
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
