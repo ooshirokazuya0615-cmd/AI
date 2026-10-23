@@ -82,3 +82,69 @@ def one(path_rel, length=None):
     if length:
         y = y[: int(SR * length)]
     return y
+
+
+# ---------------------------------------------------------------- the upright piano, at three dynamics
+# VS Upright Nr. 1 was recorded pp, mf and f, twice each (two round-robin takes), every minor third or so.
+# A note picks the recording of its dynamic (soft notes sound darker as well as quieter, as on a real piano),
+# alternates the two takes so repeated notes never sound copied, and is resampled to the exact pitch. The
+# recordings keep their natural levels (one gain for the whole set), so pp is really quieter than f.
+PIANO_DIR = 'Keys/Upright Nr1'
+PIANO_LAYERS = (('pp', 0.2), ('mf', 0.55), ('f', 0.9))      # the velocity each recording stands for
+
+
+def piano_layers_available():
+    return (ROOT / PIANO_DIR).is_dir() and any((ROOT / PIANO_DIR).glob('UR1_*_pp_RR1.wav'))
+
+
+@lru_cache(maxsize=None)
+def piano_bank():
+    out = {}
+    for p in sorted((ROOT / PIANO_DIR).glob('UR1_*.wav')):
+        m = re.search(r'UR1_([A-G]#?)(\d)_(pp|mf|f)_RR(\d)', p.name)
+        if m:
+            out.setdefault(m.group(3), []).append((12 * (int(m.group(2)) + 1) + NOTE[m.group(1)], int(m.group(4)), p))
+    return out
+
+
+@lru_cache(maxsize=None)
+def _raw(path):
+    return read_wav(path)
+
+
+@lru_cache(maxsize=None)
+def piano_gain():
+    return 1.0 / float(np.median([np.max(np.abs(_raw(p))) for _, _, p in piano_bank()['mf']]))
+
+
+@lru_cache(maxsize=None)
+def piano_layer_db(name):
+    """How much louder this recorded dynamic is than mf (median over the keyboard, first half second)."""
+    def lvl(n):
+        return np.median([10 * np.log10(np.mean(_raw(p)[: SR // 2] ** 2) + 1e-12) for _, _, p in piano_bank()[n]])
+    return float(lvl(name) - lvl('mf'))
+
+
+def piano(midi, vel, length=None, take=0, release=0.14):
+    """One piano note at velocity 0..1: the tone of the nearest recorded dynamic, at a level that follows the
+    velocity smoothly, with the damper's quick fade at `length` (None = let it ring out)."""
+    name, v_layer = min(PIANO_LAYERS, key=lambda lv: abs(lv[1] - vel))
+    if not piano_layers_available():
+        name, v_layer = 'mf', 0.55
+    cands = piano_bank()[name]
+    dist = min(abs(r - midi) for r, _, _ in cands)
+    near = [c for c in cands if abs(c[0] - midi) == dist]
+    root, _, path = next((c for c in near if c[1] == 1 + take % 2), near[0])
+    x = _raw(path) * piano_gain()
+    ratio = 2 ** ((midi - root) / 12)
+    n = int(len(x) / ratio)
+    if length:
+        n = min(n, int(SR * (length + release)))
+    y = np.interp(np.arange(n) * ratio, np.arange(len(x)), x)
+    if length and len(y) > int(SR * length):
+        k = int(SR * length)
+        y[k:] *= np.exp(-np.arange(len(y) - k) / (SR * release / 4))
+    fade = min(len(y), 64)
+    y[-fade:] *= np.linspace(1, 0, fade)
+    # loudness follows the velocity smoothly (about 14 dB from pp to f); the layer only sets the tone
+    return y * 10 ** ((20.0 * (vel - 0.55) - piano_layer_db(name)) / 20)

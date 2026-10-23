@@ -13,6 +13,7 @@ import wave
 
 import numpy as np
 
+import perform
 import sampler
 
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs6'))
@@ -187,10 +188,107 @@ def place(mix, s, t, g, pan=0.0):
         mix[a:a + len(s), 1] += s * g * np.sqrt(0.5 * (1 + pan))
 
 
+# the room each era is heard in: reverberation time (s) and how much of it
+HALL = {'baroque': (2.4, 0.34), 'classical': (1.5, 0.24), 'beethoven': (1.9, 0.28), 'romantic': (2.1, 0.30)}
+
+
+def hall_ir(rt, seed):
+    """A stereo hall: a dozen early reflections, then a diffuse tail that dies faster in the treble than in
+    the bass (as air and walls absorb highs), each channel decorrelated. Unit energy."""
+    r = np.random.default_rng(seed)
+    n = int(SR * rt * 1.2)
+    t = np.arange(n) / SR
+    fq = np.fft.rfftfreq(n, 1 / SR)
+    chans = []
+    for _ in range(2):
+        X = np.fft.rfft(r.standard_normal(n))
+        tail = np.zeros(n)
+        for lo, hi, k in ((0, 250, 1.3), (250, 2500, 1.0), (2500, 6000, 0.6), (6000, SR, 0.3)):
+            tail += np.fft.irfft(X * ((fq >= lo) & (fq < hi)), n) * 10 ** (-3 * t / (rt * k))
+        pre = int(SR * 0.022)
+        tail = np.concatenate([np.zeros(pre), tail[:-pre]]) * np.minimum(1, np.arange(n) / (SR * 0.05))
+        er = np.zeros(n)
+        for d, g in zip(np.sort(r.uniform(0.006, 0.075, 14)), np.linspace(0.6, 0.12, 14)):
+            er[int(SR * d)] += g * r.choice((-1, 1))
+        ir = 0.5 * er / np.sqrt(np.sum(er ** 2)) + tail / np.sqrt(np.sum(tail ** 2))
+        chans.append(ir / np.sqrt(np.sum(ir ** 2)))
+    return np.stack(chans, 1)
+
+
+def halls(mix, C):
+    """Each piece in the hall of its era; machines before a piece still sound in the previous one."""
+    T, xf = len(mix), int(SR * 0.4)
+    starts = [min(h['t'] for h in C if h['s'] == s) for s in range(len(S.SONGS))]
+    bounds = [0] + [int(SR * (t - 0.6)) for t in starts[1:]] + [T]
+    out = mix.copy()
+    for s, song in enumerate(S.SONGS):
+        rt, wet = HALL.get(song.get('era'), (1.8, 0.28))
+        a, b = max(0, bounds[s] - xf // 2), min(T, bounds[s + 1] + xf // 2)
+        w = np.ones(b - a)
+        if s > 0:
+            w[:xf] = np.linspace(0, 1, xf)
+        if s < len(S.SONGS) - 1:
+            w[-xf:] = np.linspace(1, 0, xf)
+        ir = hall_ir(rt, 11 + s)
+        n = 1 << int(np.ceil(np.log2(b - a + len(ir))))
+        for c in range(2):
+            y = np.fft.irfft(np.fft.rfft(mix[a:b, c] * w, n) * np.fft.rfft(ir[:, c], n), n)
+            e = min(T, a + n)
+            out[a:e, c] += wet * y[: e - a]
+    return out
+
+
+# ITU-R BS.1770 K-weighting at 48 kHz (high shelf, then the RLB high-pass), as magnitude responses
+_KW = (([1.53512485958697, -2.69169618940638, 1.19839281085285], [1.0, -1.69065929318241, 0.73248077421585]),
+       ([1.0, -2.0, 1.0], [1.0, -1.99004745483398, 0.99007225036621]))
+
+
+def lufs(st):
+    """Integrated loudness (LUFS) with K-weighting and the two gates of BS.1770."""
+    n = len(st)
+    z = np.exp(-1j * 2 * np.pi * np.fft.rfftfreq(n, 1 / SR) / SR)
+    H = np.ones(len(z))
+    for b, a in _KW:
+        H *= np.abs((b[0] + b[1] * z + b[2] * z * z) / (a[0] + a[1] * z + a[2] * z * z))
+    y = np.stack([np.fft.irfft(np.fft.rfft(st[:, c]) * H, n) for c in range(st.shape[1])], 1)
+    blk, hop = int(0.4 * SR), int(0.1 * SR)
+    ms = np.array([np.sum(np.mean(y[k:k + blk] ** 2, axis=0)) for k in range(0, n - blk, hop)])
+    lk = -0.691 + 10 * np.log10(ms + 1e-12)
+    g = ms[lk > -70]
+    rel = -0.691 + 10 * np.log10(np.mean(g)) - 10
+    return float(-0.691 + 10 * np.log10(np.mean(ms[(lk > -70) & (lk > rel)])))
+
+
+def limit(st, ceil_db=-1.3, look=3, release=0.08):
+    """A look-ahead peak limiter on 1 ms blocks: no peak above the ceiling, gain recovers in ~80 ms."""
+    ceil, blk = 10 ** (ceil_db / 20), SR // 1000
+    nb = len(st) // blk + 1
+    pk = np.zeros(nb)
+    a = np.abs(st).max(axis=1)
+    pk[: len(a) // blk] = a[: len(a) // blk * blk].reshape(-1, blk).max(axis=1)
+    pk[len(a) // blk] = a[len(a) // blk * blk:].max(initial=0.0)
+    need = np.minimum(1.0, ceil / np.maximum(pk, 1e-9))
+    g, cur, k_rel = np.ones(nb), 1.0, 1 - np.exp(-1 / (release * 1000))
+    need = np.min([np.concatenate([need[k:], np.ones(k)]) for k in range(look + 1)], axis=0)   # look-ahead
+    for i in range(nb):
+        cur = min(need[i], cur + (1 - cur) * k_rel)
+        g[i] = cur
+    gs = np.interp(np.arange(len(st)), np.arange(nb) * blk + blk / 2, g)
+    return st * gs[:, None]
+
+
 def main(out):
     T = S.total_seconds()
     mix = np.zeros((int(SR * (T + 0.5)), 2))
     C, GAPS = S.timeline()
+    # the piano played: three recorded dynamics, a velocity and a ring length for every note (perform.py)
+    PIANO = os.environ.get('VOICE_SET') == 'piano' and sampler.available() and sampler.piano_layers_available()
+    VEL, RINGS, ARCS = perform.plan(S, C) if PIANO else ({}, {}, {})
+
+    def acc_note(m, L, t, s, k=0):
+        if PIANO:
+            return sampler.piano(m, 0.85 * perform.level_at(ARCS, s, t), L, take=k)
+        return s_piano(m, L)
     for h in C:
         if h['mech'] == 'bigdrum':
             if sampler.available():
@@ -204,7 +302,10 @@ def main(out):
             continue
         fn, g = VOICE[h['mech']]
         pan = max(-0.4, min(0.4, (h['midi'] - 67) / 30))
-        place(mix, fn(h['midi']), h['t'], g, pan)
+        if PIANO:
+            place(mix, sampler.piano(h['midi'], VEL[h['i']], RINGS[h['i']], take=h['i']), h['t'], g, pan)
+        else:
+            place(mix, fn(h['midi']), h['t'], g, pan)
         if h['mech'] == 'cymbal':
             place(mix, cymbal_hit(), h['t'], 0.18)
         if sampler.available():
@@ -236,18 +337,19 @@ def main(out):
                     ring = u_ * song['unit'] * 0.85 + 0.10 if acc.get('staccato') else u_ * song['unit'] + 0.5
                     parts = n_.split('+') if n_ else []
                     for m_ in parts:
-                        place(mix, s_piano(S.midi(m_), ring), tb, 0.16 / len(parts) ** 0.5, -0.25)
+                        place(mix, acc_note(S.midi(m_), ring, tb, s, int(tb * 10)), tb, 0.16 / len(parts) ** 0.5, -0.25)
                     tb += u_ * song['unit']
             if acc.get('arpeggio'):
                 lh = {69: ['A2', 'E3', 'A3'], 71: ['E2', 'E3', 'G#3'], 72: ['A2', 'E3', 'A3']}
                 for h in hs:
                     if h['dur'] >= 3 * song['unit'] - 1e-6 and h['midi'] in lh:
                         for j, n_ in enumerate(lh[h['midi']]):
-                            place(mix, s_piano(S.midi(n_), 1.2), h['t'] + j * song['unit'], 0.14, -0.25)
+                            place(mix, acc_note(S.midi(n_), 1.2, h['t'], s, j), h['t'] + j * song['unit'], 0.14, -0.25)
             if acc.get('octave'):
                 for h in hs:
                     if h['mech'] != 'again' or True:
-                        place(mix, s_piano(h['midi'] - 12, max(0.4, h['dur'] + 0.3)), h['t'], 0.14, -0.2)
+                        place(mix, acc_note(h['midi'] - 12, RINGS.get(h['i'], max(0.4, h['dur'] + 0.3)), h['t'], s, h['i'] + 1),
+                              h['t'], 0.14, -0.2)
         else:
             r, f5 = song['drone']
             if sampler.available():
@@ -255,7 +357,7 @@ def main(out):
                 k = 0
                 while t0 + k * 2 * beat < t1:
                     for m in (S.midi(r) + 12, S.midi(f5) + 12):
-                        place(mix, s_piano(m, 2 * beat + 0.4), t0 + k * 2 * beat, 0.07)
+                        place(mix, acc_note(m, 2 * beat + 0.4, t0 + k * 2 * beat, s, k), t0 + k * 2 * beat, 0.07)
                     k += 1
             else:
                 for m in (S.midi(r), S.midi(f5)):
@@ -369,24 +471,13 @@ def main(out):
         tt_ = np.arange(len(mix)) / SR
         k_ = np.clip((tt_ - it['first']) / 5.0, 0, 1)
         mix *= (0.5 + 0.5 * k_ * k_ * (3 - 2 * k_))[:, None]
-    ir_len = int(SR * 1.8)
-    outs = []
-    for ch in range(2):
-        ir = rng.standard_normal(ir_len) * np.exp(-np.arange(ir_len) / (SR * 0.45)) * 0.010
-        ir[0] = 1.0
-        L = len(mix) + ir_len
-        wet = np.fft.irfft(np.fft.rfft(mix[:, ch], L) * np.fft.rfft(ir, L))[: len(mix)]
-        outs.append(0.74 * mix[:, ch] + 0.26 * wet)
-    st = np.stack(outs, 1)[: int(SR * T)]
+    st = halls(mix, C)[: int(SR * T)]
+    fq = np.fft.rfftfreq(len(st), 1 / SR)
+    hp = 1 / np.sqrt(1 + (25.0 / np.maximum(fq, 1e-3)) ** 4)          # 25 Hz high-pass: no rumble or offset
+    st = np.stack([np.fft.irfft(np.fft.rfft(st[:, c]) * hp, len(st)) for c in range(2)], 1)
     fade = int(SR * 0.8)
     st[-fade:] *= np.linspace(1, 0, fade)[:, None]
-    blk = int(SR * 0.4)
-    ms = np.array([np.mean(st[k:k + blk] ** 2) for k in range(0, len(st) - blk, blk // 4)])
-    lufs = -0.691 + 10 * np.log10(ms + 1e-12)
-    gated = ms[lufs > -70]
-    rel = -0.691 + 10 * np.log10(np.mean(gated)) - 10
-    gated = ms[(lufs > -70) & (lufs > rel)]
-    integ = -0.691 + 10 * np.log10(np.mean(gated))
+    integ = lufs(st)
     st *= 10 ** ((-14.0 - integ) / 20)
     # room tone under everything (a warm, quiet hall), so no moment is digital silence; it fades in from the
     # first frame and out with the music
@@ -398,9 +489,17 @@ def main(out):
     bed[:fi_] *= np.linspace(0, 1, fi_)[:, None]
     bed[-fo_:] *= np.linspace(1, 0, fo_)[:, None]
     st += bed
-    ceil = 10 ** (-1.0 / 20)
-    st = np.where(np.abs(st) > ceil * 0.8, np.sign(st) * (ceil * 0.8 + (ceil * 0.2) * np.tanh((np.abs(st) - ceil * 0.8) / (ceil * 0.2))), st)
-    print('integrated loudness before gain (approx LUFS):', round(float(integ), 1))
+    if os.environ.get('PEAKS'):                  # where the loudest peaks are, before the limiter
+        b_ = SR // 20
+        pk_ = np.abs(st[: len(st) // b_ * b_]).max(axis=1).reshape(-1, b_).max(axis=1)
+        for k_ in np.argsort(pk_)[::-1][:12]:
+            print(f'  peak {20 * np.log10(pk_[k_]):+.1f} dBFS at {k_ / 20:.2f} s')
+        print('  blocks over 0 dBFS:', int(np.sum(pk_ > 1)), 'of', len(pk_))
+    st = limit(st)
+    post = lufs(st)
+    if post < -14.3:                              # the limiter took a little off the loudest climax: make it up once
+        st = limit(st * 10 ** ((-14.0 - post) / 20))
+    print(f'loudness {integ:.1f} LUFS before gain, {lufs(st):.1f} LUFS after; peak {20 * np.log10(np.abs(st).max()):.2f} dBFS')
     with wave.open(out, 'wb') as w:
         w.setnchannels(2)
         w.setsampwidth(2)
