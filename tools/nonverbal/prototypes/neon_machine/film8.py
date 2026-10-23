@@ -971,8 +971,9 @@ PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
 PEND_A = 0.22
 pend = empty(Vector((LEDGE_START.x - 0.30, YB + 0.12, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
-for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0028, M_LEDGE, 8),
-           sphere((0, 0, -PEND_L), 0.038, M_LEDGE, scale=(1, 0.32, 1), segs=32)):
+cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, WALL_Y - 0.008, pend.location.z), 0.045, M_LEDGE, 32)  # rosette
+for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0035, M_LEDGE, 8),
+           sphere((0, 0, -PEND_L), 0.052, M_LEDGE, scale=(1, 0.30, 1), segs=32)):
     o_.parent = pend
 k_ = -int(C[0]['t'] / BEAT0) - 1                    # from before the first frame, so it is already swinging
 while C[0]['t'] + k_ * BEAT0 <= T_END + BEAT0:      # at the far end of each swing, the tick
