@@ -23,7 +23,8 @@ COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'J. S. Bach', 'tm': 'W. A. Mozar
 # rests for it (after the last note has rung)
 MACHINE = {'toc': 'stairs', 'tm': 'dominoes', 'ekn': 'loop', 'b5': 'tilt', 'fe': 'spiral', 'otj': 'xylo',
            'mk': 'loopdom'}
-INTERLUDE = {'toc': 4.6, 'tm': 4.8, 'ekn': 4.4, 'b5': 4.6, 'fe': 5.2, 'otj': 4.8, 'mk': 5.2}
+# lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
+INTERLUDE = {'toc': 3.4, 'tm': 5.8, 'ekn': 3.5, 'b5': 6.2, 'fe': 4.9, 'otj': 3.6, 'mk': 4.9}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])

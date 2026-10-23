@@ -600,6 +600,14 @@ for g in GAPS:
     GAPMACH[s] = mk_
     print(f"machine {SONGS[s]['key']}: {mk_.kind}, rail angle {math.degrees(mk_.theta):.1f} deg, "
           f"spring waits {mk_.wait:.2f} s", flush=True)
+    if os.environ.get('MACH_PACE'):              # the interlude each machine needs at a lively 7-9 degrees
+        need = []
+        for deg in (7, 8, 9):
+            m8 = GD._simulate(mk_.kind, SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], HEAD[L_['i']][2]['z'],
+                              HEAD[F_['i']][2]['z'], R, HEAD_Y, math.radians(deg))
+            need.append(round(m8.t_arrive - L_['t'] + GD.T_KICK + 0.05 + GD.T_HOP_OUT - min(L_['dur'], 0.8), 2)
+                        if m8 else None)
+        print(f"  pace {SONGS[s]['key']}: interlude at 7/8/9 deg = {need}", flush=True)
 
 
 LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
