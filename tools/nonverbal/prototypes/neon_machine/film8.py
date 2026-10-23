@@ -1473,8 +1473,7 @@ wave = nt_.nodes.new('ShaderNodeTexWave')
 wave.wave_type = 'RINGS'
 wave.inputs['Scale'].default_value = 2.6
 wave.inputs['Distortion'].default_value = 11.0
-# the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
-# it takes that piece's colour; one band of its swirl keeps each colour, so it strikes the final drum as a rainbow
+# the marble takes the colour of each piece it plays, and on the final drum shows them all at once
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
 PEARL = (0.86, 0.87, 0.92, 1)
 els = ramp.color_ramp.elements
@@ -1495,14 +1494,19 @@ for j in range(len(SONGS)):
     els[j].color = piece_col(0)
     els[j].keyframe_insert('color', frame=fr(0.0))
 for k, t_k in enumerate(starts[1:], start=1):
-    # one marble all along: it soaks up the new piece's colour from the chase lamps it rolls past on the way in
-    # (a gradual change you can see happen), and keeps a band of every colour it has had
+    # one marble all along, one colour at a time: it soaks up each new piece's colour from the chase lamps it
+    # rolls past on the way in (a gradual change you can see happen); its swirl never changes
     ch_ = sorted(x['t'] for x in (GAPMACH[k].hits if k in GAPMACH else []) if x['kind'] == 'chase')
     a_, b_ = (ch_[0] - 0.05, ch_[-1] + 0.1) if len(ch_) >= 2 else (t_k - 0.4, t_k + 0.12)
-    for j in range(k, len(SONGS)):
+    for j in range(len(SONGS)):
         for tt, c_ in ((a_, piece_col(k - 1)), (b_, piece_col(k))):
             els[j].color = c_
             els[j].keyframe_insert('color', frame=fr(tt))
+# ...and on the final drum every colour it has carried comes back at once, one band each: 300 years in one marble
+for j in range(len(SONGS)):
+    for tt, c_ in ((TF - 1 / FPS, piece_col(len(SONGS) - 1)), (TF + 0.25, piece_col(j))):
+        els[j].color = c_
+        els[j].keyframe_insert('color', frame=fr(tt))
     for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 1.6), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
         glow.default_value = g_
         glow.keyframe_insert('default_value', frame=fr(tt))
