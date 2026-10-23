@@ -274,12 +274,35 @@ def level_up(st, floor_db=-27.0, most_db=7.0, win=1.5):
     return st * g[:, None]
 
 
-def limit(st, ceil_db=-1.8, look=3, release=0.08):
-    """A look-ahead peak limiter on 1 ms blocks: no peak above the ceiling, gain recovers in ~80 ms."""
+def _interp_taps(os_=4, half=12):
+    """Windowed-sinc filters for the in-between samples of a 4x oversampled signal (one per phase)."""
+    n = np.arange(-half, half)
+    out = []
+    for ph in range(1, os_):
+        x = n + ph / os_
+        h = np.sinc(x) * (0.42 + 0.5 * np.cos(np.pi * x / half) + 0.08 * np.cos(2 * np.pi * x / half))
+        out.append(h / h.sum())
+    return out, half
+
+
+def true_peak(st, os_=4):
+    """Sample-wise peak of the signal as a DAC would draw it (4x oversampled, BS.1770 style), both channels."""
+    taps, half = _interp_taps(os_)
+    pk = np.abs(st).max(axis=1)
+    for h in taps:
+        for c in range(st.shape[1]):
+            y = np.convolve(st[:, c], h[::-1], mode='full')[half - 1: half - 1 + len(st)]
+            pk = np.maximum(pk, np.abs(y))
+    return pk
+
+
+def limit(st, ceil_db=-1.5, look=3, release=0.08):
+    """A look-ahead true-peak limiter on 1 ms blocks: no peak above the ceiling, even between samples (so
+    no overs once YouTube re-encodes it), and the gain recovers in about 80 ms."""
     ceil, blk = 10 ** (ceil_db / 20), SR // 1000
     nb = len(st) // blk + 1
     pk = np.zeros(nb)
-    a = np.abs(st).max(axis=1)
+    a = true_peak(st)
     pk[: len(a) // blk] = a[: len(a) // blk * blk].reshape(-1, blk).max(axis=1)
     pk[len(a) // blk] = a[len(a) // blk * blk:].max(initial=0.0)
     need = np.minimum(1.0, ceil / np.maximum(pk, 1e-9))
@@ -519,7 +542,8 @@ def main(out):
     post = lufs(st)
     if post < -14.3:                              # the limiter took a little off the loudest climax: make it up once
         st = limit(st * 10 ** ((-14.0 - post) / 20))
-    print(f'loudness {integ:.1f} LUFS before gain, {lufs(st):.1f} LUFS after; peak {20 * np.log10(np.abs(st).max()):.2f} dBFS')
+    print(f'loudness {integ:.1f} LUFS before gain, {lufs(st):.1f} LUFS after; peak {20 * np.log10(np.abs(st).max()):.2f} dBFS, '
+          f'true peak {20 * np.log10(true_peak(st).max()):.2f} dBTP')
     with wave.open(out, 'wb') as w:
         w.setnchannels(2)
         w.setsampwidth(2)

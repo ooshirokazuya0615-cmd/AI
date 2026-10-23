@@ -25,7 +25,13 @@ SANS_B = str(FONT_DIR / 'Carlito-Bold.ttf')
 CHOICE = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'          # has the check mark
 CHOICE_B = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 Y0, Y1 = 1650, 1900
-ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'beethoven': (200, 120, 255), 'romantic': (255, 90, 80)}
+ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'romantic': (255, 90, 80)}
+
+
+def era_of(year):
+    """The period as the year plate names it (Classical from 1750, Romantic from 1820), so its colour, its
+    label and the dots always agree (the Fifth, 1808, is Classical: blue, like its label)."""
+    return 'baroque' if year < 1750 else 'classical' if year < 1820 else 'romantic'
 GUESS = 3.0          # seconds from the first note to the answer (three dots drain, one a second)
 SHOW = 3.0           # seconds the answer stays
 LEAD = 1.2           # the question is up this long before the first note (from the second piece on)
@@ -35,9 +41,9 @@ QUIZ = {
     'toc': [None, 'Hallelujah Chorus  (Handel)', 'Winter, The Four Seasons  (Vivaldi)'],
     'tm': ['Surprise Symphony  (Haydn)', 'Symphony No. 40  (Mozart)', None],
     'ekn': ['Queen of the Night  (Mozart)', None, 'Emperor Quartet  (Haydn)'],
-    'b5': [None, 'Moonlight Sonata  (Beethoven)', 'Erlkonig  (Schubert)'],
-    'fe': ['Ave Maria  (Schubert)', 'Moonlight Sonata  (Beethoven)', None],
-    'otj': ['Ave Maria  (Schubert)', None, 'William Tell Overture  (Rossini)'],
+    'b5': [None, 'Moonlight Sonata  (Beethoven)', 'Erlkönig  (Schubert)'],
+    'fe': ['Ave Maria  (Schubert)', 'Nocturne Op. 9 No. 2  (Chopin)', None],
+    'otj': ['Wedding March  (Mendelssohn)', None, 'William Tell Overture  (Rossini)'],
     'mk': [None, 'Ride of the Valkyries  (Wagner)', 'Swan Lake  (Tchaikovsky)'],
 }
 
@@ -126,7 +132,7 @@ def main():
         k = smooth((t - 2.3) / 0.6) * (1 - smooth((t - (t_final + 1.2)) / 0.8))   # in once the opening has settled
         if k > 0:
             if (W, H) not in _BAND:
-                g_ = np.clip((np.arange(H) / H - 0.80) / 0.20, 0, 1) ** 1.4 * 130
+                g_ = np.clip((np.arange(H) / H - 0.78) / 0.16, 0, 1) ** 1.2 * 178
                 _BAND[(W, H)] = np.repeat(g_.astype(np.uint8)[:, None], W, axis=1)
             band = Image.new('RGBA', im.size, (8, 6, 12, 0))
             band.putalpha(Image.fromarray((_BAND[(W, H)] * k).astype(np.uint8)))
@@ -143,19 +149,20 @@ def main():
                 d.text((x - tw / 2, by + H * 0.012), str(yr), font=tf, fill=(255, 255, 255, int(190 * k)),
                        stroke_width=max(1, H // 720), stroke_fill=(12, 10, 16, int(110 * k)))
             # marker: glides to the current piece's year (during a gap it travels to the next one)
-            yr_now, col = starts[0][2]['year'], ERA_COL[starts[0][2]['era']]
+            yr_now = starts[0][2]['year']
             for j, (t0, t1, song) in enumerate(starts):
                 if t >= t0:
-                    yr_now, col = song['year'], ERA_COL[song['era']]
+                    yr_now = song['year']
                     if j + 1 < len(starts) and t > t1:
                         nt0, _, nsong = starts[j + 1]
                         u = smooth((t - t1) / max(0.3, nt0 - t1))
                         yr_now = song['year'] + (nsong['year'] - song['year']) * u
+            col = ERA_COL[era_of(yr_now)]
             for j, (t0, t1, song) in enumerate(starts):         # visited years leave a dot
                 if t >= t0:
                     x = bx0 + (bx1 - bx0) * (song['year'] - Y0) / (Y1 - Y0)
                     r = H * 0.006
-                    d.ellipse((x - r, by - r, x + r, by + r), fill=(*ERA_COL[song['era']], int(200 * k)))
+                    d.ellipse((x - r, by - r, x + r, by + r), fill=(*ERA_COL[era_of(song['year'])], int(200 * k)))
             x = bx0 + (bx1 - bx0) * (yr_now - Y0) / (Y1 - Y0)
             r = H * 0.013
             glow = Image.new('RGBA', im.size, (0, 0, 0, 0))
@@ -167,7 +174,7 @@ def main():
             # filled in its era's colour once it has been guessed
             # the period named from the year shown (Classical from 1750, Romantic from 1820), so the label
             # changes as the counter crosses the line, not when the next piece starts
-            era_now = 'BAROQUE' if yr_now < 1750 else 'CLASSICAL' if yr_now < 1820 else 'ROMANTIC'
+            era_now = era_of(yr_now).upper()
             yf = font(SERIF_B, int(H * 0.075))
             ink_ = (12, 10, 16, int(150 * k))
             xb_ = W * 0.968 - H * 0.45                       # bottom right: rows start (clef, first notes) at the left
@@ -182,7 +189,7 @@ def main():
                 x = xb_ + H * 0.028 + r + j * r * 2.9
                 yv = by + H * 0.031
                 if t >= t0 + GUESS:
-                    d.ellipse((x - r, yv - r, x + r, yv + r), fill=(*ERA_COL[song['era']], int(255 * k)))
+                    d.ellipse((x - r, yv - r, x + r, yv + r), fill=(*ERA_COL[era_of(song['year'])], int(255 * k)))
                 else:
                     d.ellipse((x - r, yv - r, x + r, yv + r), outline=(255, 255, 255, int(150 * k)), width=max(1, W // 960))
         # ---- the quiz: a question with three choices and a countdown, then the answer lights up
@@ -197,7 +204,7 @@ def main():
             right = opts.index(None)
             # every choice in the same form (a title only), so the layout never gives the answer away
             names = [song['title'] if o is None else o.split('  (')[0] for o in opts]
-            col = ERA_COL[song['era']]
+            col = ERA_COL[era_of(song['year'])]
             a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - end + 0.4) / 0.4))
             if u < GUESS:
                 n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
@@ -215,11 +222,16 @@ def main():
         if t < 2.6:
             a_ = smooth((t - 0.25) / 0.3) * (1 - smooth((t - 2.15) / 0.35))
             if a_ > 0:
-                pf = font(SANS_B, int(H * 0.048))
-                line = '8 pieces  ·  300 years  ·  can you name them all?'
-                tw = d.textbbox((0, 0), line, font=pf)[2]
-                d.text(((W - tw) / 2, H * 0.84), line, font=pf, fill=(255, 250, 240, int(240 * a_)),
-                       stroke_width=max(2, H // 300), stroke_fill=(12, 10, 16, int(170 * a_)))
+                xc_, ys_ = W * 0.70, (H * 0.31, H * 0.385)
+                lines_ = (('8 pieces  ·  300 years', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
+                          ('can you name them all?', font(SANS_B, int(H * 0.062)), (255, 214, 140)))
+                bw_ = max(d.textbbox((0, 0), t_, font=f_)[2] for t_, f_, _ in lines_)
+                d.rounded_rectangle((xc_ - bw_ / 2 - H * 0.03, ys_[0] - H * 0.022, xc_ + bw_ / 2 + H * 0.03,
+                                     ys_[1] + H * 0.085), radius=int(H * 0.025), fill=(12, 10, 16, int(110 * a_)))
+                for (t_, f_, c_), y_ in zip(lines_, ys_):
+                    tw = d.textbbox((0, 0), t_, font=f_)[2]
+                    d.text((xc_ - tw / 2, y_), t_, font=f_, fill=(*c_, int(245 * a_)),
+                           stroke_width=max(2, H // 300), stroke_fill=(12, 10, 16, int(170 * a_)))
         # ---- closing question
         if t > T_END - 3.2:
             a_ = smooth((t - (T_END - 3.2)) / 0.5)

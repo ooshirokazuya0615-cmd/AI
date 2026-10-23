@@ -52,7 +52,14 @@ KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0,
 # the written value of a note (in the piece's units) where it differs from the time it takes: in Eine kleine
 # Nachtmusik the D6 and D5 are quarters followed by a quarter rest (violin I: "g d g b d4 r"), so they take 4
 # units of time but are engraved as quarters, with filled heads
-NOTE_VALUE = {'ekn': {8: 2, 17: 2}}
+# The Fifth has no bar lines on screen, so its written values are given against a whole note of 8 units (its
+# unit is an eighth): the E-flat, the tied D and the C are half notes ("ef2", "d2 ~ | d", "c2 ~ | c4"), drawn
+# as one open head each
+NOTE_VALUE = {'ekn': {8: 2, 17: 2}, 'b5': {3: 4, 7: 4, 17: 4}}
+WHOLE_UNITS = {'b5': 8}
+# where a piece's line breaks, when the general rule would break it on a short note (the Fifth: after the
+# held D, so the marble sits on the fermata and then has a ride of about a second to the next line)
+BREAK_AFTER = {'b5': (7,)}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
@@ -82,10 +89,12 @@ for s_ in SONGS:
     s_['timesig'] = TIMESIG.get(s_['key'])
     s_['fermata'] = FERMATA.get(s_['key'], ())
     s_['note_value'] = NOTE_VALUE.get(s_['key'], {})
+    s_['whole_units'] = WHOLE_UNITS.get(s_['key'])
+    s_['break_after'] = BREAK_AFTER.get(s_['key'], ())
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
-    'classical': dict(wall=(0.86, 0.87, 0.89), fix=(0.10, 0.13, 0.22), fix_metal=0.4, neon=['cyan', 'violet', 'lime', 'magenta']),
+    'classical': dict(wall=(0.86, 0.87, 0.89), fix=(0.10, 0.13, 0.22), fix_metal=0.4, neon=['cyan', 'white', 'lime', 'magenta']),
     'beethoven': dict(wall=(0.34, 0.36, 0.42), fix=(0.55, 0.56, 0.6), fix_metal=0.9, neon=['cyan', 'magenta', 'violet', 'lime']),
     'romantic': dict(wall=(0.30, 0.06, 0.08), fix=(0.62, 0.48, 0.22), fix_metal=1.0, neon=['red', 'amber', 'magenta', 'white']),
 }

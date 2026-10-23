@@ -265,6 +265,28 @@ def burst(p, t, col, n=7, speed=0.9, life=0.35, size=0.008):
             o.keyframe_insert('scale', frame=fr(t + u))
 
 
+def shell(p, t, col, n=26, r=0.20, life=0.95, size=0.0075):
+    """A firework shell: sparks fly out evenly in a ring (seen face-on), slow as the air takes them, sag a
+    little and fade; a bright flash at the centre as it opens."""
+    m = mat('shell', col, 0.3, emit=col, emit_s=26)
+    for j in range(n):
+        ang = 2 * math.pi * (j + rng.uniform(-0.25, 0.25)) / n
+        rr = r * rng.uniform(0.75, 1.05)
+        d = Vector((math.cos(ang), rng.uniform(-0.15, 0.15), math.sin(ang)))
+        o = sphere(p, size, m, segs=8)
+        key_vis(o, t, t + life)
+        for u in (0.0, 0.08, 0.2, 0.4, 0.65, life):
+            o.location = p + d * rr * (1 - math.exp(-u / 0.12)) + Vector((0, 0, -0.18 * u * u))
+            s = max(0.05, 1.0 - (u / life) ** 1.6)
+            o.scale = (s, s, s)
+            o.keyframe_insert('location', frame=fr(t + u))
+            o.keyframe_insert('scale', frame=fr(t + u))
+    fm = mat('shellflash', (1, 1, 1), 0.3, emit=(1.0, 0.95, 0.85), emit_s=0.0)
+    fl = sphere(p, 0.03, fm, segs=12)
+    emit_keys(fm, ((t - 0.02, 0.0), (t, 30.0), (t + 0.12, 0.0)))
+    key_vis(fl, t - 0.02, t + 0.15)
+
+
 def pulse_ring(p, t, col, r0=0.04, r1=0.14, life=0.28, rot=(math.radians(90), 0, 0)):
     rm = mat('ring', col, 0.2, emit=col, emit_s=14)
     emit_keys(rm, ((t, 14), (t + life, 0.3)))
@@ -436,7 +458,8 @@ PAGE = {
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
     # pieces with a page of their own, so two pieces of one era never look alike
-    'ekn': dict(paper=(0.12, 0.17, 0.26), ink=(0.88, 0.86, 0.78), ink_metal=0.6, rough=0.7),    # night blue
+    'ekn': dict(paper=(0.20, 0.19, 0.42), ink=(0.95, 0.93, 0.86), ink_metal=0.2, rough=0.7, stars=True),  # indigo night
+    'b5': dict(paper=(0.30, 0.33, 0.38), ink=(0.95, 0.96, 0.98), ink_metal=0.25, rough=0.6),       # slate storm
     'otj': dict(paper=(0.88, 0.76, 0.50), ink=(0.10, 0.07, 0.04), ink_metal=0.0, rough=0.85),   # sunlit gold
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
@@ -569,13 +592,15 @@ for s, song in enumerate(SONGS):
         at_bar = bool(bu) and int((pos - pu) // bu) != bar
         if at_bar:
             xc += BAR_PAD
-        if nxt is not None and h['dur'] >= 0.34 and (
-                x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA):
+        brk = song.get('break_after')                 # a piece may name its line break (the Fifth: after the D)
+        if nxt is not None and (h['j'] in brk if brk else h['dur'] >= 0.34 and (
+                x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA)):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H
             new = dict(s=s, z=row_z, t0=nxt['t'], x0=X_LEFT + px + CLEF_W + KS_DX * abs(song['keysig']), notes=[],
                        first=False, px=px)
-            RETURNS[h['i']] = dict(t0=h['t'] + 0.10, t1=nxt['t'] - 0.16, row_from=row, row_to=new,
+            # on a long note the marble sits on it a while (the fermata) and leaves for a ride of about a second
+            RETURNS[h['i']] = dict(t0=h['t'] + max(0.10, h['dur'] - 1.3), t1=nxt['t'] - 0.16, row_from=row, row_to=new,
                                    at_bar=at_bar or not bu, width=x - row['x0'])
             row['x1'] = x + 0.25
             row = new
@@ -782,7 +807,11 @@ def ball_pos(t):
             if tube:
                 pts = tube['pts']
                 if t <= tube['t0']:
-                    return ballistic(p0, h0['t'], pts[1], tube['t0'], t)
+                    tk = max(h0['t'], tube['t0'] - 0.10)     # a long last note: it rests there, then hops in
+                    if t <= tk:
+                        u_ = t - h0['t']
+                        return p0 + Vector((0, 0, max(0.0, 0.025 * math.sin(u_ * 9.0) * math.exp(-u_ * 7.0))))
+                    return ballistic(p0, tk, pts[1], tube['t0'], t)
                 if t <= tube['t1']:
                     return poly_at(pts[1:], ease((t - tube['t0']) / (tube['t1'] - tube['t0'])))
                 return ballistic(pts[-1], tube['t1'], p1, h1['t'], t)
@@ -836,7 +865,60 @@ def paper_mat(era):
     n2.inputs['Scale'].default_value = 140.0
     nt_.links.new(n2.outputs['Fac'], bump.inputs['Height'])
     nt_.links.new(bump.outputs['Normal'], b.inputs['Normal'])
+    if pg.get('stars'):
+        night_sky(nt_, b, [r_ for r_ in ROWS if page_of(SONGS[r_['s']]) == era])
     return m
+
+
+def night_sky(nt_, b, rows):
+    """A sparse field of small, faint stars in the paper (world-space Voronoi cells, about a third of them
+    lit, each at its own brightness), kept off the staves so the music reads as clearly as ever."""
+    N = nt_.nodes.new
+    geo = N('ShaderNodeNewGeometry')
+    xyz = N('ShaderNodeSeparateXYZ')
+    nt_.links.new(geo.outputs['Position'], xyz.inputs['Vector'])
+    on_wall = N('ShaderNodeCombineXYZ')                                   # the wall's own 2-D coordinates
+    nt_.links.new(xyz.outputs['X'], on_wall.inputs['X'])
+    nt_.links.new(xyz.outputs['Z'], on_wall.inputs['Y'])
+    vor = N('ShaderNodeTexVoronoi')
+    vor.voronoi_dimensions = '2D'
+    vor.inputs['Scale'].default_value = 9.0
+    nt_.links.new(on_wall.outputs['Vector'], vor.inputs['Vector'])
+
+    def ramp(src, a, b_, lo=0.0, hi=1.0):
+        mr = N('ShaderNodeMapRange')
+        mr.clamp = True
+        mr.inputs['From Min'].default_value, mr.inputs['From Max'].default_value = a, b_
+        mr.inputs['To Min'].default_value, mr.inputs['To Max'].default_value = lo, hi
+        nt_.links.new(src, mr.inputs['Value'])
+        return mr.outputs['Result']
+
+    def mul(x, y):
+        m_ = N('ShaderNodeMath')
+        m_.operation = 'MULTIPLY'
+        nt_.links.new(x, m_.inputs[0])
+        if isinstance(y, float):
+            m_.inputs[1].default_value = y
+        else:
+            nt_.links.new(y, m_.inputs[1])
+        return m_.outputs['Value']
+    core = ramp(vor.outputs['Distance'], 0.0, 0.05, 1.0, 0.0)             # a dot about 1 cm across
+    rgb = N('ShaderNodeSeparateColor')
+    nt_.links.new(vor.outputs['Color'], rgb.inputs['Color'])
+    lit = ramp(rgb.outputs['Red'], 0.66, 0.70)                            # a third of the cells hold a star
+    bright = ramp(rgb.outputs['Green'], 0.0, 1.0, 0.35, 1.0)
+    out = mul(mul(core, lit), bright)
+    for r_ in rows:                                                       # none on or near a staff
+        d_ = N('ShaderNodeMath')
+        d_.operation = 'SUBTRACT'
+        nt_.links.new(xyz.outputs['Z'], d_.inputs[0])
+        d_.inputs[1].default_value = r_['z'] + 2 * LS
+        ab = N('ShaderNodeMath')
+        ab.operation = 'ABSOLUTE'
+        nt_.links.new(d_.outputs['Value'], ab.inputs[0])
+        out = mul(out, ramp(ab.outputs['Value'], 0.34, 0.44))
+    b.inputs['Emission Color'].default_value = (1.0, 0.94, 0.82, 1)
+    nt_.links.new(mul(out, 9.0), b.inputs['Emission Strength'])         # faint: never a sparkle
 
 
 def text_obj(txt, loc, size, m, rot=(math.radians(90), 0, 0), align='CENTER', font=None):
@@ -959,7 +1041,8 @@ for h in C:
     # halves and wholes are open heads (an ink ring round the paper); a whole note has no stem
     ts_, bu_ = song.get('timesig'), song.get('bar_units')
     nval = song.get('note_value', {}).get(h['j'], h['nunit'])          # written value, if not the time taken
-    frac = nval * ts_[0] / ts_[1] / bu_ if ts_ and bu_ else 0.0
+    wu_ = bu_ * ts_[1] / ts_[0] if ts_ and bu_ else song.get('whole_units')     # units in a whole note
+    frac = nval / wu_ if wu_ else 0.0
     if frac >= 0.5 - 1e-6:
         hole = sphere((0, 0, 0), 1.0, paper_mat(page_of(song)), scale=(0.58, 0.13, 0.46), segs=24)
         hole.parent = o                                   # in the head's own (unit-sphere) space
@@ -1157,8 +1240,8 @@ for s_, m_ in GAPMACH.items():
 
 # ---------------------------------------------------------------- 4c. signature moments inside the pieces
 # Each piece gets one thing of its own, always driven by the notes the marble plays:
-#   Symphony No. 5   a hammer over each long note: the three repeated notes ratchet it up, click by click,
-#                    and the fourth brings it down (da-da-da-DUM), with lightning, thunder and a jolt
+#   Symphony No. 5   a drop hammer beside each long note: the three repeated notes ratchet it up, click by
+#                    click, and the fourth brings it down (da-da-da-DUM), with lightning, thunder and a jolt
 #   Rondo alla Turca a little Turkish drum at every bar line, struck on the downbeat (Mozart was imitating
 #                    the Janissary band)
 #   Eine kleine      fireworks on the top note of the rising arpeggio
@@ -1173,59 +1256,71 @@ def notes_of(key):
     return [h for h in C if h['s'] == KEY_S.get(key) and h['mech'] != 'bigdrum']
 
 
-def hammer_for(hits, k_strike):
-    """A hammer over note k_strike, cocked by the three notes before it."""
+def hammer_for(hits, k_strike, g=1.0):
+    """A drop hammer beside note k_strike, cocked by the three notes before it. g: how hard (they build up).
+    The weight hangs above the staff, right of the fermata, so nothing of the music is covered while it
+    waits; each repeated note ratchets it up a notch, and on the long note it slams onto an anvil beside the
+    head (the marble and the stem stay in view) and is winched straight back up."""
     hs = hits[k_strike]
     head, st, row = HEAD[hs['i']]
     yb = HEAD_Y - 0.13                                  # in front of the marble's plane, clear of it
-    anvil = Vector((head.x + 0.085, yb, head.z - 0.035))
-    face = anvil + Vector((0, 0, 0.055))                 # where the mallet's centre is at the strike
-    piv = Vector((head.x + 0.40, yb, head.z + 0.40))
+    xh = head.x + 0.30                                  # beyond the return funnel at a line's end
+    anvil = Vector((xh, yb, head.z - 0.035))
+    z_land = anvil.z + 0.015 + 0.034                    # the weight's centre resting on the anvil
+    z_rest = row['z'] + 4 * LS + 0.19                   # above the staff and the fermata's arc
     hm_m = mat('hammer', (0.85, 0.62, 0.25), 0.25, metal=1.0)
-    cube((anvil.x, anvil.y, anvil.z), (0.05, 0.06, 0.03), mat('anvil', (0.15, 0.15, 0.17), 0.3, metal=0.9))
-    cyl(Vector((piv.x, WALL_Y, piv.z)), piv, 0.008, M_BRASS, 10)                   # the bracket
-    hold = empty(piv, 'hammer_pivot')
+    cube((anvil.x, anvil.y, anvil.z), (0.07, 0.06, 0.03), mat('anvil', (0.15, 0.15, 0.17), 0.3, metal=0.9))
+    hold = empty(Vector((xh, yb, z_rest)), 'hammer_weight')
     bpy.context.view_layer.update()
-    arm = cyl(piv, face, 0.007, mat('arm', (0.3, 0.18, 0.08), 0.4), 10)
-    d_ = (face - piv).normalized()
-    across = Vector((-d_.z, 0, d_.x)) * 0.06              # the head lies across the handle: a T seen from the front
-    mallet = cyl(face - across, face + across, 0.03, hm_m, 20)
-    for o in (arm, mallet):
+    wt = cyl(Vector((xh - 0.055, yb, z_rest)), Vector((xh + 0.055, yb, z_rest)), 0.034, hm_m, 24)
+    rod = cyl(Vector((xh, yb, z_rest + 0.03)), Vector((xh, yb, z_rest + 0.13)), 0.005, M_BRASS, 8)   # a short stem
+    eye = torus(Vector((xh, yb, z_rest + 0.15)), 0.018, 0.004, M_BRASS, rot=(math.radians(90), 0, 0))   # its ring
+    for o in (wt, rod, eye):
         parent(o, hold)
     t_s = hs['t']
     cocks = [hits[k_strike - 3 + j]['t'] for j in range(3)]
-    keys = [(cocks[0] - 0.5, 25.0)]
-    ang = 25.0
+    keys, dz = [(cocks[0] - 0.5, 0.0)], 0.0
     for tc in cocks:
-        keys += [(tc - 0.01, ang), (tc + 0.05, ang + 17.0), (tc + 0.09, ang + 15.0)]
-        ang += 15.0
+        keys += [(tc - 0.01, dz), (tc + 0.05, dz + 0.045), (tc + 0.09, dz + 0.035)]
+        dz += 0.035
         SIG_HITS.append(dict(t=tc + 0.04, kind='ratchet', g=1.0))
-    keys += [(t_s - 0.075, ang), (t_s - 0.03, ang * 0.55), (t_s, 0.0), (t_s + 0.05, 7.0), (t_s + 0.11, 0.0),
-             (t_s + 0.9, 0.0), (t_s + 1.6, 25.0)]
-    for tk, a_ in keys:
-        hold.rotation_euler = (0, math.radians(a_), 0)
-        hold.keyframe_insert('rotation_euler', frame=fr(max(0.0, tk)))
-    pulse_ring(Vector((face.x, yb - 0.02, face.z - 0.03)), t_s, (0.7, 0.85, 1.0), r0=0.05, r1=0.5, life=0.4, rot=(0, 0, 0))
-    burst(Vector((face.x, yb - 0.02, face.z - 0.03)), t_s, (0.8, 0.9, 1.0), n=14, speed=1.3, life=0.45)
-    SIG_HITS.append(dict(t=t_s, kind='thunder', g=1.0))
+    drop = z_land - z_rest
+    keys += [(t_s - 0.075, dz), (t_s, drop), (t_s + 0.05, drop + 0.025), (t_s + 0.10, drop), (t_s + 0.18, drop + 0.06),
+             (t_s + 0.6, 0.0)]                          # it lifts off at once: the held note stays in view
+    for tk, d_ in keys:
+        hold.location = (xh, yb, z_rest + d_)
+        hold.keyframe_insert('location', frame=fr(max(0.0, tk)))
+    hit_p = Vector((xh, yb - 0.04, anvil.z + 0.015))
+    pulse_ring(hit_p, t_s, NEON['amber'], r0=0.04, r1=0.13, life=0.3, rot=(0, 0, 0))
+    burst(hit_p, t_s, (1.0, 0.8, 0.5), n=10, speed=1.0, life=0.4)
+    SIG_HITS.append(dict(t=t_s, kind='thunder', g=g))
     SHAKES.append(t_s)
     return t_s
 
 
 b5_ = notes_of('b5')
 if b5_:
-    strikes = [hammer_for(b5_, k) for k in (3, 7, 17) if k < len(b5_)]
-    page_z = HEAD[b5_[0]['i']][2]['z']
+    # the three strikes build: thunder and flash at about 70 %, 84 % and 100 %
+    STRIKE_G = {3: 0.71, 7: 0.84, 17: 1.0}
+    strikes = [(hammer_for(b5_, k, STRIKE_G[k]), STRIKE_G[k]) for k in (3, 7, 17) if k < len(b5_)]
     ld = bpy.data.lights.new('lightning', 'AREA')
-    ld.color, ld.size, ld.energy = (0.75, 0.85, 1.0), 5.0, 0.0
+    ld.shape, ld.size, ld.size_y = 'RECTANGLE', 0.5, 3.0          # a tall window of light, low and to the side
+    ld.color, ld.energy = (0.75, 0.85, 1.0), 0.0
     lo_ = bpy.data.objects.new('lightning', ld)
     sc.collection.objects.link(lo_)
-    lo_.location = (HEAD[b5_[len(b5_) // 2]['i']][0].x, -1.2, page_z + 1.6)
-    lo_.rotation_euler = (math.radians(40), 0, 0)
-    for t_s in strikes:
-        for u, e in ((-0.02, 0.0), (0.0, 9000.0), (0.04, 1200.0), (0.08, 6500.0), (0.14, 600.0), (0.3, 0.0)):
+    LIGHTNING_PEAK = float(os.environ.get('LIGHTNING_PEAK', 28.0))     # +45..60 levels at the peak, no white-out
+    for t_s, g_ in strikes:
+        hd_ = HEAD[[h for h in b5_ if h['t'] == t_s][0]['i']][0]
+        e_ = LIGHTNING_PEAK * g_
+        # it rakes across the wall from the left: the light slides right as it flares and dies
+        for u, e, dx_ in ((-0.02, 0.0, -1.6), (0.0, e_, -1.4), (0.045, 0.75 * e_, -1.0), (0.12, 0.35 * e_, -0.4),
+                          (0.22, 0.12 * e_, 0.2), (0.33, 0.0, 0.6)):
             ld.energy = e
             ld.keyframe_insert('energy', frame=fr(t_s + u))
+            lo_.location = (hd_.x + dx_, -0.6, hd_.z + 0.5)
+            lo_.rotation_euler = (math.radians(70), math.radians(-35), 0)   # grazing the wall
+            lo_.keyframe_insert('location', frame=fr(t_s + u))
+            lo_.keyframe_insert('rotation_euler', frame=fr(t_s + u))
 
 tm_ = notes_of('tm')
 if tm_:
@@ -1266,11 +1361,24 @@ if tm_:
 ekn_ = notes_of('ekn')
 if len(ekn_) > 8:
     top = ekn_[8]                                       # D6, the top of the rising arpeggio
-    pt = HEAD[top['i']][0] + Vector((0, -0.05, 0.12))
-    for col_ in ('magenta', 'cyan', 'amber'):
-        burst(pt, top['t'], NEON[col_], n=12, speed=1.6, life=0.7, size=0.009)
-    pulse_ring(pt, top['t'], NEON['white'], r0=0.05, r1=0.45, life=0.5)
-    SIG_HITS.append(dict(t=top['t'], kind='sparkle', g=1.0))
+    hd_, rz_ = HEAD[top['i']][0], HEAD[top['i']][2]['z']
+    # the note sends up four rockets that fan out and burst across the night sky above the staff, one after
+    # another (no flat ring over the music: these are in the world, above it)
+    for k_, (dx_, dz_, dt_, col_) in enumerate(((-0.60, 0.70, 0.32, 'magenta'), (0.40, 0.74, 0.42, 'cyan'),
+                                                (-0.10, 0.78, 0.55, 'amber'), (0.85, 0.68, 0.68, 'lime'))):
+        t0_ = top['t'] + 0.04 * k_
+        p0_ = hd_ + Vector((0, -0.06, 0.06))
+        p1_ = Vector((hd_.x + dx_, HEAD_Y - 0.10, rz_ + dz_))
+        rk_ = sphere(p0_, 0.010, mat(f'rocket{k_}', NEON[col_], 0.3, emit=NEON[col_], emit_s=20), segs=8)
+        key_vis(rk_, t0_, top['t'] + dt_)
+        for u_ in (0.0, 0.33, 0.66, 1.0):                # an arc that slows as it climbs
+            tt_ = t0_ + (top['t'] + dt_ - t0_) * u_
+            rk_.location = p0_.lerp(p1_, 1 - (1 - u_) ** 2) + Vector((0, 0, 0.05 * math.sin(math.pi * u_)))
+            rk_.keyframe_insert('location', frame=fr(tt_))
+        shell(p1_, top['t'] + dt_, NEON[col_], r=0.17 + 0.03 * (k_ % 2))
+        shell(p1_, top['t'] + dt_ + 0.06, NEON['white'], n=10, r=0.08, life=0.6, size=0.005)
+        SIG_HITS.append(dict(t=top['t'] + dt_, kind='sparkle', g=0.30 + 0.08 * (k_ % 2)))   # under the music
+    SIG_HITS.append(dict(t=top['t'], kind='whoosh', g=0.3, L=0.5))
 
 otj_ = notes_of('otj')
 DANCERS = []
@@ -1623,7 +1731,7 @@ def row_point(r_, tt):
 
 
 _POS = {h['i']: k for k, h in enumerate(C)}
-RET_PAIRS = [(C[_POS[i]], C[_POS[i] + 1], r['row_from'], r['row_to']) for i, r in RETURNS.items()]
+RET_PAIRS = [(C[_POS[i]], C[_POS[i] + 1], r['row_from'], r['row_to'], r['t0']) for i, r in RETURNS.items()]
 
 
 def frame_point(tt):
@@ -1633,10 +1741,11 @@ def frame_point(tt):
     settled before the next note."""
     if tt <= C[0]['t']:
         return (*row_point(ROWS[0], C[0]['t']), (0.0, 0.0))
-    for h0, h1, r0, r1 in RET_PAIRS:
+    for h0, h1, r0, r1, t_ret in RET_PAIRS:
         # a carriage return: from the row's last bars the view opens to hold the row end and the next row's
         # start together, so the ride through the tube crosses the frame, then closes in on the new row
-        a_, b_ = h0['t'] - 0.5, h1['t'] + 0.35
+        # (after a long last note, not before the ride: the held note is seen close)
+        a_, b_ = max(h0['t'] - 0.5, t_ret - 0.6), h1['t'] + 0.35
         if a_ <= tt <= b_:
             pa, za = row_point(r0, h0['t'])
             pb, zb = row_point(r1, h1['t'])
@@ -1806,8 +1915,8 @@ LOOK = {   # key (strength, colour, direction to the light), fill (strength, col
     'canon': ((0.75, (1.0, 0.74, 0.46), (0.6, -1.0, 0.9)), (0.10, (1.0, 0.8, 0.6)), ((0.30, 0.20, 0.12), 0.10)),  # candlelight
     'toc': ((1.35, (1.0, 0.93, 0.82), (-0.5, -0.6, 1.6)), (0.06, (0.6, 0.7, 1.0)), ((0.10, 0.10, 0.16), 0.08)),   # organ loft
     'tm': ((1.3, (1.0, 0.86, 0.80), (0.5, -1.0, 1.0)), (0.30, (1.0, 0.80, 0.76)), ((0.55, 0.42, 0.42), 0.16)),    # salon
-    'ekn': ((0.95, (0.62, 0.72, 1.0), (-0.4, -1.0, 1.2)), (0.18, (1.0, 0.72, 0.42)), ((0.05, 0.07, 0.16), 0.16)),  # night
-    'b5': ((0.85, (0.72, 0.80, 1.0), (0.3, -1.0, 1.5)), (0.08, (0.5, 0.6, 1.0)), ((0.04, 0.05, 0.10), 0.10)),     # storm
+    'ekn': ((1.30, (0.70, 0.74, 1.0), (-0.4, -1.0, 1.2)), (0.26, (1.0, 0.74, 0.46)), ((0.10, 0.09, 0.22), 0.24)),  # moonlit night
+    'b5': ((0.80, (0.80, 0.86, 1.0), (0.3, -1.0, 1.5)), (0.13, (0.62, 0.70, 0.90)), ((0.14, 0.16, 0.20), 0.13)),   # storm
     'fe': ((0.55, (0.95, 0.80, 0.95), (0.6, -1.0, 0.8)), (0.12, (0.7, 0.6, 1.0)), ((0.06, 0.05, 0.10), 0.12)),    # evening
     'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
     'mk': ((0.60, (1.0, 0.55, 0.42), (-0.6, -1.0, 0.7)), (0.08, (1.0, 0.4, 0.3)), ((0.12, 0.03, 0.03), 0.10)),    # red hall

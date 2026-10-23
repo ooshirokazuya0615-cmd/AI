@@ -434,6 +434,7 @@ def mech_tilt(m, p, v, t, th):
             thp *= 0.6
     if r is None:
         return None
+    t_on = t
     t, v = r
     v = max(v, 0.08)
     T_tilt, t_p = 0.24, t
@@ -453,6 +454,7 @@ def mech_tilt(m, p, v, t, th):
     out = down.b + Vector((-0.08, 0, -0.14))
     t = m.hop(down.b, t, out, t + 0.28)
     m.hit(t, 'land', 0.7)
+    m.closeups.append((t_on, t, 0.8, piv - Vector((0, 0, 0.04))))
     m.parts.append(('tilt', piv, Lp, thp, t_p, T_tilt))
     return out, 0.3, t
 
@@ -535,8 +537,8 @@ def mech_plinko(m, p, v, t, th):
         contact.append((k, j, Vector((x, Y, top - k * dz + m.R + pin_r - 0.01))))
         j += rng.choice((0, 1))
     entry = contact[0][2] + Vector((0, 0, 0.0))
+    m.closeups.append((t - 0.1, t + 0.26 + 0.135 * rows + 0.1, 0.72, Vector((cx, Y, top - rows * dz / 2))))
     t = m.hop(p, t, entry, t + 0.26)
-    m.closeups.append((t, t + 0.135 * rows + 0.1, 1.15, Vector((cx, Y, top - rows * dz / 2))))
     path = []
     for (k, jj, q), nxt in zip(contact, contact[1:] + [None]):
         col = int(round((q.x - cx) / dx * 2)) + rows
@@ -694,7 +696,7 @@ def build(m, h):
         rail_m = h.mat('m_gold', (0.95, 0.75, 0.36), 0.18, metal=1.0)
         arm_m = h.mat('m_ebony', (0.05, 0.06, 0.12), 0.3, coat=0.8)     # ebony against the pale salon walls
     elif st == 'steel':
-        rail_m = h.mat('m_steel', (0.9, 0.91, 0.95), 0.12, metal=1.0)
+        rail_m = h.mat('m_steel', (0.9, 0.91, 0.95), 0.32, metal=1.0)     # satin: it catches the key light
         arm_m = h.mat('m_dark', (0.12, 0.12, 0.14), 0.35, metal=0.8)
     else:
         rail_m = h.mat('m_brass2', (0.9, 0.62, 0.28), 0.2, metal=1.0)
@@ -831,7 +833,8 @@ def build(m, h):
         elif kind == 'tilt':
             piv, Lp, thp, t_p, T_tilt = part[1:]
             centre = piv - Vector((0, 0, lift + 0.008))
-            plank = h.cube(tuple(centre), (Lp, 2 * RAIL_HALF + 0.024, 0.012), rail_m)
+            plank_m = h.mat('plank', (0.86, 0.80, 0.68), 0.38, coat=0.5)          # pale maple: it reads on any wall
+            plank = h.cube(tuple(centre), (Lp, 2 * RAIL_HALF + 0.024, 0.012), plank_m)
             for u, f in ((-1.0, 0.0), (0.0, 0.0), (T_tilt * 0.8, 0.9), (T_tilt, 1.0), (T_tilt + 0.06, 0.95),
                          (T_tilt + 0.14, 1.0)):
                 plank.rotation_euler = (0, thp - 2 * thp * f, 0)     # left end up, then down
@@ -876,15 +879,15 @@ def build(m, h):
                       0.004, arm_m, 6)
         elif kind == 'plinko':
             cx, top, rows, dx, dz, path, pin_r, chute = part[1:]
-            board_m = h.mat('pegboard', (0.1, 0.08, 0.07) if st != 'gold' else (0.92, 0.9, 0.86), 0.5, coat=0.5)
+            board_m = h.mat('pegboard', (0.84, 0.80, 0.70), 0.5, coat=0.5)        # a pale board, dark pins
             wdt = (rows + 1) * dx + 0.06
-            h.cube((cx, Y + 0.075, top - (rows * dz) / 2 + 0.02), (wdt, 0.01, rows * dz + 0.18), board_m)
+            h.cube((cx, Y + 0.043, top - (rows * dz) / 2 + 0.02), (wdt, 0.01, rows * dz + 0.18), board_m)   # before the page trim
             struck = {(k, j): t for k, j, t in path}
             for k in range(rows):
                 for j in range(k + 1):
                     x = cx + (j - k / 2) * dx
                     z = top - k * dz
-                    pm = h.mat(f'pin{k}_{j}', (0.92, 0.8, 0.5), 0.2, metal=1.0, emit=h.neon, emit_s=0.0)
+                    pm = h.mat(f'pin{k}_{j}', (0.10, 0.09, 0.10), 0.3, metal=0.6, emit=h.neon, emit_s=0.0)
                     h.cyl(Vector((x, Y + 0.07, z)), Vector((x, Y - 0.035, z)), pin_r, pm, 8)
                     if (k, j) in struck:
                         tk = struck[(k, j)]
