@@ -343,6 +343,7 @@ def mech_loop(m, p, v, t, th):
         y = Y + 0.04 - 0.08 * ph / (2 * math.pi)      # a gentle helix: in at the back, out in front
         return Vector((Cl.x - rl * math.sin(ph), y, Cl.z - rl * math.cos(ph)))
     m.rolls.append(dict(t0=t, t1=t + Tl, v0=v_B, v1=v_B, style='loop'))
+    m.closeups.append((t - Tq - 0.5, t + Tl + 0.2, 1.0, Cl.copy()))   # in close for the loop itself
     t = m.seg(t, t + Tl, loop)
     m.parts.append(('loop', O, rq, Cl, rl))
     # run out, back to the machine's depth
@@ -728,7 +729,8 @@ def build(m, h):
             for k in range(n_r):
                 s_k = tr.L * (k + 0.7) / (n_r + 0.4)
                 c = tr.at(s_k)
-                rm = h.mat(f'chase{k}', h.neon, 0.2, emit=h.neon, emit_s=0.3)
+                cc = getattr(h, 'chase', h.neon)          # the colour the marble takes as it passes them
+                rm = h.mat(f'chase{k}', cc, 0.2, emit=cc, emit_s=0.3)
                 top = Vector((c.x, Y + 0.035, c.z + 0.15))
                 h.cyl(Vector((c.x, Y + 0.035, c.z - lift)), top, 0.004, arm_m, 8)
                 h.sphere(top + Vector((0, 0, 0.014)), 0.016, rm, segs=16)

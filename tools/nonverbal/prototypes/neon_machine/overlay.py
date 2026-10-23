@@ -133,7 +133,7 @@ def main():
             band.putalpha(Image.fromarray((_BAND[(W, H)] * k).astype(np.uint8)))
             layer = Image.alpha_composite(layer, band)
             d = ImageDraw.Draw(layer)
-            bx0, bx1, by = int(W * 0.30), int(W * 0.84), int(H * 0.885)    # clear of the player's progress bar
+            bx0, bx1, by = int(W * 0.06), int(W * 0.66), int(H * 0.885)    # clear of the player's progress bar
             d.line((bx0, by + 1, bx1, by + 1), fill=(12, 10, 16, int(70 * k)), width=max(2, W // 640) + 2)
             d.line((bx0, by, bx1, by), fill=(255, 255, 255, int(150 * k)), width=max(2, W // 640))
             for yr in (1700, 1800, 1900):
@@ -172,15 +172,16 @@ def main():
                     era_now = song['era']
             yf = font(SERIF_B, int(H * 0.075))
             ink_ = (12, 10, 16, int(150 * k))
-            d.rounded_rectangle((W * 0.030, by - H * 0.115, W * 0.030 + H * 0.45, by + H * 0.058), radius=int(H * 0.02),
+            xb_ = W * 0.968 - H * 0.45                       # bottom right: rows start (clef, first notes) at the left
+            d.rounded_rectangle((xb_, by - H * 0.115, xb_ + H * 0.45, by + H * 0.058), radius=int(H * 0.02),
                                 fill=(10, 8, 14, int(105 * k)))           # its own plate, over any page
-            d.text((W * 0.045, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
+            d.text((xb_ + H * 0.025, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
                    stroke_width=max(2, H // 300), stroke_fill=ink_)
-            d.text((W * 0.047, by - H * 0.020), ERA_NAME[era_now], font=font(SANS_B, int(H * 0.024)),
+            d.text((xb_ + H * 0.028, by - H * 0.020), ERA_NAME[era_now], font=font(SANS_B, int(H * 0.024)),
                    fill=(255, 255, 255, int(220 * k)), stroke_width=max(1, H // 540), stroke_fill=ink_)
             r = H * 0.013
             for j, (t0, t1, song) in enumerate(starts):
-                x = W * 0.047 + r + j * r * 2.9
+                x = xb_ + H * 0.028 + r + j * r * 2.9
                 yv = by + H * 0.031
                 if t >= t0 + GUESS:
                     d.ellipse((x - r, yv - r, x + r, yv + r), fill=(*ERA_COL[song['era']], int(255 * k)))
@@ -206,14 +207,9 @@ def main():
                 lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244)) for k in range(3)]
             else:
                 v = u - GUESS
-                lines = [(song['title'], SERIF_B, 58, col)]
-                for k in range(3):
-                    if k == right:
-                        lines.append((f'✓   {names[k]}', CHOICE_B, 44, col, 1.0))
-                    else:
-                        lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244), 1 - 0.7 * smooth(v / 0.3)))
-                lines.append((f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
-                              smooth((v - 0.15) / 0.3)))
+                lines = [(f'✓  {"ABC"[right]}   {song["title"]}', CHOICE_B, 48, col),    # (DejaVu has the tick)
+                         (f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
+                          smooth((v - 0.15) / 0.3))]
             pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble

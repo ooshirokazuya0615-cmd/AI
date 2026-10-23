@@ -949,7 +949,7 @@ for h in C:
         fz = max(row['z'] + 4 * LS + 0.08, head.z + 0.15, z0s + stem_l + 0.08 if up else -1e9)   # clear of an up-stem
         text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, fz)), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
-    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.12, 6.0), (h['t'] + 0.45, 1.5)))
+    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 9.0), (h['t'] + 0.12, 3.5), (h['t'] + 0.45, 1.5)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
@@ -966,7 +966,7 @@ for h in C:
     lo = bpy.data.objects.new(f'spill{h["i"]}', ld)
     sc.collection.objects.link(lo)
     lo.location = head + Vector((0, -0.10, 0.02))
-    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 1.6), (h['t'] + 0.25, 0.0)):
+    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 0.4), (h['t'] + 0.25, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
     # only exists while it glows (keeps ~250 lights out of the light tree), and only reaches nearby
@@ -994,7 +994,7 @@ for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE
     gate.rotation_euler = (0, a_, 0)                 # swings up and away downhill, with a little bounce
     gate.keyframe_insert('rotation_euler', frame=fr(t_))
 PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
-PEND_A = 0.22
+PEND_A = 0.33
 pend = empty(Vector((LEDGE_START.x - 0.19, WALL_Y - 0.035, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, WALL_Y - 0.008, pend.location.z), 0.045, M_LEDGE, 32)  # rosette
@@ -1030,9 +1030,9 @@ for row in ROWS:
     sc.collection.objects.link(lo)
     if era == 'baroque':
         cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.02)), 0.014, mat('wax', (0.92, 0.86, 0.72), 0.6), 16)
-        flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=40),
+        flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=24),
                        scale=(0.7, 0.7, 1.6), segs=12)
-        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 16.0
+        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 11.0
         lo.location = p + Vector((0, -0.02, 0.05))
     else:
         sphere(p + Vector((0, 0, -0.02)), 0.05, mat('gasglobe', (1.0, 0.85, 0.6), 0.2, emit=(1.0, 0.7, 0.4), emit_s=8), segs=24)
@@ -1096,12 +1096,17 @@ def revolve(centre, profile, m, segs=48):
     return o
 
 
+# the marble's colour in each piece (each against its page: cobalt on candlelit parchment, crimson in the organ
+# loft, deep violet in the rose salon, gold in the night, orange in the storm, lime in the violet evening, teal
+# on gold, cyan in the red hall); it takes each new one from the chase lamps on the way into the piece
+PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
+             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.45, 0.48), 'mk': (0.15, 0.85, 1.0)}
 from types import SimpleNamespace  # noqa: E402
 M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
 for s_, m_ in GAPMACH.items():
     HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, cone=cone, mat=mat, emit_keys=emit_keys, fr=fr,
                            revolve=revolve, glass=M_GLASS, clear=M_CLEAR, WALL_Y=WALL_Y,
-                           neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]])
+                           neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]], chase=PIECE_COL[SONGS[s_]['key']])
     GD.build(m_, HELP)
     # the chase lamps along the last rail play a rising line that lands a step below the next piece's first
     # note, so the machine leads the ear into the music (a glockenspiel, in the bell's range)
@@ -1321,7 +1326,7 @@ for j, h in enumerate(toc_):
     cyl(foot + Vector((0, 0, 0.036)), foot + Vector((0, 0, 0.036 + ph)), 0.015, pm, 16)
     cube((foot.x, foot.y - 0.0145, foot.z + 0.050), (0.016, 0.004, 0.010), mat('pipemouth', (0.02, 0.015, 0.01), 0.6))
     cube((foot.x, foot.y - 0.0150, foot.z + 0.057), (0.018, 0.003, 0.003), pm)
-    emit_keys(pm, ((h['t'] - 1 / FPS, 0.35), (h['t'], 7.0), (h['t'] + max(0.3, h['dur']), 0.9)))
+    emit_keys(pm, ((h['t'] - 1 / FPS, 0.35), (h['t'], 3.0), (h['t'] + max(0.3, h['dur']), 0.6)))
     if os.environ.get('DEBUG_PIPES'):
         print('pipe', j, h['i'], h['midi'], round(h['t'], 2), round(h['dur'], 2), round(foot.x, 3), pm.name, flush=True)
         if os.environ['DEBUG_PIPES'] == 'paint':           # paint each pipe a different flat colour
@@ -1458,10 +1463,6 @@ wave.inputs['Distortion'].default_value = 11.0
 # the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
 # it takes that piece's colour; one band of its swirl keeps each colour, so it strikes the final drum as a rainbow
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-# (each against its page: cobalt on candlelit parchment, crimson in the organ loft, deep violet in the rose
-#  salon, gold in the night, orange in the storm, lime in the violet evening, teal on gold, cyan in the red hall)
-PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
-             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.45, 0.48), 'mk': (0.15, 0.85, 1.0)}
 PEARL = (0.86, 0.87, 0.92, 1)
 els = ramp.color_ramp.elements
 while len(els) < len(SONGS):
@@ -1473,19 +1474,23 @@ nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
 glow = bsdf.inputs['Emission Strength']
 starts = [[h for h in C if h['s'] == k][0]['t'] for k in range(len(SONGS))]
+def piece_col(k):
+    return (*PIECE_COL.get(SONGS[k]['key'], (1, 1, 1)), 1)
+
+
 for j in range(len(SONGS)):
-    els[j].color = PEARL
+    els[j].color = piece_col(0)
     els[j].keyframe_insert('color', frame=fr(0.0))
-for k, t_k in enumerate(starts):
-    # the whole marble takes the new piece's colour, except the bands earlier pieces already claimed: it
-    # reads as one colour at a time on screen, and still ends as a band of every piece it played
-    col = (*PIECE_COL.get(SONGS[k]['key'], (1, 1, 1)), 1)
-    was = PEARL if k == 0 else (*PIECE_COL.get(SONGS[k - 1]['key'], (1, 1, 1)), 1)
+for k, t_k in enumerate(starts[1:], start=1):
+    # one marble all along: it soaks up the new piece's colour from the chase lamps it rolls past on the way in
+    # (a gradual change you can see happen), and keeps a band of every colour it has had
+    ch_ = sorted(x['t'] for x in (GAPMACH[k].hits if k in GAPMACH else []) if x['kind'] == 'chase')
+    a_, b_ = (ch_[0] - 0.05, ch_[-1] + 0.1) if len(ch_) >= 2 else (t_k - 0.4, t_k + 0.12)
     for j in range(k, len(SONGS)):
-        for tt, c_ in ((max(0.0, t_k - 1 / FPS), was), (t_k + 0.12, col)):
+        for tt, c_ in ((a_, piece_col(k - 1)), (b_, piece_col(k))):
             els[j].color = c_
             els[j].keyframe_insert('color', frame=fr(tt))
-    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 3.5), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
+    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 1.6), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
         glow.default_value = g_
         glow.keyframe_insert('default_value', frame=fr(tt))
 bsdf.inputs['Roughness'].default_value = 0.06
@@ -1505,7 +1510,7 @@ for f in range(1, N + 1):
 # a follow-spot from above the camera's left shoulder: a soft pool of light that travels with the marble and
 # throws its shadow on the page, so the hero is always the brightest, clearest thing in the frame
 fsd = bpy.data.lights.new('followspot', 'SPOT')
-fsd.spot_size, fsd.spot_blend, fsd.shadow_soft_size, fsd.color = math.radians(15), 0.65, 0.05, (1.0, 0.97, 0.92)
+fsd.spot_size, fsd.spot_blend, fsd.shadow_soft_size, fsd.color = math.radians(17), 1.0, 0.05, (1.0, 0.97, 0.92)
 follow = bpy.data.objects.new('followspot', fsd)
 sc.collection.objects.link(follow)
 FOLLOW_OFF = Vector((-0.7, -2.4, 1.5))
@@ -1521,7 +1526,7 @@ for f in range(1, N + 1, 2):
 bpy.ops.object.camera_add(location=(0, -4, 0))
 cam = bpy.context.object
 cam.data.dof.use_dof = True
-cam.data.dof.aperture_fstop = 4.0
+cam.data.dof.aperture_fstop = 5.0
 sc.camera = cam
 focus_empty = empty((0, HEAD_Y - 0.02, 0), 'focus')
 cam.data.dof.focus_object = focus_empty   # focus rides with the marble on the note-head plane
@@ -1727,7 +1732,7 @@ while f <= N:
     cam.keyframe_insert('location', frame=f)
     cam.keyframe_insert('rotation_euler', frame=f)
     cam.data.keyframe_insert('lens', frame=f)
-    cam.data.dof.aperture_fstop = 4.0 + 6.0 * smooth((t - (TF + 1.0)) / 1.0)   # deeper focus for the wide reveal
+    cam.data.dof.aperture_fstop = 5.0 + 5.0 * smooth((t - (TF + 1.0)) / 1.0)   # deeper focus for the wide reveal
     bp_ = ball_pos(t)
     focus_empty.location = (bp_.x, HEAD_Y - 0.02, bp_.z)
     focus_empty.keyframe_insert('location', frame=f)
@@ -1761,7 +1766,7 @@ bg_ = world.node_tree.nodes['Background']
 
 
 # the follow-spot's strength in each room (strong in the dark ones, a touch in the bright ones)
-FOLLOW_E = {'canon': 55.0, 'toc': 75.0, 'tm': 45.0, 'ekn': 95.0, 'b5': 95.0, 'fe': 95.0, 'otj': 35.0, 'mk': 70.0}
+FOLLOW_E = {'canon': 40.0, 'toc': 52.0, 'tm': 36.0, 'ekn': 66.0, 'b5': 66.0, 'fe': 66.0, 'otj': 25.0, 'mk': 50.0}
 
 
 def set_look(lk, t, key=None):
