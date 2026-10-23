@@ -42,7 +42,7 @@ XYLO_HUE = [(0.95, 0.2, 0.25), (1.0, 0.5, 0.1), (1.0, 0.85, 0.15), (0.3, 0.85, 0
 BELL_MIDI = [76, 79, 81, 84, 88, 91]                  # a rising pentatonic phrase
 PLINKO_MIDI = [72, 74, 76, 79, 81, 84, 86, 88, 91]    # pins sound by column (pentatonic)
 STYLE = {'baroque': 'wood', 'classical': 'gold', 'beethoven': 'steel', 'romantic': 'brass'}
-DOM_GAP, DOM_DT = 0.075, 0.050                        # domino spacing and the time between falls (~1.5 m/s)
+DOM_GAP, DOM_DT = 0.075, 0.100                        # domino spacing and time between falls (a chain you can follow)
 # how far left and down each mechanism takes the marble (for planning the room it needs)
 WIDTH = {'stairs': 0.73, 'xylo': 0.87, 'dominoes': 1.30, 'bells': 1.05, 'loop': 0.95, 'jump': 1.15,
          'tilt': 0.70, 'spiral': 0.40, 'helix': 0.15, 'plinko': 0.75}
