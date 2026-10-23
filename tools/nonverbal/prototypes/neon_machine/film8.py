@@ -1332,14 +1332,14 @@ for j, h in enumerate(toc_):
     foot = Vector((head.x, WALL_Y - 0.01, row['z'] + 4 * LS + 0.10))     # flat against the wall, behind the marble
     if h['j'] in SONGS[KEY_S['toc']].get('fermata', ()):
         foot.z = max(foot.z, head.z + 0.30)                                  # clear of the fermata over the note
-    # an organ flue pipe: a conical foot, the mouth (a dark slot with its upper lip), the body; burnished,
-    # not mirror metal (a mirror pipe only reflects the dark loft and reads black), with a faint glow
-    pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.32, metal=0.9, emit=(1.0, 0.75, 0.4), emit_s=0.35)
+    # an organ flue pipe: a conical foot, the mouth (a dark slot with its upper lip), the body; half-metal with
+    # a broad sheen and a soft glow (a mirror pipe that happens to face nothing bright reads as a black bar)
+    pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.45, metal=0.5, emit=(1.0, 0.75, 0.4), emit_s=0.8)   # never a black bar
     cone(foot + Vector((0, 0, 0.018)), 0.004, 0.015, 0.036, pm, 16)
     cyl(foot + Vector((0, 0, 0.036)), foot + Vector((0, 0, 0.036 + ph)), 0.015, pm, 16)
     cube((foot.x, foot.y - 0.0145, foot.z + 0.050), (0.016, 0.004, 0.010), mat('pipemouth', (0.02, 0.015, 0.01), 0.6))
     cube((foot.x, foot.y - 0.0150, foot.z + 0.057), (0.018, 0.003, 0.003), pm)
-    emit_keys(pm, ((h['t'] - 1 / FPS, 0.35), (h['t'], 3.0), (h['t'] + max(0.3, h['dur']), 0.6)))
+    emit_keys(pm, ((h['t'] - 1 / FPS, 0.8), (h['t'], 3.0), (h['t'] + max(0.3, h['dur']), 1.0)))
     if os.environ.get('DEBUG_PIPES'):
         print('pipe', j, h['i'], h['midi'], round(h['t'], 2), round(h['dur'], 2), round(foot.x, 3), pm.name, flush=True)
         if os.environ['DEBUG_PIPES'] == 'paint':           # paint each pipe a different flat colour
