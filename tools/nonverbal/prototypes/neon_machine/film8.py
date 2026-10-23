@@ -984,7 +984,7 @@ for fc_ in pend.animation_data.action.fcurves:
     for kp_ in fc_.keyframe_points:
         kp_.interpolation = 'BEZIER'
         kp_.handle_left_type = kp_.handle_right_type = 'AUTO_CLAMPED'
-TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.50
+TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.80   # in the opening view, above the first row's framing
 text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.15, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
 text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.13)), 0.075, ink_mat(SONGS[0]['era']),
