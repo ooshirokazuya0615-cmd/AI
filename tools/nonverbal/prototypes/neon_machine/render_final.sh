@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Final render of "300 Years of Music, One Marble" (film8 + songs7), resumable.
+# Run it here in the cloud, never on the owner's PC (heat and fan noise); GPU=1 is for a rented
+# GPU only, and renting one needs the owner's approval first.
 #
 #   PY=<python with bpy> [GPU=1] ./render_final.sh frames OUT_DIR [FIRST-LAST]
 #       renders 1080p frames into OUT_DIR/frames; frames already on disk are kept, and empty
@@ -35,7 +37,7 @@ finish)
     mkdir -p "$OUT/graded"
     python3 overlay.py "$OUT/frames" "$OUT/graded" --film --fps "$FPS"
     ffmpeg -y -loglevel error -framerate "$FPS" -i "$OUT/graded/f_%04d.png" -i "$OUT/audio.wav" \
-        -c:v libx264 -preset slow -pix_fmt yuv420p -crf 17 -c:a aac -b:a 256k -shortest \
+        -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -preset slow -pix_fmt yuv420p -crf 17 -c:a aac -b:a 256k -shortest \
         -movflags +faststart "$OUT/300-years-of-music-one-marble.mp4"
     echo "wrote $OUT/300-years-of-music-one-marble.mp4"
     ;;
