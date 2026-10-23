@@ -1039,6 +1039,7 @@ for s_, m_ in GAPMACH.items():
 #   Eine kleine      fireworks on the top note of the rising arpeggio
 #   Ode to Joy       little figures below the staff bounce on every beat
 #   Toccata          organ pipes behind the line glow with each note
+#   Fur Elise        a firefly rises from every note into the night-blue page
 SIG_HITS, SHAKES = [], []
 KEY_S = {song['key']: k for k, song in enumerate(SONGS)}
 
@@ -1164,6 +1165,60 @@ if otj_:
             ch = character(x_, r_['z'] - 0.52 + 0.49, bc, ic, acc, f'dancer{len(DANCERS)}')
             r_['below'] = 0.55
             DANCERS.append((ch, [h['t'] for h in otj_ if HEAD[h['i']][2] is r_]))
+
+fe_ = notes_of('fe')                              # Fur Elise: a firefly rises from every note it plays
+for j, h in enumerate(fe_):
+    head = HEAD[h['i']][0]
+    col_ = (1.0, 0.85, 0.35) if j % 3 else (0.7, 1.0, 0.45)
+    fm_ = mat(f'firefly{j}', col_, 0.3, emit=col_, emit_s=0.0)
+    o = sphere(head + Vector((0.0, -0.03, 0.02)), 0.006, fm_, segs=10)
+    key_vis(o, h['t'], h['t'] + 2.4)
+    sway = 0.03 * (1 if j % 2 else -1)
+    for k in range(7):
+        u = k / 6
+        o.location = head + Vector((sway * math.sin(u * 5), -0.03 - 0.05 * u, 0.02 + 0.32 * u))
+        o.keyframe_insert('location', frame=fr(h['t'] + 2.3 * u))
+    emit_keys(fm_, ((h['t'], 0.0), (h['t'] + 0.15, 16.0), (h['t'] + 1.2, 8.0), (h['t'] + 2.3, 0.0)))
+
+# era atmosphere: dust drifting in the candlelight of the baroque pages; a red spotlight sweeping the last page
+bq_ = [h for h in C if h['mech'] != 'bigdrum' and SONGS[h['s']]['era'] == 'baroque']
+if bq_:
+    xs_ = [HEAD[h['i']][0].x for h in bq_]
+    zs_ = [HEAD[h['i']][0].z for h in bq_]
+    t_a, t_b = 0.0, bq_[-1]['t'] + 6.0
+    dust_m = mat('dust', (1.0, 0.85, 0.6), 0.5, emit=(1.0, 0.8, 0.5), emit_s=1.5)
+    rd = random.Random(5)
+    for k in range(140):
+        p0 = Vector((rd.uniform(min(xs_) - 1.0, max(xs_) + 1.0), rd.uniform(0.05, 0.48), rd.uniform(min(zs_) - 0.8, max(zs_) + 0.9)))
+        drift = Vector((rd.uniform(-0.12, 0.12), rd.uniform(-0.03, 0.03), rd.uniform(-0.05, 0.10)))
+        o = sphere(p0, rd.uniform(0.0012, 0.0026), dust_m, segs=6)
+        for tt, f_ in ((t_a, 0.0), (t_b, 1.0)):
+            o.location = p0 + drift * (f_ * (t_b - t_a) / 10.0)
+            o.keyframe_insert('location', frame=fr(tt))
+        try:                                       # an even drift (the layered-action API may differ)
+            for fc in o.animation_data.action.fcurves:
+                for kp in fc.keyframe_points:
+                    kp.interpolation = 'LINEAR'
+        except AttributeError:
+            pass
+mk_ = notes_of('mk')
+if mk_:
+    sp_ = bpy.data.lights.new('redspot', 'SPOT')
+    sp_.color, sp_.energy, sp_.spot_size, sp_.spot_blend = (1.0, 0.25, 0.18), 260.0, math.radians(38), 0.6
+    so_ = bpy.data.objects.new('redspot', sp_)
+    sc.collection.objects.link(so_)
+    xm = [HEAD[h['i']][0].x for h in mk_]
+    zm = sum(HEAD[h['i']][0].z for h in mk_) / len(mk_)
+    so_.location = ((min(xm) + max(xm)) / 2, -1.6, zm + 1.6)
+    t0m, t1m = mk_[0]['t'] - 2.0, mk_[-1]['t'] + 3.0
+    k = 0
+    tt = t0m
+    while tt <= t1m:                               # a slow sweep from side to side
+        ang = math.radians(28) * math.sin(k * 0.9)
+        so_.rotation_euler = (math.radians(52), ang, 0)
+        so_.keyframe_insert('rotation_euler', frame=fr(tt))
+        tt += 1.0
+        k += 1
 
 toc_ = notes_of('toc')
 for j, h in enumerate(toc_):
