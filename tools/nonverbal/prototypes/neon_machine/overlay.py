@@ -123,7 +123,7 @@ def main():
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         # ---- timeline, on a soft dark band so it reads on every wall
-        k = min(1.0, t / 1.2) * (1 - smooth((t - (t_final + 1.2)) / 0.8))
+        k = smooth((t - 2.3) / 0.6) * (1 - smooth((t - (t_final + 1.2)) / 0.8))   # in once the opening has settled
         if k > 0:
             if (W, H) not in _BAND:
                 g_ = np.clip((np.arange(H) / H - 0.80) / 0.20, 0, 1) ** 1.4 * 130

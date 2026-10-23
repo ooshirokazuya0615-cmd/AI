@@ -67,7 +67,7 @@ sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 6
 sc.cycles.transmission_bounces = 4
 sc.cycles.caustics_reflective = sc.cycles.caustics_refractive = False
-sc.render.use_persistent_data = True
+sc.render.use_persistent_data = False      # on, it rendered some instanced pipes black in sequences (not in stills)
 sc.render.use_motion_blur = True
 sc.render.motion_blur_shutter = 0.35
 sc.view_settings.view_transform = 'AgX'
@@ -442,6 +442,14 @@ PAGE = {
 LS = 0.075               # staff line spacing (one step = LS / 2)
 K_SP, GAP_MIN = 0.40, 0.14     # engraved spacing: the gap after a note grows with the square root of its value
 ACC_PAD = 0.075                # extra room in front of a note that carries an accidental
+
+
+def bar_x(h, nxt):
+    """x of the bar line between note h and the next one: about one space before the next note's leftmost
+    ink (its accidental, its down-stem, or its head), and clear of this note's up-stem."""
+    xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
+    left = xb - (0.14 if nxt.get('acc') else 0.051 if HEAD[nxt['i']][1] >= 4 else 0.052)
+    return max(left - 0.075, xa + 0.11)
 
 
 def engr_gap(song, h):
@@ -899,7 +907,7 @@ for s, song in enumerate(SONGS):
             if nxt is not None and int((acc2 - pu) // bu) > int((acc - pu) // bu):
                 xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
                 if HEAD[h['i']][2] is HEAD[nxt['i']][2]:
-                    xbar = xb - min(0.09, (xb - xa) * 0.45)
+                    xbar = bar_x(h, nxt)
                     rz = HEAD[h['i']][2]['z']
                     cube((xbar, WALL_Y - 0.004, rz + 2 * LS), (0.006, 0.004, 4 * LS), ink)
                 else:                                   # the bar ends with the line: its bar line closes the line
@@ -940,7 +948,8 @@ for h in C:
     stem_l = max(3.5 * LS, abs(st - 4) * LS / 2)          # two or more ledger lines: the stem reaches the middle line
     # halves and wholes are open heads (an ink ring round the paper); a whole note has no stem
     ts_, bu_ = song.get('timesig'), song.get('bar_units')
-    frac = h['nunit'] * ts_[0] / ts_[1] / bu_ if ts_ and bu_ else 0.0
+    nval = song.get('note_value', {}).get(h['j'], h['nunit'])          # written value, if not the time taken
+    frac = nval * ts_[0] / ts_[1] / bu_ if ts_ and bu_ else 0.0
     if frac >= 0.5 - 1e-6:
         hole = sphere((0, 0, 0), 1.0, paper_mat(page_of(song)), scale=(0.58, 0.13, 0.46), segs=24)
         hole.parent = o                                   # in the head's own (unit-sphere) space
@@ -960,7 +969,8 @@ for h in C:
         fz = max(row['z'] + 4 * LS + 0.08, head.z + 0.15, z0s + stem_l + 0.08 if up else -1e9)   # clear of an up-stem
         text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, fz)), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
-    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 9.0), (h['t'] + 0.12, 3.5), (h['t'] + 0.45, 1.5)))
+    pk_ = 9.0 if page_of(song) in ('tm', 'classical', 'otj') else 6.0        # lighter pages take a brighter flash
+    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], pk_), (h['t'] + 0.12, pk_ * 0.4), (h['t'] + 0.45, 1.5)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
@@ -977,7 +987,7 @@ for h in C:
     lo = bpy.data.objects.new(f'spill{h["i"]}', ld)
     sc.collection.objects.link(lo)
     lo.location = head + Vector((0, -0.10, 0.02))
-    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 0.4), (h['t'] + 0.25, 0.0)):
+    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 0.0), (h['t'] + 0.25, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
     # only exists while it glows (keeps ~250 lights out of the light tree), and only reaches nearby
@@ -1041,9 +1051,9 @@ for row in ROWS:
     sc.collection.objects.link(lo)
     if era == 'baroque':
         cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.02)), 0.014, mat('wax', (0.92, 0.86, 0.72), 0.6), 16)
-        flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=24),
+        flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=14),
                        scale=(0.7, 0.7, 1.6), segs=12)
-        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 11.0
+        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 6.0
         lo.location = p + Vector((0, -0.02, 0.05))
     else:
         sphere(p + Vector((0, 0, -0.02)), 0.05, mat('gasglobe', (1.0, 0.85, 0.6), 0.2, emit=(1.0, 0.7, 0.4), emit_s=8), segs=24)
@@ -1107,10 +1117,10 @@ def revolve(centre, profile, m, segs=48):
     return o
 
 
-# the marble's colour in each piece (each against its page: cobalt on candlelit parchment, crimson in the organ
+# the marble's colour in each piece (each against its page: cobalt on candlelit parchment, emerald in the organ
 # loft, deep violet in the rose salon, gold in the night, orange in the storm, lime in the violet evening, teal
 # on gold, cyan in the red hall); it takes each new one from the chase lamps on the way into the piece
-PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
+PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.02, 0.62, 0.32), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
              'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.45, 0.48), 'mk': (0.15, 0.85, 1.0)}
 from types import SimpleNamespace  # noqa: E402
 M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
@@ -1218,7 +1228,7 @@ if tm_:
         p2 = pos_ + h['nunit']
         if int((p2 - pu) // bu) > int((pos_ - pu) // bu) and HEAD[h['i']][2] is HEAD[nxt['i']][2]:
             xa, xb = HEAD[h['i']][0].x, HEAD[nxt['i']][0].x
-            xbar = xb - min(0.09, (xb - xa) * 0.45)
+            xbar = bar_x(h, nxt)
             rz = HEAD[h['i']][2]['z']
             dc = Vector((xbar, HEAD_Y - 0.03, rz - 0.21))
             HEAD[h['i']][2]['below'] = 0.36
@@ -1330,8 +1340,12 @@ for j, h in enumerate(toc_):
     head, st, row = HEAD[h['i']]
     ph = 0.10 + 0.010 * (h['midi'] - 48)              # higher notes, longer pipes
     foot = Vector((head.x, WALL_Y - 0.01, row['z'] + 4 * LS + 0.10))     # flat against the wall, behind the marble
-    if h['j'] in SONGS[KEY_S['toc']].get('fermata', ()):
-        foot.z = max(foot.z, head.z + 0.30)                                  # clear of the fermata over the note
+    if h['j'] in SONGS[KEY_S['toc']].get('fermata', ()):                  # clear of the fermata over the note
+        st_ = HEAD[h['i']][1]
+        z0_ = row['z'] + st_ * LS / 2
+        fz_ = max(row['z'] + 4 * LS + 0.08, head.z + 0.15,
+                  z0_ + max(3.5 * LS, abs(st_ - 4) * LS / 2) + 0.08 if st_ < 4 else -1e9)
+        foot.z = max(foot.z, fz_ + 0.12)
     # an organ flue pipe: a conical foot, the mouth (a dark slot with its upper lip), the body; half-metal with
     # a broad sheen and a soft glow (a mirror pipe that happens to face nothing bright reads as a black bar)
     pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.45, metal=0.5, emit=(1.0, 0.75, 0.4), emit_s=0.8)   # never a black bar
@@ -1368,8 +1382,8 @@ cone(cupc, 0.03, 0.07, 0.05, mat('cup', (0.6, 0.45, 0.2), 0.3, metal=1.0))
 chars = []
 designs = [((0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears'), ((0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo'),
            ((0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna')]
-for n_, (s, m_) in enumerate(sorted(GAPMACH.items())):
-    bc, ic, acc = designs[n_ % 3]
+for n_, (s, m_) in enumerate(sorted(GAPMACH.items()) if os.environ.get('WATCHERS') else []):
+    bc, ic, acc = designs[n_ % 3]                 # (off: at the frame edge they read as stray assets)
     ch = character(X_LEFT - 0.55, m_.E_.z + 0.15, bc, ic, acc, f'watch{n_}')
     chars.append((ch, m_.t_kick))
 yel = character(DRUM.x + 0.55, DRUM.z + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
@@ -1639,8 +1653,12 @@ def frame_point(tt):
                 # take the marble's drop in) is reached before the first note plays
                 ka = smooth((tt - (h1['t'] - 1.5)) / 1.1)
                 pb, zb = row_point(HEAD[h1['i']][2], h1['t'])
-                return (att.lerp(pb + Vector((0, 0, 0.12)), ka), zz + (zb * 1.2 - zz) * ka,
-                        (el_ * (1 - ka), yw_ * (1 - ka)))
+                p_, z_ = att.lerp(pb + Vector((0, 0, 0.12)), ka), zz + (zb * 1.2 - zz) * ka
+                # ...but never so far ahead that the marble leaves the frame: keep it in the middle 70%
+                bp_ = m_.pos(tt)
+                hw_, hh_ = 0.35 * VIEW_H * 16 / 9 * z_, 0.35 * VIEW_H * z_
+                p_ = Vector((min(max(p_.x, bp_.x - hw_), bp_.x + hw_), p_.y, min(max(p_.z, bp_.z - hh_), bp_.z + hh_)))
+                return (p_, z_, (el_ * (1 - ka), yw_ * (1 - ka)))
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:

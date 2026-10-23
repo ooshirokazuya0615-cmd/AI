@@ -75,6 +75,11 @@ for s_ in SONGS:
     s_['keysig'] = KEYSIG[s_['key']]
     s_['timesig'] = TIMESIG.get(s_['key'])
     s_['fermata'] = FERMATA.get(s_['key'], ())
+    s_['note_value'] = NOTE_VALUE.get(s_['key'], {})
+# the written value of a note (in the piece's units) where it differs from the time it takes: in Eine kleine
+# Nachtmusik the D6 and D5 are quarters followed by a quarter rest (violin I: "g d g b d4 r"), so they take 4
+# units of time but are engraved as quarters, with filled heads
+NOTE_VALUE = {'ekn': {8: 2, 17: 2}}
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
