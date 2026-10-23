@@ -432,7 +432,7 @@ rng = random.Random(31)
 # paper and ink for each era (the wall is the page)
 PAGE = {
     'baroque': dict(paper=(0.80, 0.70, 0.52), ink=(0.16, 0.10, 0.06), ink_metal=0.0, rough=0.9),
-    'classical': dict(paper=(0.90, 0.89, 0.86), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),
+    'classical': dict(paper=(0.62, 0.70, 0.70), ink=(0.03, 0.03, 0.035), ink_metal=0.0, rough=0.85),   # duck-egg salon
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
     'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
 }
@@ -912,7 +912,7 @@ for h in C:
         while m is None and h['i'] > 0:
             break
         if m:
-            emit_keys(m, ((h['t'] - 1 / FPS, 6.0), (h['t'], 40.0), (h['t'] + 0.4, 6.0)))
+            emit_keys(m, ((h['t'] - 1 / FPS, 1.5), (h['t'], 22.0), (h['t'] + 0.12, 6.0), (h['t'] + 0.4, 1.5)))
         burst(CON[h['i']] + Vector((0, -0.04, -R)), h['t'], neon, n=4, speed=0.6, life=0.25, size=0.006)
         continue
     pg = PAGE[era]
@@ -936,7 +936,7 @@ for h in C:
     if h['j'] in song.get('fermata', ()):
         text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, max(row['z'] + 4 * LS + 0.08, head.z + 0.15))), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
-    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.12, 7.0), (h['t'] + 0.45, 3.0)))
+    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.12, 6.0), (h['t'] + 0.45, 1.5)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
@@ -967,10 +967,13 @@ cyl(LEDGE_START - Vector((0.07, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R 
 for p_ in (LEDGE_START - Vector((0.05, 0, 0)), LEDGE_END):
     cyl((p_.x, WALL_Y, p_.z - R - 0.006), (p_.x, YB, p_.z - R - 0.006), 0.006, M_LEDGE, 8)
 cyl(LEDGE_START - Vector((R + 0.012, 0, R + 0.006)), LEDGE_START - Vector((R + 0.012, 0, -0.02)), 0.006, M_LEDGE, 10)  # back stop
-GATE_H = 2 * R + 0.016
-gate = empty(LEDGE_START + Vector((R + 0.008, 0, R + 0.012)), 'gate_hinge')
-cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, YB - 0.032, gate.location.z), 0.0045, M_LEDGE, 10)
-gate_plate = cube((0, 0, 0), (0.006, 0.05, GATE_H), M_LEDGE, bevel=0.0015)
+GATE_H = 2 * R + 0.016 + 0.006
+gate = empty(LEDGE_START + Vector((R + 0.008, 0, R + 0.018)), 'gate_hinge')
+cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, YB - 0.036, gate.location.z), 0.008, M_LEDGE, 12)
+cyl((gate.location.x, YB - 0.036, gate.location.z), (gate.location.x, YB + 0.036, gate.location.z), 0.008, M_LEDGE, 16)  # knuckle
+cyl((gate.location.x, YB + 0.075, LEDGE_START.z - R - 0.006), (gate.location.x, YB + 0.075, gate.location.z + 0.01),
+    0.006, M_LEDGE, 10)                                              # the post, behind the marble's path
+gate_plate = cube((0, 0, 0), (0.014, 0.06, GATE_H), M_LEDGE, bevel=0.002)
 gate_plate.parent = gate
 gate_plate.location = (0, 0, -GATE_H / 2)
 for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE + 0.17, -1.30), (T_GATE + 0.25, -1.38)):
@@ -978,7 +981,7 @@ for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE
     gate.keyframe_insert('rotation_euler', frame=fr(t_))
 PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
 PEND_A = 0.22
-pend = empty(Vector((LEDGE_START.x - 0.30, YB + 0.12, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
+pend = empty(Vector((LEDGE_START.x - 0.19, YB + 0.12, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
 cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, WALL_Y - 0.008, pend.location.z), 0.045, M_LEDGE, 32)  # rosette
 for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0035, M_LEDGE, 8),
@@ -1282,10 +1285,14 @@ for j, h in enumerate(toc_):
     head, st, row = HEAD[h['i']]
     ph = 0.10 + 0.010 * (h['midi'] - 48)              # higher notes, longer pipes
     foot = Vector((head.x, WALL_Y - 0.01, row['z'] + 4 * LS + 0.10))     # flat against the wall, behind the marble
-    pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.2, metal=1.0, emit=(1.0, 0.75, 0.4), emit_s=0.0)
-    cyl(foot, foot + Vector((0, 0, ph)), 0.009, pm, 12)
-    cone(foot - Vector((0, 0, 0.012)), 0.002, 0.009, 0.024, pm, 12)
-    emit_keys(pm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 6.0), (h['t'] + max(0.3, h['dur']), 0.4)))
+    # an organ flue pipe: a conical foot, the mouth (a dark slot with its upper lip), the body; burnished,
+    # not mirror metal (a mirror pipe only reflects the dark loft and reads black), with a faint glow
+    pm = mat(f'pipe{j}', (0.85, 0.66, 0.3), 0.32, metal=0.9, emit=(1.0, 0.75, 0.4), emit_s=0.35)
+    cone(foot + Vector((0, 0, 0.018)), 0.004, 0.015, 0.036, pm, 16)
+    cyl(foot + Vector((0, 0, 0.036)), foot + Vector((0, 0, 0.036 + ph)), 0.015, pm, 16)
+    cube((foot.x, foot.y - 0.0145, foot.z + 0.050), (0.016, 0.004, 0.010), mat('pipemouth', (0.02, 0.015, 0.01), 0.6))
+    cube((foot.x, foot.y - 0.0150, foot.z + 0.057), (0.018, 0.003, 0.003), pm)
+    emit_keys(pm, ((h['t'] - 1 / FPS, 0.35), (h['t'], 7.0), (h['t'] + max(0.3, h['dur']), 0.9)))
 
 
 # ---------------------------------------------------------------- 5. finale, characters
@@ -1633,7 +1640,7 @@ for row in ROWS:
         if m_ is None:
             continue
         tr_ = t_row - 0.30 + 0.55 * (HEAD[h['i']][0].x - min(xs_)) / max(1e-6, max(xs_) - min(xs_))
-        emit_keys(m_, ((tr_ - 1 / FPS, 3.0), (tr_, 28.0), (tr_ + 0.6, 9.0)))
+        emit_keys(m_, ((tr_ - 1 / FPS, 1.5), (tr_, 28.0), (tr_ + 0.6, 9.0)))
     SIG_HITS.append(dict(t=t_row - 0.30, kind='bell', midi=max(72, min(96, hs_[0]['midi'] + 12)), g=0.45))
 
 
