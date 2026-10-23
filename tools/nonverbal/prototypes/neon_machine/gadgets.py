@@ -25,7 +25,7 @@ from mathutils import Vector
 G = 9.81
 ROLL_K = 5 / 7            # a rolling solid sphere accelerates at 5/7 of g sin(angle)
 DRAG = 1.1                # rolling resistance on the rails (1/s): speed settles near a / DRAG
-RAIL_HALF, RAIL_R = 0.030, 0.0045
+RAIL_HALF, RAIL_R = 0.030, 0.006
 T_HOP_IN, T_HOP_OUT, T_KICK = 0.40, 0.42, 0.06
 XYLO_MIDI = [84, 83, 81, 79, 77, 76, 74, 72]          # C6 B5 A5 G5 F5 E5 D5 C5
 XYLO_HUE = [(0.95, 0.2, 0.25), (1.0, 0.5, 0.1), (1.0, 0.85, 0.15), (0.3, 0.85, 0.3),
@@ -104,6 +104,7 @@ class Machine:
         self.segs, self.hits, self.rolls, self.parts = [], [], [], []
         self.spiral = None                      # (t0, t1, funnel centre): the camera looks down into it
         self.t_kick, self.wait = None, 0.0
+        self.swing = 1.0
 
     # -- motion ---------------------------------------------------------------------------------------
     def seg(self, t0, t1, fn):
@@ -152,6 +153,24 @@ class Machine:
             return 0.0
         a, b, _ = self.spiral
         return math.radians(40) * smooth((t - (a - 0.7)) / 0.7) * (1 - smooth((t - b) / 0.6))
+
+    def yaw(self, t):
+        """A slow sideways swing of the camera through the machine, so its depth shows (alternate machines
+        swing the other way)."""
+        t0, t1 = self.segs[0][0], self.segs[-1][1]
+        u = (t - t0) / (t1 - t0)
+        return self.swing * math.radians(16) * math.sin(math.pi * min(1.0, max(0.0, u)))
+
+    def time_at_x(self, x, t0, t1):
+        """When the marble passes x (moving left) between t0 and t1."""
+        lo, hi = t0, t1
+        for _ in range(40):
+            mid = (lo + hi) / 2
+            if self.pos(mid).x > x:
+                lo = mid
+            else:
+                hi = mid
+        return hi
 
     def attention(self, t):
         """What the camera follows: the marble, or the funnel's centre while the marble circles in it."""
@@ -392,6 +411,7 @@ def _simulate(kind, era, P_L, t_L, P_F, z_rowA, z_rowB, R, Y, th):
     if tr2.sin <= 0:
         return None
     m.parts.append(('rail', tr2, 'T2'))
+    m.t_T2 = t
     if kind in ('dominoes', 'loopdom'):
         s_d0 = 0.28 if kind == 'dominoes' else 0.55
         n_dom = int(min(26, (tr2.L - s_d0 - 0.3) / DOM_GAP))
@@ -489,6 +509,17 @@ def build(m, h):
         if kind == 'rail':
             tr, side = part[1], part[2]
             rails(tr.a, tr.b, tr.n)
+            if side == 'T2' and not any(pp[0] == 'dominoes' for pp in m.parts):
+                # neon rings along the long rail, each flashing as the marble runs through it
+                n_r = max(3, int(tr.L / 0.32))
+                for k in range(n_r):
+                    s_k = tr.L * (k + 0.7) / (n_r + 0.4)
+                    c = tr.at(s_k)
+                    rm = h.mat('railring', h.neon, 0.2, emit=h.neon, emit_s=0.4)
+                    ang = math.atan2(tr.d.z, tr.d.x)
+                    h.torus(c - tr.n * 0.004, R + 0.022, 0.0035, rm, rot=(0, math.pi / 2 - ang, 0))
+                    tp = m.time_at_x(c.x, m.t_T2, m.t_arrive)
+                    h.emit_keys(rm, ((tp - 0.05, 0.4), (tp, 28.0), (tp + 0.35, 1.5)))
             if side == 'T1':
                 endstop(tr.a, +1)               # a cap behind the marble where it lands
             elif m.kind not in ('loop', 'loopdom'):
@@ -553,7 +584,7 @@ def build(m, h):
             prof.append((Rf + 0.05, z_rim - R + 0.02))   # the lip
             h.revolve(Oc, prof, fm)
             h.cyl(Vector((Oc.x, Oc.y, prof[0][1])), below - Vector((0, 0, 0.03)), r_hole + 0.006, fm, 20)
-            h.cyl(below, c2, R + 0.01, h.glass, 24)          # the glass chute back to the rail
+            h.cyl(below, c2, R + 0.004, h.clear, 24)         # the glass chute back to the rail
             for a_ in (0.7, 2.45):
                 q = Vector((Oc.x + Rf * math.cos(a_), Oc.y + Rf * math.sin(a_), z_rim - R))
                 h.cyl(Vector((q.x, W, q.z)), q, 0.006, arm_m, 8)

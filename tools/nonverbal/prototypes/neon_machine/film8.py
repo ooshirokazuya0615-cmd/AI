@@ -596,6 +596,7 @@ for g in GAPS:
     mk_ = GD.plan(SONGS[s].get('machine', 'stairs'), SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], F_['t'],
                   HEAD[L_['i']][2]['z'], HEAD[F_['i']][2]['z'], R, HEAD_Y)
     mk_.L, mk_.F = L_, F_
+    mk_.swing = 1.0 if len(GAPMACH) % 2 == 0 else -1.0
     GAPMACH[s] = mk_
     print(f"machine {SONGS[s]['key']}: {mk_.kind}, rail angle {math.degrees(mk_.theta):.1f} deg, "
           f"spring waits {mk_.wait:.2f} s", flush=True)
@@ -934,9 +935,11 @@ def revolve(centre, profile, m, segs=48):
 
 
 from types import SimpleNamespace  # noqa: E402
-HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, mat=mat, emit_keys=emit_keys, fr=fr,
-                       revolve=revolve, glass=M_GLASS, WALL_Y=WALL_Y)
-for m_ in GAPMACH.values():
+M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
+for s_, m_ in GAPMACH.items():
+    HELP = SimpleNamespace(cube=cube, cyl=cyl, sphere=sphere, torus=torus, mat=mat, emit_keys=emit_keys, fr=fr,
+                           revolve=revolve, glass=M_GLASS, clear=M_CLEAR, WALL_Y=WALL_Y,
+                           neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]])
     GD.build(m_, HELP)
 
 # ---------------------------------------------------------------- 5. finale, characters
@@ -1094,33 +1097,33 @@ def frame_point(tt):
     eases from the end of one row to the start of the next, pulling back a little on the way, so it is
     settled before the next note."""
     if tt <= C[0]['t']:
-        return (*row_point(ROWS[0], C[0]['t']), 0.0)
+        return (*row_point(ROWS[0], C[0]['t']), (0.0, 0.0))
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= tt <= h1['t']:
             if h0['s'] != h1['s'] and h1['s'] in GAPMACH:       # a machine: follow the marble through it
                 m_ = GAPMACH[h1['s']]
-                return m_.attention(tt), MACH_ZOOM, m_.elev(tt)
+                return m_.attention(tt), MACH_ZOOM, (m_.elev(tt), m_.yaw(tt))
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:
-                return (*row_point(r0, tt), 0.0)
+                return (*row_point(r0, tt), (0.0, 0.0))
             k = smooth((tt - h0['t']) / (h1['t'] - h0['t']))
             pa, za = row_point(r0, h0['t'])
             pb, zb = row_point(r1, h1['t'])
-            return pa.lerp(pb, k), (za + (zb - za) * k) * (1 + 0.25 * math.sin(math.pi * k)), 0.0
-    return (*row_point(ROWS[-1], C[-2]['t']), 0.0)
+            return pa.lerp(pb, k), (za + (zb - za) * k) * (1 + 0.25 * math.sin(math.pi * k)), (0.0, 0.0)
+    return (*row_point(ROWS[-1], C[-2]['t']), (0.0, 0.0))
 
 
 def target(t):
     """Smoothed look-at point and zoom: the pan is averaged over a wider window (an even glide through
     fast runs), the height and zoom over a narrower one."""
-    px, wx, pz, zf, el, wz = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+    px, wx, pz, zf, el, yw, wz = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     for j in range(-12, 13):
-        p_, z_, e_ = frame_point(t + j * 0.08)
+        p_, z_, (e_, y_) = frame_point(t + j * 0.08)
         w1, w2 = math.exp(-(j / 7.0) ** 2), math.exp(-(j / 5.0) ** 2)
         px, wx = px + p_.x * w1, wx + w1
-        pz, zf, el, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, wz + w2
-    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz, el / wz
+        pz, zf, el, yw, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, yw + y_ * w1, wz + w2
+    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz, (el / wz, yw / wx)
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS
@@ -1130,11 +1133,13 @@ REVEAL_T1 = T_END - 0.6
 
 
 def cam_at(t):
-    tg, zf, el = target(t)
+    tg, zf, (el, yw) = target(t)
     off = OFF * zf
     if el:                                       # rise and look down (into the funnel)
         rho, a0 = math.hypot(off.y, off.z), math.atan2(off.z, -off.y)
         off = Vector((off.x, -rho * math.cos(a0 + el), rho * math.sin(a0 + el)))
+    if yw:                                       # swing round a little (the machine's depth shows)
+        off = Vector((off.x * math.cos(yw) - off.y * math.sin(yw), off.x * math.sin(yw) + off.y * math.cos(yw), off.z))
     kh = smooth((t - (FIN['launch'] - 0.3)) / 0.6)
     tg = tg.lerp((CON[C[-2]['i']] + DRUM) / 2 + Vector((0, 0, 0.2)), kh * (1 - smooth((t - (TF + 0.2)) / 0.6)))
     tg = tg.lerp(DRUM + Vector((0, 0, 0.1)), smooth((t - (TF + 0.1)) / 0.6))
