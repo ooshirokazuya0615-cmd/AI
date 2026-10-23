@@ -1,6 +1,8 @@
-"""Draw the on-screen layer over rendered frames: the guess-the-song card and the timeline of years.
+"""Draw the on-screen layer over rendered frames: the guess-the-song quiz and the timeline of years.
 
-  each piece: a "?" card for its first notes (guess it!), then it turns into title, composer and year
+  each piece: a quiz card for its first notes: "?", a 3-2-1 countdown and three choices (the other two are
+              famous pieces of the same era that are not in the film, so nothing later is given away);
+              then the right one lights up with its composer and year
   bottom:     a timeline 1650-1900; a glowing marker travels to the year of the piece now playing
   start/end:  the series title, and a closing question for the comments
 
@@ -20,10 +22,23 @@ FONT_DIR = Path('/usr/share/fonts/truetype/crosextra')
 SERIF_B = str(FONT_DIR / 'Caladea-Bold.ttf')
 SANS = str(FONT_DIR / 'Carlito-Regular.ttf')
 SANS_B = str(FONT_DIR / 'Carlito-Bold.ttf')
+CHOICE = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'          # has the check mark
+CHOICE_B = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 Y0, Y1 = 1650, 1900
 ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'beethoven': (200, 120, 255), 'romantic': (255, 90, 80)}
-GUESS = 2.6          # seconds the "?" stays before the answer
-SHOW = 3.4           # seconds the answer stays
+GUESS = 3.0          # seconds the question stays (with a 3-2-1 countdown)
+SHOW = 3.0           # seconds the answer stays
+# the three choices for each piece: (decoys..., with the answer at index ANSWER_AT); all public domain
+QUIZ = {
+    'canon': ['Air on the G String  (Bach)', None, 'Spring, The Four Seasons  (Vivaldi)'],
+    'toc': [None, 'Hallelujah Chorus  (Handel)', 'Winter, The Four Seasons  (Vivaldi)'],
+    'tm': ['Surprise Symphony  (Haydn)', 'Symphony No. 40  (Mozart)', None],
+    'ekn': ['Queen of the Night  (Mozart)', None, 'Emperor Quartet  (Haydn)'],
+    'b5': [None, 'Moonlight Sonata  (Beethoven)', 'Erlkonig  (Schubert)'],
+    'fe': ['Ave Maria  (Schubert)', 'Moonlight Sonata  (Beethoven)', None],
+    'otj': ['Ave Maria  (Schubert)', None, 'William Tell Overture  (Rossini)'],
+    'mk': [None, 'Ride of the Valkyries  (Wagner)', 'Swan Lake  (Tchaikovsky)'],
+}
 
 
 def smooth(k):
@@ -38,21 +53,24 @@ def font(path, size, cache={}):
     return cache[key]
 
 
-def card(draw, W, H, cx, top, lines, alpha, scale=1.0):
-    """Rounded translucent card with centred lines [(text, font_path, size, colour)]."""
+def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=None):
+    """Rounded translucent card with lines [(text, font_path, size, colour[, alpha of the line])], centred
+    (or left-aligned for a list of choices)."""
     if alpha <= 0:
         return
-    sizes = [(t, font(fp, int(sz * W / 1920 * scale)), c) for t, fp, sz, c in lines]
-    widths = [draw.textbbox((0, 0), t, font=f)[2] for t, f, c in sizes]
-    heights = [f.size * 1.25 for t, f, c in sizes]
+    sizes = [(ln[0], font(ln[1], int(ln[2] * W / 1920 * scale)), ln[3], ln[4] if len(ln) > 4 else 1.0) for ln in lines]
+    widths = [draw.textbbox((0, 0), t, font=f)[2] for t, f, c, la in sizes]
+    heights = [f.size * 1.25 for t, f, c, la in sizes]
     pad = int(26 * W / 1920 * scale)
     w, h = max(widths) + 2 * pad, int(sum(heights)) + 2 * pad
-    x0, y0 = cx - w // 2, top
+    x0, y0 = (cx - w // 2, top) if right_edge is None else (right_edge - w, top)
+    cx = x0 + w // 2
     draw.rounded_rectangle((x0, y0, x0 + w, y0 + h), radius=int(22 * W / 1920 * scale),
                            fill=(14, 14, 20, int(170 * alpha)), outline=(255, 255, 255, int(60 * alpha)), width=2)
     y = y0 + pad
-    for (t, f, c), tw, th in zip(sizes, widths, heights):
-        draw.text((cx - tw // 2, y), t, font=f, fill=(*c, int(255 * alpha)))
+    for (t, f, c, la), tw, th in zip(sizes, widths, heights):
+        x = x0 + pad if left and f.size < max(ff.size for _, ff, _, _ in sizes) else cx - tw // 2
+        draw.text((x, y), t, font=f, fill=(*c, int(255 * alpha * la)))
         y += th
 
 
@@ -138,19 +156,31 @@ def main():
             ys = str(int(round(yr_now)))
             tw = d.textbbox((0, 0), ys, font=yf)[2]
             d.text((x - tw / 2, by - H * 0.06), ys, font=yf, fill=(*col, int(255 * k)))
-        # ---- guess card, then the answer
+        # ---- the quiz: a question with three choices and a countdown, then the answer lights up
         for t0, t1, song in starts:
             u = t - (t0 - 0.15)
-            if 0 <= u < GUESS:
-                a_ = smooth(u / 0.25) * (1 - smooth((u - GUESS + 0.2) / 0.2))
-                pulse = 1.0 + 0.04 * math.sin(u * 7)
-                card(d, W, H, W // 2, int(H * 0.06), [('?', SERIF_B, 92, (255, 255, 255))], a_, pulse)
-            elif GUESS <= u < GUESS + SHOW:
+            if not 0 <= u < GUESS + SHOW:
+                continue
+            opts = QUIZ.get(song['key'], [None, None, None])
+            right = opts.index(None)
+            names = [song['title'] if o is None else o for o in opts]
+            col = ERA_COL[song['era']]
+            a_ = smooth(u / 0.25) * (1 - smooth((u - GUESS - SHOW + 0.4) / 0.4))
+            if u < GUESS:
+                n_left = 3 - int(u / (GUESS / 3))                     # 3, 2, 1
+                head = f'?    {n_left}'
+                lines = [(head, SERIF_B, 64, (255, 255, 255))]
+                lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 30, (235, 235, 240)) for k in range(3)]
+            else:
                 v = u - GUESS
-                a_ = smooth(v / 0.25) * (1 - smooth((v - SHOW + 0.4) / 0.4))
-                card(d, W, H, W // 2, int(H * 0.06),
-                     [(song['title'], SERIF_B, 54, (255, 255, 255)),
-                      (f"{song['composer_name']}  ·  {song['year']}", SANS, 34, ERA_COL[song['era']])], a_)
+                lines = [(song['title'], SERIF_B, 52, col)]
+                for k in range(3):
+                    if k == right:
+                        lines.append((f'✓   {names[k]}', CHOICE_B, 30, col, 1.0))
+                    else:
+                        lines.append((f'{"ABC"[k]}   {names[k]}', CHOICE, 30, (235, 235, 240), 1 - 0.7 * smooth(v / 0.3)))
+                lines.append((f"{song['composer_name']}  ·  {song['year']}", SANS, 30, col, smooth((v - 0.15) / 0.3)))
+            card(d, W, H, W // 2, int(H * 0.04), lines, a_, 0.86, left=True, right_edge=int(W * 0.97))   # top right, clear of the marble
         # ---- series title and closing question
         if t < 3.4:
             a_ = smooth((t - 0.3) / 0.4) * (1 - smooth((t - 3.0) / 0.4))

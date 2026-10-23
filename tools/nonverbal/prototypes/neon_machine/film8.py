@@ -1292,15 +1292,30 @@ wave = nt_.nodes.new('ShaderNodeTexWave')
 wave.wave_type = 'RINGS'
 wave.inputs['Scale'].default_value = 2.6
 wave.inputs['Distortion'].default_value = 11.0
+# the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
+# one band of its swirl takes that piece's colour; it strikes the final drum as a rainbow
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-ramp.color_ramp.elements[0].color = (0.9, 0.02, 0.25, 1)
-ramp.color_ramp.elements[1].color = (0.05, 0.25, 0.9, 1)
-e = ramp.color_ramp.elements.new(0.5)
-e.color = (1.0, 0.75, 0.2, 1)
+PIECE_COL = {'canon': (1.0, 0.72, 0.2), 'toc': (0.9, 0.1, 0.15), 'tm': (0.1, 0.8, 1.0), 'ekn': (0.6, 0.25, 1.0),
+             'b5': (0.15, 0.3, 1.0), 'fe': (1.0, 0.35, 0.65), 'otj': (0.5, 1.0, 0.25), 'mk': (1.0, 0.45, 0.1)}
+PEARL = (0.86, 0.87, 0.92, 1)
+els = ramp.color_ramp.elements
+while len(els) < len(SONGS):
+    els.new(0.5)
+for k in range(len(SONGS)):
+    els[k].position = (k + 0.5) / len(SONGS)
 nt_.links.new(wave.outputs['Fac'], ramp.inputs['Fac'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
 nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
-bsdf.inputs['Emission Strength'].default_value = 2.0
+glow = bsdf.inputs['Emission Strength']
+starts = [[h for h in C if h['s'] == k][0]['t'] for k in range(len(SONGS))]
+for k, t_k in enumerate(starts):
+    col = (*PIECE_COL.get(SONGS[k]['key'], (1, 1, 1)), 1)
+    for tt, c_ in ((0.0, PEARL), (max(0.0, t_k - 1 / FPS), PEARL), (t_k + 0.12, col)):
+        els[k].color = c_
+        els[k].keyframe_insert('color', frame=fr(tt))
+    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.7 + 0.25 * k), (t_k + 0.05, 6.0), (t_k + 0.5, 0.7 + 0.25 * (k + 1))):
+        glow.default_value = g_
+        glow.keyframe_insert('default_value', frame=fr(tt))
 bsdf.inputs['Roughness'].default_value = 0.06
 bsdf.inputs['Coat Weight'].default_value = 1.0
 ball = sphere((0, 0, 0), R, core_m, segs=40)
