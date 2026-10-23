@@ -47,6 +47,10 @@ NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treb
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
 # fermatas, by note index, where the Mutopia editions have them (Toccata: on the held A and on the D that
 # closes each phrase; Fifth: on the E-flat and the tied D)
+# the written value of a note (in the piece's units) where it differs from the time it takes: in Eine kleine
+# Nachtmusik the D6 and D5 are quarters followed by a quarter rest (violin I: "g d g b d4 r"), so they take 4
+# units of time but are engraved as quarters, with filled heads
+NOTE_VALUE = {'ekn': {8: 2, 17: 2}}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
@@ -76,10 +80,6 @@ for s_ in SONGS:
     s_['timesig'] = TIMESIG.get(s_['key'])
     s_['fermata'] = FERMATA.get(s_['key'], ())
     s_['note_value'] = NOTE_VALUE.get(s_['key'], {})
-# the written value of a note (in the piece's units) where it differs from the time it takes: in Eine kleine
-# Nachtmusik the D6 and D5 are quarters followed by a quarter rest (violin I: "g d g b d4 r"), so they take 4
-# units of time but are engraved as quarters, with filled heads
-NOTE_VALUE = {'ekn': {8: 2, 17: 2}}
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),
