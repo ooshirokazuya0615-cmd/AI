@@ -850,11 +850,11 @@ for s, song in enumerate(SONGS):
     wp.scale = (W_X1 - W_X0, z_top - z_bot + 0.002, 1)
     if s > 0:
         nc = NEON[ERAS[era]['neon'][0]]
-        trim_m = mat(f'trim{s}', nc, 0.3, emit=nc, emit_s=1.2)
-        cyl((W_X0, WALL_Y - 0.01, z_top), (W_X1, WALL_Y - 0.01, z_top), 0.01, trim_m, 10)
+        trim_m = mat(f'trim{s}', (0.80, 0.60, 0.30), 0.3, metal=1.0, emit=nc, emit_s=0.0)
+        cyl((W_X0, WALL_Y - 0.016, z_top), (W_X1, WALL_Y - 0.016, z_top), 0.016, trim_m, 12)
         if s in GAPMACH:                        # the new page's border flares as the marble arrives
             tF = GAPMACH[s].F['t']
-            emit_keys(trim_m, ((tF - 0.02, 1.2), (tF + 0.06, 18.0), (tF + 0.9, 1.6)))
+            emit_keys(trim_m, ((tF - 0.02, 0.0), (tF + 0.06, 9.0), (tF + 0.9, 0.0)))
     ink = ink_mat(era)
     for row in sec_rows[s]:
         x0s, x1s = X_LEFT + 0.05, row['x1']
@@ -936,7 +936,7 @@ for h in C:
     if h['j'] in song.get('fermata', ()):
         text_obj('\U0001D110', Vector((head.x, WALL_Y - 0.008, max(row['z'] + 4 * LS + 0.08, head.z + 0.15))), 0.42, ink)
     # glow on the hit, and it stays softly lit: the played music remains on the page
-    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.45, 3.0)))
+    emit_keys(hm, ((h['t'] - 1 / FPS, 0.0), (h['t'], 22.0), (h['t'] + 0.12, 7.0), (h['t'] + 0.45, 3.0)))
     for u, k in ((-1 / FPS, 0), (0.04, 1), (0.16, -0.3), (0.3, 0)):
         o.location = head - Vector((0, 0, 0.012 * k))
         o.keyframe_insert('location', frame=fr(h['t'] + u))
@@ -953,7 +953,7 @@ for h in C:
     lo = bpy.data.objects.new(f'spill{h["i"]}', ld)
     sc.collection.objects.link(lo)
     lo.location = head + Vector((0, -0.10, 0.02))
-    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 5.0), (h['t'] + 0.35, 0.0)):
+    for t_, e_ in ((h['t'] - 1 / FPS, 0.0), (h['t'], 1.6), (h['t'] + 0.25, 0.0)):
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(max(0.0, t_)))
     # only exists while it glows (keeps ~250 lights out of the light tree), and only reaches nearby
@@ -1415,8 +1415,10 @@ wave.inputs['Distortion'].default_value = 11.0
 # the marble collects the colour of every piece it plays: it starts pearl white, and as each piece begins
 # it takes that piece's colour; one band of its swirl keeps each colour, so it strikes the final drum as a rainbow
 ramp = nt_.nodes.new('ShaderNodeValToRGB')
-PIECE_COL = {'canon': (1.0, 0.72, 0.2), 'toc': (0.9, 0.1, 0.15), 'tm': (0.1, 0.8, 1.0), 'ekn': (0.6, 0.25, 1.0),
-             'b5': (0.15, 0.3, 1.0), 'fe': (1.0, 0.35, 0.65), 'otj': (0.5, 1.0, 0.25), 'mk': (1.0, 0.45, 0.1)}
+# (each against its page: cobalt on candlelit parchment, crimson in the organ loft, emerald in the pink salon,
+#  gold in the night, orange in the storm, lime in the violet evening, violet in daylight, cyan in the red hall)
+PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.9, 0.08, 0.12), 'tm': (0.05, 0.80, 0.40), 'ekn': (1.0, 0.72, 0.12),
+             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.50, 0.18, 1.0), 'mk': (0.15, 0.85, 1.0)}
 PEARL = (0.86, 0.87, 0.92, 1)
 els = ramp.color_ramp.elements
 while len(els) < len(SONGS):
@@ -1440,7 +1442,7 @@ for k, t_k in enumerate(starts):
         for tt, c_ in ((max(0.0, t_k - 1 / FPS), was), (t_k + 0.12, col)):
             els[j].color = c_
             els[j].keyframe_insert('color', frame=fr(tt))
-    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.7 + 0.25 * k), (t_k + 0.05, 6.0), (t_k + 0.5, 0.7 + 0.25 * (k + 1))):
+    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 3.5), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
         glow.default_value = g_
         glow.keyframe_insert('default_value', frame=fr(tt))
 bsdf.inputs['Roughness'].default_value = 0.06
@@ -1456,6 +1458,24 @@ for f in range(1, N + 1):
     ball.keyframe_insert('location', frame=f)
     ball.rotation_euler = (0, spin, 0)
     ball.keyframe_insert('rotation_euler', frame=f)
+
+# a follow-spot from above the camera's left shoulder: a soft pool of light that travels with the marble and
+# throws its shadow on the page, so the hero is always the brightest, clearest thing in the frame
+fsd = bpy.data.lights.new('followspot', 'SPOT')
+fsd.spot_size, fsd.spot_blend, fsd.shadow_soft_size, fsd.color = math.radians(15), 0.65, 0.05, (1.0, 0.97, 0.92)
+follow = bpy.data.objects.new('followspot', fsd)
+sc.collection.objects.link(follow)
+FOLLOW_OFF = Vector((-0.7, -2.4, 1.5))
+for f in range(1, N + 1, 2):
+    t = (f - 1) / FPS
+    p = ball_pos(t)
+    follow.location = p + FOLLOW_OFF
+    follow.rotation_euler = (-FOLLOW_OFF).to_track_quat('-Z', 'Y').to_euler()
+    follow.keyframe_insert('location', frame=f)
+    follow.keyframe_insert('rotation_euler', frame=f)
+for t_, e_ in ((0.0, 110.0), (TF + 1.0, 110.0), (TF + 2.4, 0.0)):    # gone for the wide rise at the end
+    fsd.energy = e_
+    fsd.keyframe_insert('energy', frame=fr(t_))
 
 # ---------------------------------------------------------------- 7. camera: reads the score like a page
 bpy.ops.object.camera_add(location=(0, -4, 0))
@@ -1505,7 +1525,7 @@ def row_x(r_, tt):
 
 
 V_REF = 0.70     # the fastest the score may slide past (metres per second at the base framing)
-MACH_ZOOM = 1.45 # a wider view while the marble runs through a machine
+MACH_ZOOM = 1.15 # a little wider while the marble runs through a machine (closer than before: it was lost)
 
 
 def row_point(r_, tt):
@@ -1516,6 +1536,10 @@ def row_point(r_, tt):
     return Vector((row_x(r_, tt), HEAD_Y, zc_)), max(zoom_, min(1.6, v_ / V_REF))
 
 
+_POS = {h['i']: k for k, h in enumerate(C)}
+RET_PAIRS = [(C[_POS[i]], C[_POS[i] + 1], r['row_from'], r['row_to']) for i, r in RETURNS.items()]
+
+
 def frame_point(tt):
     """Where the camera wants to look at time tt: on a row, the music's position and the middle of the
     notes in view. While the ball is in a tube (a carriage return, or the way to the next page), the camera
@@ -1523,6 +1547,18 @@ def frame_point(tt):
     settled before the next note."""
     if tt <= C[0]['t']:
         return (*row_point(ROWS[0], C[0]['t']), (0.0, 0.0))
+    for h0, h1, r0, r1 in RET_PAIRS:
+        # a carriage return: from the row's last bars the view opens to hold the row end and the next row's
+        # start together, so the ride through the tube crosses the frame, then closes in on the new row
+        a_, b_ = h0['t'] - 0.5, h1['t'] + 0.35
+        if a_ <= tt <= b_:
+            pa, za = row_point(r0, h0['t'])
+            pb, zb = row_point(r1, h1['t'])
+            zfit = min(2.4, max(1.0, (abs(pa.x - pb.x) + 1.0) / (VIEW_H * 16 / 9), (abs(pa.z - pb.z) + 0.9) / VIEW_H))
+            u = (tt - a_) / (b_ - a_)
+            w = math.sin(math.pi * u)
+            base, zbase = pa.lerp(pb, smooth(u)), za + (zb - za) * smooth(u)
+            return base.lerp(pa.lerp(pb, 0.55), w), zbase + (zfit - zbase) * w, (0.0, 0.0)
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= tt <= h1['t']:
             if RESCUE and h0 is RESCUE['h0']:
@@ -1532,10 +1568,17 @@ def frame_point(tt):
                 x0_, x1_, z0_, z1_ = m_.box               # first, the whole machine: what is it going to do?
                 wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
                 zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
-                w = 1 - smooth((tt - (h0['t'] + 0.55)) / 0.75)
+                # the pull-back starts on the piece's last hit (not before), holds, then follows the marble
+                w = smooth((tt - (h0['t'] + 0.2)) / 0.9) * (1 - smooth((tt - (h0['t'] + 1.4)) / 0.8))
                 zf_ = m_.zoom(tt, MACH_ZOOM)
-                return (m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w,
-                        (m_.elev(tt) * (1 - w), m_.yaw(tt)))
+                att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
+                el_, yw_ = m_.elev(tt) * (1 - w), m_.yaw(tt)
+                # and it arrives settled: the next piece's first-note framing (a little wider and higher, to
+                # take the marble's drop in) is reached before the first note plays
+                ka = smooth((tt - (h1['t'] - 1.5)) / 1.1)
+                pb, zb = row_point(HEAD[h1['i']][2], h1['t'])
+                return (att.lerp(pb + Vector((0, 0, 0.12)), ka), zz + (zb * 1.2 - zz) * ka,
+                        (el_ * (1 - ka), yw_ * (1 - ka)))
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:
@@ -1556,7 +1599,8 @@ def target(t):
         w1, w2 = math.exp(-(j / 7.0) ** 2), math.exp(-(j / 5.0) ** 2)
         px, wx = px + p_.x * w1, wx + w1
         pz, zf, el, yw, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, yw + y_ * w1, wz + w2
-    return Vector((px / wx + 0.18, HEAD_Y, pz / wz)), zf / wz, (el / wz, yw / wx)
+    # the music sits a little above the middle, so the timeline band at the bottom stays clear of it
+    return Vector((px / wx + 0.18, HEAD_Y, pz / wz - 0.05 * VIEW_H * zf / wz)), zf / wz, (el / wz, yw / wx)
 
 
 Z_FIRST, Z_LAST = ROWS[0]['z'] + 2 * LS, ROWS[-1]['z'] + 2 * LS

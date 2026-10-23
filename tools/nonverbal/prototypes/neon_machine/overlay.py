@@ -76,7 +76,7 @@ def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=No
         y += th
 
 
-_VIG = {}
+_VIG, _BAND = {}, {}
 
 
 def film_finish(im, f):
@@ -104,10 +104,11 @@ def main():
     ap.add_argument('--film', action='store_true', help='lens and film finish under the graphics')
     a = ap.parse_args()
     C, _ = S.timeline()
-    starts = []
+    starts, last_hit = [], []
     for s, song in enumerate(S.SONGS):
         hs = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum']
         starts.append((hs[0]['t'], hs[-1]['t'] + hs[-1]['dur'], song))
+        last_hit.append(hs[-1]['t'])
     t_final = C[-1]['t']
     T_END = S.total_seconds()
     src, dst = Path(a.src), Path(a.dst)
@@ -122,9 +123,16 @@ def main():
         W, H = im.size
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
-        # ---- timeline
+        # ---- timeline, on a soft dark band so it reads on every wall
         k = min(1.0, t / 1.2) * (1 - smooth((t - (t_final + 1.2)) / 0.8))
         if k > 0:
+            if (W, H) not in _BAND:
+                g_ = np.clip((np.arange(H) / H - 0.80) / 0.20, 0, 1) ** 1.4 * 130
+                _BAND[(W, H)] = np.repeat(g_.astype(np.uint8)[:, None], W, axis=1)
+            band = Image.new('RGBA', im.size, (8, 6, 12, 0))
+            band.putalpha(Image.fromarray((_BAND[(W, H)] * k).astype(np.uint8)))
+            layer = Image.alpha_composite(layer, band)
+            d = ImageDraw.Draw(layer)
             bx0, bx1, by = int(W * 0.30), int(W * 0.84), int(H * 0.885)    # clear of the player's progress bar
             d.line((bx0, by + 1, bx1, by + 1), fill=(12, 10, 16, int(70 * k)), width=max(2, W // 640) + 2)
             d.line((bx0, by, bx1, by), fill=(255, 255, 255, int(150 * k)), width=max(2, W // 640))
@@ -180,14 +188,16 @@ def main():
         for idx, (t0, t1, song) in enumerate(starts):
             lead = 0.15 if idx == 0 else LEAD
             u = t - t0                                    # 0 at the first note; the countdown runs from there
-            if not -lead <= u < GUESS + SHOW:
+            # the answer leaves with the piece's last note: the marble exits top right, where the card is
+            end = min(GUESS + SHOW, last_hit[idx] - t0 + 0.25)
+            if not -lead <= u < end:
                 continue
             opts = QUIZ.get(song['key'], [None, None, None])
             right = opts.index(None)
             # every choice in the same form (a title only), so the layout never gives the answer away
             names = [song['title'] if o is None else o.split('  (')[0] for o in opts]
             col = ERA_COL[song['era']]
-            a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - GUESS - SHOW + 0.4) / 0.4))
+            a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - end + 0.4) / 0.4))
             if u < GUESS:
                 n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
                 lines = [(f'{idx + 1}/{len(starts)}     ' + '●' * n_left + '○' * (3 - n_left), CHOICE_B, 40, (255, 255, 255))]

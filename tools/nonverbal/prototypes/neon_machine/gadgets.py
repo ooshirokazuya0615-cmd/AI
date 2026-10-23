@@ -33,7 +33,7 @@ from mathutils import Vector
 G = 9.81
 ROLL_K = 5 / 7            # a rolling solid sphere accelerates at 5/7 of g sin(angle)
 DRAG = 1.1                # rolling resistance on the rails (1/s): speed settles near a / DRAG
-RAIL_HALF, RAIL_R = 0.030, 0.006
+RAIL_HALF, RAIL_R = 0.030, 0.009      # rails thick enough to read at phone size
 T_HOP_IN, T_HOP_OUT, T_KICK = 0.40, 0.42, 0.06
 W_T1, W_LINK, W_LAST_MIN = 0.50, 0.35, 0.45
 XYLO_MIDI = [84, 83, 81, 79, 77, 76, 74, 72]          # C6 B5 A5 G5 F5 E5 D5 C5
@@ -42,7 +42,7 @@ XYLO_HUE = [(0.95, 0.2, 0.25), (1.0, 0.5, 0.1), (1.0, 0.85, 0.15), (0.3, 0.85, 0
 BELL_MIDI = [76, 79, 81, 84, 88, 91]                  # a rising pentatonic phrase
 PLINKO_MIDI = [72, 74, 76, 79, 81, 84, 86, 88, 91]    # pins sound by column (pentatonic)
 STYLE = {'baroque': 'wood', 'classical': 'gold', 'beethoven': 'steel', 'romantic': 'brass'}
-DOM_GAP, DOM_DT = 0.042, 0.034                        # domino spacing and the time between falls
+DOM_GAP, DOM_DT = 0.075, 0.050                        # domino spacing and the time between falls (~1.5 m/s)
 # how far left and down each mechanism takes the marble (for planning the room it needs)
 WIDTH = {'stairs': 0.73, 'xylo': 0.87, 'dominoes': 1.30, 'bells': 1.05, 'loop': 0.95, 'jump': 1.15,
          'tilt': 0.70, 'spiral': 0.40, 'helix': 0.15, 'plinko': 0.75}
@@ -280,7 +280,7 @@ def mech_dominoes(m, p, v, t, th):
     s_end = doms[-1][0] + 0.06
 
     def bump(s, s_d0=s_d0, s_end=s_end):
-        return 0.034 * smooth((s - s_d0) / 0.05) * (1 - smooth((s - s_end) / 0.05))
+        return 0.075 * smooth((s - s_d0) / 0.06) * (1 - smooth((s - s_end) / 0.06))   # over the fallen ones
     r = m.roll(tr, t, min(v, 0.12), s_d0, tr.L, bump)
     if r is None:
         return None
@@ -672,7 +672,7 @@ def build(m, h):
         arm_m = h.mat('m_brass', (0.88, 0.64, 0.26), 0.25, metal=1.0)
     elif st == 'gold':
         rail_m = h.mat('m_gold', (0.95, 0.75, 0.36), 0.18, metal=1.0)
-        arm_m = h.mat('m_ivory', (0.93, 0.92, 0.88), 0.3, coat=0.8)
+        arm_m = h.mat('m_ebony', (0.05, 0.06, 0.12), 0.3, coat=0.8)     # ebony against the pale salon walls
     elif st == 'steel':
         rail_m = h.mat('m_steel', (0.9, 0.91, 0.95), 0.12, metal=1.0)
         arm_m = h.mat('m_dark', (0.12, 0.12, 0.14), 0.35, metal=0.8)
@@ -721,16 +721,19 @@ def build(m, h):
         elif kind == 'wall':
             endstop(part[1], -1)
         elif kind == 'rings':
+            # chase lamps on little posts above the long rail, each lighting as the marble passes under it
+            # (rings round the rail were seen edge-on from the front and read as plates it passed through)
             tr, t0 = part[1], part[2]
-            n_r = max(3, int(tr.L / 0.32))
+            n_r = max(3, int(tr.L / 0.26))
             for k in range(n_r):
                 s_k = tr.L * (k + 0.7) / (n_r + 0.4)
                 c = tr.at(s_k)
-                rm = h.mat('railring', h.neon, 0.2, emit=h.neon, emit_s=0.4)
-                ang = math.atan2(tr.d.z, tr.d.x)
-                h.torus(c - tr.n * 0.004, R + 0.022, 0.0035, rm, rot=(0, math.pi / 2 - ang, 0))
+                rm = h.mat(f'chase{k}', h.neon, 0.2, emit=h.neon, emit_s=0.3)
+                top = Vector((c.x, Y + 0.035, c.z + 0.15))
+                h.cyl(Vector((c.x, Y + 0.035, c.z - lift)), top, 0.004, arm_m, 8)
+                h.sphere(top + Vector((0, 0, 0.014)), 0.016, rm, segs=16)
                 tp = time_at_x(m, c.x, t0, m.t_arrive)
-                h.emit_keys(rm, ((tp - 0.05, 0.4), (tp, 28.0), (tp + 0.35, 1.5)))
+                h.emit_keys(rm, ((tp - 0.05, 0.3), (tp, 22.0), (tp + 0.4, 2.0)))
         elif kind in ('stairs', 'xylo'):
             steps, hs, ws = part[1], part[2], part[3]
             for k, (q, t_hit) in enumerate(steps):
@@ -748,16 +751,23 @@ def build(m, h):
                     h.cyl(Vector((q.x, W, top - 0.5 * hs)), Vector((q.x, q.y + 0.045, top - 0.5 * hs)), 0.006, arm_m, 8)
         elif kind == 'dominoes':
             tr, doms = part[1], part[2]
-            dm = h.mat('domino', (0.95, 0.94, 0.9), 0.3, coat=0.6)
+            # black lacquered dominoes with ivory pips, big enough to read (they were white slivers on white)
+            dm = h.mat('domino', (0.03, 0.03, 0.04), 0.18, coat=1.0)
+            pip = h.mat('dominopip', (0.95, 0.93, 0.86), 0.3)
             board = -tr.n * lift
+            DT, DD, DH = 0.018, 0.06, 0.12
             for k, (s_k, t_k) in enumerate(doms):
                 foot = tr.at(s_k) + board                 # middle of the domino's foot, on the board
-                o = h.cube((0, 0, 0), (0.012, 0.042, 0.072), dm)
-                final = math.radians(76 if k < len(doms) - 1 else 88)
-                for u in (-0.5, 0.0, 0.04, 0.08, 0.11, 0.13):
-                    a = final * min(1.0, max(0.0, u / 0.13)) ** 2       # it tips, then speeds up
-                    piv = foot + Vector((-0.006, 0, 0))                  # it turns about its left edge
-                    vx, vz = 0.006, 0.036
+                o = h.cube((0, 0, 0), (DT, DD, DH), dm)
+                for pz in (0.025, -0.025):                # two pips on the face toward the camera
+                    pp = h.sphere((0, 0, 0), 0.006, pip, scale=(0.6 / DT, 0.25 / DD, 0.6 / DH), segs=10)
+                    pp.parent = o                         # (in the domino's unit-cube space, so undo its scale)
+                    pp.location = (0, -0.5, pz / DH)
+                final = math.radians(60 if k < len(doms) - 1 else 86)
+                for u in (-0.5, 0.0, 0.05, 0.10, 0.14, 0.17):
+                    a = final * min(1.0, max(0.0, u / 0.17)) ** 2       # it tips, then speeds up
+                    piv = foot + Vector((-DT / 2, 0, 0))                 # it turns about its left edge
+                    vx, vz = DT / 2, DH / 2
                     o.location = piv + Vector((vx * math.cos(a) - vz * math.sin(a), 0, vx * math.sin(a) + vz * math.cos(a)))
                     o.rotation_euler = (0, -a, 0)
                     o.keyframe_insert('location', frame=h.fr(t_k + u))
