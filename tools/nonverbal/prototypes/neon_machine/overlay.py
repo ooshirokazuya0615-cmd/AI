@@ -15,7 +15,7 @@ import os
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs7'))
 FONT_DIR = Path('/usr/share/fonts/truetype/crosextra')
@@ -118,6 +118,7 @@ def main():
         starts.append((hs[0]['t'], hs[-1]['t'] + hs[-1]['dur'], song))
         last_hit.append(hs[-1]['t'])
     t_final = C[-1]['t']
+    t_first = starts[0][0]                              # the first note: the opening (bass alone) ends here
     T_END = S.total_seconds()
     src, dst = Path(a.src), Path(a.dst)
     dst.mkdir(parents=True, exist_ok=True)
@@ -132,8 +133,8 @@ def main():
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         # ---- timeline, on a soft dark band so it reads on every wall
-        k = smooth((t - 2.3) / 0.6) * (1 - smooth((t - (t_final - 0.9)) / 0.5))   # in once the opening has settled,
-        #                                                                       out before the drum landing
+        k = smooth((t - (t_first + 0.4)) / 0.8) * (1 - smooth((t - (t_final - 0.9)) / 0.5))   # in once the music
+        #                                                                       has begun, out before the drum
         if k > 0:
             if (W, H) not in _BAND:
                 g_ = np.clip((np.arange(H) / H - 0.78) / 0.16, 0, 1) ** 1.2 * 178
@@ -198,7 +199,8 @@ def main():
                     d.ellipse((x - r, yv - r, x + r, yv + r), outline=(255, 255, 255, int(150 * k)), width=max(1, W // 960))
         # ---- the quiz: a question with three choices and a countdown, then the answer lights up
         for idx, (t0, t1, song) in enumerate(starts):
-            lead = 0.15 if idx == 0 else LEAD
+            # (the first card waits for the first notes, so the marble lands in a clear frame)
+            lead, fade_in = (-0.35, 0.45) if idx == 0 else (LEAD, 0.25)
             u = t - t0                                    # 0 at the first note; the countdown runs from there
             # the answer leaves with the piece's last note: the marble exits top right, where the card is
             end = min(GUESS + SHOW, last_hit[idx] - t0 - 0.2)
@@ -209,7 +211,7 @@ def main():
             # every choice in the same form (a title only), so the layout never gives the answer away
             names = [song['title'] if o is None else o.split('  (')[0] for o in opts]
             col = ERA_COL[era_of(song['year'])]
-            a_ = smooth((u + lead) / 0.25) * (1 - smooth((u - end + 0.4) / 0.4))
+            a_ = smooth((u + lead) / fade_in) * (1 - smooth((u - end + 0.4) / 0.4))
             if u < GUESS:
                 n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
                 # "6 of 8", not "6/8": over a staff a slash reads as a time signature
@@ -220,14 +222,14 @@ def main():
                 lines = [(f'✓  {"ABC"[right]}   {song["title"]}', CHOICE_B, 48, col),    # (DejaVu has the tick)
                          (f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
                           smooth((v - 0.15) / 0.3))]
-                if idx == len(starts) - 1:                 # the last answer: keep them to the end
+                if idx in (0, len(starts) - 1):            # the first answer and the last: keep them to the end
                     lines.append(('Keep count: your rank is at the end', SANS_B, 34, (255, 255, 255), smooth((v - 0.6) / 0.4)))
             pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
         # ---- the opening promise, for viewers who meet it muted in the feed
-        if t < 2.6:
-            a_ = smooth((t - 0.25) / 0.3) * (1 - smooth((t - 2.15) / 0.35))
+        if t < t_first + 0.3:                           # (in as the light comes up, out with the first note)
+            a_ = smooth((t - 0.45) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
             if a_ > 0:
                 xc_, ys_ = W * 0.70, (H * 0.31, H * 0.385)
                 lines_ = (('8 pieces  ·  300 years', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
@@ -281,7 +283,10 @@ def main():
             y_ = line('4–5  Apprentice   ·   0–3  Listener', SANS_B, 0.038, (255, 214, 140), y_)
             y_ += H * 0.014
             line('Comment your rank  ↓', CHOICE_B, 0.044, (255, 255, 255), y_)
-        Image.alpha_composite(im, layer).convert('RGB').save(dst / fpath.name)
+        out = Image.alpha_composite(im, layer).convert('RGB')
+        if t < 0.5:                                     # out of black (the light then comes up in the scene)
+            out = ImageEnhance.Brightness(out).enhance(smooth(t / 0.5))
+        out.save(dst / fpath.name)
 
 
 if __name__ == '__main__':

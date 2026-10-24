@@ -371,7 +371,7 @@ def main(out):
         elif song.get('accomp') and sampler.available():
             acc = song['accomp']
             if 'bass' in acc:
-                tb = t0
+                tb = t0 - acc.get('lead', 0) * song['unit']     # (the Canon's bass leads in alone)
                 for n_, u_ in acc['bass']:          # None = rest, 'C4+E4' = chord
                     ring = u_ * song['unit'] * 0.85 + 0.10 if acc.get('staccato') else u_ * song['unit'] + acc.get('ring', 0.5)
                     parts = n_.split('+') if n_ else []
@@ -505,11 +505,7 @@ def main(out):
                 place(mix, roll(L_), rr['t0'], 0.02 + 0.02 * v_)
         it = E.get('intro')
         if it:
-            # the opening: the pendulum's tick-tock counting in (growing a little), the gate's latch, the roll
-            for k, t_ in enumerate(it['ticks']):               # (on the music bus: already balanced)
-                g_ = 0.55 + 0.45 * min(1.0, k / 3)
-                place(music, click(0.016, 3100 if k % 2 == 0 else 2300, 210), t_, 0.13 * g_)
-                place(music, click(0.030, 820, 85), t_, 0.06 * g_)
+            # the opening: the gate's latch and the roll (on the music bus: already balanced; the bass counts in)
             place(music, click(0.05, 1500, 70), it['gate'], 0.055)
             place(music, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
             r0_, r1_, v_ = it['roll']
@@ -537,10 +533,14 @@ def main(out):
                 tone = sampler.piano(S.midi('D4'), 0.28, 4.5, take=3) if PIANO else s_piano(S.midi('D4'), 4.5)
                 place(mix, tone, t_o + 0.78 * k_o + 0.25, 0.4, 0.15)
     it = E.get('intro') if ev and os.path.exists(ev) else None
-    if it:          # the music starts softly and reaches its full level over the first phrase
-        tt_ = np.arange(len(mix)) / SR
+    if it:          # the bass alone rises softly from the first frame; with the melody the music grows to its
+        tt_ = np.arange(len(mix)) / SR                  # full level over the first phrase
+        s0_ = S.SONGS[0]
+        tb_ = it['first'] - s0_['accomp'].get('lead', 0) * s0_['unit']
+        k0_ = np.clip((tt_ - tb_) / max(0.1, it['first'] - tb_), 0, 1)
         k_ = np.clip((tt_ - it['first']) / 5.0, 0, 1)
-        mix *= (0.5 + 0.5 * k_ * k_ * (3 - 2 * k_))[:, None]
+        mix *= np.where(tt_ < it['first'], 0.20 + 0.30 * k0_ * k0_ * (3 - 2 * k0_),
+                        0.5 + 0.5 * k_ * k_ * (3 - 2 * k_))[:, None]
     st = halls(mix, C)[: int(SR * T)]
     fq = np.fft.rfftfreq(len(st), 1 / SR)
     hp = 1 / np.sqrt(1 + (25.0 / np.maximum(fq, 1e-3)) ** 4)          # 25 Hz high-pass: no rumble or offset

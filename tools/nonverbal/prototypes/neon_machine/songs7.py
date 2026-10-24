@@ -81,8 +81,13 @@ TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4
 #   canon: the ground bass; tm: the left hand of the theme; fe: the left-hand arpeggios under the long notes;
 #   otj: the bass part (moved to C);
 #   unison pieces (the orchestra/organ plays the line in octaves): the melody an octave lower
+# the film is led in by the Canon's ground bass alone: the second half of the ground (G D G A, INTRO_BEATS)
+# cadences onto the D where the melody enters, so the music is there from the first frame
+GROUND = [('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)]
+INTRO_BEATS = 4
 ACCOMP = {
-    'canon': dict(bass=[('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)] * 2 + [('D2', 16)]),
+    'canon': dict(bass=GROUND[-INTRO_BEATS:] + GROUND * 2 + [('D2', 16)],
+                  lead=4 * INTRO_BEATS),         # (units before the first melody note: four to a beat)
     'fe': dict(arpeggio=True),
     'otj': dict(bass=[('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
@@ -118,9 +123,9 @@ ERA = {
     'beethoven': dict(wall=(0.34, 0.36, 0.42), fix=(0.55, 0.56, 0.6), fix_metal=0.9, neon=['cyan', 'magenta', 'violet', 'lime']),
     'romantic': dict(wall=(0.30, 0.06, 0.08), fix=(0.62, 0.48, 0.22), fix_metal=1.0, neon=['red', 'amber', 'magenta', 'white']),
 }
-# the opening before the first note: room tone, a pendulum on the page counting in at the first piece's tempo,
-# then a gate opens and the marble rolls down onto the first note (nothing starts out of silence)
-base.START = 2.5                      # a one-bar count-in: four ticks
+# the opening before the first note (under 3 s): the ground bass alone, softly, while the light comes up on the
+# first page; a gate opens and the marble rolls down onto the first note as the melody enters
+base.START = 0.26 + INTRO_BEATS * SONGS[0]['beat']          # 2.5 s, as before: the rest of the film is unchanged
 START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 

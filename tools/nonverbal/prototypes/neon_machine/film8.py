@@ -619,21 +619,22 @@ for g in GAPS:
         print(f"  pace {SONGS[s]['key']}: interlude at 7/8/9 deg = {need}", flush=True)
 
 
-# the opening: the marble waits behind a small brass gate at the top of a long ledge while a pendulum on the
-# page counts in at the first piece's tempo (soft ticks over room tone, so nothing starts out of silence). On
-# the third tick before the first note the gate swings open and the marble rolls down from rest, gathering
-# speed, and drops onto the first note.
+# the opening: the Canon's ground bass leads in alone (songs7.INTRO_BEATS) while the light comes up on the first
+# page from the glow of the candle and the marble. The marble waits behind a small brass gate at the top of a
+# long ledge, a pendulum on the page swinging with the bass; three beats before the first note the gate swings
+# open and the marble rolls down from rest, gathering speed, and drops onto the first note as the melody
+# enters (inside the first 3 seconds: the promise of the thumbnail, kept at once).
 BEAT0 = SONGS[0]['beat']
 T_HOP0 = 0.18
-TICKS = [C[0]['t'] - k * BEAT0 for k in range(8, 0, -1) if C[0]['t'] - k * BEAT0 > 0.1]
 T_GATE = C[0]['t'] - 3 * BEAT0
 LEDGE_LEN = 0.48
+LIGHT_UP = 1.4                                   # the room's light is fully up by then
 LEDGE_ACC = 2 * LEDGE_LEN / (C[0]['t'] - T_HOP0 - T_GATE) ** 2      # rolling from rest: reaches the end on time
 LEDGE_TH = math.asin(LEDGE_ACC / (5 / 7 * 9.81))
 LEDGE_V = LEDGE_ACC * (C[0]['t'] - T_HOP0 - T_GATE)
 LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
 LEDGE_START = LEDGE_END + Vector((-LEDGE_LEN * math.cos(LEDGE_TH), 0, LEDGE_LEN * math.sin(LEDGE_TH)))
-print(f'opening: ticks {[round(t_, 2) for t_ in TICKS]}, gate {T_GATE:.2f} s, ledge {math.degrees(LEDGE_TH):.1f} deg, '
+print(f'opening: first note {C[0]["t"]:.2f} s, gate {T_GATE:.2f} s, ledge {math.degrees(LEDGE_TH):.1f} deg, '
       f'leaves at {LEDGE_V:.2f} m/s', flush=True)
 
 
@@ -1074,7 +1075,7 @@ for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0035, M_LEDGE, 8),
            sphere((0, 0, -PEND_L), 0.052, M_LEDGE, scale=(1, 0.30, 1), segs=32)):
     o_.parent = pend
 k_ = -int(C[0]['t'] / BEAT0) - 1                    # from before the first frame, so it is already swinging
-while C[0]['t'] + k_ * BEAT0 <= T_END + BEAT0:      # at the far end of each swing, the tick
+while C[0]['t'] + k_ * BEAT0 <= T_END + BEAT0:      # at the far end of each swing, a beat of the bass
     pend.rotation_euler = (0, PEND_A * (1 if k_ % 2 else -1), 0)
     pend.keyframe_insert('rotation_euler', frame=fr(C[0]['t'] + k_ * BEAT0))
     k_ += 1
@@ -1963,13 +1964,18 @@ OPEN_C = Vector(((_ox0 + _ox1) / 2, HEAD_Y, (_oz0 + _oz1) / 2))
 OPEN_Z = max((_ox1 - _ox0) / (VIEW_H * 16 / 9), (_oz1 - _oz0) / VIEW_H)
 OPEN_T1 = C[0]['t'] + 0.35
 OPEN_YAW = 0.12
+OPEN_S0 = (OPEN_C + Vector((-0.05, 0, 0.06)), OPEN_Z * 1.10, OPEN_YAW * 1.5)   # where the glide begins
 
 
 def cam_at(t):
     tg, zf, (el, yw) = target(t)
     if t < OPEN_T1:
-        k = smooth((t - 0.6) / (OPEN_T1 - 0.6))        # hold the whole view a moment, then push in
-        tg, zf, yw = OPEN_C.lerp(tg, k), OPEN_Z + (zf - OPEN_Z) * k, OPEN_YAW * (1 - k) + yw * k
+        # one slow, unbroken glide: from a little wider and higher, past the whole view, in to the first note
+        k = smooth(t / OPEN_T1)
+        c0, c1, c2 = (1 - k) ** 2, 2 * k * (1 - k), k * k
+        tg = OPEN_S0[0] * c0 + OPEN_C * c1 + tg * c2
+        zf = OPEN_S0[1] * c0 + OPEN_Z * c1 + zf * c2
+        yw = OPEN_S0[2] * c0 + OPEN_YAW * c1 + yw * c2
     off = OFF * zf
     if el:                                       # rise and look down (into the funnel)
         rho, a0 = math.hypot(off.y, off.z), math.atan2(off.z, -off.y)
@@ -2069,8 +2075,8 @@ bg_ = world.node_tree.nodes['Background']
 FOLLOW_E = {'canon': 40.0, 'toc': 52.0, 'tm': 36.0, 'ekn': 66.0, 'b5': 66.0, 'fe': 66.0, 'otj': 25.0, 'mk': 50.0}
 
 
-def set_look(lk, t, key=None):
-    fsd.energy = FOLLOW_E.get(key, 0.0)
+def set_look(lk, t, key=None, spot=1.0):
+    fsd.energy = FOLLOW_E.get(key, 0.0) * spot
     fsd.keyframe_insert('energy', frame=fr(t))
     (ke, kc, kd), (fe_, fc), (wc, ws) = lk
     sun.data.energy, sun.data.color = ke, kc
@@ -2084,23 +2090,22 @@ def set_look(lk, t, key=None):
     bg_.inputs['Strength'].keyframe_insert('default_value', frame=fr(t))
 
 
-for k, song in enumerate(SONGS):
-    hs_ = [h for h in C if h['s'] == k and h['mech'] != 'bigdrum']
-    lk = LOOK.get(song['key'], GALLERY)
-    if k == 0:
-        set_look(lk, 0.0, song['key'])
-    else:                                         # the ride into the piece is the change of room
-        prev = [h for h in C if h['s'] == k - 1 and h['mech'] != 'bigdrum'][-1]
-        set_look(LOOK.get(SONGS[k - 1]['key'], GALLERY), prev['t'] + 0.3, SONGS[k - 1]['key'])
-        set_look(lk, hs_[0]['t'] - 0.2, song['key'])
-MK_GAIN = (1.0, 1.3, 1.65)                        # Mountain King's light rises with each faster pass
-
-
 def scaled_look(lk, g):
     (ke, kc, kd), (fe_, fc), (wc, ws) = lk
     return (ke * g, kc, kd), (fe_ * g, fc), (wc, ws * g)
 
 
+for k, song in enumerate(SONGS):
+    hs_ = [h for h in C if h['s'] == k and h['mech'] != 'bigdrum']
+    lk = LOOK.get(song['key'], GALLERY)
+    if k == 0:                                    # the opening: dim but for the candle and the marble's glow,
+        set_look(scaled_look(lk, 0.25), 0.0, song['key'], spot=0.6)     # then the room's light comes up
+        set_look(lk, LIGHT_UP, song['key'])
+    else:                                         # the ride into the piece is the change of room
+        prev = [h for h in C if h['s'] == k - 1 and h['mech'] != 'bigdrum'][-1]
+        set_look(LOOK.get(SONGS[k - 1]['key'], GALLERY), prev['t'] + 0.3, SONGS[k - 1]['key'])
+        set_look(lk, hs_[0]['t'] - 0.2, song['key'])
+MK_GAIN = (1.0, 1.3, 1.65)                        # Mountain King's light rises with each faster pass
 if 'mk' in KEY_S and mk_:
     for n_, tp_ in enumerate(MK_PASSES[1:3], start=1):
         set_look(scaled_look(LOOK['mk'], MK_GAIN[n_ - 1]), tp_ - 0.4, 'mk')   # hold, then step up as it begins
@@ -2135,7 +2140,7 @@ if os.environ.get('DEBUG_PIPES') == 'keys':       # which action drives each pip
 import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
-    json.dump(dict(intro=dict(first=C[0]['t'], ticks=TICKS, gate=T_GATE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
+    json.dump(dict(intro=dict(first=C[0]['t'], gate=T_GATE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
                    returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits] + RESCUE_HITS + SIG_HITS,
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
