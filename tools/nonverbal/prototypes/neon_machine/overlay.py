@@ -231,7 +231,7 @@ def main():
         if t < t_first + 0.3:                           # (in as the light comes up, out with the first note)
             a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
             if a_ > 0:
-                xc_, ys_ = W * 0.70, (H * 0.31, H * 0.385)
+                xc_, ys_ = W * 0.50, (H * 0.075, H * 0.150)    # top centre: clear of the candle and the marble
                 lines_ = (('8 pieces  ·  300 years', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
                           ('can you name them all?', font(SANS_B, int(H * 0.062)), (255, 214, 140)))
                 bw_ = max(d.textbbox((0, 0), t_, font=f_)[2] for t_, f_, _ in lines_)
