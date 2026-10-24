@@ -398,7 +398,7 @@ PAGE = {
     'baroque': dict(paper=(0.80, 0.70, 0.52), ink=(0.16, 0.10, 0.06), ink_metal=0.0, rough=0.9),
     'classical': dict(paper=(0.66, 0.52, 0.50), ink=(0.05, 0.03, 0.03), ink_metal=0.0, rough=0.85),   # dusty-rose salon
     'beethoven': dict(paper=(0.07, 0.09, 0.17), ink=(0.86, 0.88, 0.93), ink_metal=0.9, rough=0.6),
-    'romantic': dict(paper=(0.28, 0.05, 0.07), ink=(0.95, 0.72, 0.30), ink_metal=1.0, rough=0.45),
+    'romantic': dict(paper=(0.46, 0.10, 0.12), ink=(0.98, 0.78, 0.36), ink_metal=0.45, rough=0.45),   # lit crimson
     # pieces with a page of their own, so two pieces of one era never look alike
     'ekn': dict(paper=(0.20, 0.19, 0.42), ink=(0.95, 0.93, 0.86), ink_metal=0.2, rough=0.7, stars=True),  # indigo night
     'b5': dict(paper=(0.30, 0.33, 0.38), ink=(0.95, 0.96, 0.98), ink_metal=0.25, rough=0.6),       # slate storm
@@ -1938,7 +1938,7 @@ LOOK = {   # key (strength, colour, direction to the light), fill (strength, col
     'b5': ((0.80, (0.80, 0.86, 1.0), (0.3, -1.0, 1.5)), (0.13, (0.62, 0.70, 0.90)), ((0.14, 0.16, 0.20), 0.13)),   # storm
     'fe': ((1.0, (1.0, 0.80, 0.84), (-0.9, -1.0, 0.45)), (0.25, (0.76, 0.68, 1.0)), ((0.12, 0.09, 0.16), 0.16)),   # dusk
     'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
-    'mk': ((0.60, (1.0, 0.55, 0.42), (-0.6, -1.0, 0.7)), (0.08, (1.0, 0.4, 0.3)), ((0.12, 0.03, 0.03), 0.10)),    # red hall
+    'mk': ((1.15, (1.0, 0.64, 0.52), (-0.6, -1.0, 0.7)), (0.20, (1.0, 0.55, 0.45)), ((0.20, 0.07, 0.07), 0.18)),   # red hall
 }
 GALLERY = ((1.6, (1.0, 0.96, 0.9), (0.5, -1.0, 1.0)), (0.35, (0.9, 0.93, 1.0)), ((0.40, 0.40, 0.42), 0.22))
 bpy.ops.object.light_add(type='SUN', location=(0, -3, 5))
