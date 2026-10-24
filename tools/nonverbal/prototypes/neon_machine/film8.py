@@ -2005,6 +2005,8 @@ THUMB = {}
 for item_ in filter(None, os.environ.get('THUMB_CAM', '').split(';')):
     f_, z_, dx_, dz_ = item_.split(':')
     THUMB[int(f_)] = (float(z_), float(dx_), float(dz_))
+if THUMB:
+    sc.render.use_motion_blur = False             # a thumbnail is a still: the marble crisp
 f = 1
 while f <= N:
     t = (f - 1) / FPS
