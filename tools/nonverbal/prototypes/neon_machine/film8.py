@@ -429,6 +429,10 @@ X_LEFT = -1.6
 # never end a bar on a note long enough for the tube ride (their bars end on sixteenths), so they keep to one
 # long line each instead of breaking mid-bar, as no engraver would
 ROW_EXTRA = float(os.environ.get('ROW_EXTRA', 5.5))
+# a line turns only where the marble has time for a tube ride the eye can follow (into the funnel, along the
+# tube, out at the next line). In a quarter-note line like the Canon's the ride would last a quarter of a
+# second and read as the marble flying off to the left, so such a piece keeps to one line
+RIDE_MIN = 0.9
 CLEF_W = 0.55
 KS_DX = 0.072            # spacing of the key-signature accidentals
 MACH_DROP = 1.0          # extra room between pages for the machine that carries the marble across
@@ -537,7 +541,8 @@ for s, song in enumerate(SONGS):
         if at_bar:
             xc += BAR_PAD
         brk = song.get('break_after')                 # a piece may name its line break (the Fifth: after the D)
-        if nxt is not None and (h['j'] in brk if brk else h['dur'] >= 0.34 and (
+        ride = nxt and (nxt['t'] - 0.16) - (h['t'] + max(0.14, h['dur'] - 1.3))    # as RETURNS below
+        if nxt is not None and (h['j'] in brk if brk else ride >= RIDE_MIN and (
                 x - row['x0'] >= ROW_W and (at_bar or not bu) or x - row['x0'] >= ROW_W + ROW_EXTRA)):
             # carriage return: into a funnel at the end of the row, along a glass tube, out at the next row
             row_z -= ROW_H

@@ -13,9 +13,10 @@ phrase = mk['notes']
 mk['notes'] = phrase + [(n, u * 0.82) for n, u in phrase] + [(n, u * 0.66) for n, u in phrase]
 mk['nunits'] = [u for _, u in phrase] * 3          # notated values (the accelerando changes time, not notation)
 mk['palette'] = dict(fast='bumper', normal='pad', long='cymbal')
-# a breath before the last, fastest pass: the marble flies past the funnel and is rescued (film8, RESCUE);
-# the notes are untouched, the music only waits
-mk['gp'] = {2 * len(phrase) - 1: 2.2}
+# a breath before each faster pass: time for the marble's ride back to the start of the next line (film8:
+# a line turns only where that ride can be followed), and before the last, fastest pass the marble flies
+# past the funnel and is rescued (film8, RESCUE); the notes are untouched, the music only waits
+mk['gp'] = {len(phrase) - 1: 0.75, 2 * len(phrase) - 1: 2.2}
 
 ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
          ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1875, 'romantic')]
@@ -34,7 +35,7 @@ MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
 # (set from MACH_PACE=1 so each machine runs at about 10 degrees: brisk, and always on time; film8 stops the
 #  build if a machine would arrive after the music needs it)
-INTERLUDE = {'toc': 3.9, 'tm': 6.8, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6}
+INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
