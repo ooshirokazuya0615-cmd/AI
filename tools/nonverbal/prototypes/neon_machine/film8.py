@@ -2000,10 +2000,18 @@ def cam_at(t):
     return tg, off, 50.0
 
 
+# thumbnails: THUMB_CAM="frame:zoom:dx:dz;..." re-frames those frames only (closer or wider, shifted), for stills
+THUMB = {}
+for item_ in filter(None, os.environ.get('THUMB_CAM', '').split(';')):
+    f_, z_, dx_, dz_ = item_.split(':')
+    THUMB[int(f_)] = (float(z_), float(dx_), float(dz_))
 f = 1
 while f <= N:
     t = (f - 1) / FPS
     tg, off, lens = cam_at(t)
+    if f in THUMB:
+        zt_, dxt_, dzt_ = THUMB[f]
+        off, tg = off * zt_, tg + Vector((dxt_, 0.0, dzt_))
     cam.location = tg + off
     cam.rotation_euler = (-off).to_track_quat('-Z', 'Y').to_euler()
     cam.data.lens = lens
@@ -2015,7 +2023,7 @@ while f <= N:
     focus_empty.location = (bp_.x, HEAD_Y - 0.02, bp_.z)
     focus_empty.keyframe_insert('location', frame=f)
     cam.data.dof.keyframe_insert('aperture_fstop', frame=f)
-    f += 1 if any(-0.1 <= t - t_s < 0.5 for t_s in SHAKES) else 2      # every frame through a jolt
+    f += 1 if any(-0.1 <= t - t_s < 0.5 for t_s in SHAKES) or (f + 1) in THUMB else 2   # every frame through a jolt
 
 # a short shutter through the fast orbits the camera watches close (the funnel), the usual one elsewhere
 SHARP = [w_ for m_ in GAPMACH.values() for w_ in m_.sharp]
