@@ -732,7 +732,7 @@ def rescue_view(t):
     if t <= rs['t_in']:
         k = smooth((t - rs['t_t']) / (rs['t_in'] - rs['t_t']))
         return both.lerp(fun, 0.4 * k), 1.58 - 0.18 * k, (0.0, 0.0)
-    k = smooth((t - rs['t_in']) / (rs['h1']['t'] - rs['t_in']))
+    k = smooth(min(1.0, (t - rs['t_in']) / max(1e-6, rs['h1']['t'] - 0.3 - rs['t_in'])))
     pb, zb = row_point(HEAD[rs['h1']['i']][2], rs['h1']['t'])
     return fun.lerp(pb, k), (1.3 + (zb - 1.3) * k) * (1 + 0.25 * math.sin(math.pi * k)), (0.0, 0.0)
 
@@ -1461,8 +1461,8 @@ big_rim = mat('bigrim', NEON['amber'], 0.2, emit=NEON['amber'], emit_s=4.0)
 torus((DRUM.x, HEAD_Y, DRUM.z), 0.2, 0.012, big_rim)
 big_head = mat('bighead', (0.95, 0.92, 0.85), 0.35, emit=(1.0, 0.5, 0.2), emit_s=0.0)
 cyl((DRUM.x, HEAD_Y, DRUM.z), (DRUM.x, HEAD_Y, DRUM.z + 0.004), 0.186, big_head, 48)
-emit_keys(big_rim, ((TF - 1 / FPS, 4.0), (TF, 60), (TF + 1.2, 10)))
-emit_keys(big_head, ((TF - 1 / FPS, 0.0), (TF, 22), (TF + 1.2, 2)))
+emit_keys(big_rim, ((TF - 1 / FPS, 4.0), (TF, 36), (TF + 0.5, 8)))      # a flash, not a white-out of the marble
+emit_keys(big_head, ((TF - 1 / FPS, 0.0), (TF, 12), (TF + 0.5, 1.5)))
 cyl((DRUM.x, HEAD_Y, DRUM.z - 0.12), (DRUM.x, HEAD_Y, DRUM.z - 1.0), 0.04, mat('drumpole', (0.6, 0.45, 0.2), 0.3, metal=1.0))
 pulse_ring(Vector((DRUM.x, HEAD_Y, DRUM.z + 0.01)), TF, NEON['amber'], r0=0.2, r1=0.85, life=0.5, rot=(0, 0, 0))
 burst(Vector((DRUM.x, HEAD_Y - 0.04, DRUM.z + 0.02)), TF, NEON['amber'], n=18, speed=1.7, life=0.5)
@@ -1652,7 +1652,7 @@ for j in range(len(SONGS)):
     for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 1.6), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
         glow.default_value = g_
         glow.keyframe_insert('default_value', frame=fr(tt))
-for tt, g_ in ((TF - 1 / FPS, 0.99), (TF + 0.1, 2.4), (TF + S.FINALE['hold'] + 0.6, 1.5)):   # the drum: it blazes
+for tt, g_ in ((TF - 1 / FPS, 0.99), (TF + 0.1, 1.3), (TF + S.FINALE['hold'] + 0.6, 0.9)):   # the drum: it glows
     glow.default_value = g_
     glow.keyframe_insert('default_value', frame=fr(tt))
 bsdf.inputs['Roughness'].default_value = 0.06
@@ -1779,8 +1779,8 @@ def frame_point(tt):
             pa, za = row_point(r0, h0['t'])
             pb, zb = row_point(r1, h1['t'])
             zfit = min(2.4, max(1.0, (abs(pa.x - pb.x) + 1.0) / (VIEW_H * 16 / 9), (abs(pa.z - pb.z) + 0.9) / VIEW_H))
-            u = (tt - a_) / (b_ - a_)
-            w = math.sin(math.pi * u)
+            u = min(1.0, (tt - a_) / max(1e-6, h1['t'] - 0.2 - a_))
+            w = math.sin(math.pi * u)                    # the bump is over 0.2 s before the first note
             ub = smooth(min(1.0, (tt - a_) / max(1e-6, h1['t'] - 0.3 - a_)))   # at the line start 0.3 s early
             base, zbase = pa.lerp(pb, ub), za + (zb - za) * ub
             return base.lerp(pa.lerp(pb, 0.55), w), zbase + (zfit - zbase) * w, (0.0, 0.0)
@@ -1842,9 +1842,13 @@ def target(t):
     """Smoothed look-at point and zoom: the pan is averaged over a wider window (an even glide through
     fast runs), the height and zoom over a narrower one."""
     px, wx, pz, zf, el, yw, wz = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+    tight = 0.0                                   # through the rescue's catch and toss, follow the action closely
+    if RESCUE:
+        tight = smooth((t - (RESCUE['t_c'] - 0.6)) / 0.4) * (1 - smooth((t - (RESCUE['t_in'] + 0.1)) / 0.4))
+    s1, s2 = 7.0 - 4.5 * tight, 5.0 - 3.0 * tight
     for j in range(-12, 13):
         p_, z_, (e_, y_) = frame_point(t + j * 0.08)
-        w1, w2 = math.exp(-(j / 7.0) ** 2), math.exp(-(j / 5.0) ** 2)
+        w1, w2 = math.exp(-(j / s1) ** 2), math.exp(-(j / s2) ** 2)
         px, wx = px + p_.x * w1, wx + w1
         pz, zf, el, yw, wz = pz + p_.z * w2, zf + z_ * w2, el + e_ * w2, yw + y_ * w1, wz + w2
     # the music sits a little above the middle, so the timeline band at the bottom stays clear of it
@@ -1973,7 +1977,7 @@ def cam_at(t):
     if yw:                                       # swing round a little (the machine's depth shows)
         off = Vector((off.x * math.cos(yw) - off.y * math.sin(yw), off.x * math.sin(yw) + off.y * math.cos(yw), off.z))
     # the last leap: the drum framed (near the middle, clear of the HUD) before the marble lands on it
-    kh = smooth((t - (FIN['launch'] - 0.3)) / 0.6)
+    kh = smooth((t - (C[-2]['t'] + 0.15)) / 0.7)
     tg = tg.lerp(CON[C[-2]['i']] * 0.35 + DRUM * 0.65 + Vector((0, 0, 0.22)), kh * (1 - smooth((t - (TF + 0.2)) / 0.8)))
     tg = tg.lerp(DRUM + Vector((0, 0, 0.12)), smooth((t - (TF + 0.1)) / 0.8))
     # after the drum: hold on the 8-colour marble, pull back to a page's height, then rise through the pages
@@ -2093,6 +2097,8 @@ if 'mk' in KEY_S and mk_:
         set_look(scaled_look(LOOK['mk'], MK_GAIN[n_]), tp_, 'mk')
 set_look(scaled_look(LOOK.get(SONGS[-1]['key'], GALLERY), MK_GAIN[-1]), TF + 0.8, SONGS[-1]['key'])
 set_look(GALLERY, TF + 2.6)                       # no follow-spot for the wide rise at the end
+set_look(GALLERY, REVEAL_T1)
+set_look((GALLERY[0], GALLERY[1], ((0.30, 0.30, 0.33), 0.07)), WIDE_T1)   # the wall glows in a darker gallery
 sc.view_settings.look = 'AgX - Medium High Contrast'
 sc.view_settings.exposure = -0.3
 sc.cycles.use_adaptive_sampling = True

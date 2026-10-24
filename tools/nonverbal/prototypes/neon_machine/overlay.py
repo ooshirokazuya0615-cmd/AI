@@ -244,7 +244,7 @@ def main():
         r0_, r1_ = t_final + FIN['rise0'], t_final + FIN['rise1']
         if r0_ - 0.4 <= t <= r1_ + 0.6:
             n_ = len(starts) - 1
-            i_ = min(n_, max(0, int(round((t - r0_) / (r1_ - r0_) * n_ - 0.3))))
+            i_ = min(n_, max(0, int(math.floor((t - r0_) / (r1_ - r0_) * n_ + 0.2))))   # the page the camera is on
             sg_ = starts[n_ - i_][2]
             a_ = smooth((t - (r0_ - 0.4)) / 0.4) * (1 - smooth((t - r1_) / 0.6))
             yf_ = font(SERIF_B, int(H * 0.085))
@@ -258,7 +258,8 @@ def main():
         if t > t_card - 0.1:
             a_ = smooth((t - t_card) / 0.6)
             x0_, x1_, y_ = W * 0.575, W * 0.965, H * 0.085
-            d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, H * 0.93), radius=int(H * 0.025),
+            d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, y_ + H * 0.645), radius=int(H * 0.025),   # below it: room for
+                                #                                                                the end screen
                                 fill=(14, 12, 20, int(165 * a_)), outline=(255, 255, 255, int(50 * a_)), width=2)
             cx_ = (x0_ + x1_) / 2
 
