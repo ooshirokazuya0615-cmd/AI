@@ -1,0 +1,40 @@
+{
+ "sim_seconds_wall": 0.483,
+ "sim_steps": 5400,
+ "sim_seconds_simulated": 9.0,
+ "events": 181,
+ "story": {
+  "t_hit": 0.615,
+  "steps": 6,
+  "pegs": 3,
+  "t_pad": 5.3,
+  "pad_bounces": 15,
+  "on_pad": true,
+  "rest_speed": 48.4,
+  "end": [
+   -126,
+   -1405
+  ],
+  "events": 181
+ },
+ "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+ "audio_synth_seconds": 2.361,
+ "audio_master_seconds": 0.872,
+ "sound_events_used": 122,
+ "sound_tally": {
+  "ball": 28,
+  "wood": 32,
+  "stone": 4,
+  "metal": 22,
+  "rubber": 36
+ },
+ "render_only_fps": 21.26,
+ "frames": 540,
+ "pipeline_seconds": 42.42,
+ "pipeline_fps": 12.73,
+ "breakdown_seconds": {
+  "draw_submit": 0.56,
+  "readback": 37.17,
+  "pipe_to_ffmpeg": 3.55
+ }
+}
