@@ -372,7 +372,7 @@ def main(out):
             if 'bass' in acc:
                 tb = t0
                 for n_, u_ in acc['bass']:          # None = rest, 'C4+E4' = chord
-                    ring = u_ * song['unit'] * 0.85 + 0.10 if acc.get('staccato') else u_ * song['unit'] + 0.5
+                    ring = u_ * song['unit'] * 0.85 + 0.10 if acc.get('staccato') else u_ * song['unit'] + acc.get('ring', 0.5)
                     parts = n_.split('+') if n_ else []
                     for m_ in parts:
                         place(mix, acc_note(S.midi(m_), ring, tb, s, int(tb * 10)), tb, 0.16 / len(parts) ** 0.5, -0.25)

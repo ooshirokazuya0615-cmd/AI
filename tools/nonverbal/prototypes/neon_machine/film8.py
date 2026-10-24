@@ -991,6 +991,10 @@ for h in C:
         hole = sphere((0, 0, 0), 1.0, paper_mat(page_of(song)), scale=(0.58, 0.13, 0.46), segs=24)
         hole.parent = o                                   # in the head's own (unit-sphere) space
         hole.location, hole.rotation_euler = (0, -0.93, 0), (0, math.radians(-18), 0)
+    base_ = frac / 1.5 if frac else 0.0                   # a dotted value: 1.5 times a plain note value
+    if base_ and abs(math.log2(base_) - round(math.log2(base_))) < 1e-6:
+        dz_ = LS / 2 if st % 2 == 0 else 0.0                # a note on a line takes its dot in the space above
+        sphere((head.x + 0.085, WALL_Y - 0.008, z0s + dz_), 0.011, ink, segs=10)
     if frac < 1.0 - 1e-6:
         stem_o = cube((sx, WALL_Y - 0.006, z0s + (1 if up else -1) * stem_l / 2), (0.006, 0.004, stem_l), ink)
         wobble(stem_o, h['t'], axis=1, amp=2.2)
@@ -1158,7 +1162,7 @@ def revolve(centre, profile, m, segs=48):
 # loft, deep violet in the rose salon, gold in the night, orange in the storm, lime in the violet evening, teal
 # on gold, cyan in the red hall); it takes each new one from the chase lamps on the way into the piece
 PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.02, 0.62, 0.32), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
-             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.45, 0.48), 'mk': (0.15, 0.85, 1.0)}
+             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.24, 0.29), 'mk': (0.15, 0.85, 1.0)}
 from types import SimpleNamespace  # noqa: E402
 M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
 for s_, m_ in GAPMACH.items():
@@ -1210,10 +1214,10 @@ def hammer_for(hits, k_strike, g=1.0):
     yb = HEAD_Y - 0.13                                  # in front of the marble's plane, clear of it
     xh = head.x + 0.30                                  # beyond the return funnel at a line's end
     anvil = Vector((xh, yb, head.z - 0.035))
-    z_land = anvil.z + 0.015 + 0.034                    # the weight's centre resting on the anvil
+    z_land = anvil.z + 0.03 + 0.034                     # the weight's centre resting on the plate
     z_rest = row['z'] + 4 * LS + 0.19                   # above the staff and the fermata's arc
     hm_m = mat('hammer', (0.85, 0.62, 0.25), 0.25, metal=1.0)
-    cube((anvil.x, anvil.y, anvil.z), (0.07, 0.06, 0.03), mat('anvil', (0.15, 0.15, 0.17), 0.3, metal=0.9))
+    cyl(Vector((xh, yb + 0.03, anvil.z)), Vector((xh, yb - 0.03, anvil.z)), 0.03, M_BRASS, 24)   # a round brass plate
     hold = empty(Vector((xh, yb, z_rest)), 'hammer_weight')
     bpy.context.view_layer.update()
     wt = cyl(Vector((xh - 0.055, yb, z_rest)), Vector((xh + 0.055, yb, z_rest)), 0.034, hm_m, 24)
@@ -1234,7 +1238,7 @@ def hammer_for(hits, k_strike, g=1.0):
     for tk, d_ in keys:
         hold.location = (xh, yb, z_rest + d_)
         hold.keyframe_insert('location', frame=fr(max(0.0, tk)))
-    hit_p = Vector((xh, yb - 0.04, anvil.z + 0.015))
+    hit_p = Vector((xh, yb - 0.04, anvil.z + 0.03))
     pulse_ring(hit_p, t_s, NEON['amber'], r0=0.04, r1=0.13, life=0.3, rot=(0, 0, 0))
     burst(hit_p, t_s, (1.0, 0.8, 0.5), n=10, speed=1.0, life=0.4)
     SIG_HITS.append(dict(t=t_s, kind='thunder', g=g))
@@ -1339,8 +1343,8 @@ if otj_:
         for k, fx in enumerate((0.2, 0.55, 0.88)):
             x_ = xs_[0] + (xs_[-1] - xs_[0]) * fx
             bc, ic, acc = looks[k % 3]
-            ch = character(x_, r_['z'] - 0.52 + 0.49, bc, ic, acc, f'dancer{len(DANCERS)}', smile=True)
-            r_['below'] = 0.80                     # their feet clear of the timeline band
+            ch = character(x_, r_['z'] + 0.03, bc, ic, acc, f'dancer{len(DANCERS)}', smile=True)
+            r_['below'] = 0.70                     # their feet (0.46 below the staff) clear of the timeline band
             DANCERS.append((ch, [h for h in otj_ if HEAD[h['i']][2] is r_], k))
 
 fe_ = notes_of('fe')                              # Fur Elise: a firefly rises from every note it plays
@@ -1473,7 +1477,7 @@ for ch in [c for c, _ in chars] + [yel, pink] + ([catcher] if catcher else []) +
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
     bpy.context.view_layer.update()
     parent(r0, holder)
-    sc_ = 0.40 if r0.name.startswith('dancer') else 0.62
+    sc_ = 0.32 if r0.name.startswith('dancer') else 0.62
     holder.scale = (sc_, sc_, sc_)
 for ch, t_ev in chars:
     track_eyes(ch, ball_pos)
@@ -1500,10 +1504,10 @@ for ch, notes_, k_ in DANCERS:
     evs = {}
     for h in notes_:
         b_ = beat_of.get(h['i'], 0)
-        evs[round(h['t'], 3)] = 0.16 if b_ == k_ else 0.12 if b_ == 3 else 0.05
-    evs[round(notes_[-1]['t'], 3)] = 0.22
+        evs[round(h['t'], 3)] = 0.25 if b_ == k_ else 0.18 if b_ == 3 else 0.08
+    evs[round(notes_[-1]['t'], 3)] = 0.32
     if t_cheer is not None and notes_[0]['t'] - 0.2 <= t_cheer <= notes_[-1]['t'] + 0.5:
-        evs[round(t_cheer, 3)] = 0.24
+        evs[round(t_cheer, 3)] = 0.36
     for tb in sorted(evs):
         hop(ch, tb, evs[tb])
     track_eyes(ch, ball_pos)
@@ -1667,9 +1671,23 @@ def row_at(t):
 VIEW_H = 2 * OFF.length * 10.125 / 50.0        # visible height on the head plane at the base distance (50 mm)
 
 
+# while a quiz card is up (top right: from LEAD before the first note until the answer leaves, as in
+# overlay.py) the framing keeps room above the music, so the card never lies over the staff
+CARD_PAD = 0.26
+CARDS = []
+for k_, song_ in enumerate(SONGS):
+    hs_ = [h for h in C if h['s'] == k_ and h['mech'] != 'bigdrum']
+    t0_ = hs_[0]['t']
+    CARDS.append((t0_ - (0.15 if k_ == 0 else 1.2), t0_ + min(6.0, hs_[-1]['t'] - t0_ - 0.2)))
+
+
+def card_up(tt):
+    return max([smooth((tt - (a_ - 0.5)) / 0.5) * (1 - smooth((tt - b_) / 0.5)) for a_, b_ in CARDS] + [0.0])
+
+
 def local_frame(r_, tt):
     """Vertical centre and zoom for the stretch of the row on screen around time tt: the staff, the notes
-    in view (and just ahead), and the highest hop above them."""
+    in view (and just ahead), and the highest hop above them (and room for the quiz card while it is up)."""
     lo_, hi_ = r_['z'] - r_.get('below', 0.05), r_['z'] + 4 * LS + 0.05
     for h in r_['notes']:
         if tt - 1.1 <= h['t'] <= tt + 1.7:
@@ -1678,6 +1696,7 @@ def local_frame(r_, tt):
             apex = G / 8 * min(T_, T_HOP) ** 2                 # the hop that leaves this note
             lo_ = min(lo_, z - R_HEAD[2] - 0.07)
             hi_ = max(hi_, z + R_HEAD[2] + 2 * R + apex + 0.03, z + 3.5 * LS + 0.03 if st_ < 4 else z)
+    hi_ += CARD_PAD * card_up(tt)
     return (lo_ + hi_) / 2, max(1.0, (hi_ - lo_) / (0.86 * VIEW_H))
 
 
@@ -1737,7 +1756,7 @@ def frame_point(tt):
                 wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
                 zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
                 # the pull-back starts on the piece's last hit (not before), holds, then follows the marble
-                w = smooth((tt - (h0['t'] + 0.2)) / 0.9) * (1 - smooth((tt - (h0['t'] + 2.0)) / 0.8))
+                w = smooth((tt - (h0['t'] + 0.2)) / 1.2) * (1 - smooth((tt - (h0['t'] + 2.0)) / 0.8))
                 w *= 1 - m_.closeness(tt)                 # a close-up (the loop, the rim) wins over the wide view
                 zf_ = m_.zoom(tt, MACH_ZOOM)
                 att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
@@ -1755,7 +1774,14 @@ def frame_point(tt):
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:
-                return (*row_point(r0, tt), (0.0, 0.0))
+                p_, z_ = row_point(r0, tt)
+                if r0.get('first') and r0['s'] in GAPMACH:   # just arrived: still at the first hit, then away
+                    t1st = r0['notes'][0]['t']
+                    k_ = smooth((tt - t1st) / 1.2)
+                    if k_ < 1:
+                        pa, za = row_point(r0, t1st)
+                        p_, z_ = (pa + Vector((0, 0, 0.12))).lerp(p_, k_), za * 1.2 + (z_ - za * 1.2) * k_
+                return (p_, z_, (0.0, 0.0))
             k = smooth((tt - h0['t']) / (h1['t'] - h0['t']))
             pa, za = row_point(r0, h0['t'])
             pb, zb = row_point(r1, h1['t'])

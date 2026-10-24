@@ -404,6 +404,7 @@ def mech_jump(m, p, v, t, th):
     dz = 0.12
     T_f = (vz + math.sqrt(vz * vz + 2 * G * dz)) / G
     rim = launch + Vector((vx * T_f, 0, -dz))      # it lands on the cup's rim...
+    m.closeups.append((t - 0.35, t + T_f, 0.85, launch.lerp(rim, 0.5)))   # the flight seen close
     cup = rim + Vector((-0.045, 0, -0.02))
     t = m.hop(launch, t, rim, t + T_f)
     m.hit(t, 'catch', 1.0)
@@ -412,13 +413,13 @@ def mech_jump(m, p, v, t, th):
     def rattle(tt, t0=t, cup=cup, T_r=T_r):
         u = min(1.0, (tt - t0) / T_r)
         ang = math.pi * 3.4 * u
-        r = 0.045 * (1 - u ** 2.2)                 # it stays out on the rim, then spirals in
+        r = 0.065 * (1 - u ** 2.2)                 # it stays out on the rim, then spirals in
         return cup + Vector((r * math.cos(ang), r * math.sin(ang) * 0.8, 0.02 * (1 - u)))
     for k in range(12):
         m.hit(t + 0.072 * k, 'rattle', 1.0 - 0.07 * k)
     m.closeups.append((t, t + T_r, 0.95, cup.copy()))
     t = m.seg(t, t + T_r, rattle)
-    out = cup - Vector((0.06, 0, 0.13))           # ...and in, and through
+    out = cup - Vector((0.0, 0, 0.15))            # ...and in, and down through the hole
     m.hit(t, 'whoosh', 0.8)                        # down through the cup: no hole in the sound
     m.hits[-1]['L'] = 0.9
     t = m.hop(cup, t, out, t + 0.2)
@@ -840,7 +841,7 @@ def build(m, h):
                 pts.append(O + Vector((rk * math.sin(a), 0, -rk * math.cos(a))))
             curve(pts, lambda mid: O)
             cm = h.mat('cup', (0.9, 0.66, 0.3), 0.18, metal=1.0)
-            h.revolve(Vector((cup.x, Y, 0)), [(0.03, cup.z - R - 0.02), (0.06, cup.z - R + 0.02), (0.085, cup.z - R + 0.06)], cm)
+            h.revolve(Vector((cup.x, Y, 0)), [(R + 0.012, cup.z - R - 0.02), (R + 0.03, cup.z - R + 0.02), (R + 0.05, cup.z - R + 0.06)], cm)
             h.cyl(Vector((cup.x, W, cup.z - R)), Vector((cup.x, Y + 0.06, cup.z - R)), 0.006, arm_m, 8)
         elif kind == 'tilt':
             piv, Lp, thp, t_p, T_tilt = part[1:]
@@ -857,7 +858,7 @@ def build(m, h):
                        (0.02, 0.05, 0.03), arm_m)
         elif kind == 'spiral':
             Oc, Rf, r_hole, z_rim, depth, below, out = part[1:]
-            fm = h.mat('funnel', (0.9, 0.66, 0.3) if st != 'steel' else (0.88, 0.9, 0.95), 0.12, metal=1.0)
+            fm = h.mat('funnel', (0.9, 0.66, 0.3) if st != 'steel' else (0.88, 0.9, 0.95), 0.38, metal=1.0)   # brushed
             prof = []
             for k in range(25):
                 rr = r_hole + (Rf - r_hole) * k / 24

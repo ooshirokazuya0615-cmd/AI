@@ -55,7 +55,11 @@ KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0,
 # The Fifth has no bar lines on screen, so its written values are given against a whole note of 8 units (its
 # unit is an eighth): the E-flat, the tied D and the C are half notes ("ef2", "d2 ~ | d", "c2 ~ | c4"), drawn
 # as one open head each
-NOTE_VALUE = {'ekn': {8: 2, 17: 2}, 'b5': {3: 4, 7: 4, 17: 4}}
+NOTE_VALUE = {'ekn': {0: 2, 2: 2, 8: 2, 9: 2, 11: 2, 17: 2}, 'b5': {3: 4, 7: 4, 17: 4},
+              'fe': {8: 2, 12: 2, 16: 2, 26: 2, 30: 2}}
+# (Eine kleine's G and C are quarters followed by an eighth rest, "g4 r8 d8"; Für Elise's long A, B and C are
+#  eighths followed by a sixteenth rest, "a8 r16": they take a dotted value's time but are written plain, so
+#  they get no augmentation dot)
 WHOLE_UNITS = {'b5': 8}
 # where a piece's line breaks, when the general rule would break it on a short note (the Fifth: after the
 # held D, so the marble sits on the fermata and then has a ride of about a second to the next line)
@@ -64,11 +68,12 @@ BREAK_AFTER = {'b5': (7,)}
 # the fireflies gathered over the page
 BREATH = {'fe': (17, 30)}
 # lit-note colours of a piece's own (else its era's): Für Elise in white and pink, so its lime marble stands alone
-NEON_OF = {'fe': ['white', 'magenta', 'white', 'cyan']}
+NEON_OF = {'fe': ['white', 'magenta', 'white', 'cyan'], 'otj': ['magenta', 'amber', 'violet', 'red']}   # Ode: no cyan
+                                                                                                        # (its marble is teal)
 # a piece framed a little wider than the rest (Für Elise: a gentler pan for a gentle piece, and the swarm in view)
 FRAME_ZOOM = {'fe': 1.2}
 # how far below its row a line's return tube runs (Ode to Joy: under the dancers' pedestals, not through them)
-TUBE_DEPTH = {'otj': 0.66}
+TUBE_DEPTH = {'otj': 0.57}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
@@ -81,7 +86,8 @@ ACCOMP = {
     'otj': dict(bass=[('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
                       ('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
-                      ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1), ('G2', 1), ('C2', 2)]),
+                      ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1), ('G2', 1), ('C2', 2)],
+                ring=0.1),                       # a walking bass: each note gives way to the next
     # tm: Mozart's left hand under the theme (8ths: bass note, then the chord; None = the pickup rest)
     'tm': dict(staccato=True, bass=[(None, 4)]
                + [('A3', 2), ('C4+E4', 2), ('C4+E4', 2), ('C4+E4', 2)] * 2
