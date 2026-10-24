@@ -26,6 +26,9 @@ CHOICE = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'          # has the ch
 CHOICE_B = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 Y0, Y1 = 1650, 1900
 ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'romantic': (255, 90, 80)}
+# each piece's colour (the marble's, as in film8.PIECE_COL), for the closing recap
+PIECE_RGB = {'canon': (60, 120, 255), 'toc': (20, 190, 110), 'tm': (150, 70, 220), 'ekn': (255, 190, 50),
+             'b5': (255, 120, 40), 'fe': (190, 255, 70), 'otj': (30, 150, 170), 'mk': (60, 220, 255)}
 
 
 def era_of(year):
@@ -129,7 +132,8 @@ def main():
         layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         # ---- timeline, on a soft dark band so it reads on every wall
-        k = smooth((t - 2.3) / 0.6) * (1 - smooth((t - (t_final + 1.2)) / 0.8))   # in once the opening has settled
+        k = smooth((t - 2.3) / 0.6) * (1 - smooth((t - (t_final - 0.9)) / 0.5))   # in once the opening has settled,
+        #                                                                       out before the drum landing
         if k > 0:
             if (W, H) not in _BAND:
                 g_ = np.clip((np.arange(H) / H - 0.78) / 0.16, 0, 1) ** 1.2 * 178
@@ -216,6 +220,8 @@ def main():
                 lines = [(f'✓  {"ABC"[right]}   {song["title"]}', CHOICE_B, 48, col),    # (DejaVu has the tick)
                          (f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
                           smooth((v - 0.15) / 0.3))]
+                if idx == len(starts) - 1:                 # the last answer: keep them to the end
+                    lines.append(('Keep count: your rank is at the end', SANS_B, 34, (255, 255, 255), smooth((v - 0.6) / 0.4)))
             pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
@@ -233,13 +239,47 @@ def main():
                     tw = d.textbbox((0, 0), t_, font=f_)[2]
                     d.text((xc_ - tw / 2, y_), t_, font=f_, fill=(*c_, int(245 * a_)),
                            stroke_width=max(2, H // 300), stroke_fill=(12, 10, 16, int(170 * a_)))
-        # ---- closing question
-        if t > T_END - 3.2:
-            a_ = smooth((t - (T_END - 3.2)) / 0.5)
-            card(d, W, H, W // 2, int(H * 0.34), [('How many did you guess?', SERIF_B, 64, (255, 255, 255)),
-                                                  ('1680  →  1876', SANS, 36, (255, 210, 140)),
-                                                  ('8  Maestro   ·   6–7  Virtuoso   ·   4–5  Apprentice   ·   0–3  Listener',
-                                                   SANS_B, 30, (235, 235, 240))], a_)
+        # ---- the rise back through the pages: the year of the page in view, stepping back to the start
+        FIN = S.FINALE
+        r0_, r1_ = t_final + FIN['rise0'], t_final + FIN['rise1']
+        if r0_ - 0.4 <= t <= r1_ + 0.6:
+            n_ = len(starts) - 1
+            i_ = min(n_, max(0, int(round((t - r0_) / (r1_ - r0_) * n_ - 0.3))))
+            sg_ = starts[n_ - i_][2]
+            a_ = smooth((t - (r0_ - 0.4)) / 0.4) * (1 - smooth((t - r1_) / 0.6))
+            yf_ = font(SERIF_B, int(H * 0.085))
+            lbl = str(sg_.get('year_label', sg_['year']))
+            tw = d.textbbox((0, 0), lbl, font=yf_)[2]
+            col_ = ERA_COL[era_of(sg_['year'])]
+            d.text((W * 0.95 - tw, H * 0.80), lbl, font=yf_, fill=(*col_, int(255 * a_)),
+                   stroke_width=max(2, H // 300), stroke_fill=(12, 10, 16, int(160 * a_)))
+        # ---- closing card: in the open gallery right of the wall, held to the end
+        t_card = t_final + FIN['card']
+        if t > t_card - 0.1:
+            a_ = smooth((t - t_card) / 0.6)
+            x0_, x1_, y_ = W * 0.575, W * 0.965, H * 0.085
+            d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, H * 0.93), radius=int(H * 0.025),
+                                fill=(14, 12, 20, int(165 * a_)), outline=(255, 255, 255, int(50 * a_)), width=2)
+            cx_ = (x0_ + x1_) / 2
+
+            def line(txt, path, frac, colr, yy, centre=True, x=None):
+                f_ = font(path, int(H * frac))
+                tw_ = d.textbbox((0, 0), txt, font=f_)[2]
+                d.text((cx_ - tw_ / 2 if centre else x, yy), txt, font=f_, fill=(*colr, int(255 * a_)))
+                return yy + H * frac * 1.32
+            y_ = line('How many did you guess?', SERIF_B, 0.060, (255, 255, 255), y_)
+            y_ += H * 0.012
+            for k_, (t0_, t1_, sg_) in enumerate(starts):        # the eight answers, in the marble's colours
+                r_ = H * 0.011
+                xd_ = x0_ + W * 0.03
+                d.ellipse((xd_ - r_, y_ + H * 0.019 - r_, xd_ + r_, y_ + H * 0.019 + r_), fill=(*PIECE_RGB[sg_['key']], int(255 * a_)))
+                txt_ = f"{sg_.get('year_label', sg_['year'])}   {sg_['title']}"
+                y_ = line(txt_, SANS, 0.032, (236, 236, 242), y_, centre=False, x=xd_ + W * 0.016)
+            y_ += H * 0.018
+            y_ = line('8  Maestro   ·   6–7  Virtuoso', SANS_B, 0.038, (255, 214, 140), y_)
+            y_ = line('4–5  Apprentice   ·   0–3  Listener', SANS_B, 0.038, (255, 214, 140), y_)
+            y_ += H * 0.014
+            line('Comment your rank  ↓', CHOICE_B, 0.044, (255, 255, 255), y_)
         Image.alpha_composite(im, layer).convert('RGB').save(dst / fpath.name)
 
 

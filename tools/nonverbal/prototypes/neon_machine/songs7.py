@@ -18,7 +18,8 @@ mk['palette'] = dict(fast='bumper', normal='pad', long='cymbal')
 mk['gp'] = {2 * len(phrase) - 1: 2.2}
 
 ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
-         ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1876, 'romantic')]
+         ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1875, 'romantic')]
+# (years of composition, as for every piece: Peer Gynt's music was written in 1875 and first heard in 1876)
 GAPS_IN = [None, 'chute', 'rail', 'launch', 'chute', 'rail', 'launch', 'chute']
 COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'Johann Sebastian Bach', 'tm': 'Wolfgang Amadeus Mozart',
             'ekn': 'Wolfgang Amadeus Mozart', 'b5': 'Ludwig van Beethoven', 'fe': 'Ludwig van Beethoven',
@@ -87,7 +88,7 @@ ACCOMP = {
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1.5), ('G2', 0.5), ('G2', 2),
                       ('C3', 1), ('C3', 1), ('C3', 1), ('C3', 1), ('A2', 1.5), ('B2', 0.5), ('C3', 1), ('G2', 1),
                       ('E3', 1), ('E3', 1), ('D3', 1), ('C3', 1), ('G2', 1), ('G2', 1), ('C2', 2)],
-                ring=0.1),                       # a walking bass: each note gives way to the next
+                ring=0.02),                      # a walking bass: each note gives way to the next
     # tm: Mozart's left hand under the theme (8ths: bass note, then the chord; None = the pickup rest)
     'tm': dict(staccato=True, bass=[(None, 4)]
                + [('A3', 2), ('C4+E4', 2), ('C4+E4', 2), ('C4+E4', 2)] * 2
@@ -138,5 +139,12 @@ def timeline():
     return base.timeline(SONGS, FINAL_NOTE)
 
 
+# the finale after the drum (seconds from the drum): the 8-colour marble held, the rise back through the
+# pages (a stop on each), the pull-back to the whole wall, and the closing card held to the end (shared by
+# film8.py, overlay.py and audio6.py so picture, graphics and sound agree)
+FINALE = dict(hold=1.8, rise0=3.2, rise1=12.2, wide1=14.4, card=14.9, end=20.5)
+
+
 def total_seconds():
-    return base.total_seconds(SONGS, FINAL_NOTE) + 4.0
+    c, _ = timeline()
+    return c[-1]['t'] + FINALE['end']

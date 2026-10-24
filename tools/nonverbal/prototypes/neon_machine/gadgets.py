@@ -788,9 +788,11 @@ def build(m, h):
                     h.cyl(Vector((q.x, W, top - 0.5 * hs)), Vector((q.x, q.y + 0.045, top - 0.5 * hs)), 0.006, arm_m, 8)
         elif kind == 'dominoes':
             tr, doms = part[1], part[2]
-            # black lacquered dominoes with ivory pips, big enough to read (they were white slivers on white)
-            dm = h.mat('domino', (0.03, 0.03, 0.04), 0.18, coat=1.0)
-            pip = h.mat('dominopip', (0.95, 0.93, 0.86), 0.3)
+            # black lacquered dominoes with ivory pips, big enough to read (they were white slivers on white);
+            # on the dark pages (steel, brass) ivory with black pips, or they vanish into the wall
+            dark_wall = st in ('steel', 'brass')
+            dm = h.mat('domino' + st, (0.92, 0.88, 0.78) if dark_wall else (0.03, 0.03, 0.04), 0.18, coat=1.0)
+            pip = h.mat('dominopip' + st, (0.05, 0.04, 0.04) if dark_wall else (0.95, 0.93, 0.86), 0.3)
             board = -tr.n * lift
             DT, DD, DH = 0.018, 0.06, 0.12
             for k, (s_k, t_k) in enumerate(doms):

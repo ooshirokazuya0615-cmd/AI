@@ -7,6 +7,7 @@ which fall on the counted beats.
     SONGS_MODULE=songs_kimetsu python audio6.py out.wav
 """
 import importlib
+import math
 import os
 import sys
 import wave
@@ -435,7 +436,7 @@ def main(out):
                 if kind in ('land', 'clack'):
                     place(mix, click(0.05, 420, 45), hh['t'], 0.10 * g_)
             elif kind == 'domino':
-                place(mix, click(0.012, 4200, 260), hh['t'], 0.07 * g_)
+                place(mix, click(0.012, 4200, 260), hh['t'], 0.125 * g_)        # the chain is heard, not lost
             elif kind == 'spring':
                 place(mix, click(0.03, 900, 80), hh['t'], 0.10 * g_)
             elif kind == 'boing':
@@ -476,6 +477,20 @@ def main(out):
                 place(mix, click(0.03, 2400, 90), hh['t'], 0.06 * g_)
             elif kind == 'whoosh':
                 place(mix, whoosh(hh.get('L', 0.6)), hh['t'], 0.07 * g_)
+            elif kind == 'clang':                  # the marble clips the funnel's rim and misses
+                if sampler.available():
+                    place(mix, sampler.note('glock', 79, 1.4), hh['t'], 0.22 * g_, 0.2)
+                place(mix, click(0.02, 3100, 140), hh['t'], 0.14 * g_)
+            elif kind == 'timp_roll':              # through the pause: a soft roll that swells into the return
+                L_ = hh.get('L', 2.0)
+                n_r = max(2, int(L_ / 0.065))
+                for k_r in range(n_r):
+                    u_r = k_r / (n_r - 1)
+                    if sampler.available():
+                        place(mix, sampler.one('Percussion/Timpani/Timpani3_Hit_v3_rr1_Sum.wav', 0.5),
+                              hh['t'] + k_r * 0.065, (0.012 + 0.07 * u_r ** 1.6) * g_, 0.1 * math.sin(k_r))
+                    else:
+                        place(mix, click(0.05, 90, 20), hh['t'] + k_r * 0.065, (0.01 + 0.05 * u_r ** 1.6) * g_)
             elif kind == 'net':
                 place(mix, click(0.09, 180, 22), hh['t'], 0.16 * g_)
                 place(mix, roll(0.25), hh['t'], 0.02 * g_)
@@ -508,6 +523,19 @@ def main(out):
     place(mix, click(0.05, 700, 45), fin['launch'] - 0.28, 0.18)
     place(mix, click(0.08, 400, 35), fin['launch'], 0.5)
     place(mix, whoosh(fin['t'] - fin['launch']), fin['launch'], 0.05)
+    # the close: under the whole wall and the closing card, the Canon's ground bass once more, slow and soft,
+    # so the film ends where it began (D A B F# G D G A, then D)
+    FIN_ = getattr(S, 'FINALE', None)
+    if FIN_:
+        t_o = fin['t'] + FIN_['rise1'] + 0.4
+        for k_o, nm_ in enumerate(('D3', 'A2', 'B2', 'F#2', 'G2', 'D2', 'G2', 'A2', 'D2')):
+            last_ = k_o == 8
+            L_o = 4.5 if last_ else 1.9
+            tone = (sampler.piano(S.midi(nm_), 0.34, L_o, take=k_o) if PIANO else s_piano(S.midi(nm_), L_o))
+            place(mix, tone, t_o + 0.78 * k_o + (0.25 if last_ else 0.0), 0.5, -0.15)
+            if last_:                                  # and the D an octave up, to end open
+                tone = sampler.piano(S.midi('D4'), 0.28, 4.5, take=3) if PIANO else s_piano(S.midi('D4'), 4.5)
+                place(mix, tone, t_o + 0.78 * k_o + 0.25, 0.4, 0.15)
     it = E.get('intro') if ev and os.path.exists(ev) else None
     if it:          # the music starts softly and reaches its full level over the first phrase
         tt_ = np.arange(len(mix)) / SR
