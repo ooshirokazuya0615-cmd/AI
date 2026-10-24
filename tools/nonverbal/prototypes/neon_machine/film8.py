@@ -312,7 +312,7 @@ def dip(o, t, dz=-0.012):
 
 
 # ================================================================ characters
-def character(x, z, body_col, iris_col, accent, name, eye_r=0.088):
+def character(x, z, body_col, iris_col, accent, name, eye_r=0.088, smile=False):
     root = empty((x, 0.18, z), name)
     look = empty((x, 0.0, z + 0.15), name + '_look')
     parent(look, root)
@@ -339,73 +339,15 @@ def character(x, z, body_col, iris_col, accent, name, eye_r=0.088):
         irises.append(sphere(ic, eye_r * 0.62, im, scale=(1.0, 0.35, 1.1)))
         irises.append(sphere(ic + Vector((0, -eye_r * 0.18, 0)), eye_r * 0.30, M_PUPIL, scale=(1, 0.35, 1.1)))
         irises.append(sphere(ic + Vector((eye_r * 0.22, -eye_r * 0.30, eye_r * 0.28)), eye_r * 0.13, M_HI))
-    mouth = torus((x, -0.04, z + 0.0), 0.035, 0.007, mat(name + 'mouth', (0.15, 0.02, 0.05), 0.4),
-                  rot=(math.radians(90), 0, 0))
-    parts.append(mouth)
-    for o in parts:
-        parent(o, root)
-    for o in irises:
-        parent(o, look)
-    return dict(root=root, look=look, mouth=mouth, z0=z)
-
-
-def track_eyes(ch, pos_fn):
-    f = 1
-    while f <= N:
-        t = (f - 1) / FPS
-        d = pos_fn(t) - (ch['root'].location + Vector((0, 0, 0.15)))
-        ch['look'].delta_location = (max(-1, min(1, d.x / 0.6)) * 0.024, 0, max(-1, min(1, d.z / 0.8)) * 0.028)
-        ch['look'].keyframe_insert('delta_location', frame=f)
-        f += 2
-
-
-def hop(ch, t, h=0.15):
-    r = ch['root']
-    for u, dz, sq in ((-0.06, 0, 1.0), (0.0, -0.03, 0.88), (0.14, h, 1.08), (0.30, 0.0, 0.92), (0.40, 0, 1.0)):
-        r.location.z = ch['z0'] + dz
-        r.keyframe_insert('location', index=2, frame=fr(t + u))
-        r.scale = (1 / sq ** 0.5, 1, sq)
-        r.keyframe_insert('scale', frame=fr(t + u))
-
-
-def mouth_o(ch, t0, t1, s=1.9):
-    m = ch['mouth']
-    for t, k in ((t0 - 0.05, 1.0), (t0 + 0.08, s), (t1, s), (t1 + 0.2, 1.0)):
-        m.scale = (k, k * (1.3 if k > 1 else 1), k)
-        m.keyframe_insert('scale', frame=fr(max(0.0, t)))
-
-
-# ================================================================ characters
-def character(x, z, body_col, iris_col, accent, name, eye_r=0.088):
-    root = empty((x, 0.18, z), name)
-    look = empty((x, 0.0, z + 0.15), name + '_look')
-    parent(look, root)
-    parts = [cube((x, 0.18, z - 0.42), (0.34, 0.30, 0.14), M_BRASS, bevel=0.02)]
-    bm = mat(name + 'body', body_col, 0.35, coat=0.8)
-    parts.append(cyl((x, 0.18, z - 0.35), (x, 0.18, z - 0.12), 0.12, bm))
-    parts.append(sphere((x, 0.18, z + 0.12), 0.23, bm, segs=40))
-    if accent == 'antenna':
-        parts.append(cyl((x, 0.18, z + 0.33), (x + 0.03, 0.18, z + 0.48), 0.008, M_CHROME))
-        parts.append(sphere((x + 0.03, 0.18, z + 0.49), 0.03, mat('ant', NEON['cyan'], 0.2, emit=NEON['cyan'], emit_s=15)))
-    elif accent == 'halo':
-        parts.append(torus((x, 0.18, z + 0.41), 0.11, 0.013, mat('halo', NEON['amber'], 0.2, emit=NEON['amber'], emit_s=12)))
-    elif accent == 'ears':
-        for s in (-1, 1):
-            parts.append(sphere((x + s * 0.15, 0.18, z + 0.33), 0.06, bm, scale=(0.7, 0.7, 1.4)))
-            parts.append(sphere((x + s * 0.15, 0.13, z + 0.34), 0.025,
-                                mat('earglow', NEON['magenta'], 0.2, emit=NEON['magenta'], emit_s=8), scale=(0.7, 0.4, 1.4)))
-    irises = []
-    for s in (-1, 1):
-        c = Vector((x + s * 0.09, 0.0, z + 0.15))
-        parts.append(sphere(c, eye_r, M_WHITE, scale=(1.0, 0.45, 1.15)))
-        ic = c + Vector((0, -eye_r * 0.42, 0))
-        im = mat(name + 'iris', iris_col, 0.2, emit=iris_col, emit_s=1.2)
-        irises.append(sphere(ic, eye_r * 0.62, im, scale=(1.0, 0.35, 1.1)))
-        irises.append(sphere(ic + Vector((0, -eye_r * 0.18, 0)), eye_r * 0.30, M_PUPIL, scale=(1, 0.35, 1.1)))
-        irises.append(sphere(ic + Vector((eye_r * 0.22, -eye_r * 0.30, eye_r * 0.28)), eye_r * 0.13, M_HI))
-    mouth = torus((x, -0.04, z + 0.0), 0.035, 0.007, mat(name + 'mouth', (0.15, 0.02, 0.05), 0.4),
-                  rot=(math.radians(90), 0, 0))
-    parts.append(mouth)
+    mm_ = mat(name + 'mouth', (0.15, 0.02, 0.05), 0.4)
+    if smile:                                       # a wide grin: beads along the bottom of a circle
+        beads = [sphere((x + 0.055 * math.cos(a_), -0.045, z + 0.035 + 0.055 * math.sin(a_)), 0.011, mm_, segs=10)
+                 for a_ in [math.radians(200 + 20 * k) for k in range(8)]]
+        parts += beads
+        mouth = beads[0]
+    else:
+        mouth = torus((x, -0.04, z + 0.0), 0.035, 0.007, mm_, rot=(math.radians(90), 0, 0))
+        parts.append(mouth)
     for o in parts:
         parent(o, root)
     for o in irises:
@@ -626,7 +568,7 @@ def tube_path(ret, h):
     """Polyline for a carriage return: drop into the funnel, run left under the staff, rise to the next row."""
     a = CON[h['i']]
     rf, rt = ret['row_from'], ret['row_to']
-    zt_ = rf['z'] - 0.42
+    zt_ = rf['z'] - SONGS[rf['s']].get('tube_depth', 0.42)
     pts = [a, Vector((a.x + 0.16, HEAD_Y, a.z - 0.10)), Vector((a.x + 0.22, HEAD_Y, zt_ + 0.05)), Vector((a.x + 0.12, HEAD_Y, zt_)),
            Vector((X_LEFT + rt['px'] + 0.15, HEAD_Y, zt_)), Vector((X_LEFT + rt['px'] + 0.05, HEAD_Y, zt_ - 0.10)),
            Vector((X_LEFT + rt['px'] + 0.12, HEAD_Y, rt['z'] + 0.55))]
@@ -1397,28 +1339,34 @@ if otj_:
         for k, fx in enumerate((0.2, 0.55, 0.88)):
             x_ = xs_[0] + (xs_[-1] - xs_[0]) * fx
             bc, ic, acc = looks[k % 3]
-            ch = character(x_, r_['z'] - 0.52 + 0.49, bc, ic, acc, f'dancer{len(DANCERS)}')
-            r_['below'] = 0.55
-            DANCERS.append((ch, [h['t'] for h in otj_ if HEAD[h['i']][2] is r_]))
+            ch = character(x_, r_['z'] - 0.52 + 0.49, bc, ic, acc, f'dancer{len(DANCERS)}', smile=True)
+            r_['below'] = 0.80                     # their feet clear of the timeline band
+            DANCERS.append((ch, [h for h in otj_ if HEAD[h['i']][2] is r_], k))
 
 fe_ = notes_of('fe')                              # Fur Elise: a firefly rises from every note it plays
 FF_LIFE = 6.0                                     # they linger, so the sky fills as the piece goes on
 for j, h in enumerate(fe_):
     head = HEAD[h['i']][0]
-    for n_ in range(2 if h['dur'] > 0.5 else 1):  # the long notes send up two
+    for n_ in range(3 if h['dur'] > 0.5 else 2):  # two from every note, three from the long ones
         col_ = (1.0, 0.78, 0.30) if (j + n_) % 2 else (1.0, 0.66, 0.24)     # warm amber only (the marble is lime)
         fm_ = mat(f'firefly{j}_{n_}', col_, 0.3, emit=col_, emit_s=0.0)
-        t0_ = h['t'] + 0.12 * n_
+        t0_ = h['t'] + 0.10 * n_
         o = sphere(head + Vector((0.0, -0.03, 0.07)), 0.016, fm_, segs=12)
         key_vis(o, t0_, t0_ + FF_LIFE)
         sway, ph_ = 0.08 * (1 if (j + n_) % 2 else -1), rng.uniform(0, 3)
         for k in range(13):
             u = k / 12
-            o.location = head + Vector((sway * math.sin(u * 7 + ph_) + 0.06 * n_, -0.03 - 0.08 * u, 0.07 + 0.6 * u ** 0.8))
+            o.location = head + Vector((sway * math.sin(u * 7 + ph_) + 0.07 * (n_ - 0.5), -0.03 - 0.08 * u,
+                                        0.07 + 0.42 * u ** 0.8))
             o.keyframe_insert('location', frame=fr(t0_ + FF_LIFE * u))
-        # a glow that breathes as it drifts up, then fades
-        emit_keys(fm_, ((t0_, 0.0), (t0_ + 0.15, 14.0), (t0_ + 1.0, 7.0), (t0_ + 2.2, 11.0), (t0_ + 3.6, 6.0),
-                        (t0_ + 4.8, 8.0), (t0_ + FF_LIFE, 0.0)))
+        # it blinks as it drifts up (on for a moment, dim, on again), then fades
+        bl_, tb_, on_ = [(t0_, 0.0), (t0_ + 0.12, 14.0)], t0_ + 0.12, True
+        while tb_ < t0_ + FF_LIFE - 0.6:
+            tb_ += rng.uniform(0.3, 0.6)
+            on_ = not on_
+            bl_.append((tb_, (13.0 if on_ else 2.0) * (1 - 0.5 * (tb_ - t0_) / FF_LIFE)))
+        bl_.append((t0_ + FF_LIFE, 0.0))
+        emit_keys(fm_, bl_)
 
 # era atmosphere: dust drifting in the candlelight of the baroque pages; a red spotlight sweeping the last page
 bq_ = [h for h in C if h['mech'] != 'bigdrum' and SONGS[h['s']]['era'] == 'baroque']
@@ -1520,7 +1468,7 @@ if RESCUE:
     cube((st_.x, 0.30, st_.z - 0.012), (0.34, 0.40, 0.024), M_BRASS, bevel=0.006)       # its stand
     for sx in (-1, 1):
         cyl(Vector((st_.x + sx * 0.12, WALL_Y, st_.z - 0.03)), Vector((st_.x + sx * 0.12, 0.12, st_.z - 0.03)), 0.008, M_BRASS, 10)
-for ch in [c for c, _ in chars] + [yel, pink] + ([catcher] if catcher else []) + [d for d, _ in DANCERS]:
+for ch in [c for c, _ in chars] + [yel, pink] + ([catcher] if catcher else []) + [d for d, _, _ in DANCERS]:
     r0 = ch['root']
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
     bpy.context.view_layer.update()
@@ -1537,9 +1485,27 @@ for ch in (yel, pink):
     hop(ch, TF + 0.02, 0.2)
     hop(ch, TF + 0.65, 0.12)
     mouth_o(ch, TF, TF + 1.8, 2.0)
-for ch, beats in DANCERS:                         # bouncing on every beat of Ode to Joy
-    for tb in beats:
-        hop(ch, tb, 0.07)
+# Ode to Joy: they dance to it. A small bob on every note; on beats 1, 2 and 3 of each bar pink, yellow and
+# blue take a big hop in turn (a wave), on beat 4 all three; and all jump together when the answer pops
+# (they cheer for the viewer) and on the last note of each line
+beat_of, t_cheer = {}, None
+if 'otj' in KEY_S:
+    otj_all, pos_ = notes_of('otj'), 0.0
+    bu_ = int(SONGS[KEY_S['otj']]['bar_units'] or 4)
+    for h in otj_all:
+        beat_of[h['i']] = int(round(pos_)) % bu_
+        pos_ += h['nunit']
+    t_cheer = otj_all[0]['t'] + 3.0                  # the quiz answer (overlay GUESS)
+for ch, notes_, k_ in DANCERS:
+    evs = {}
+    for h in notes_:
+        b_ = beat_of.get(h['i'], 0)
+        evs[round(h['t'], 3)] = 0.16 if b_ == k_ else 0.12 if b_ == 3 else 0.05
+    evs[round(notes_[-1]['t'], 3)] = 0.22
+    if t_cheer is not None and notes_[0]['t'] - 0.2 <= t_cheer <= notes_[-1]['t'] + 0.5:
+        evs[round(t_cheer, 3)] = 0.24
+    for tb in sorted(evs):
+        hop(ch, tb, evs[tb])
     track_eyes(ch, ball_pos)
 if catcher:
     rs_ = RESCUE

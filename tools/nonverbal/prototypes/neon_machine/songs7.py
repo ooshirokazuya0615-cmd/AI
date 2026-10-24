@@ -67,6 +67,8 @@ BREATH = {'fe': (17, 30)}
 NEON_OF = {'fe': ['white', 'magenta', 'white', 'cyan']}
 # a piece framed a little wider than the rest (Für Elise: a gentler pan for a gentle piece, and the swarm in view)
 FRAME_ZOOM = {'fe': 1.2}
+# how far below its row a line's return tube runs (Ode to Joy: under the dancers' pedestals, not through them)
+TUBE_DEPTH = {'otj': 0.66}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
@@ -101,6 +103,7 @@ for s_ in SONGS:
     s_['breath'] = BREATH.get(s_['key'])
     s_['neon'] = NEON_OF.get(s_['key'])
     s_['frame_zoom'] = FRAME_ZOOM.get(s_['key'], 1.0)
+    s_['tube_depth'] = TUBE_DEPTH.get(s_['key'], 0.42)
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),

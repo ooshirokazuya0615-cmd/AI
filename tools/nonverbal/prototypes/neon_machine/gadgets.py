@@ -252,7 +252,7 @@ def mech_stairs(m, p, v, t, th, xylo=False):
         t = m.hop(prev, t, q, t + Ts)
         steps.append((q, t))
         if xylo:
-            m.hit(t, 'glock', 1.0, XYLO_MIDI[k])
+            m.hit(t, 'glock', 0.63, XYLO_MIDI[k])      # under the music, not over it
         else:
             m.hit(t, 'wood', 0.85 - 0.05 * k)
         prev = q
@@ -419,6 +419,8 @@ def mech_jump(m, p, v, t, th):
     m.closeups.append((t, t + T_r, 0.95, cup.copy()))
     t = m.seg(t, t + T_r, rattle)
     out = cup - Vector((0.06, 0, 0.13))           # ...and in, and through
+    m.hit(t, 'whoosh', 0.8)                        # down through the cup: no hole in the sound
+    m.hits[-1]['L'] = 0.9
     t = m.hop(cup, t, out, t + 0.2)
     m.hit(t, 'land', 0.6)
     m.parts.append(('jump', O, rk, a_run, a_up, cup))
@@ -524,8 +526,8 @@ def mech_helix(m, p, v, t, th):
     # a music-box tick each quarter turn, stepping down as the marble winds down (a plain pentatonic fall,
     # nothing from the next piece)
     fall = (91, 88, 86, 84, 81, 79, 76, 74)
-    for k in range(4 * turns):
-        rt = roll_time((k + 0.5) * (math.pi / 2) * rh / cos_a, v0, a0)
+    for k in range(4 * turns):                        # from the moment it enters
+        rt = roll_time(max(0.01, k * (math.pi / 2) * rh / cos_a), v0, a0)
         if rt and rt[0] < T:
             m.hit(t + rt[0], 'glock', 0.32, fall[k % len(fall)])
     t = m.seg(t, t + T, screw)

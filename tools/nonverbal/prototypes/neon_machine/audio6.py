@@ -470,7 +470,7 @@ def main(out):
                     place(mix, sampler.note('glock', hh['midi'], 0.9), hh['t'], 0.09 * g_, -0.1)
                 place(mix, click(0.008, 5200, 300), hh['t'], 0.05 * g_)
             elif kind == 'rattle':
-                place(mix, click(0.01, 2900, 220), hh['t'], 0.05 * g_)
+                place(mix, click(0.01, 2900, 220), hh['t'], 0.12 * g_)        # it was lost under the music
             elif kind == 'catch':
                 place(mix, click(0.06, 520, 40), hh['t'], 0.16 * g_)
                 place(mix, click(0.03, 2400, 90), hh['t'], 0.06 * g_)
