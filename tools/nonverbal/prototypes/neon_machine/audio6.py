@@ -505,7 +505,17 @@ def main(out):
                 place(mix, roll(L_), rr['t0'], 0.02 + 0.02 * v_)
         it = E.get('intro')
         if it:
-            # the opening: the gate's latch and the roll (on the music bus: already balanced; the bass counts in)
+            # the opening: the spark's soft rising shimmer, the flame catching (a breath of air and a bell),
+            # the gate's latch and the roll (on the music bus: already balanced; the bass counts in)
+            if 'ignite' in it:
+                sp_ = it['ignite'] - it['spark']
+                w_ = whoosh(sp_ + 0.1)
+                place(music, w_ * np.linspace(0.2, 1.0, len(w_)), it['spark'], 0.025)
+                place(music, whoosh(0.45), it['ignite'] - 0.04, 0.05)
+                if sampler.available():
+                    for d_, m_ in ((0.0, 86), (0.07, 93)):                       # D and A, high and soft
+                        place(music, sampler.note('glock', m_, 2.2), it['ignite'] + d_, 0.07, -0.3)
+            place(music, click(0.04, 900, 60), it['gate'] - 0.33, 0.025)          # the marble presses on the gate
             place(music, click(0.05, 1500, 70), it['gate'], 0.055)
             place(music, click(0.02, 4200, 150), it['gate'] + 0.004, 0.02)
             r0_, r1_, v_ = it['roll']

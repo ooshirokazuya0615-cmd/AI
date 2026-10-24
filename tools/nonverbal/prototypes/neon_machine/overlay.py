@@ -229,7 +229,7 @@ def main():
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
         # ---- the opening promise, for viewers who meet it muted in the feed
         if t < t_first + 0.3:                           # (in as the light comes up, out with the first note)
-            a_ = smooth((t - 0.45) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
+            a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
             if a_ > 0:
                 xc_, ys_ = W * 0.70, (H * 0.31, H * 0.385)
                 lines_ = (('8 pieces  ·  300 years', font(SANS_B, int(H * 0.050)), (255, 250, 240)),

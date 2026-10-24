@@ -8,6 +8,7 @@ the next row (a carriage return); between pieces the tube carries it down to the
     SONGS_MODULE=songs7 python film8.py -- --res 1920x1080 --samples 12 --out frames/f_#### [--stills 60,900]
 """
 import argparse
+import bisect
 import math
 import random
 import sys
@@ -624,22 +625,26 @@ for g in GAPS:
         print(f"  pace {SONGS[s]['key']}: interlude at 7/8/9 deg = {need}", flush=True)
 
 
-# the opening: the Canon's ground bass leads in alone (songs7.INTRO_BEATS) while the light comes up on the first
-# page from the glow of the candle and the marble. The marble waits behind a small brass gate at the top of a
-# long ledge, a pendulum on the page swinging with the bass; three beats before the first note the gate swings
-# open and the marble rolls down from rest, gathering speed, and drops onto the first note as the melody
-# enters (inside the first 3 seconds: the promise of the thumbnail, kept at once).
+# the opening, one thing at a time and close enough to read (as the most watched marble-music films open: one
+# clear subject and a start you can see): the Canon's ground bass leads in alone (songs7.INTRO_BEATS) in a
+# room lit by one candle. The marble waits behind a brass gate at the top of a long ledge, empty glass. A spark
+# leaps from the candle into it and it catches: a flame of its own lights up inside the glass, and the room's
+# light comes up with it. The marble presses on the gate, the gate swings open, and it rolls down from rest,
+# gathering speed, onto the first note as the melody enters.
 BEAT0 = SONGS[0]['beat']
 T_HOP0 = 0.18
 T_GATE = C[0]['t'] - 3 * BEAT0
+T_IGNITE = T_GATE - BEAT0                        # the spark lands on the beat before the gate opens...
+T_SPARK = T_IGNITE - BEAT0                       # ...and leaves the candle on the beat before that
 LEDGE_LEN = 0.48
-LIGHT_UP = 1.4                                   # the room's light is fully up by then
+LIGHT_UP = T_IGNITE + 0.8                        # the room's light comes up with the flame
 LEDGE_ACC = 2 * LEDGE_LEN / (C[0]['t'] - T_HOP0 - T_GATE) ** 2      # rolling from rest: reaches the end on time
 LEDGE_TH = math.asin(LEDGE_ACC / (5 / 7 * 9.81))
 LEDGE_V = LEDGE_ACC * (C[0]['t'] - T_HOP0 - T_GATE)
 LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
 LEDGE_START = LEDGE_END + Vector((-LEDGE_LEN * math.cos(LEDGE_TH), 0, LEDGE_LEN * math.sin(LEDGE_TH)))
-print(f'opening: first note {C[0]["t"]:.2f} s, gate {T_GATE:.2f} s, ledge {math.degrees(LEDGE_TH):.1f} deg, '
+print(f'opening: spark {T_SPARK:.2f} s, lit {T_IGNITE:.2f} s, gate {T_GATE:.2f} s, first note {C[0]["t"]:.2f} s, '
+      f'ledge {math.degrees(LEDGE_TH):.1f} deg, '
       f'leaves at {LEDGE_V:.2f} m/s', flush=True)
 
 
@@ -746,8 +751,9 @@ def rescue_view(t):
 def ball_pos(t):
     if t <= C[0]['t']:
         # the opening: it waits behind the gate, rolls down the ledge from rest, and drops onto the first note
-        if t <= T_GATE:
-            return LEDGE_START.copy()
+        if t <= T_GATE:                         # it presses on the gate once, then waits for it to open
+            u_ = (t - (T_GATE - 0.40)) / 0.16
+            return LEDGE_START + Vector((0.006 * math.sin(math.pi * u_) if 0.0 < u_ < 1.0 else 0.0, 0, 0))
         if t <= C[0]['t'] - T_HOP0:
             return LEDGE_START.lerp(LEDGE_END, 0.5 * LEDGE_ACC * (t - T_GATE) ** 2 / LEDGE_LEN)
         return ballistic(LEDGE_END, C[0]['t'] - T_HOP0, CON[0], C[0]['t'], t)
@@ -1052,7 +1058,7 @@ for h in C:
     ld.cutoff_distance = 0.9
     key_vis(lo, h['t'] - 2 / FPS, h['t'] + 0.4)
 
-# the opening: the ledge, the gate that holds the marble, the pendulum that counts in, the title on the page
+# the opening: the ledge, the gate that holds the marble, the spark from the candle, the title on the page
 M_LEDGE = mat('ledge', (0.85, 0.62, 0.28), 0.25, metal=1.0)
 cyl(LEDGE_START - Vector((0.07, 0, R + 0.006)), LEDGE_END - Vector((-0.01, 0, R + 0.006)), 0.009, M_LEDGE, 12)
 BALL_Y = LEDGE_START.y
@@ -1065,29 +1071,37 @@ cyl((gate.location.x, WALL_Y, gate.location.z), (gate.location.x, BALL_Y - 0.036
 cyl((gate.location.x, BALL_Y - 0.036, gate.location.z), (gate.location.x, BALL_Y + 0.036, gate.location.z), 0.008, M_LEDGE, 16)
 cyl((gate.location.x, BALL_Y + 0.066, LEDGE_START.z - R - 0.006), (gate.location.x, BALL_Y + 0.066, gate.location.z + 0.01),
     0.006, M_LEDGE, 10)                                              # the post, behind the marble's path
-gate_plate = cube((0, 0, 0), (0.014, 0.06, GATE_H), M_LEDGE, bevel=0.002)
+gate_plate = cube((0, 0, 0), (0.024, 0.07, GATE_H), M_LEDGE, bevel=0.004)
 gate_plate.parent = gate
 gate_plate.location = (0, 0, -GATE_H / 2)
-for t_, a_ in ((0.0, 0.0), (T_GATE - 0.03, 0.0), (T_GATE + 0.09, -1.48), (T_GATE + 0.17, -1.30), (T_GATE + 0.25, -1.38)):
-    gate.rotation_euler = (0, a_, 0)                 # swings up and away downhill, with a little bounce
+M_ENAMEL = mat('enamel', (0.55, 0.04, 0.05), 0.25, coat=1.0)
+for o_ in (cyl(Vector((0, -0.036, -GATE_H * 0.62)), Vector((0, -0.048, -GATE_H * 0.62)), 0.030, M_ENAMEL, 32),
+           torus(Vector((0, -0.048, -GATE_H * 0.62)), 0.030, 0.004, M_LEDGE, rot=(math.radians(90), 0, 0))):
+    o_.parent = gate                                 # a red enamel disc on its face: the gate reads from the front
+for t_, a_ in ((0.0, 0.0), (T_GATE - 0.36, 0.0), (T_GATE - 0.30, -0.08), (T_GATE - 0.22, 0.0), (T_GATE - 0.03, 0.0),
+               (T_GATE + 0.09, -1.48), (T_GATE + 0.17, -1.30), (T_GATE + 0.25, -1.38)):
+    gate.rotation_euler = (0, a_, 0)                 # rattles as the marble presses, then swings up and away
     gate.keyframe_insert('rotation_euler', frame=fr(t_))
-PEND_L = 9.81 * (2 * BEAT0 / (2 * math.pi)) ** 2    # half a swing per beat
-PEND_A = 0.33
-pend = empty(Vector((LEDGE_START.x - 0.19, WALL_Y - 0.035, LEDGE_START.z + PEND_L + 0.02)), 'pendulum')
-cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, pend.location.y - 0.012, pend.location.z), 0.008, M_LEDGE, 16)
-cyl((pend.location.x, WALL_Y, pend.location.z), (pend.location.x, WALL_Y - 0.008, pend.location.z), 0.045, M_LEDGE, 32)  # rosette
-for o_ in (cyl((0, 0, 0), (0, 0, -PEND_L), 0.0035, M_LEDGE, 8),
-           sphere((0, 0, -PEND_L), 0.052, M_LEDGE, scale=(1, 0.30, 1), segs=32)):
-    o_.parent = pend
-k_ = -int(C[0]['t'] / BEAT0) - 1                    # from before the first frame, so it is already swinging
-while C[0]['t'] + k_ * BEAT0 <= T_END + BEAT0:      # at the far end of each swing, a beat of the bass
-    pend.rotation_euler = (0, PEND_A * (1 if k_ % 2 else -1), 0)
-    pend.keyframe_insert('rotation_euler', frame=fr(C[0]['t'] + k_ * BEAT0))
-    k_ += 1
-for fc_ in pend.animation_data.action.fcurves:
-    for kp_ in fc_.keyframe_points:
-        kp_.interpolation = 'BEZIER'
-        kp_.handle_left_type = kp_.handle_right_type = 'AUTO_CLAMPED'
+# the spark: from the candle's flame (its practical lamp, section 3b) in an arc to the marble, on the beat
+CANDLE = Vector((X_LEFT + ROWS[0]['px'] - 0.34, 0.50, ROWS[0]['z'] + 0.52 + 0.05))
+SPARK_TOP = max(CANDLE.z, LEDGE_START.z) + 0.16
+M_SPARK = mat('spark0', (1.0, 0.8, 0.4), 0.3, emit=(1.0, 0.72, 0.30), emit_s=40)
+
+
+def spark_at(t):
+    u = smooth(min(1.0, max(0.0, (t - T_SPARK) / (T_IGNITE - T_SPARK))))
+    a, b = CANDLE, LEDGE_START
+    mid = Vector(((a.x + b.x) / 2, (a.y + b.y) / 2, SPARK_TOP))
+    return a * (1 - u) ** 2 + mid * (2 * u * (1 - u)) + b * u * u
+
+
+for j_, sz_ in enumerate((0.009, 0.006, 0.0045, 0.0035)):     # the spark and a short tail of embers
+    o_ = sphere((0, 0, 0), sz_, M_SPARK, segs=10)
+    key_vis(o_, T_SPARK + 0.03 * j_, T_IGNITE)
+    for f_ in range(int(fr(T_SPARK)) - 1, int(fr(T_IGNITE)) + 2):
+        o_.location = spark_at((f_ - 1) / FPS - 0.035 * j_)
+        o_.keyframe_insert('location', frame=f_)
+burst(LEDGE_START, T_IGNITE, (0.5, 0.75, 1.0), n=10, speed=0.7, life=0.45)      # it catches with a shower of sparks
 TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.80   # in the opening view, above the first row's framing
 text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
@@ -1612,68 +1626,185 @@ for kk in range(90):
         u += 0.12
 
 # ---------------------------------------------------------------- 6. the marble
-core_m = bpy.data.materials.new('marble')
-core_m.use_nodes = True
-nt_ = core_m.node_tree
-bsdf = nt_.nodes['Principled BSDF']
-wave = nt_.nodes.new('ShaderNodeTexWave')
-wave.wave_type = 'RINGS'
-wave.inputs['Scale'].default_value = 2.6
-wave.inputs['Distortion'].default_value = 11.0
-# the marble takes the colour of each piece it plays, and on the final drum shows them all at once
-ramp = nt_.nodes.new('ShaderNodeValToRGB')
-PEARL = (0.86, 0.87, 0.92, 1)
-els = ramp.color_ramp.elements
-while len(els) < len(SONGS):
-    els.new(0.5)
-for k in range(len(SONGS)):
-    els[k].position = k / len(SONGS)
-ramp.color_ramp.interpolation = 'CONSTANT'          # on the drum: eight clean bands, not a pastel blend
-nt_.links.new(wave.outputs['Fac'], ramp.inputs['Fac'])
-nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Base Color'])
-nt_.links.new(ramp.outputs['Color'], bsdf.inputs['Emission Color'])
-glow = bsdf.inputs['Emission Strength']
+# A glass marble with a flame living inside it. The flame always burns upright whatever the glass does, leans
+# back as the marble flies, flares when it lands on a note, takes each piece's colour (soaked up from the chase
+# lamps on the way in) and lights the page around it. Before the opening's spark the glass is empty; on the
+# final drum the flame opens into eight tongues, one in each colour it has carried: 300 years in one flame.
+M_SHELL = mat('marbleglass', (0.95, 0.97, 1.0), 0.0, coat=1.0, trans=1.0, ior=1.5)
+ball = sphere((0, 0, 0), R, M_SHELL, segs=40)
 starts = [[h for h in C if h['s'] == k][0]['t'] for k in range(len(SONGS))]
+FLAME_E = 2.6                                     # the flame's glow at rest (a flare lifts it)
+
+
 def piece_col(k):
-    return (*PIECE_COL.get(SONGS[k]['key'], (1, 1, 1)), 1)
+    return PIECE_COL.get(SONGS[k]['key'], (1, 1, 1))
 
 
-for j in range(len(SONGS)):
-    els[j].color = piece_col(0)
-    els[j].keyframe_insert('color', frame=fr(0.0))
+def flame_mat(name, core=False):
+    """Emission graded up the flame (deep at the root, pale toward the tip) and fading out at its silhouette.
+    Returns the material and its colour-ramp elements (deep, mid, pale) for keying the piece's colour."""
+    m = bpy.data.materials.new(name)
+    m.use_nodes = True
+    nt = m.node_tree
+    for n_ in list(nt.nodes):
+        nt.nodes.remove(n_)
+    L_ = nt.links.new
+    tc = nt.nodes.new('ShaderNodeTexCoord')
+    sep = nt.nodes.new('ShaderNodeSeparateXYZ')
+    L_(tc.outputs['Generated'], sep.inputs[0])
+    rp = nt.nodes.new('ShaderNodeValToRGB')
+    el = rp.color_ramp.elements
+    el[1].position = 1.0
+    el.new(0.45)
+    L_(sep.outputs['Z'], rp.inputs['Fac'])
+    em = nt.nodes.new('ShaderNodeEmission')
+    L_(rp.outputs['Color'], em.inputs['Color'])
+    tr = nt.nodes.new('ShaderNodeBsdfTransparent')
+    lw = nt.nodes.new('ShaderNodeLayerWeight')
+    lw.inputs['Blend'].default_value = 0.4 if core else 0.55
+    mx = nt.nodes.new('ShaderNodeMixShader')
+    L_(lw.outputs['Facing'], mx.inputs['Fac'])
+    L_(em.outputs[0], mx.inputs[1])
+    L_(tr.outputs[0], mx.inputs[2])
+    out = nt.nodes.new('ShaderNodeOutputMaterial')
+    L_(mx.outputs[0], out.inputs['Surface'])
+    return m, list(el), em.inputs['Strength']
+
+
+def set_flame_col(els_, col, core=False):
+    if core:
+        cs = ((1.0, 0.85, 0.6), (1.0, 0.93, 0.8), (1.0, 0.97, 0.9))
+    else:
+        cs = (tuple(0.75 * v for v in col), col, tuple(0.75 * v + 0.25 for v in col))
+    for e_, c_ in zip(sorted(els_, key=lambda e: e.position), cs):
+        e_.color = (*c_, 1)
+
+
+def tongue(h, w, m, curl=0.12, twist=0.0):
+    """A flame tongue on the rig's origin: a round root, a waist, a tip that curls sideways."""
+    import bmesh
+    n, segs = 24, 24
+    me = bpy.data.meshes.new('tongue')
+    bm = bmesh.new()
+    rings = []
+    for i in range(n + 1):
+        u = i / n
+        z = -0.30 * h + u * h
+        if u < 0.36:
+            r = w / 2 * math.sin(math.pi / 2 * u / 0.36) ** 0.8
+        else:
+            v = (u - 0.36) / 0.64
+            r = w / 2 * max(0.0, 1 - v) ** 1.6 * (1 + 0.10 * math.sin(math.pi * v * 2.0))
+        d_ = curl * w * math.sin(math.pi / 2 * u) ** 3
+        rings.append([bm.verts.new((d_ * math.cos(twist) + max(r, 1e-5) * math.cos(2 * math.pi * k / segs),
+                                    d_ * math.sin(twist) + max(r, 1e-5) * math.sin(2 * math.pi * k / segs), z))
+                      for k in range(segs)])
+    for a_, b_ in zip(rings[:-1], rings[1:]):
+        for k in range(segs):
+            bm.faces.new((a_[k], a_[(k + 1) % segs], b_[(k + 1) % segs], b_[k]))
+    bm.faces.new(list(reversed(rings[0])))
+    bm.to_mesh(me)
+    bm.free()
+    for p_ in me.polygons:
+        p_.use_smooth = True
+    o = bpy.data.objects.new('tongue', me)
+    sc.collection.objects.link(o)
+    me.materials.append(m)
+    return o
+
+
+rig = empty((0, 0, 0), 'flame')                   # follows the marble, never turns with it
+fl_outer, fl_els, fl_str = flame_mat('flame')
+fl_core, core_els, core_str = flame_mat('flamecore', core=True)
+set_flame_col(core_els, None, core=True)
+single = [tongue(1.38 * R, 0.78 * R, fl_outer, curl=0.10, twist=0.4),     # it fills the glass: the flame is
+          tongue(0.72 * R, 0.30 * R, fl_outer, curl=0.3)]                   # what you see from across the wall
+single[1].location, single[1].rotation_euler = (0.15 * R, -0.05 * R, -0.04 * R), (0, 0.35, 0)
+core_o = tongue(0.66 * R, 0.34 * R, fl_core, curl=0.05)
+core_o.location = (0, -0.02 * R, -0.10 * R)
+rainbow = []
+for k in range(len(SONGS)):                       # the finale's eight tongues, round the white heart
+    m_, els_, str_ = flame_mat(f'tongue{k}')
+    set_flame_col(els_, piece_col(k))
+    str_.default_value = 1.1 * FLAME_E
+    a_ = 2 * math.pi * k / len(SONGS)
+    o_ = tongue((0.95 + 0.12 * (k % 2)) * R, 0.30 * R, m_, curl=0.25, twist=a_)
+    o_.location, o_.rotation_euler = (0.17 * R * math.cos(a_), 0.17 * R * math.sin(a_), -0.04 * R), (0, 0.22 * math.cos(a_), 0)
+    rainbow.append(o_)
+for o_ in single + [core_o] + rainbow:
+    o_.parent = rig
+for o_ in single:
+    key_vis(o_, T_IGNITE - 1 / FPS, TF)
+for o_ in rainbow:
+    key_vis(o_, TF)
+key_vis(core_o, T_IGNITE - 1 / FPS)
+fl_lamp = bpy.data.lights.new('flamelight', 'POINT')
+fl_lamp.shadow_soft_size = 0.02
+fl_lo = bpy.data.objects.new('flamelight', fl_lamp)
+sc.collection.objects.link(fl_lo)
+fl_lo.parent = rig
+for a_ in ('visible_camera', 'visible_glossy', 'visible_transmission'):   # it lights the page; the flame is what you see
+    if hasattr(fl_lo, a_):
+        setattr(fl_lo, a_, False)
+# its colour: each piece's, soaked up from the chase lamps on the way into the piece (a change you can see)
+COL_KEYS = [(0.0, piece_col(0))]
 for k, t_k in enumerate(starts[1:], start=1):
-    # one marble all along, one colour at a time: it soaks up each new piece's colour from the chase lamps it
-    # rolls past on the way in (a gradual change you can see happen); its swirl never changes
     ch_ = sorted(x['t'] for x in (GAPMACH[k].hits if k in GAPMACH else []) if x['kind'] == 'chase')
     a_, b_ = (ch_[0] - 0.05, ch_[-1] + 0.1) if len(ch_) >= 2 else (t_k - 0.4, t_k + 0.12)
-    for j in range(len(SONGS)):
-        for tt, c_ in ((a_, piece_col(k - 1)), (b_, piece_col(k))):
-            els[j].color = c_
-            els[j].keyframe_insert('color', frame=fr(tt))
-# ...and on the final drum every colour it has carried comes back at once, one band each: 300 years in one marble
-for j in range(len(SONGS)):
-    for tt, c_ in ((TF - 1 / FPS, piece_col(len(SONGS) - 1)), (TF + 0.25, piece_col(j))):
-        els[j].color = c_
-        els[j].keyframe_insert('color', frame=fr(tt))
-    for tt, g_ in ((max(0.0, t_k - 1 / FPS), 0.35 + 0.08 * k), (t_k + 0.05, 1.6), (t_k + 0.5, 0.35 + 0.08 * (k + 1))):
-        glow.default_value = g_
-        glow.keyframe_insert('default_value', frame=fr(tt))
-for tt, g_ in ((TF - 1 / FPS, 0.99), (TF + 0.1, 1.3), (TF + S.FINALE['hold'] + 0.6, 0.9)):   # the drum: it glows
-    glow.default_value = g_
-    glow.keyframe_insert('default_value', frame=fr(tt))
-bsdf.inputs['Roughness'].default_value = 0.06
-bsdf.inputs['Coat Weight'].default_value = 1.0
-ball = sphere((0, 0, 0), R, core_m, segs=40)
+    COL_KEYS += [(a_, piece_col(k - 1)), (b_, piece_col(k))]
+for tt, c_ in COL_KEYS:
+    set_flame_col(fl_els, c_)
+    for e_ in fl_els:
+        e_.keyframe_insert('color', frame=fr(tt))
+    fl_lamp.color = c_
+    fl_lamp.keyframe_insert('color', frame=fr(tt))
+fl_lamp.color = (1.0, 0.9, 0.8)                   # the finale's flame is every colour: a white light
+fl_lamp.keyframe_insert('color', frame=fr(TF))
+HITS_T = sorted(h['t'] for h in C)
+FL_PH = [rng.uniform(0, 2 * math.pi) for _ in range(3)]
+
+
+def flame_state(t):
+    """(scale, lean, glow) of the flame at time t: lit by the spark, flickering, flaring on each note,
+    leaning back against its flight and stretching with speed."""
+    if t < T_IGNITE:
+        return 0.0, 0.0, 0.0, 1.0
+    u = t - T_IGNITE
+    ign = min(1.0, u / 0.06) * (1 + 0.6 * math.exp(-u / 0.25))      # it catches with a flare, then settles
+    j_ = bisect.bisect_right(HITS_T, t)
+    flare = math.exp(-(t - HITS_T[j_ - 1]) / 0.12) if j_ else 0.0
+    if t >= TF:
+        flare = max(flare, 0.6 * math.exp(-(t - TF) / 1.2))          # the drum: it blooms
+    flick = 1 + 0.05 * math.sin(2 * math.pi * 7.3 * t + FL_PH[0]) + 0.03 * math.sin(2 * math.pi * 11.1 * t + FL_PH[1])
+    p0, p1 = ball_pos(t - 0.02), ball_pos(t + 0.02)
+    v = (p1 - p0) / 0.04
+    lean = max(-0.6, min(0.6, -0.35 * v.x)) + 0.06 * math.sin(2 * math.pi * 3.1 * t + FL_PH[2])
+    stretch = 1 + 0.08 * min(2.0, v.length)
+    return ign * (1 + 0.28 * flare) * flick, lean, ign * (1 + 0.9 * flare), stretch
+
+
 spin, prev = 0.0, ball_pos(0.0)
 for f in range(1, N + 1):
     t = (f - 1) / FPS
     p = ball_pos(t)
-    spin -= (p.x - prev.x) / R                  # it turns the way it travels (rolling on the rails)
+    spin -= (p.x - prev.x) / R                  # the glass turns the way it travels (rolling on the rails)
     prev = p
     ball.location = p
     ball.keyframe_insert('location', frame=f)
     ball.rotation_euler = (0, spin, 0)
     ball.keyframe_insert('rotation_euler', frame=f)
+    sc_, lean_, glow_, stretch_ = flame_state(t)
+    rig.location = p
+    rig.rotation_euler = (0, lean_, 0)
+    rig.scale = (max(sc_, 1e-4), max(sc_, 1e-4), max(sc_, 1e-4) * stretch_)
+    for path_ in ('location', 'rotation_euler', 'scale'):
+        rig.keyframe_insert(path_, frame=f)
+    fl_str.default_value = FLAME_E * glow_
+    core_str.default_value = 1.5 * FLAME_E * glow_
+    fl_lamp.energy = 3.0 * glow_ * (1.6 if t >= TF else 1.0)
+    for sock_ in (fl_str, core_str):
+        sock_.keyframe_insert('default_value', frame=f)
+    fl_lamp.keyframe_insert('energy', frame=f)
 
 # a follow-spot from above the camera's left shoulder: a soft pool of light that travels with the marble and
 # throws its shadow on the page, so the hero is always the brightest, clearest thing in the frame
@@ -1963,24 +2094,22 @@ for k_ in range(len(SONGS)):
 
 # the opening view: the whole top of the first page (candle, pendulum, gate, title, the first bars), then a
 # slow push in that arrives on the first note's framing just after it plays
-_ox0, _ox1 = X_LEFT - 0.42, max(CON[0].x + 0.85, TITLE_X + 0.80)
-_oz0, _oz1 = ROWS[0]['z'] - 0.10, TITLE_Z + 0.14
-OPEN_C = Vector(((_ox0 + _ox1) / 2, HEAD_Y, (_oz0 + _oz1) / 2))
-OPEN_Z = max((_ox1 - _ox0) / (VIEW_H * 16 / 9), (_oz1 - _oz0) / VIEW_H)
+_ox0, _ox1 = CANDLE.x - 0.24, LEDGE_START.x + 0.42
+OPEN_C = Vector(((_ox0 + _ox1) / 2, HEAD_Y, (CANDLE.z + LEDGE_START.z) / 2 + 0.03))
+OPEN_Z = (_ox1 - _ox0) / (VIEW_H * 16 / 9)       # the candle and the marble, close
 OPEN_T1 = C[0]['t'] + 0.35
 OPEN_YAW = 0.12
-OPEN_S0 = (OPEN_C + Vector((-0.05, 0, 0.06)), OPEN_Z * 1.10, OPEN_YAW * 1.5)   # where the glide begins
 
 
 def cam_at(t):
     tg, zf, (el, yw) = target(t)
     if t < OPEN_T1:
-        # one slow, unbroken glide: from a little wider and higher, past the whole view, in to the first note
-        k = smooth(t / OPEN_T1)
-        c0, c1, c2 = (1 - k) ** 2, 2 * k * (1 - k), k * k
-        tg = OPEN_S0[0] * c0 + OPEN_C * c1 + tg * c2
-        zf = OPEN_S0[1] * c0 + OPEN_Z * c1 + zf * c2
-        yw = OPEN_S0[2] * c0 + OPEN_YAW * c1 + yw * c2
+        # the candle and the marble held close (a slow drift in) while the spark flies and the flame catches,
+        # then the camera follows the marble down the ledge and arrives on the first note just after it plays
+        d_ = smooth(min(1.0, t / (T_GATE - 0.1)))
+        c0, z0 = OPEN_C + Vector((0.06 * d_, 0, -0.02 * d_)), OPEN_Z * (1.08 - 0.08 * d_)
+        k = smooth((t - (T_GATE - 0.25)) / (OPEN_T1 - (T_GATE - 0.25)))
+        tg, zf, yw = c0.lerp(tg, k), z0 + (zf - z0) * k, OPEN_YAW * (1 - k) + yw * k
     off = OFF * zf
     if el:                                       # rise and look down (into the funnel)
         rho, a0 = math.hypot(off.y, off.z), math.atan2(off.z, -off.y)
@@ -2103,8 +2232,9 @@ def scaled_look(lk, g):
 for k, song in enumerate(SONGS):
     hs_ = [h for h in C if h['s'] == k and h['mech'] != 'bigdrum']
     lk = LOOK.get(song['key'], GALLERY)
-    if k == 0:                                    # the opening: dim but for the candle and the marble's glow,
-        set_look(scaled_look(lk, 0.25), 0.0, song['key'], spot=0.6)     # then the room's light comes up
+    if k == 0:                                    # the opening: one candle in a dim room until the marble's
+        for t_ in (0.0, T_IGNITE):                # flame catches, then the room's light comes up with it
+            set_look(scaled_look(lk, 0.3), t_, song['key'], spot=0.6)
         set_look(lk, LIGHT_UP, song['key'])
     else:                                         # the ride into the piece is the change of room
         prev = [h for h in C if h['s'] == k - 1 and h['mech'] != 'bigdrum'][-1]
@@ -2145,7 +2275,7 @@ if os.environ.get('DEBUG_PIPES') == 'keys':       # which action drives each pip
 import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
-    json.dump(dict(intro=dict(first=C[0]['t'], gate=T_GATE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
+    json.dump(dict(intro=dict(first=C[0]['t'], gate=T_GATE, spark=T_SPARK, ignite=T_IGNITE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
                    returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits] + RESCUE_HITS + SIG_HITS,
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))
