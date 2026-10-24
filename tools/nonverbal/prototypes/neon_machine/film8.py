@@ -1355,13 +1355,14 @@ for j, h in enumerate(fe_):
         col_ = (1.0, 0.78, 0.30) if (j + n_) % 2 else (1.0, 0.66, 0.24)     # warm amber only (the marble is lime)
         fm_ = mat(f'firefly{j}_{n_}', col_, 0.3, emit=col_, emit_s=0.0)
         t0_ = h['t'] + 0.10 * n_
-        o = sphere(head + Vector((0.0, -0.03, 0.07)), 0.016, fm_, segs=12)
+        o = sphere(head + Vector((0.0, -0.03, 0.10)), 0.016, fm_, segs=12)
         key_vis(o, t0_, t0_ + FF_LIFE)
         sway, ph_ = 0.08 * (1 if (j + n_) % 2 else -1), rng.uniform(0, 3)
+        z0_, rise_ = rng.uniform(0.05, 0.20), rng.uniform(0.28, 0.56)      # scattered: never a neat row of dots
         for k in range(13):
             u = k / 12
             o.location = head + Vector((sway * math.sin(u * 7 + ph_) + 0.07 * (n_ - 0.5), -0.03 - 0.08 * u,
-                                        0.07 + 0.42 * u ** 0.8))
+                                        z0_ + rise_ * u ** 0.8))
             o.keyframe_insert('location', frame=fr(t0_ + FF_LIFE * u))
         # it blinks as it drifts up (on for a moment, dim, on again), then fades
         bl_, tb_, on_ = [(t0_, 0.0), (t0_ + 0.12, 14.0)], t0_ + 0.12, True
