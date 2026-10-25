@@ -29,9 +29,8 @@ CHOICE_B = str(INTER / 'Inter-SemiBold.otf')
 GOLD = (214, 178, 112)
 Y0, Y1 = 1650, 1900
 ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'romantic': (255, 90, 80)}
-# each piece's colour (the marble's, as in film8.PIECE_COL), for the closing recap
-PIECE_RGB = {'canon': (60, 120, 255), 'toc': (20, 190, 110), 'tm': (150, 70, 220), 'ekn': (255, 190, 50),
-             'b5': (255, 120, 40), 'fe': (190, 255, 70), 'otj': (30, 150, 170), 'mk': (60, 220, 255)}
+# each piece's colour (the marble's flame, songs7.PIECE_COL, shared with film8), for the closing recap
+PIECE_RGB = {k: tuple(int(round(255 * min(1.0, v ** (1 / 2.2) * 1.05))) for v in c) for k, c in S.PIECE_COL.items()}
 
 
 def era_of(year):
@@ -43,13 +42,13 @@ SHOW = 3.0           # seconds the answer stays
 LEAD = 1.2           # the question is up this long before the first note (from the second piece on)
 # the three choices for each piece: (decoys..., with the answer at index ANSWER_AT); all public domain
 QUIZ = {
-    'canon': ['Air on the G String  (Bach)', None, 'Spring, The Four Seasons  (Vivaldi)'],
-    'toc': [None, 'Hallelujah Chorus  (Handel)', 'Winter, The Four Seasons  (Vivaldi)'],
+    'canon': ['Air on the G String  (Bach)', None, 'Jesu, Joy of Man\'s Desiring  (Bach)'],
+    'toc': [None, 'Water Music  (Handel)', 'Winter, The Four Seasons  (Vivaldi)'],
     'tm': ['Surprise Symphony  (Haydn)', 'Symphony No. 40  (Mozart)', None],
     'ekn': ['Queen of the Night  (Mozart)', None, 'Emperor Quartet  (Haydn)'],
-    'b5': [None, 'Moonlight Sonata  (Beethoven)', 'Erlkönig  (Schubert)'],
-    'fe': ['Ave Maria  (Schubert)', 'Nocturne Op. 9 No. 2  (Chopin)', None],
-    'otj': ['Wedding March  (Mendelssohn)', None, 'William Tell Overture  (Rossini)'],
+    'b5': [None, 'Pathétique Sonata  (Beethoven)', 'Erlkönig  (Schubert)'],
+    'fe': ['Ave Maria  (Schubert)', 'Träumerei  (Schumann)', None],
+    'otj': ['Radetzky March  (Strauss I)', None, 'William Tell Overture  (Rossini)'],
     'mk': [None, 'Ride of the Valkyries  (Wagner)', 'Swan Lake  (Tchaikovsky)'],
 }
 
@@ -228,6 +227,9 @@ def main():
                           smooth((v - 0.15) / 0.3))]
                 if idx in (0, len(starts) - 1):            # the first answer and the last: keep them to the end
                     lines.append(('Keep count: your rank is at the end', SANS_B, 34, (255, 255, 255), smooth((v - 0.6) / 0.4)))
+                elif idx == len(starts) // 2 - 1:          # halfway: a moment to take stock
+                    lines.append((f'{idx + 1} of {len(starts)}  —  how many so far?', SANS_B, 34, (255, 255, 255),
+                                  smooth((v - 0.6) / 0.4)))
             pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
             card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
                  centre_first=u >= GUESS)                                   # top right, clear of the marble
@@ -236,8 +238,8 @@ def main():
             a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
             if a_ > 0:
                 xc_, ys_ = W * 0.50, (H * 0.075, H * 0.150)    # top centre: clear of the candle and the marble
-                lines_ = (('8 pieces  ·  300 years', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
-                          ('can you name them all?', font(SANS_B, int(H * 0.062)), (255, 214, 140)))
+                lines_ = ((f'{len(starts)} famous pieces', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
+                          ('how many can you name?', font(SANS_B, int(H * 0.062)), (255, 214, 140)))
                 bw_ = max(d.textbbox((0, 0), t_, font=f_)[2] for t_, f_, _ in lines_)
                 d.rounded_rectangle((xc_ - bw_ / 2 - H * 0.03, ys_[0] - H * 0.022, xc_ + bw_ / 2 + H * 0.03,
                                      ys_[1] + H * 0.085), radius=int(H * 0.006), fill=(12, 10, 16, int(120 * a_)),
@@ -277,15 +279,24 @@ def main():
                 return yy + H * frac * 1.32
             y_ = line('How many did you guess?', SERIF_B, 0.060, (255, 255, 255), y_)
             y_ += H * 0.012
-            for k_, (t0_, t1_, sg_) in enumerate(starts):        # the eight answers, in the marble's colours
-                r_ = H * 0.011
-                xd_ = x0_ + W * 0.03
-                d.ellipse((xd_ - r_, y_ + H * 0.019 - r_, xd_ + r_, y_ + H * 0.019 + r_), fill=(*PIECE_RGB[sg_['key']], int(255 * a_)))
+            n_ = len(starts)                                    # the answers, in the colours the flame carried:
+            cols_ = 1 if n_ <= 10 else 2                        # two columns when there are more than ten
+            per_ = -(-n_ // cols_)
+            frac_ = 0.032 if cols_ == 1 else 0.024
+            y_top = y_
+            for k_, (t0_, t1_, sg_) in enumerate(starts):
+                c_, rw_ = divmod(k_, per_)
+                r_ = H * frac_ * 0.34
+                xd_ = x0_ + W * 0.03 + c_ * (x1_ - x0_) / cols_
+                yy_ = y_top + rw_ * H * frac_ * 1.32
+                d.ellipse((xd_ - r_, yy_ + H * frac_ * 0.6 - r_, xd_ + r_, yy_ + H * frac_ * 0.6 + r_),
+                          fill=(*PIECE_RGB.get(sg_['key'], (255, 255, 255)), int(255 * a_)))
                 txt_ = f"{sg_.get('year_label', sg_['year'])}   {sg_['title']}"
-                y_ = line(txt_, SANS, 0.032, (236, 236, 242), y_, centre=False, x=xd_ + W * 0.016)
-            y_ += H * 0.018
-            y_ = line('8  Maestro   ·   6–7  Virtuoso', SANS_B, 0.038, (255, 214, 140), y_)
-            y_ = line('4–5  Apprentice   ·   0–3  Listener', SANS_B, 0.038, (255, 214, 140), y_)
+                line(txt_, SANS, frac_, (236, 236, 242), yy_, centre=False, x=xd_ + W * 0.012)
+            y_ = y_top + per_ * H * frac_ * 1.32 + H * 0.018
+            q3_, q2_ = -(-3 * n_ // 4), -(-n_ // 2)             # the ranks scale with the number of pieces
+            y_ = line(f'{n_}  Maestro   ·   {q3_}–{n_ - 1}  Virtuoso', SANS_B, 0.038, (255, 214, 140), y_)
+            y_ = line(f'{q2_}–{q3_ - 1}  Apprentice   ·   0–{q2_ - 1}  Listener', SANS_B, 0.038, (255, 214, 140), y_)
             y_ += H * 0.014
             line('Comment your rank  ↓', CHOICE_B, 0.044, (255, 255, 255), y_)
         out = Image.alpha_composite(im, layer).convert('RGB')

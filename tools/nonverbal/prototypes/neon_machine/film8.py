@@ -433,6 +433,19 @@ PAGE = {
     'b5': dict(paper=(0.30, 0.33, 0.38), ink=(0.95, 0.96, 0.98), ink_metal=0.25, rough=0.6),       # slate storm
     'fe': dict(paper=(0.30, 0.20, 0.36), ink=(0.96, 0.91, 0.96), ink_metal=0.2, rough=0.6),        # violet dusk
     'otj': dict(paper=(0.88, 0.76, 0.50), ink=(0.10, 0.07, 0.04), ink_metal=0.0, rough=0.85),   # sunlit gold
+    # the twelve pieces of the 20-piece film: darker rooms of a night museum, each its own
+    'minuet': dict(paper=(0.30, 0.19, 0.11), ink=(1.0, 0.84, 0.52), ink_metal=0.5, rough=0.55),   # walnut panelling
+    'spring': dict(paper=(0.25, 0.31, 0.23), ink=(0.95, 0.94, 0.84), ink_metal=0.1, rough=0.7),   # sage, early morning
+    'hall': dict(paper=(0.15, 0.09, 0.21), ink=(1.0, 0.82, 0.45), ink_metal=0.6, rough=0.5),      # royal purple
+    'k545': dict(paper=(0.10, 0.23, 0.25), ink=(0.95, 0.93, 0.86), ink_metal=0.2, rough=0.6),     # teal salon
+    'moon': dict(paper=(0.04, 0.06, 0.12), ink=(0.84, 0.88, 0.96), ink_metal=0.9, rough=0.55, stars=True),  # moonlit
+    'march': dict(paper=(0.19, 0.22, 0.17), ink=(1.0, 0.82, 0.48), ink_metal=0.6, rough=0.6),     # field grey, brass
+    'noct': dict(paper=(0.22, 0.05, 0.13), ink=(1.0, 0.80, 0.70), ink_metal=0.4, rough=0.45),     # burgundy velvet
+    'wed': dict(paper=(0.80, 0.78, 0.73), ink=(0.08, 0.07, 0.06), ink_metal=0.0, rough=0.8),      # white marble hall
+    'brin': dict(paper=(0.05, 0.20, 0.14), ink=(1.0, 0.86, 0.50), ink_metal=0.6, rough=0.45),     # emerald salon
+    'danube': dict(paper=(0.08, 0.19, 0.34), ink=(0.92, 0.95, 1.0), ink_metal=0.5, rough=0.5),    # Danube blue
+    'lull': dict(paper=(0.22, 0.20, 0.28), ink=(0.95, 0.92, 0.98), ink_metal=0.2, rough=0.7),     # nursery dusk
+    'carmen': dict(paper=(0.36, 0.14, 0.05), ink=(1.0, 0.90, 0.70), ink_metal=0.3, rough=0.55),   # Seville sunset
 }
 LS = 0.075               # staff line spacing (one step = LS / 2)
 K_SP, GAP_MIN = 0.40, 0.14     # engraved spacing: the gap after a note grows with the square root of its value
@@ -1130,10 +1143,10 @@ for j_, sz_ in enumerate((0.009, 0.006, 0.0045, 0.0035)):     # the spark and a 
         o_.keyframe_insert('location', frame=f_)
 burst(LEDGE_START, T_IGNITE, (0.5, 0.75, 1.0), n=10, speed=0.7, life=0.45)      # it catches with a shower of sparks
 TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.80   # in the opening view, above the first row's framing
-text_obj('300 Years of Music', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
+text_obj('One Flame', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
-text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)), 0.10, ink_mat(SONGS[0]['era']),
-         font='/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf')
+text_obj(f"{len(SONGS)} pieces  ·  {SONGS[0]['year']} – {SONGS[-1]['year']}", Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)),
+         0.10, ink_mat(SONGS[0]['era']), font='/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf')
 
 # ---------------------------------------------------------------- 3b. practical lights of the era
 # Each line has the light of its time beside it, so the history of light runs alongside the history of the
@@ -1147,8 +1160,15 @@ LAMP = {   # light colour, soft size, energy, flicker range (fraction)
     'beethoven': ((1.0, 0.88, 0.70), 0.04, 12.0, (0.97, 1.02)),
     'romantic': ((0.88, 0.92, 1.0), 0.02, 18.0, (0.90, 1.03)),
 }
+
+
+def lamp_of(year):
+    """The light of a piece's year: candle, then the Argand lamp (1780), gas (1810), the arc lamp (1865)."""
+    return 'baroque' if year < 1780 else 'classical' if year < 1810 else 'beethoven' if year < 1865 else 'romantic'
+
+
 for row in ROWS:
-    era = SONGS[row['s']]['era']
+    era = lamp_of(SONGS[row['s']]['year'])
     p = Vector((X_LEFT + row['px'] - 0.34, 0.50, row['z'] + 0.52))
     cyl((p.x, WALL_Y, p.z - 0.10), (p.x, p.y, p.z - 0.10), 0.008, M_BRASS8, 10)          # wall arm
     cyl(p + Vector((0, 0, -0.12)), p + Vector((0, 0, -0.10)), 0.035, M_BRASS8, 24)         # drip tray
@@ -1239,8 +1259,7 @@ def revolve(centre, profile, m, segs=48):
 # the marble's colour in each piece (each against its page: cobalt on candlelit parchment, emerald in the organ
 # loft, deep violet in the rose salon, gold in the night, orange in the storm, lime in the violet evening, teal
 # on gold, cyan in the red hall); it takes each new one from the chase lamps on the way into the piece
-PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.02, 0.62, 0.32), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
-             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.24, 0.29), 'mk': (0.15, 0.85, 1.0)}
+PIECE_COL = S.PIECE_COL                 # (in songs7, shared with the overlay's closing recap)
 from types import SimpleNamespace  # noqa: E402
 M_CLEAR = mat('clearglass', (0.95, 0.97, 1.0), 0.04, alpha=0.07)
 for s_, m_ in GAPMACH.items():
@@ -2281,6 +2300,18 @@ LOOK = {   # key (strength, colour, direction to the light), fill (strength, col
     'fe': ((1.0, (1.0, 0.80, 0.84), (-0.9, -1.0, 0.45)), (0.25, (0.76, 0.68, 1.0)), ((0.12, 0.09, 0.16), 0.16)),   # dusk
     'otj': ((2.1, (1.0, 0.92, 0.74), (0.4, -1.0, 1.3)), (0.40, (0.85, 0.9, 1.0)), ((0.45, 0.45, 0.50), 0.30)),    # daylight
     'mk': ((1.15, (1.0, 0.64, 0.52), (-0.6, -1.0, 0.7)), (0.20, (1.0, 0.55, 0.45)), ((0.20, 0.07, 0.07), 0.18)),   # red hall
+    'minuet': ((1.0, (1.0, 0.78, 0.52), (0.5, -1.0, 1.0)), (0.14, (1.0, 0.8, 0.6)), ((0.22, 0.14, 0.08), 0.14)),   # candle room
+    'spring': ((1.2, (1.0, 0.95, 0.85), (-0.6, -1.0, 1.4)), (0.22, (0.85, 0.95, 1.0)), ((0.18, 0.22, 0.18), 0.16)),  # morning
+    'hall': ((1.3, (1.0, 0.86, 0.66), (0.0, -1.0, 1.6)), (0.12, (0.7, 0.6, 1.0)), ((0.14, 0.08, 0.18), 0.14)),    # chapel light
+    'k545': ((1.1, (1.0, 0.88, 0.74), (0.5, -1.0, 1.0)), (0.22, (0.8, 1.0, 0.95)), ((0.10, 0.18, 0.18), 0.15)),   # lamplit salon
+    'moon': ((0.9, (0.66, 0.74, 1.0), (-0.4, -1.0, 1.3)), (0.10, (0.6, 0.7, 1.0)), ((0.04, 0.05, 0.12), 0.16)),   # moonlight
+    'march': ((1.25, (1.0, 0.90, 0.75), (0.6, -1.0, 1.2)), (0.18, (0.9, 0.95, 1.0)), ((0.16, 0.18, 0.14), 0.15)),  # parade
+    'noct': ((0.95, (1.0, 0.70, 0.62), (-0.7, -1.0, 0.6)), (0.16, (0.8, 0.6, 1.0)), ((0.16, 0.05, 0.10), 0.15)),  # candlelit
+    'wed': ((1.6, (1.0, 0.96, 0.90), (0.3, -1.0, 1.4)), (0.35, (0.9, 0.93, 1.0)), ((0.40, 0.40, 0.42), 0.22)),    # bright hall
+    'brin': ((1.2, (1.0, 0.86, 0.62), (0.5, -1.0, 1.0)), (0.20, (0.7, 1.0, 0.8)), ((0.06, 0.16, 0.10), 0.15)),    # gaslit party
+    'danube': ((1.1, (0.85, 0.92, 1.0), (-0.5, -1.0, 1.2)), (0.22, (1.0, 0.85, 0.7)), ((0.06, 0.12, 0.22), 0.17)),  # river night
+    'lull': ((0.85, (1.0, 0.82, 0.70), (0.4, -1.0, 0.9)), (0.14, (0.8, 0.75, 1.0)), ((0.16, 0.14, 0.20), 0.14)),  # nightlight
+    'carmen': ((1.3, (1.0, 0.72, 0.45), (-0.7, -1.0, 0.8)), (0.20, (1.0, 0.6, 0.4)), ((0.24, 0.10, 0.05), 0.16)),  # sunset
 }
 GALLERY = ((1.6, (1.0, 0.96, 0.9), (0.5, -1.0, 1.0)), (0.35, (0.9, 0.93, 1.0)), ((0.40, 0.40, 0.42), 0.22))
 bpy.ops.object.light_add(type='SUN', location=(0, -3, 5))
@@ -2294,7 +2325,9 @@ bg_ = world.node_tree.nodes['Background']
 
 
 # the follow-spot's strength in each room (strong in the dark ones, a touch in the bright ones)
-FOLLOW_E = {'canon': 40.0, 'toc': 52.0, 'tm': 36.0, 'ekn': 66.0, 'b5': 66.0, 'fe': 66.0, 'otj': 25.0, 'mk': 50.0}
+FOLLOW_E = {'canon': 40.0, 'toc': 52.0, 'tm': 36.0, 'ekn': 66.0, 'b5': 66.0, 'fe': 66.0, 'otj': 25.0, 'mk': 50.0,
+            'minuet': 50.0, 'spring': 45.0, 'hall': 55.0, 'k545': 50.0, 'moon': 66.0, 'march': 48.0, 'noct': 60.0,
+            'wed': 25.0, 'brin': 55.0, 'danube': 58.0, 'lull': 60.0, 'carmen': 50.0}
 
 
 def set_look(lk, t, key=None, spot=1.0):

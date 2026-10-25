@@ -18,24 +18,54 @@ mk['palette'] = dict(fast='bumper', normal='pad', long='cymbal')
 # past the funnel and is rescued (film8, RESCUE); the notes are untouched, the music only waits
 mk['gp'] = {len(phrase) - 1: 0.75, 2 * len(phrase) - 1: 2.2}
 
-ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'),
-         ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('otj', 1824, 'beethoven'), ('mk', 1875, 'romantic')]
+# the twelve pieces added for the 20-piece film (2026-10-25), each melody transcribed note by note from a
+# Mutopia edition (pieces20.json keeps the source file, bars and licence of each; see the music ledger)
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+_P20 = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'pieces20.json')
+NEW_PIECES = []
+if _os.path.exists(_P20):                # (until it exists, the film is the eight-piece version)
+    with open(_P20) as _f:
+        NEW_PIECES = _json.load(_f)
+for p_ in NEW_PIECES:
+    ms_ = sorted(midi(n) for n, _ in p_['notes'])
+    by[p_['key']] = dict(key=p_['key'], title=p_['title'], composer=p_['composer_name'], unit=p_['unit'], beat=p_['beat'],
+                         centre=ms_[len(ms_) // 2], notes=[tuple(x) for x in p_['notes']],
+                         palette=dict(fast='tile', normal='pad', long='block'), drone=tuple(p_['drone']), gap_in='rail')
+
+ORDER = [('canon', 1680, 'baroque'), ('toc', 1704, 'baroque'), ('minuet', 1725, 'baroque'), ('spring', 1725, 'baroque'),
+         ('hall', 1741, 'baroque'),
+         ('tm', 1783, 'classical'), ('ekn', 1787, 'classical'), ('k545', 1788, 'classical'),
+         ('moon', 1801, 'beethoven'), ('b5', 1808, 'beethoven'), ('fe', 1810, 'beethoven'), ('march', 1818, 'beethoven'),
+         ('otj', 1824, 'beethoven'),
+         ('noct', 1832, 'romantic'), ('wed', 1842, 'romantic'), ('brin', 1853, 'romantic'), ('danube', 1866, 'romantic'),
+         ('lull', 1868, 'romantic'), ('carmen', 1875, 'romantic'), ('mk', 1875, 'romantic')]
+ORDER = [o_ for o_ in ORDER if o_[0] in by or o_[0] == 'mk']
 # (years of composition, as for every piece: Peer Gynt's music was written in 1875 and first heard in 1876)
-GAPS_IN = [None, 'chute', 'rail', 'launch', 'chute', 'rail', 'launch', 'chute']
+GAPS_IN = [None] + ['chute', 'rail', 'launch'] * 6 + ['chute']
 COMPOSER = {'canon': 'Johann Pachelbel', 'toc': 'Johann Sebastian Bach', 'tm': 'Wolfgang Amadeus Mozart',
             'ekn': 'Wolfgang Amadeus Mozart', 'b5': 'Ludwig van Beethoven', 'fe': 'Ludwig van Beethoven',
             'otj': 'Ludwig van Beethoven', 'mk': 'Edvard Grieg'}
+COMPOSER.update({p_['key']: p_['composer_name'] for p_ in NEW_PIECES})
 # the year as shown on the answer card, where the date is not certain (Canon is undated, c. 1680-1706;
 # BWV 565's date and even its authorship are debated)
 YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
+YEAR_LABEL.update({p_['key']: p_['year_label'] for p_ in NEW_PIECES if p_.get('year_label')})
 # the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
 # rests for it (after the last note has rung)
-MACHINE = {'toc': ['stairs'], 'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'b5': ['plinko', 'tilt'],
-           'fe': ['spiral', 'helix'], 'otj': ['jump', 'xylo'], 'mk': ['helix', 'loop', 'dominoes']}
+# the machines grow through the film: one mechanism in the baroque, two later on, three for the last two
+MACHINE = {'toc': ['stairs'], 'minuet': ['bells'], 'spring': ['dominoes'], 'hall': ['stairs', 'bells'],
+           'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'k545': ['xylo'],
+           'moon': ['spiral'], 'b5': ['plinko', 'tilt'], 'fe': ['spiral', 'helix'], 'march': ['dominoes', 'jump'],
+           'otj': ['jump', 'xylo'],
+           'noct': ['helix'], 'wed': ['bells', 'loop'], 'brin': ['tilt', 'xylo'], 'danube': ['spiral', 'loop'],
+           'lull': ['plinko'], 'carmen': ['jump', 'dominoes', 'bells'], 'mk': ['helix', 'loop', 'dominoes']}
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
 # (set from MACH_PACE=1 so each machine runs at about 10 degrees: brisk, and always on time; film8 stops the
 #  build if a machine would arrive after the music needs it)
-INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6}
+INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6,
+             'minuet': 5.0, 'spring': 5.5, 'hall': 6.5, 'k545': 5.0, 'moon': 5.5, 'march': 7.0,
+             'noct': 5.5, 'wed': 7.0, 'brin': 7.0, 'danube': 7.0, 'lull': 5.5, 'carmen': 9.0}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
@@ -49,6 +79,10 @@ SONGS[1]['title'] = 'Toccata and Fugue in D minor'      # "Toccata in D minor" a
 NOTATION = {'canon': ('treble', 16, 0), 'toc': ('treble', None, 0), 'tm': ('treble', 8, 4), 'ekn': ('treble', 8, 0),
             'b5': ('treble', None, 0), 'fe': ('treble', 6, 2), 'otj': ('treble', 4, 0), 'mk': ('treble', 8, 0)}
 KEYSIG = {'canon': 2, 'toc': -1, 'tm': 0, 'ekn': 1, 'b5': -3, 'fe': 0, 'otj': 0, 'mk': 0}   # sharps (+) / flats (-)
+for p_ in NEW_PIECES:
+    n_ = p_['notation']
+    NOTATION[p_['key']] = (n_['clef'], n_['bar_units'], n_['pickup_units'])
+    KEYSIG[p_['key']] = p_['keysig']
 # fermatas, by note index, where the Mutopia editions have them (Toccata: on the held A and on the D that
 # closes each phrase; Fifth: on the E-flat and the tied D)
 # the written value of a note (in the piece's units) where it differs from the time it takes: in Eine kleine
@@ -78,6 +112,10 @@ FRAME_ZOOM = {'fe': 1.2}
 TUBE_DEPTH = {'otj': 0.57}
 FERMATA = {'toc': (2, 8, 11, 15), 'b5': (3, 7)}
 TIMESIG = {'canon': (4, 4), 'tm': (2, 4), 'ekn': (4, 4), 'fe': (3, 8), 'otj': (4, 4), 'mk': (4, 4)}
+for p_ in NEW_PIECES:
+    TIMESIG[p_['key']] = tuple(p_['timesig'])
+    if p_.get('note_value'):
+        NOTE_VALUE[p_['key']] = {int(k): v for k, v in p_['note_value'].items()}
 # accompaniment, only where it is certain (checked against the same Mutopia editions):
 #   canon: the ground bass; tm: the left hand of the theme; fe: the left-hand arpeggios under the long notes;
 #   otj: the bass part (moved to C);
@@ -104,6 +142,14 @@ ACCOMP = {
                + [('E3', 2), ('B3+E4', 2), ('B2', 2), ('B3', 2), ('E3', 4)]),
     'ekn': dict(octave=True), 'b5': dict(octave=True), 'toc': dict(octave=True), 'mk': dict(octave=True),
 }
+for p_ in NEW_PIECES:                    # the new pieces: the melody doubled an octave below (nothing invented)
+    ACCOMP.setdefault(p_['key'], dict(octave=True))
+# the flame's colour in each piece (each against its page; shared by film8 and the overlay's recap)
+PIECE_COL = {'canon': (0.10, 0.35, 1.0), 'toc': (0.02, 0.62, 0.32), 'tm': (0.30, 0.05, 0.55), 'ekn': (1.0, 0.72, 0.12),
+             'b5': (1.0, 0.35, 0.06), 'fe': (0.62, 1.0, 0.15), 'otj': (0.0, 0.24, 0.29), 'mk': (0.15, 0.85, 1.0),
+             'minuet': (0.15, 0.75, 1.0), 'spring': (0.55, 1.0, 0.25), 'hall': (1.0, 0.55, 0.15), 'k545': (1.0, 0.40, 0.45),
+             'moon': (0.70, 0.85, 1.0), 'march': (1.0, 0.20, 0.15), 'noct': (0.40, 1.0, 0.85), 'wed': (0.20, 0.30, 1.0),
+             'brin': (1.0, 0.85, 0.35), 'danube': (1.0, 0.62, 0.20), 'lull': (1.0, 0.55, 0.70), 'carmen': (0.10, 0.85, 0.80)}
 for s_ in SONGS:
     s_['accomp'] = ACCOMP.get(s_['key'], {})
     s_['clef'], s_['bar_units'], s_['pickup_units'] = NOTATION[s_['key']]
