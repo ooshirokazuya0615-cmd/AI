@@ -58,6 +58,8 @@ SHORTER = {"Twelve Variations on 'Ah vous dirai-je, Maman'  (Mozart)": "Ah vous 
            'Water Music: Alla Hornpipe  (Handel)': 'Arrival of the Queen of Sheba  (Handel)',
            'Sonatina in C major, Op. 36 No. 1  (Clementi)': 'Sonatina Op. 36 No. 1  (Clementi)',
            'Triumphal March from Aida  (Verdi)': 'Triumphal March, Aida  (Verdi)'}
+CARD_TITLE = {'toc': 'Toccata & Fugue in D minor', 'spring': 'Spring (Vivaldi)', 'hall': 'Hallelujah (Messiah)',
+              'k545': 'Piano Sonata K. 545', 'mk': 'Hall of the Mountain King'}   # closing-card names, to fit
 QUIZ_POS = {'minuet': 2, 'spring': 0, 'hall': 1, 'k545': 2, 'moon': 1, 'march': 0, 'noct': 2, 'wed': 0, 'brin': 1,
             'danube': 2, 'lull': 0, 'carmen': 1}
 for p_ in S.NEW_PIECES:
@@ -279,7 +281,7 @@ def main():
         t_card = t_final + FIN['card']
         if t > t_card - 0.1:
             a_ = smooth((t - t_card) / 0.6)
-            x0_, x1_, y_ = W * 0.575, W * 0.965, H * 0.085
+            x0_, x1_, y_ = W * 0.575, W * 0.975, H * 0.085
             d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, y_ + H * 0.645), radius=int(H * 0.006),   # below it: room for
                                 #                                                                the end screen
                                 fill=(14, 12, 20, int(170 * a_)), outline=(*GOLD, int(140 * a_)), width=max(1, W // 960))
@@ -291,20 +293,28 @@ def main():
                 d.text((cx_ - tw_ / 2 if centre else x, yy), txt, font=f_, fill=(*colr, int(255 * a_)))
                 return yy + H * frac * 1.32
             y_ = line('How many did you guess?', SERIF_B, 0.060, (255, 255, 255), y_)
-            y_ += H * 0.012
             n_ = len(starts)                                    # the answers, in the colours the flame carried:
+            if n_ > 10:                                         # with two columns the years go up top as a span
+                y_ = line(f"{starts[0][2]['year']}  –  {starts[-1][2]['year']}", SANS, 0.030, GOLD, y_ - H * 0.004)
+            y_ += H * 0.012
             cols_ = 1 if n_ <= 10 else 2                        # two columns when there are more than ten
             per_ = -(-n_ // cols_)
+            colw_ = (x1_ - x0_) / cols_
+            txts_ = [f"{sg_.get('year_label', sg_['year'])}   {sg_['title']}" if cols_ == 1
+                     else CARD_TITLE.get(sg_['key'], sg_['title']) for _, _, sg_ in starts]
             frac_ = 0.032 if cols_ == 1 else 0.024
+            room_ = colw_ - W * 0.03 - W * 0.012 - W * 0.008    # dot inset, dot-to-text gap, right margin
+            widest_ = max(d.textbbox((0, 0), t_, font=font(SANS, int(H * frac_)))[2] for t_ in txts_)
+            if widest_ > room_:                                 # shrink to fit rather than run into the next column
+                frac_ *= room_ / widest_
             y_top = y_
-            for k_, (t0_, t1_, sg_) in enumerate(starts):
+            for k_, ((t0_, t1_, sg_), txt_) in enumerate(zip(starts, txts_)):
                 c_, rw_ = divmod(k_, per_)
                 r_ = H * frac_ * 0.34
-                xd_ = x0_ + W * 0.03 + c_ * (x1_ - x0_) / cols_
+                xd_ = x0_ + W * 0.03 + c_ * colw_
                 yy_ = y_top + rw_ * H * frac_ * 1.32
                 d.ellipse((xd_ - r_, yy_ + H * frac_ * 0.6 - r_, xd_ + r_, yy_ + H * frac_ * 0.6 + r_),
                           fill=(*PIECE_RGB.get(sg_['key'], (255, 255, 255)), int(255 * a_)))
-                txt_ = f"{sg_.get('year_label', sg_['year'])}   {sg_['title']}"
                 line(txt_, SANS, frac_, (236, 236, 242), yy_, centre=False, x=xd_ + W * 0.012)
             y_ = y_top + per_ * H * frac_ * 1.32 + H * 0.018
             q3_, q2_ = -(-3 * n_ // 4), -(-n_ // 2)             # the ranks scale with the number of pieces
