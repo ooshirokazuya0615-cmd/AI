@@ -1142,7 +1142,7 @@ for j_, sz_ in enumerate((0.009, 0.006, 0.0045, 0.0035)):     # the spark and a 
         o_.location = spark_at((f_ - 1) / FPS - 0.035 * j_)
         o_.keyframe_insert('location', frame=f_)
 burst(LEDGE_START, T_IGNITE, (0.5, 0.75, 1.0), n=10, speed=0.7, life=0.45)      # it catches with a shower of sparks
-TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 0.80   # in the opening view, above the first row's framing
+TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 1.25   # clear above the opening view, not cut by its top edge
 text_obj('One Flame', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
 text_obj(f"{len(SONGS)} pieces  ·  {SONGS[0]['year']} – {SONGS[-1]['year']}", Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)),
