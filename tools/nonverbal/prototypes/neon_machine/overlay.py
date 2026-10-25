@@ -51,6 +51,19 @@ QUIZ = {
     'otj': ['Radetzky March  (Strauss I)', None, 'William Tell Overture  (Rossini)'],
     'mk': [None, 'Ride of the Valkyries  (Wagner)', 'Swan Lake  (Tchaikovsky)'],
 }
+# the twelve new pieces: their two wrong answers (pieces20.json), with the right one in a different place each
+# time, so A, B and C come up about equally often (shortened where a title would not fit the card)
+SHORTER = {"Twelve Variations on 'Ah vous dirai-je, Maman'  (Mozart)": "Ah vous dirai-je, Maman  (Mozart)",
+           'Can-Can (Orpheus in the Underworld)  (Offenbach)': 'Can-Can  (Offenbach)',
+           'Water Music: Alla Hornpipe  (Handel)': 'Arrival of the Queen of Sheba  (Handel)',
+           'Sonatina in C major, Op. 36 No. 1  (Clementi)': 'Sonatina Op. 36 No. 1  (Clementi)',
+           'Triumphal March from Aida  (Verdi)': 'Triumphal March, Aida  (Verdi)'}
+QUIZ_POS = {'minuet': 2, 'spring': 0, 'hall': 1, 'k545': 2, 'moon': 1, 'march': 0, 'noct': 2, 'wed': 0, 'brin': 1,
+            'danube': 2, 'lull': 0, 'carmen': 1}
+for p_ in S.NEW_PIECES:
+    opts_ = [SHORTER.get(o_, o_) for o_ in p_['quiz_distractors']]
+    opts_.insert(QUIZ_POS.get(p_['key'], 1), None)
+    QUIZ[p_['key']] = opts_
 
 
 def smooth(k):

@@ -1,0 +1,1683 @@
+[
+ {
+  "key": "minuet",
+  "title": "Minuet in G",
+  "composer_name": "Christian Petzold",
+  "year": 1725,
+  "year_label": "c. 1725",
+  "era": "baroque",
+  "unit": 0.25,
+  "beat": 0.5,
+  "tempo_note": "Menuet, quarter = 120 (file MIDI tempo is quarter = 140)",
+  "notes": [
+   [
+    "D5",
+    2
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "E5",
+    2
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "G5",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "C5",
+    2
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "B4",
+    2
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "F#4",
+    2
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "A4",
+    6
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 6,
+   "pickup_units": 0
+  },
+  "keysig": 1,
+  "timesig": [
+   3,
+   4
+  ],
+  "source": {
+   "path": "ftp/BachJS/BWVAnh114/anna-magdalena-04/anna-magdalena-04.ly",
+   "license": "Public Domain",
+   "bars": "1-8",
+   "voice": "right hand (voiceone, treble staff) of the original keyboard version"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none",
+  "simplifications": "mordent on C5 (bar 3, 2nd note) and on C5 (bar 5, beat 1) left out; grace note B4 before the A4 in bar 8 left out",
+  "quiz_distractors": [
+   "Musette in D major  (Bach)",
+   "Jesu, Joy of Man's Desiring  (Bach)"
+  ],
+  "drone": [
+   "G2",
+   "D3"
+  ]
+ },
+ {
+  "key": "spring",
+  "title": "Spring (The Four Seasons)",
+  "composer_name": "Antonio Vivaldi",
+  "year": 1725,
+  "year_label": null,
+  "era": "baroque",
+  "unit": 0.163043,
+  "beat": 0.652174,
+  "tempo_note": "Allegro, quarter = 92 (file MIDI tempo is quarter = 115; 92 keeps the 3-bar theme above 8 s and is a known recorded tempo)",
+  "notes": [
+   [
+    "E5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "B5",
+    6
+   ],
+   [
+    "B5",
+    1
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "B5",
+    6
+   ],
+   [
+    "B5",
+    1
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "B5",
+    1
+   ],
+   [
+    "A5",
+    2
+   ],
+   [
+    "G#5",
+    2
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "D#5",
+    2
+   ],
+   [
+    "B4",
+    2
+   ],
+   [
+    "E5",
+    2
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 16,
+   "pickup_units": 2
+  },
+  "keysig": 4,
+  "timesig": [
+   4,
+   4
+  ],
+  "source": {
+   "path": "ftp/VivaldiA/O8/spring/spring-lys/spring1.ly",
+   "license": "Creative Commons Attribution-ShareAlike 3.0",
+   "bars": "0-3 (pickup + bars 1-3)",
+   "voice": "Violino Principale (solo violin), mvt 1 Allegro; Violino Primo (spring1a.ly) is note-for-note identical in these bars"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none: written pitch (ledger lines above the staff are fine; Rondo alla Turca already reaches C6)",
+  "simplifications": "none (no ornaments in these bars; the final E is the upbeat that starts the piano echo in bar 4, kept as the closing tonic)",
+  "quiz_distractors": [
+   "Winter (The Four Seasons)  (Vivaldi)",
+   "Brandenburg Concerto No. 3  (Bach)"
+  ],
+  "drone": [
+   "E2",
+   "B3"
+  ]
+ },
+ {
+  "key": "hall",
+  "title": "Hallelujah Chorus (Messiah)",
+  "composer_name": "George Frideric Handel",
+  "year": 1741,
+  "year_label": null,
+  "era": "baroque",
+  "unit": 0.15625,
+  "beat": 0.625,
+  "tempo_note": "Allegro, quarter = 96",
+  "notes": [
+   [
+    "D5",
+    6
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "B4",
+    2
+   ],
+   [
+    "A4",
+    6
+   ],
+   [
+    "D5",
+    6
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "B4",
+    2
+   ],
+   [
+    "A4",
+    4
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "D5",
+    4
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "D5",
+    4
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "C#5",
+    2
+   ],
+   [
+    "D5",
+    4
+   ],
+   [
+    "C#5",
+    2
+   ],
+   [
+    "D5",
+    8
+   ]
+  ],
+  "note_value": {
+   "3": 2,
+   "7": 2,
+   "11": 2,
+   "15": 2,
+   "20": 4
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 16,
+   "pickup_units": 0
+  },
+  "keysig": 2,
+  "timesig": [
+   4,
+   4
+  ],
+  "source": {
+   "path": "ftp/HandelGF/hallelujah/hallelujah-lys/soprano.ly",
+   "license": "Public Domain",
+   "bars": "4-7",
+   "voice": "soprano, first entry (\"Hallelujah! Hallelujah! Hallelujah, Hallelujah, Hallelujah!\"); oboe.ly doubles it note-for-note"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none",
+  "simplifications": "none (the rests after each \"Hallelujah\" are absorbed into the previous note per note_value)",
+  "quiz_distractors": [
+   "Zadok the Priest  (Handel)",
+   "Water Music: Alla Hornpipe  (Handel)"
+  ],
+  "drone": [
+   "D3",
+   "A3"
+  ]
+ },
+ {
+  "key": "k545",
+  "title": "Piano Sonata No. 16 (K. 545)",
+  "composer_name": "Wolfgang Amadeus Mozart",
+  "year": 1788,
+  "year_label": null,
+  "era": "classical",
+  "unit": 0.133929,
+  "beat": 0.535714,
+  "tempo_note": "Allegro, quarter = 112 (file MIDI tempo is quarter = 132, where a 16th would be 0.114 s; 112 is the slowest plausible tempo that keeps 16ths >= 0.13 s)",
+  "notes": [
+   [
+    "C5",
+    8
+   ],
+   [
+    "E5",
+    4
+   ],
+   [
+    "G5",
+    4
+   ],
+   [
+    "B4",
+    6
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "C5",
+    8
+   ],
+   [
+    "A5",
+    8
+   ],
+   [
+    "G5",
+    4
+   ],
+   [
+    "C6",
+    4
+   ],
+   [
+    "G5",
+    4
+   ],
+   [
+    "F5",
+    2
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "F5",
+    1
+   ],
+   [
+    "E5",
+    8
+   ]
+  ],
+  "note_value": {
+   "6": 4,
+   "14": 4
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 16,
+   "pickup_units": 0
+  },
+  "keysig": 0,
+  "timesig": [
+   4,
+   4
+  ],
+  "source": {
+   "path": "ftp/MozartWA/KV545/K545-1/K545-1.ly",
+   "license": "Creative Commons Attribution-ShareAlike 3.0",
+   "bars": "1-4",
+   "voice": "right hand (variable ptrha, upper staff), mvt 1 Allegro"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none: written pitch (ledger lines above the staff are fine; Rondo alla Turca already reaches C6)",
+  "simplifications": "trill on the F (bar 4, beat 2) left out; the written-out E-F sixteenths that end the trill are kept as normal notes",
+  "quiz_distractors": [
+   "Twelve Variations on 'Ah vous dirai-je, Maman'  (Mozart)",
+   "Sonatina in C major, Op. 36 No. 1  (Clementi)"
+  ],
+  "drone": [
+   "C3",
+   "G3"
+  ]
+ },
+ {
+  "key": "moon",
+  "title": "Moonlight Sonata",
+  "composer_name": "Ludwig van Beethoven",
+  "year": 1801,
+  "year_label": null,
+  "era": "beethoven",
+  "unit": 0.357143,
+  "beat": 2.142857,
+  "tempo_note": "Adagio sostenuto (2/2), quarter = 56 (half = 28); triplet eighths, 1 unit = one triplet eighth; beat = half note",
+  "notes": [
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "G#4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "C#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "F#5",
+    1
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 12,
+   "pickup_units": 0
+  },
+  "keysig": 4,
+  "timesig": [
+   2,
+   2
+  ],
+  "source": {
+   "path": "ftp/BeethovenLv/O27/moonlight/moonlight-lys/moonlight1-a4.ly",
+   "license": "Creative Commons Attribution-ShareAlike 2.5",
+   "bars": "1-3",
+   "voice": "right hand, upper staff voice 2 ('topsecondary': the triplet figure; voice 1 'topmain' is only spacer rests in bars 1-4)"
+  },
+  "transpose_semitones": 12,
+  "transpose_reason": "written G#3-F#4 (G#3 is below the A3 floor); up one octave gives G#4-F#5, all inside C4-A5",
+  "simplifications": "none in bars 1-3 (no ornaments). Melody (topmain) left out: it only enters on beat 4 of bar 5 (gis'8. gis16) on top of the continuing triplets, i.e. two voices at once, and bars 1-5 would be ~60 notes / ~21 s; bars 1-3 (36 notes) is the most that fits 13 s and 40 notes",
+  "quiz_distractors": [
+   "Pathétique Sonata  (Beethoven)",
+   "Ave Maria  (Schubert)"
+  ],
+  "drone": [
+   "C#2",
+   "G#3"
+  ]
+ },
+ {
+  "key": "march",
+  "title": "Marche militaire",
+  "composer_name": "Franz Schubert",
+  "year": 1818,
+  "year_label": "c. 1818",
+  "era": "beethoven",
+  "unit": 0.144231,
+  "beat": 0.576923,
+  "tempo_note": "Allegro vivace (2/4), quarter = 104; 1 unit = one sixteenth; beat = quarter",
+  "notes": [
+   [
+    "A5",
+    4
+   ],
+   [
+    "G5",
+    2
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "E5",
+    4
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "E5",
+    2
+   ],
+   [
+    "D5",
+    4
+   ],
+   [
+    "E5",
+    2
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "A4",
+    3
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "A4",
+    4
+   ],
+   [
+    "A5",
+    4
+   ],
+   [
+    "G5",
+    2
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "B5",
+    4
+   ],
+   [
+    "A5",
+    2
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "G5",
+    2
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "E5",
+    1
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "B5",
+    1
+   ],
+   [
+    "C#6",
+    1
+   ],
+   [
+    "D6",
+    1
+   ]
+  ],
+  "note_value": {
+   "11": 2
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 8,
+   "pickup_units": 0
+  },
+  "keysig": 2,
+  "timesig": [
+   2,
+   4
+  ],
+  "source": {
+   "path": "ftp/SchubertF/D733/SchubertF-D733-1-TroisMarches/SchubertF-D733-1-TroisMarches.ly",
+   "license": "Public Domain",
+   "bars": "7-14",
+   "voice": "primo, upper staff (priHautAA): top note of the right-hand thirds/chords; bar 13 upper voice of << >>"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none: written pitch (a festive march stays bright; ledger lines above the staff are fine)",
+  "simplifications": "thirds/chords reduced to their top note (bars 7-9, 11-12); bar 13 takes the upper voice (G-A-G F#-G-F#) of the two-voice passage and drops the lower E-D#; bar-10 eighth rest absorbed into the preceding A (written as an eighth); no ornaments in these bars",
+  "quiz_distractors": [
+   "Radetzky March  (Johann Strauss I)",
+   "William Tell Overture  (Rossini)"
+  ],
+  "drone": [
+   "D3",
+   "A3"
+  ]
+ },
+ {
+  "key": "noct",
+  "title": "Nocturne Op. 9 No. 2",
+  "composer_name": "Frédéric Chopin",
+  "year": 1832,
+  "year_label": "c. 1832",
+  "era": "romantic",
+  "unit": 0.454545,
+  "beat": 0.454545,
+  "tempo_note": "Andante (12/8), eighth = 132 (the edition's own marking; dotted quarter = 44); 1 unit = one eighth; beat = eighth (time-signature denominator)",
+  "notes": [
+   [
+    "Bb4",
+    1
+   ],
+   [
+    "G5",
+    4
+   ],
+   [
+    "F5",
+    1
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "F5",
+    3
+   ],
+   [
+    "Eb5",
+    2
+   ],
+   [
+    "Bb4",
+    1
+   ],
+   [
+    "G5",
+    2
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "C6",
+    2
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "Bb5",
+    3
+   ],
+   [
+    "Ab5",
+    2
+   ],
+   [
+    "G5",
+    1
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 12,
+   "pickup_units": 1
+  },
+  "keysig": -3,
+  "timesig": [
+   12,
+   8
+  ],
+  "source": {
+   "path": "ftp/ChopinFF/O9/chopin_nocturne_op9_n2/chopin_nocturne_op9_n2.ly",
+   "license": "Creative Commons Attribution-ShareAlike 3.0",
+   "bars": "pickup (bar 0) + 1-2",
+   "voice": "right hand ('upper' staff, single melody voice)"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none: written Bb4-C6; only C6 and Bb5 in bar 2 are above A5 (by 3 and 1 semitones, still below E6); an octave down would instead put both Bb4s at Bb3, below C4, so the written octave is kept",
+  "simplifications": "left out the chromatic turn (gruppetto, markup \\grc: turn sign with flat above and natural below, fingered 1-2-1-2-1) written over the C5 eighth in bar 2 (c,8\\<\\grc); no grace notes in these bars (the first ones are in bar 5/7). Tie in bar 1 (g'4.~g8) merged into one G5 of 4 eighths",
+  "quiz_distractors": [
+   "Liebestraum No. 3  (Liszt)",
+   "Träumerei  (Schumann)"
+  ],
+  "drone": [
+   "Eb3",
+   "Bb3"
+  ]
+ },
+ {
+  "key": "wed",
+  "title": "Wedding March",
+  "composer_name": "Felix Mendelssohn",
+  "year": 1842,
+  "year_label": null,
+  "era": "romantic",
+  "unit": 0.083333,
+  "beat": 0.5,
+  "tempo_note": "Allegro vivace (4/4), quarter = 120 (half = 60; the file's MIDI uses half = 65); 1 unit = 1/6 quarter (triplet eighth = 2 units, needed because the theme's dotted quarter + eighth meet the fanfare triplets); beat = quarter",
+  "notes": [
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    18
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    18
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "C4",
+    2
+   ],
+   [
+    "E4",
+    6
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "E4",
+    6
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "E4",
+    2
+   ],
+   [
+    "G4",
+    6
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "G4",
+    12
+   ],
+   [
+    "C6",
+    12
+   ],
+   [
+    "B5",
+    9
+   ],
+   [
+    "F#5",
+    3
+   ],
+   [
+    "A5",
+    6
+   ],
+   [
+    "G5",
+    6
+   ],
+   [
+    "F5",
+    6
+   ],
+   [
+    "D5",
+    6
+   ]
+  ],
+  "note_value": {
+   "3": 12,
+   "7": 12,
+   "23": 6
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 24,
+   "pickup_units": 6
+  },
+  "keysig": 0,
+  "timesig": [
+   4,
+   4
+  ],
+  "source": {
+   "path": "ftp/Mendelssohn-BartholdyF/O61/Sommernachtstraum-wedding-march/Sommernachtstraum-wedding-march.ly",
+   "license": "Creative Commons Attribution-ShareAlike 4.0",
+   "bars": "1 (beat 4) - 7",
+   "voice": "organ transcription by Théodore Dubois: right hand ('rh'), top note of each chord"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none: written C4-C6; only B5 and C6 (bar 6) lie above A5 (below E6), and an octave down would put the fanfare at C3",
+  "simplifications": "chords reduced to the top note (bars 4-7; e.g. the bar-6 eighth chord <b dis fis> has F#5 on top in this transcription); rests absorbed: bars 2 and 3 c2 r4 (C4 written as a half), bar 5 g4 r (G4 written as a quarter); the opening r2 r4 of bar 1 is not part of the excerpt (it starts on the triplet pickup). No ornaments in bars 1-7 (the first trill/grace notes are in bar 8)",
+  "quiz_distractors": [
+   "Bridal Chorus  (Wagner)",
+   "Triumphal March from Aida  (Verdi)"
+  ],
+  "drone": [
+   "C3",
+   "G3"
+  ]
+ },
+ {
+  "key": "brin",
+  "title": "Brindisi (La Traviata)",
+  "composer_name": "Giuseppe Verdi",
+  "year": 1853,
+  "year_label": null,
+  "era": "romantic",
+  "unit": 0.144928,
+  "beat": 0.289855,
+  "tempo_note": "Allegretto, dotted quarter = 69 as marked in the score (one beat per 3/8 bar; \"beat\" here is the eighth = 0.290 s, sixteenth = 0.145 s).",
+  "notes": [
+   [
+    "F4",
+    2
+   ],
+   [
+    "D5",
+    8
+   ],
+   [
+    "F4",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "F4",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "C#5",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "F5",
+    8
+   ],
+   [
+    "Eb5",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "C5",
+    2
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "C5",
+    2
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "B4",
+    1
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "D5",
+    1
+   ],
+   [
+    "C5",
+    4
+   ],
+   [
+    "Bb4",
+    2
+   ],
+   [
+    "F4",
+    2
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 6,
+   "pickup_units": 2
+  },
+  "keysig": -2,
+  "timesig": [
+   3,
+   8
+  ],
+  "source": {
+   "path": "ftp/VerdiG/Traviata_02/Traviata_02.ly",
+   "license": "Public Domain",
+   "bars": "23-33 (upbeat on beat 3 of bar 23, ends on the downbeat of bar 33; bar 1 = the opening R4.)",
+   "voice": "upper staff (variable 'upper') of the solo-piano transcription: the melody of Alfredo's first entry 'Libiamo, libiamo ne' lieti calici' (as first sung, not the orchestral introduction)"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none (F4-F5 already inside C4-A5)",
+  "simplifications": "Left out: the two-note appoggiatura (Eb5-D5 sixteenths) before C#5 in bar 27 and the acciaccaturas (D5) before the C5 sixteenth figures in bars 30 and 31. Staccatos/dynamics ignored; the left-hand accompaniment is not used.",
+  "quiz_distractors": [
+   "La donna è mobile  (Verdi)",
+   "O mio babbino caro  (Puccini)"
+  ],
+  "drone": [
+   "Bb2",
+   "F3"
+  ]
+ },
+ {
+  "key": "danube",
+  "title": "The Blue Danube",
+  "composer_name": "Johann Strauss II",
+  "year": 1866,
+  "year_label": null,
+  "era": "romantic",
+  "unit": 0.4,
+  "beat": 0.4,
+  "tempo_note": "Waltz (Tempo di valse), quarter = 150 (dotted half = 50); 150 is the tempo in the file's \\midi block.",
+  "notes": [
+   [
+    "D4",
+    1
+   ],
+   [
+    "D4",
+    1
+   ],
+   [
+    "F#4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "A5",
+    2
+   ],
+   [
+    "F#5",
+    1
+   ],
+   [
+    "F#5",
+    2
+   ],
+   [
+    "D4",
+    1
+   ],
+   [
+    "D4",
+    1
+   ],
+   [
+    "F#4",
+    1
+   ],
+   [
+    "A4",
+    1
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "A5",
+    1
+   ],
+   [
+    "A5",
+    2
+   ],
+   [
+    "G5",
+    1
+   ],
+   [
+    "G5",
+    2
+   ]
+  ],
+  "note_value": {},
+  "notation": {
+   "clef": "treble",
+   "bar_units": 3,
+   "pickup_units": 1
+  },
+  "keysig": 2,
+  "timesig": [
+   3,
+   4
+  ],
+  "source": {
+   "path": "ftp/StraussJJ/O314/blue_danube/blue_danube.ly",
+   "license": "Creative Commons Attribution-ShareAlike 4.0",
+   "bars": "upbeat + 1-8 (upbeat counted as bar 0; = the file's comment bars 1-9)",
+   "voice": "upper staff (variable 'upper', right hand), top note of the thirds/sixths in the answering high notes"
+  },
+  "transpose_semitones": 2,
+  "transpose_reason": "the Mutopia arrangement is in C major; Strauss wrote the waltz in D major: restored to D",
+  "simplifications": "none (no ornaments). The answering high notes are written as thirds/sixths (<e g>, <c e>, <f g>, <b f>); only the top note is kept. Left-hand accompaniment ignored.",
+  "quiz_distractors": [
+   "Tales from the Vienna Woods  (Johann Strauss II)",
+   "Radetzky March  (Johann Strauss I)"
+  ],
+  "drone": [
+   "D3",
+   "A3"
+  ]
+ },
+ {
+  "key": "lull",
+  "title": "Lullaby (Brahms)",
+  "composer_name": "Johannes Brahms",
+  "year": 1868,
+  "year_label": null,
+  "era": "romantic",
+  "unit": 0.416667,
+  "beat": 0.833334,
+  "tempo_note": "quarter = 72 (the first half-phrase, to the B-flat)",
+  "notes": [
+   [
+    "G4",
+    1
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "Bb4",
+    3
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "Bb4",
+    4
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "Bb4",
+    1
+   ],
+   [
+    "Eb5",
+    2
+   ],
+   [
+    "D5",
+    3
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "C5",
+    2
+   ],
+   [
+    "Bb4",
+    2
+   ]
+  ],
+  "note_value": {
+   "5": 2
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 6,
+   "pickup_units": 2
+  },
+  "keysig": -3,
+  "timesig": [
+   3,
+   4
+  ],
+  "source": {
+   "path": "ftp/BrahmsJ/O49/Wiegenlied/Wiegenlied-lys/Wiegenlied.ly",
+   "license": "Public Domain",
+   "bars": "2-10 (voice enters on beat 3 of bar 2, ends on the downbeat of bar 10; the \\partial 8 upbeat is bar 0) (first half-phrase: notes 0-12)",
+   "voice": "voice part (variable 'melody', verse 1: 'Guten Abend, gut' Nacht')"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none (F4-Eb5 already inside C4-A5)",
+  "simplifications": "none in this passage (the song's two acciaccaturas are in bars 14 and 17, outside it). Slurs and the voice's leading rests (bars 0-2) ignored; quarter rests in bars 4 and 8 absorbed into Bb4 / Ab4; the quarter rest after the final Eb5 (bar 10) is not included.",
+  "quiz_distractors": [
+   "Hungarian Dance No. 5  (Brahms)",
+   "Träumerei  (Schumann)"
+  ],
+  "drone": [
+   "Eb3",
+   "Bb3"
+  ]
+ },
+ {
+  "key": "carmen",
+  "title": "Carmen Prelude",
+  "composer_name": "Georges Bizet",
+  "year": 1875,
+  "year_label": null,
+  "era": "romantic",
+  "unit": 0.133929,
+  "beat": 0.535714,
+  "tempo_note": "Allegro giocoso (march tempo continues into the Toreador refrain), quarter = 112: slowest plausible tempo that keeps the sixteenths at >= 0.13 s (at quarter = 116+ they would be shorter).",
+  "notes": [
+   [
+    "C5",
+    4
+   ],
+   [
+    "D5",
+    3
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "A4",
+    4
+   ],
+   [
+    "A4",
+    4
+   ],
+   [
+    "A4",
+    3
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "A4",
+    3
+   ],
+   [
+    "Bb4",
+    1
+   ],
+   [
+    "A4",
+    8
+   ],
+   [
+    "Bb4",
+    4
+   ],
+   [
+    "G4",
+    3
+   ],
+   [
+    "C5",
+    1
+   ],
+   [
+    "A4",
+    8
+   ],
+   [
+    "F4",
+    4
+   ],
+   [
+    "D4",
+    3
+   ],
+   [
+    "G4",
+    1
+   ],
+   [
+    "C4",
+    8
+   ],
+   [
+    "G4",
+    8
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "D5",
+    2
+   ],
+   [
+    "C5",
+    2
+   ],
+   [
+    "Bb4",
+    2
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "G4",
+    2
+   ],
+   [
+    "A4",
+    2
+   ],
+   [
+    "Bb4",
+    2
+   ],
+   [
+    "A4",
+    6
+   ]
+  ],
+  "note_value": {
+   "9": 6,
+   "13": 6,
+   "17": 6
+  },
+  "notation": {
+   "clef": "treble",
+   "bar_units": 8,
+   "pickup_units": 0
+  },
+  "keysig": -1,
+  "timesig": [
+   2,
+   4
+  ],
+  "source": {
+   "path": "ftp/BizetG/prelude/prelude.ly",
+   "license": "Creative Commons Attribution-ShareAlike 2.5",
+   "bars": "55-66 (bars counted as written, the repeated 16-bar opening once; file lines 93-105, comments %5-1b .. %6-6b)",
+   "voice": "upper staff (variable 'upper'), top voice of the << \\\\ >> passage: the Toreador refrain in F major ('p ma ben marcato')"
+  },
+  "transpose_semitones": 0,
+  "transpose_reason": "none (C4-D5 already inside C4-A5)",
+  "simplifications": "Left out: the two acciaccaturas (Bb4) before A4 in bars 57 and 65. Eighth rests after the tied A4 / A4 / C4 in bars 58, 60, 62 absorbed; the eighth rest ending bar 66 not included. Accompaniment voice ignored. keysig -1: the passage is in F major, although the file keeps the A-major signature of the whole Prelude and writes naturals.",
+  "quiz_distractors": [
+   "William Tell Overture  (Rossini)",
+   "Can-Can (Orpheus in the Underworld)  (Offenbach)"
+  ],
+  "drone": [
+   "F2",
+   "C3"
+  ]
+ }
+]

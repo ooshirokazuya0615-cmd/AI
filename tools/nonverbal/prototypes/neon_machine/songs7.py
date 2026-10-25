@@ -63,9 +63,9 @@ MACHINE = {'toc': ['stairs'], 'minuet': ['bells'], 'spring': ['dominoes'], 'hall
 # lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
 # (set from MACH_PACE=1 so each machine runs at about 10 degrees: brisk, and always on time; film8 stops the
 #  build if a machine would arrive after the music needs it)
-INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 7.9, 'mk': 9.6,
-             'minuet': 5.0, 'spring': 5.5, 'hall': 6.5, 'k545': 5.0, 'moon': 5.5, 'march': 7.0,
-             'noct': 5.5, 'wed': 7.0, 'brin': 7.0, 'danube': 7.0, 'lull': 5.5, 'carmen': 9.0}
+INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 8.0, 'mk': 9.6,
+             'minuet': 5.0, 'spring': 5.5, 'hall': 7.0, 'k545': 5.0, 'moon': 5.5, 'march': 8.4,
+             'noct': 5.5, 'wed': 7.0, 'brin': 7.0, 'danube': 7.9, 'lull': 5.5, 'carmen': 10.2}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
@@ -194,7 +194,7 @@ def timeline():
 # the finale after the drum (seconds from the drum): the 8-colour marble held, the rise back through the
 # pages (a stop on each), the pull-back to the whole wall, and the closing card held to the end (shared by
 # film8.py, overlay.py and audio6.py so picture, graphics and sound agree)
-FINALE = dict(hold=1.8, rise0=3.2, rise1=12.2, wide1=14.4, card=14.9, end=20.5)
+FINALE = dict(hold=1.8, rise0=3.2, rise1=16.2, wide1=18.4, card=18.9, end=24.5)   # (the rise passes 23 lines)
 
 
 def total_seconds():
