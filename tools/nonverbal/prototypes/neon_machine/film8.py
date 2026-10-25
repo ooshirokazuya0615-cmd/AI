@@ -376,6 +376,33 @@ def hop(ch, t, h=0.15):
         r.keyframe_insert('scale', frame=fr(t + u))
 
 
+def automaton(x, z_floor, name, height=0.24):
+    """A brass automaton on a black lacquer plinth: a piston that lifts a small gas-lamp globe; the globe
+    brightens as it rises (no face: the figure is a mechanism, its character is in how it moves)."""
+    lacquer = mat(name + 'plinth', (0.025, 0.022, 0.025), 0.18, coat=1.0)
+    cube((x, 0.20, z_floor + 0.025), (0.13, 0.13, 0.05), lacquer, bevel=0.008)
+    cyl(Vector((x, 0.20, z_floor + 0.05)), Vector((x, 0.20, z_floor + height * 0.55)), 0.018, M_BRASS, 16)   # the sleeve
+    torus(Vector((x, 0.20, z_floor + height * 0.55)), 0.019, 0.004, M_BRASS)
+    z0 = z_floor + height * 0.55
+    root = empty((x, 0.20, z0), name)
+    rod = cyl(Vector((x, 0.20, z0 - 0.06)), Vector((x, 0.20, z0 + height * 0.30)), 0.008, M_CHROME, 10)
+    cap = cyl(Vector((x, 0.20, z0 + height * 0.30)), Vector((x, 0.20, z0 + height * 0.34)), 0.022, M_BRASS, 16)
+    glow_m = mat(name + 'globe', (1.0, 0.9, 0.7), 0.1, emit=(1.0, 0.78, 0.45), emit_s=1.5, trans=0.4)
+    globe = sphere(Vector((x, 0.20, z0 + height * 0.34 + 0.034)), 0.034, glow_m, segs=24)
+    for o in (rod, cap, globe):
+        parent(o, root)
+    return dict(root=root, z0=z0, glow=glow_m)
+
+
+def pump(ch, t, h=0.15):
+    """The automaton's piston: a quick lift on the beat, a little overshoot, back down; the globe flares."""
+    r = ch['root']
+    for u, dz in ((-0.05, 0.0), (0.0, 0.0), (0.09, h), (0.16, h * 0.86), (0.34, 0.0), (0.40, -0.004), (0.46, 0.0)):
+        r.location.z = ch['z0'] + dz
+        r.keyframe_insert('location', index=2, frame=fr(t + u))
+    emit_keys(ch['glow'], ((t - 0.02, 1.5), (t + 0.09, 1.5 + 40.0 * h), (t + 0.45, 1.5)))
+
+
 def mouth_o(ch, t0, t1, s=1.9):
     m = ch['mouth']
     for t, k in ((t0 - 0.05, 1.0), (t0 + 0.08, s), (t1, s), (t1 + 0.2, 1.0)):
@@ -674,10 +701,10 @@ for h_ in C[:-1]:
 
 # ---------------------------------------------------------------- the rescue
 # Before Mountain King's last, fastest pass the marble hits its note too hard, sails past the funnel and off
-# the end of the line. The music stops (a general pause in the medley). The blue character on a stand beside
-# the line catches it in a net; it wobbles there, nearly tipping out; then the net tosses it back into the
-# funnel, the tube carries it to the next line, and it lands on the first note exactly on the beat: the
-# fastest pass begins.
+# the end of the line. The music stops (a general pause in the medley) and its flame shrinks and shivers. A
+# brass lever on a post beside the line swings up and catches it in a net; it wobbles there, nearly tipping
+# out; then the lever tosses it back into the funnel, the tube carries it to the next line, and it lands on
+# the first note exactly on the beat: the fastest pass begins.
 RESCUE = None
 for i_, ret_ in RETURNS.items():
     if SONGS[C[i_]['s']].get('gp', {}).get(C[i_]['j']):
@@ -685,7 +712,7 @@ for i_, ret_ in RETURNS.items():
 if RESCUE:
     rs_ = RESCUE
     row_ = rs_['ret']['row_from']
-    rs_['stand'] = Vector((row_['x1'] + 0.95, 0.18, row_['z'] - 0.62))      # the catcher's feet
+    rs_['stand'] = Vector((row_['x1'] + 0.95, 0.18, row_['z'] - 0.62))      # the rescue arm's stand
     rs_['t_clip'] = rs_['h0']['t'] + 0.22                                    # it clips the funnel's lip...
     rs_['rim'] = rs_['ret']['pts'][1] + Vector((0.07, 0, 0.065 + R))
     rs_['t_c'] = rs_['h0']['t'] + 0.95                                       # ...flies up, hangs, falls: caught low
@@ -697,7 +724,7 @@ if RESCUE:
 
 
 def net_ring(t):
-    """Centre of the catcher's net: lowered, raised to catch, sagging and rocking, wound back, swung."""
+    """Centre of the rescue net: lowered, raised to catch, sagging and rocking, wound back, swung."""
     tc, tt_ = RESCUE['t_c'], RESCUE['t_t']
     p = NET_LOW.lerp(NET_UP, smooth((t - (tc - 0.45)) / 0.4))
     if tc <= t:                                          # it sags with the catch and rocks: will it tip out?
@@ -731,7 +758,7 @@ def rescue_view(t):
     to see the long throw land on the next line."""
     rs = RESCUE
     p0, p1, nc = CON[rs['h0']['i']], CON[rs['h1']['i']], net_ring(rs['t_c'])
-    mid = Vector((nc.x + 0.12, nc.y, rs['stand'].z + 0.32))      # the net and the whole catcher, above the HUD
+    mid = Vector((nc.x + 0.12, nc.y, rs['stand'].z + 0.32))      # the net and the whole arm, above the HUD
     if t <= rs['t_c']:
         k = smooth((t - rs['h0']['t']) / (rs['t_c'] - rs['h0']['t']))
         return p0.lerp(mid, k) + Vector((0, 0, 0.25 * math.sin(math.pi * k))), 1.55, (0.0, 0.0)
@@ -1109,31 +1136,52 @@ text_obj('one marble', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)), 0.10, 
          font='/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf')
 
 # ---------------------------------------------------------------- 3b. practical lights of the era
+# Each line has the light of its time beside it, so the history of light runs alongside the history of the
+# music: a candle (baroque), an Argand oil lamp (classical: invented 1780), a gas light (Beethoven's years:
+# London's gas company, 1812) and an arc lamp (romantic: the electric light of the 1870s)
 M_BRASS8 = mat('brass8', (0.85, 0.62, 0.28), 0.25, metal=1.0)
+M_LAMPGLASS = mat('lampglass', (0.97, 0.98, 1.0), 0.02, trans=1.0, ior=1.5)
+LAMP = {   # light colour, soft size, energy, flicker range (fraction)
+    'baroque': ((1.0, 0.68, 0.35), 0.02, 6.0, (0.82, 1.08)),
+    'classical': ((1.0, 0.76, 0.45), 0.02, 8.0, (0.93, 1.04)),
+    'beethoven': ((1.0, 0.88, 0.70), 0.04, 12.0, (0.97, 1.02)),
+    'romantic': ((0.88, 0.92, 1.0), 0.02, 18.0, (0.90, 1.03)),
+}
 for row in ROWS:
     era = SONGS[row['s']]['era']
-    if era not in ('baroque', 'romantic'):
-        continue
     p = Vector((X_LEFT + row['px'] - 0.34, 0.50, row['z'] + 0.52))
     cyl((p.x, WALL_Y, p.z - 0.10), (p.x, p.y, p.z - 0.10), 0.008, M_BRASS8, 10)          # wall arm
     cyl(p + Vector((0, 0, -0.12)), p + Vector((0, 0, -0.10)), 0.035, M_BRASS8, 24)         # drip tray
     ld = bpy.data.lights.new('practical', 'POINT')
     lo = bpy.data.objects.new('practical', ld)
     sc.collection.objects.link(lo)
-    if era == 'baroque':
+    ld.color, ld.shadow_soft_size, base_e, (fl0, fl1) = LAMP[era]
+    if era == 'baroque':                          # a candle
         cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.02)), 0.014, mat('wax', (0.92, 0.86, 0.72), 0.6), 16)
         flame = sphere(p + Vector((0, 0, 0.045)), 0.012, mat('flame', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=14),
                        scale=(0.7, 0.7, 1.6), segs=12)
-        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.68, 0.35), 0.02, 6.0
         lo.location = p + Vector((0, -0.02, 0.05))
-    else:
-        sphere(p + Vector((0, 0, -0.02)), 0.05, mat('gasglobe', (1.0, 0.85, 0.6), 0.2, emit=(1.0, 0.7, 0.4), emit_s=8), segs=24)
+    elif era == 'classical':                      # an Argand lamp: a brass font, a tall glass chimney, a steady flame
+        sphere(p + Vector((0, 0, -0.075)), 0.034, M_BRASS8, scale=(1, 1, 0.7), segs=24)
+        cyl(p + Vector((0, 0, -0.055)), p + Vector((0, 0, 0.09)), 0.017, M_LAMPGLASS, 20)
+        flame = sphere(p + Vector((0, 0, -0.02)), 0.010, mat('oilflame', (1.0, 0.75, 0.4), 0.5, emit=(1.0, 0.70, 0.35), emit_s=16),
+                       scale=(0.8, 0.8, 1.9), segs=12)
+        lo.location = p + Vector((0, -0.03, -0.01))
+    elif era == 'beethoven':                      # a gas light: a frosted globe on a burner
+        cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, -0.05)), 0.010, M_BRASS8, 12)
+        sphere(p + Vector((0, 0, -0.01)), 0.045, mat('gasglobe', (1.0, 0.95, 0.85), 0.3, emit=(1.0, 0.90, 0.72), emit_s=4.0),
+               segs=24)
         flame = None
-        ld.color, ld.shadow_soft_size, base_e = (1.0, 0.74, 0.45), 0.05, 14.0
-        lo.location = p + Vector((0, -0.04, -0.02))
+        lo.location = p + Vector((0, -0.05, -0.01))
+    else:                                         # an arc lamp: a clear globe round a blue-white point of light
+        cyl(p + Vector((0, 0, -0.10)), p + Vector((0, 0, 0.07)), 0.006, M_CHROME, 10)
+        sphere(p + Vector((0, 0, -0.01)), 0.05, M_LAMPGLASS, segs=24)
+        sphere(p + Vector((0, 0, -0.01)), 0.009, mat('arc', (0.9, 0.95, 1.0), 0.2, emit=(0.88, 0.93, 1.0), emit_s=60), segs=12)
+        flame = None
+        lo.location = p + Vector((0, -0.06, -0.01))
     t_ = 0.0
     while t_ <= T_END:
-        e_ = base_e * rng.uniform(0.82, 1.08) if era == 'baroque' else base_e * rng.uniform(0.95, 1.02)
+        e_ = base_e * rng.uniform(fl0, fl1)
         ld.energy = e_
         ld.keyframe_insert('energy', frame=fr(t_))
         if flame is not None:
@@ -1304,7 +1352,7 @@ tm_ = notes_of('tm')
 if tm_:
     song_ = SONGS[KEY_S['tm']]
     bu, pu, pos_ = song_['bar_units'], song_['pickup_units'], 0.0
-    drum_m = mat('davul', (0.55, 0.08, 0.06), 0.35, coat=0.6)
+    drum_m = mat('davul', (0.03, 0.025, 0.025), 0.2, coat=1.0)      # black lacquer and brass: an instrument, not a toy
     DRUM_SKINS = []
     for j, h in enumerate(tm_[:-1]):
         nxt = tm_[j + 1]
@@ -1324,8 +1372,8 @@ if tm_:
             piv = dc + Vector((0.15, 0, 0.15))
             hold = empty(piv, 'mallet')
             bpy.context.view_layer.update()
-            o1 = cyl(piv, dc + Vector((0.015, 0, 0.07)), 0.005, mat('stick', (0.4, 0.25, 0.1), 0.4), 8)
-            o2 = sphere(dc + Vector((0.015, 0, 0.07)), 0.022, mat('malletball', (0.95, 0.9, 0.8), 0.5))
+            o1 = cyl(piv, dc + Vector((0.015, 0, 0.07)), 0.005, M_BRASS, 8)
+            o2 = sphere(dc + Vector((0.015, 0, 0.07)), 0.022, mat('malletball', (0.30, 0.18, 0.10), 0.6))   # a leather head
             for o in (o1, o2):
                 parent(o, hold)
             tb = nxt['t']
@@ -1366,15 +1414,12 @@ if otj_:
         r_ = HEAD[h['i']][2]
         if r_ not in rows_:
             rows_.append(r_)
-    looks = [((0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears'), ((0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo'),
-             ((0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna')]
     for r_ in rows_:
         xs_ = [HEAD[h['i']][0].x for h in otj_ if HEAD[h['i']][2] is r_]
         for k, fx in enumerate((0.2, 0.55, 0.88)):
             x_ = xs_[0] + (xs_[-1] - xs_[0]) * fx
-            bc, ic, acc = looks[k % 3]
-            ch = character(x_, r_['z'] + 0.03, bc, ic, acc, f'dancer{len(DANCERS)}', smile=True)
-            r_['below'] = 0.70                     # their feet (0.46 below the staff) clear of the timeline band
+            ch = automaton(x_, r_['z'] - 0.46, f'dancer{len(DANCERS)}')
+            r_['below'] = 0.70                     # their plinths (0.46 below the staff) clear of the timeline band
             DANCERS.append((ch, [h for h in otj_ if HEAD[h['i']][2] is r_], k))
 
 fe_ = notes_of('fe')                              # Fur Elise: a firefly rises from every note it plays
@@ -1498,16 +1543,20 @@ for n_, (s, m_) in enumerate(sorted(GAPMACH.items()) if os.environ.get('WATCHERS
     bc, ic, acc = designs[n_ % 3]                 # (off: at the frame edge they read as stray assets)
     ch = character(X_LEFT - 0.55, m_.E_.z + 0.15, bc, ic, acc, f'watch{n_}')
     chars.append((ch, m_.t_kick))
-yel = character(DRUM.x + 0.75, DRUM.z + 0.02, (0.95, 0.82, 0.2), (1.0, 0.3, 0.7), 'halo', 'yel')
-pink = character(DRUM.x - 0.75, DRUM.z + 0.02, (0.98, 0.45, 0.70), (0.55, 0.2, 1.0), 'ears', 'pink')
 catcher = None
-if RESCUE:
+if RESCUE:                                       # the rescue arm: a brass lever on a post, a net at its end
     st_ = RESCUE['stand']
-    catcher = character(st_.x, st_.z + 0.49, (0.20, 0.35, 0.95), (0.1, 0.9, 1.0), 'antenna', 'catcher', both=True)
+    catcher = True
+    PIVOT = st_ + Vector((-0.08, 0.06, 0.30))
     cube((st_.x, 0.30, st_.z - 0.012), (0.34, 0.40, 0.024), M_BRASS, bevel=0.006)       # its stand
+    cube((PIVOT.x, PIVOT.y, st_.z + 0.02), (0.11, 0.11, 0.05), mat('armplinth', (0.025, 0.022, 0.025), 0.18, coat=1.0),
+         bevel=0.008)
+    cyl(Vector((PIVOT.x, PIVOT.y, st_.z + 0.04)), PIVOT, 0.016, M_BRASS, 16)          # the post
+    cyl(PIVOT - Vector((0, 0.03, 0)), PIVOT + Vector((0, 0.03, 0)), 0.032, M_BRASS, 32)   # the hub
+    torus(PIVOT - Vector((0, 0.031, 0)), 0.032, 0.004, M_CHROME, rot=(math.radians(90), 0, 0))
     for sx in (-1, 1):
         cyl(Vector((st_.x + sx * 0.12, WALL_Y, st_.z - 0.03)), Vector((st_.x + sx * 0.12, 0.12, st_.z - 0.03)), 0.008, M_BRASS, 10)
-for ch in [c for c, _ in chars] + [yel, pink] + ([catcher] if catcher else []) + [d for d, _, _ in DANCERS]:
+for ch in [c for c, _ in chars]:
     r0 = ch['root']
     holder = empty((r0.location.x, r0.location.y, r0.location.z - 0.49), r0.name + '_holder')
     bpy.context.view_layer.update()
@@ -1518,15 +1567,9 @@ for ch, t_ev in chars:
     track_eyes(ch, ball_pos)
     mouth_o(ch, t_ev - 0.3, t_ev + 0.6, 1.7)
     hop(ch, t_ev + 0.05, 0.12)
-for ch in (yel, pink):
-    track_eyes(ch, ball_pos)
-    mouth_o(ch, FIN['launch'] + 0.1, FIN['launch'] + 0.9, 1.5)
-    hop(ch, TF + 0.02, 0.2)
-    hop(ch, TF + 0.65, 0.12)
-    mouth_o(ch, TF, TF + 1.8, 2.0)
-# Ode to Joy: they dance to it. A small bob on every note; on beats 1, 2 and 3 of each bar pink, yellow and
-# blue take a big hop in turn (a wave), on beat 4 all three; and all jump together when the answer pops
-# (they cheer for the viewer) and on the last note of each line
+# Ode to Joy: three brass automata keep time with it. A small lift on every note; on beats 1, 2 and 3 of each
+# bar the first, second and third take a big lift in turn (a wave), on beat 4 all three; and all lift together
+# when the answer pops and on the last note of the line
 beat_of, t_cheer = {}, None
 if 'otj' in KEY_S:
     otj_all, pos_ = notes_of('otj'), 0.0
@@ -1544,24 +1587,11 @@ for ch, notes_, k_ in DANCERS:
     if t_cheer is not None and notes_[0]['t'] - 0.2 <= t_cheer <= notes_[-1]['t'] + 0.5:
         evs[round(t_cheer, 3)] = 0.36
     for tb in sorted(evs):
-        hop(ch, tb, evs[tb])
-    track_eyes(ch, ball_pos)
+        pump(ch, tb, evs[tb] * 0.32)             # (the heights were for the scaled-down cartoon figures)
 if catcher:
     rs_ = RESCUE
     t0r, t1r, tcr, ttr = rs_['h0']['t'], rs_['h1']['t'], rs_['t_c'], rs_['t_t']
-    track_eyes(catcher, ball_pos)
-    mouth_o(catcher, t0r + 0.12, tcr + 0.25, 2.0)                     # it sees the marble fly off
-    hop(catcher, tcr - 0.32, 0.10)                                     # jumps to catch it
-    rr_ = catcher['root']
-    for u, ang_ in ((-0.01, 0.0), (0.12, 0.16), (0.34, -0.13), (0.58, 0.09), (0.86, -0.04), (1.1, 0.0)):
-        rr_.rotation_euler = (0, ang_, 0)                              # teeters with the weight in the net
-        rr_.keyframe_insert('rotation_euler', frame=fr(tcr + u))
-    hop(catcher, tcr + 0.45, 0.12)                                     # got it!
-    hop(catcher, t1r + 0.04, 0.16)                                     # and cheers when it lands
-    key_vis(catcher['mouth'], 0.0, tcr + 0.35)                         # the "o" gives way to a grin
-    for b_ in catcher['beads']:
-        key_vis(b_, tcr + 0.35)
-    # a warm spot finds the catcher for its moment
+    # a warm spot finds the arm for its moment
     cs_ = bpy.data.lights.new('catcherspot', 'SPOT')
     cs_.color, cs_.spot_size, cs_.spot_blend, cs_.energy = (1.0, 0.86, 0.66), math.radians(30), 0.5, 0.0
     co_ = bpy.data.objects.new('catcherspot', cs_)
@@ -1575,11 +1605,14 @@ if catcher:
     ring_o = torus(Vector((0, 0, 0)), 0.085, 0.006, net_m)
     bag_o = revolve(Vector((0, 0, 0)), [(0.085, 0.0), (0.075, -0.035), (0.05, -0.07), (0.02, -0.09), (0.004, -0.095)],
                     mat('netbag', (0.95, 0.95, 0.92), 0.6, alpha=0.45), segs=32)
-    handle_o = cyl(Vector((0, 0, -0.5)), Vector((0, 0, 0.5)), 0.006, mat('handle', (0.5, 0.3, 0.12), 0.4), 10)
+    handle_o = cyl(Vector((0, 0, -0.5)), Vector((0, 0, 0.5)), 0.010, M_BRASS, 12)      # the lever, to the net
     handle_o.rotation_mode = 'QUATERNION'
+    tail_o = cyl(Vector((0, 0, -0.5)), Vector((0, 0, 0.5)), 0.010, M_BRASS, 12)        # and behind the pivot,
+    tail_o.rotation_mode = 'QUATERNION'
+    weight_o = sphere(Vector((0, 0, 0)), 0.034, M_BRASS, segs=24)                       # its counterweight
 
     def hand_at(t):
-        return st_ + Vector((-0.08, 0.06, 0.30))
+        return PIVOT
     f = max(1, int(fr(t0r - 0.8)))
     while f <= min(N, int(fr(t1r + 1.2))):
         t = (f - 1) / FPS
@@ -1595,8 +1628,13 @@ if catcher:
         handle_o.location = (hd + rc) / 2
         handle_o.rotation_quaternion = d.to_track_quat('Z', 'Y')
         handle_o.scale = (1, 1, d.length)
-        for path_ in ('location', 'rotation_quaternion', 'scale'):
-            handle_o.keyframe_insert(path_, frame=f)
+        tw_ = hd - d.normalized() * 0.16                  # the short end: a weight balances the lever
+        tail_o.location, tail_o.rotation_quaternion, tail_o.scale = (hd + tw_) / 2, handle_o.rotation_quaternion, (1, 1, 0.16)
+        weight_o.location = tw_
+        for o_ in (handle_o, tail_o):
+            for path_ in ('location', 'rotation_quaternion', 'scale'):
+                o_.keyframe_insert(path_, frame=f)
+        weight_o.keyframe_insert('location', frame=f)
         f += 1
     t_clip = rs_['t_clip']
     burst(rs_['rim'] - Vector((0, 0.03, R)), t_clip, NEON['amber'], n=9, speed=0.8, life=0.35)
@@ -1608,21 +1646,26 @@ if catcher:
 else:
     RESCUE_HITS = []
 
-t_c = TF + 0.9
-for kk in range(90):
-    cn = rng.choice(list(NEON))
-    o = cube((0, 0, 0), (0.018, 0.004, 0.011), mat(f'conf{kk}', NEON[cn], 0.3, emit=NEON[cn], emit_s=rng.uniform(6, 14)))
-    key_vis(o, t_c)
-    v = Vector((rng.uniform(-1.4, 1.4), rng.uniform(-0.9, 0.1), rng.uniform(2.6, 4.6)))
-    p0 = Vector((DRUM.x + rng.uniform(-0.1, 0.1), HEAD_Y - 0.05, DRUM.z + 0.05))
-    sp = Vector((rng.uniform(-14, 14), rng.uniform(-14, 14), rng.uniform(-14, 14)))
+# the drum's celebration: embers rise from the two braziers and the drum and drift up into the dark, the way a
+# fire's sparks do (warm gold, no party confetti)
+M_EMBERS = [mat(f'ember{j}', c_, 0.3, emit=c_, emit_s=s_) for j, (c_, s_) in
+            enumerate((((1.0, 0.62, 0.22), 18), ((1.0, 0.78, 0.40), 22), ((1.0, 0.50, 0.15), 14)))]
+for kk in range(70):
+    src_ = (DRUM + Vector((0, -0.05, 0.05)), DRUM + Vector((-0.75, -0.08, 0.10)), DRUM + Vector((0.75, -0.08, 0.10)))[kk % 3]
+    t_b = TF + 0.25 + rng.uniform(0.0, 4.0)
+    life = rng.uniform(1.6, 3.0)
+    o = sphere((0, 0, 0), rng.uniform(0.004, 0.007), M_EMBERS[kk % 3], segs=8)
+    key_vis(o, t_b, t_b + life)
+    p0 = src_ + Vector((rng.uniform(-0.05, 0.05), rng.uniform(-0.03, 0.03), 0))
+    vz, ph_, sw_ = rng.uniform(0.35, 0.8), rng.uniform(0, 6.28), rng.uniform(0.04, 0.10)
     u = 0.0
-    while t_c + u <= T_END + 0.2:
-        drag = 1.0 - math.exp(-u * 1.6)
-        o.location = p0 + v * (drag / 1.6) + Vector((0.08 * math.sin(u * 5 + kk), 0, -0.45 * u * u - 0.35 * u))
-        o.rotation_euler = sp * u
-        o.keyframe_insert('location', frame=fr(t_c + u))
-        o.keyframe_insert('rotation_euler', frame=fr(t_c + u))
+    while u <= life:
+        o.location = p0 + Vector((sw_ * math.sin(2.1 * u + ph_) + 0.03 * u, 0, vz * u - 0.04 * u * u))
+        s_ = max(0.05, 1.0 - u / life)
+        o.scale = (s_, s_, s_)
+        o.keyframe_insert('location', frame=fr(t_b + u))
+        o.keyframe_insert('scale', frame=fr(t_b + u))
+        u += 0.25
         u += 0.12
 
 # ---------------------------------------------------------------- 6. the marble
@@ -1722,9 +1765,10 @@ single = [tongue(1.38 * R, 0.78 * R, fl_outer, curl=0.10, twist=0.4),     # it f
 single[1].location, single[1].rotation_euler = (0.15 * R, -0.05 * R, -0.04 * R), (0, 0.35, 0)
 core_o = tongue(0.66 * R, 0.34 * R, fl_core, curl=0.05)
 core_o.location = (0, -0.02 * R, -0.10 * R)
-rainbow = []
+rainbow, RAINBOW_M = [], []
 for k in range(len(SONGS)):                       # the finale's eight tongues, round the white heart
     m_, els_, str_ = flame_mat(f'tongue{k}')
+    RAINBOW_M.append(m_)
     set_flame_col(els_, piece_col(k))
     str_.default_value = 1.1 * FLAME_E
     a_ = 2 * math.pi * k / len(SONGS)
@@ -1779,8 +1823,18 @@ def flame_state(t):
     p0, p1 = ball_pos(t - 0.02), ball_pos(t + 0.02)
     v = (p1 - p0) / 0.04
     lean = max(-0.6, min(0.6, -0.35 * v.x)) + 0.06 * math.sin(2 * math.pi * 3.1 * t + FL_PH[2])
+    # at rest it leans toward where it is about to go (it reaches for the next note)
+    v_next = (ball_pos(t + 0.24) - ball_pos(t + 0.16)) / 0.08
+    lean += 0.3 * max(0.0, 1 - v.length / 0.4) * max(-1.0, min(1.0, v_next.x / 0.8))
     stretch = 1 + 0.08 * min(2.0, v.length)
-    return ign * (1 + 0.28 * flare) * flick, lean, ign * (1 + 0.9 * flare), stretch
+    size = 1.0
+    if RESCUE:                                    # off the line it shrinks and shivers; caught, it flares up
+        fear = smooth((t - (RESCUE['h0']['t'] + 0.1)) / 0.3) * (1 - smooth((t - RESCUE['t_c']) / 0.35))
+        size *= 1 - 0.45 * fear
+        lean += 0.12 * fear * math.sin(2 * math.pi * 17 * t)
+        if t >= RESCUE['t_c']:
+            flare = max(flare, 1.3 * math.exp(-(t - RESCUE['t_c'] - 0.1) / 0.35) if t > RESCUE['t_c'] + 0.1 else 0.0)
+    return ign * (1 + 0.28 * flare) * flick * size, lean, ign * (1 + 0.9 * flare) * (0.6 + 0.4 * size), stretch
 
 
 spin, prev = 0.0, ball_pos(0.0)
@@ -1805,6 +1859,40 @@ for f in range(1, N + 1):
     for sock_ in (fl_str, core_str):
         sock_.keyframe_insert('default_value', frame=f)
     fl_lamp.keyframe_insert('energy', frame=f)
+
+# the finale: two brass braziers flank the drum; when the marble lands, its eight-colour flame lights them
+M_LACQUER = mat('lacquer', (0.025, 0.022, 0.025), 0.18, coat=1.0)
+T_BRAZ = TF + 0.18
+for sx_ in (-1, 1):
+    bx_ = Vector((DRUM.x + sx_ * 0.75, HEAD_Y - 0.08, DRUM.z - 0.44))
+    cube(bx_ + Vector((0, 0, 0.025)), (0.15, 0.15, 0.05), M_LACQUER, bevel=0.01)
+    cyl(bx_ + Vector((0, 0, 0.05)), bx_ + Vector((0, 0, 0.44)), 0.02, M_BRASS, 16)
+    torus(bx_ + Vector((0, 0, 0.30)), 0.024, 0.005, M_BRASS)
+    revolve(bx_ + Vector((0, 0, 0.44)), [(0.012, 0.0), (0.07, 0.02), (0.10, 0.06), (0.105, 0.075)], M_BRASS, segs=40)
+    brig = empty(bx_ + Vector((0, 0, 0.50)), 'brazier')
+    for k, m_ in enumerate(RAINBOW_M):
+        a_ = 2 * math.pi * k / len(RAINBOW_M)
+        o_ = tongue((0.95 + 0.15 * (k % 2)) * 0.17, 0.05, m_, curl=0.25, twist=a_)
+        o_.location, o_.rotation_euler = (0.045 * math.cos(a_), 0.045 * math.sin(a_), 0.0), (0, 0.22 * math.cos(a_), 0)
+        o_.parent = brig
+        key_vis(o_, T_BRAZ)
+    bl_ = bpy.data.lights.new('brazierlight', 'POINT')
+    bl_.color, bl_.shadow_soft_size = (1.0, 0.85, 0.7), 0.05
+    blo_ = bpy.data.objects.new('brazierlight', bl_)
+    sc.collection.objects.link(blo_)
+    blo_.location = brig.location + Vector((0, -0.05, 0.05))
+    ph_ = rng.uniform(0, 6.28)
+    f = max(1, int(fr(T_BRAZ)) - 1)
+    while f <= N:
+        t = (f - 1) / FPS
+        u = t - T_BRAZ
+        on_ = 0.0 if u < 0 else min(1.0, u / 0.12) * (1 + 0.5 * math.exp(-u / 0.4))       # it catches, flares, settles
+        fl_ = 1 + 0.06 * math.sin(2 * math.pi * 6.1 * t + ph_) + 0.04 * math.sin(2 * math.pi * 9.7 * t + 2 * ph_)
+        brig.scale = (max(on_ * fl_, 1e-4),) * 3
+        brig.keyframe_insert('scale', frame=f)
+        bl_.energy = 30.0 * on_ * fl_
+        bl_.keyframe_insert('energy', frame=f)
+        f += 2
 
 # a follow-spot from above the camera's left shoulder: a soft pool of light that travels with the marble and
 # throws its shadow on the page, so the hero is always the brightest, clearest thing in the frame

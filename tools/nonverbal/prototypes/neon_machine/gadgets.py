@@ -894,7 +894,7 @@ def build(m, h):
                       0.004, arm_m, 6)
         elif kind == 'plinko':
             cx, top, rows, dx, dz, path, pin_r, chute = part[1:]
-            board_m = h.mat('pegboard', (0.84, 0.80, 0.70), 0.5, coat=0.5)        # a pale board, dark pins
+            board_m = h.mat('pegboard', (0.025, 0.022, 0.025), 0.2, coat=1.0)     # black lacquer, brass pins
             wdt = (rows + 1) * dx + 0.06
             h.cube((cx, Y + 0.043, top - (rows * dz) / 2 + 0.02), (wdt, 0.01, rows * dz + 0.18), board_m)   # before the page trim
             struck = {(k, j): t for k, j, t in path}
@@ -902,7 +902,7 @@ def build(m, h):
                 for j in range(k + 1):
                     x = cx + (j - k / 2) * dx
                     z = top - k * dz
-                    pm = h.mat(f'pin{k}_{j}', (0.10, 0.09, 0.10), 0.3, metal=0.6, emit=h.neon, emit_s=0.0)
+                    pm = h.mat(f'pin{k}_{j}', (0.85, 0.62, 0.28), 0.25, metal=1.0, emit=h.neon, emit_s=0.0)
                     h.cyl(Vector((x, Y + 0.07, z)), Vector((x, Y - 0.035, z)), pin_r, pm, 8)
                     if (k, j) in struck:
                         tk = struck[(k, j)]

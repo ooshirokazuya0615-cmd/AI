@@ -20,10 +20,13 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 S = importlib.import_module(os.environ.get('SONGS_MODULE', 'songs7'))
 FONT_DIR = Path('/usr/share/fonts/truetype/crosextra')
 SERIF_B = str(FONT_DIR / 'Caladea-Bold.ttf')
-SANS = str(FONT_DIR / 'Carlito-Regular.ttf')
-SANS_B = str(FONT_DIR / 'Carlito-Bold.ttf')
-CHOICE = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'          # has the check mark
-CHOICE_B = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+# a concert programme, not an office slide: Inter for the words, Caladea for the years, thin gold rules
+INTER = Path('/usr/share/fonts/opentype/inter')
+SANS = str(INTER / 'Inter-Regular.otf')
+SANS_B = str(INTER / 'Inter-SemiBold.otf')
+CHOICE = str(INTER / 'Inter-Regular.otf')                          # (Inter has the check mark and the dots)
+CHOICE_B = str(INTER / 'Inter-SemiBold.otf')
+GOLD = (214, 178, 112)
 Y0, Y1 = 1650, 1900
 ERA_COL = {'baroque': (232, 176, 82), 'classical': (120, 200, 255), 'romantic': (255, 90, 80)}
 # each piece's colour (the marble's, as in film8.PIECE_COL), for the closing recap
@@ -75,8 +78,8 @@ def card(draw, W, H, cx, top, lines, alpha, scale=1.0, left=False, right_edge=No
     w, h = max(widths) + 2 * pad, int(sum(heights)) + 2 * pad
     x0, y0 = (cx - w // 2, top) if right_edge is None else (right_edge - w, top)
     cx = x0 + w // 2
-    draw.rounded_rectangle((x0, y0, x0 + w, y0 + h), radius=int(22 * W / 1920 * scale),
-                           fill=(14, 14, 20, int(170 * alpha)), outline=(255, 255, 255, int(60 * alpha)), width=2)
+    draw.rounded_rectangle((x0, y0, x0 + w, y0 + h), radius=int(6 * W / 1920 * scale),
+                           fill=(12, 11, 16, int(178 * alpha)), outline=(*GOLD, int(150 * alpha)), width=max(1, W // 960))
     y = y0 + pad
     for j, ((t, f, c, la), tw, th) in enumerate(zip(sizes, widths, heights)):
         x = x0 + pad if left and not (centre_first and j == 0) else cx - tw // 2
@@ -183,8 +186,9 @@ def main():
             yf = font(SERIF_B, int(H * 0.075))
             ink_ = (12, 10, 16, int(150 * k))
             xb_ = W * 0.968 - H * 0.45                       # bottom right: rows start (clef, first notes) at the left
-            d.rounded_rectangle((xb_, by - H * 0.115, xb_ + H * 0.45, by + H * 0.058), radius=int(H * 0.02),
-                                fill=(10, 8, 14, int(105 * k)))           # its own plate, over any page
+            d.rounded_rectangle((xb_, by - H * 0.115, xb_ + H * 0.45, by + H * 0.058), radius=int(H * 0.006),
+                                fill=(10, 8, 14, int(115 * k)), outline=(*GOLD, int(110 * k)),
+                                width=max(1, W // 960))                   # its own plate, over any page
             d.text((xb_ + H * 0.025, by - H * 0.105), str(int(round(yr_now))), font=yf, fill=(*col, int(255 * k)),
                    stroke_width=max(2, H // 300), stroke_fill=ink_)
             d.text((xb_ + H * 0.028, by - H * 0.020), era_now, font=font(SANS_B, int(H * 0.024)),
@@ -236,7 +240,8 @@ def main():
                           ('can you name them all?', font(SANS_B, int(H * 0.062)), (255, 214, 140)))
                 bw_ = max(d.textbbox((0, 0), t_, font=f_)[2] for t_, f_, _ in lines_)
                 d.rounded_rectangle((xc_ - bw_ / 2 - H * 0.03, ys_[0] - H * 0.022, xc_ + bw_ / 2 + H * 0.03,
-                                     ys_[1] + H * 0.085), radius=int(H * 0.025), fill=(12, 10, 16, int(110 * a_)))
+                                     ys_[1] + H * 0.085), radius=int(H * 0.006), fill=(12, 10, 16, int(120 * a_)),
+                                    outline=(*GOLD, int(130 * a_)), width=max(1, W // 960))
                 for (t_, f_, c_), y_ in zip(lines_, ys_):
                     tw = d.textbbox((0, 0), t_, font=f_)[2]
                     d.text((xc_ - tw / 2, y_), t_, font=f_, fill=(*c_, int(245 * a_)),
@@ -260,9 +265,9 @@ def main():
         if t > t_card - 0.1:
             a_ = smooth((t - t_card) / 0.6)
             x0_, x1_, y_ = W * 0.575, W * 0.965, H * 0.085
-            d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, y_ + H * 0.645), radius=int(H * 0.025),   # below it: room for
+            d.rounded_rectangle((x0_, y_ - H * 0.03, x1_, y_ + H * 0.645), radius=int(H * 0.006),   # below it: room for
                                 #                                                                the end screen
-                                fill=(14, 12, 20, int(165 * a_)), outline=(255, 255, 255, int(50 * a_)), width=2)
+                                fill=(14, 12, 20, int(170 * a_)), outline=(*GOLD, int(140 * a_)), width=max(1, W // 960))
             cx_ = (x0_ + x1_) / 2
 
             def line(txt, path, frac, colr, yy, centre=True, x=None):
