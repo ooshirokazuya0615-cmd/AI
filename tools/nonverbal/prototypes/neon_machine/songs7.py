@@ -51,31 +51,55 @@ COMPOSER.update({p_['key']: p_['composer_name'] for p_ in NEW_PIECES})
 # BWV 565's date and even its authorship are debated)
 YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 YEAR_LABEL.update({p_['key']: p_['year_label'] for p_ in NEW_PIECES if p_.get('year_label')})
-# between pieces the marble takes a glass tube to the next page, as at a line break, and the next piece
-# comes in like the next number of a medley: the last note rings (at most 0.8 s, then it rings on under the
-# new piece), and the new piece starts about a second later on its own beat (a whole number of its beats,
-# and never less than a second's ride through the tube). No machines between pieces: they held the music up
-# (gadgets.py and MACHINE still work, for a film that wants them)
-MACHINE = {}
+# between pieces: the music never stops. The last note rings (at most 0.8 s, then it rings on under what
+# follows) and the next piece's own accompaniment comes in at once, a vamp in its key, tempo and metre (the
+# way one number of a medley hands over to the next), while the marble crosses to the new page; the melody
+# starts where the marble lands. At nine turns it crosses through a Pythagora-switch machine (one mechanism;
+# two into the finale), whose pitched parts sound in the new piece's key; at the other ten it takes a glass
+# tube, as at a line break. A machine's vamp is a whole number of beats long enough for it (film8 stops the
+# build if a machine would arrive late); a tube's is the shortest that leaves a second's ride.
+MACHINE = {'toc': ['stairs'], 'tm': ['bells'], 'k545': ['xylo'], 'b5': ['plinko'], 'otj': ['jump'],
+           'noct': ['helix'], 'danube': ['loop'], 'carmen': ['dominoes'], 'mk': ['helix', 'loop']}
+MACH_NEED = {'toc': 4.4, 'tm': 4.4, 'k545': 4.4, 'b5': 5.85, 'otj': 5.65, 'noct': 4.5, 'danube': 4.75,
+             'carmen': 5.5, 'mk': 6.05}       # seconds each machine needs, rails at about 12-14 degrees (MACH_PACE)
+MAJOR_OF = {0: 0, 1: 7, 2: 2, 3: 9, 4: 4, 5: 11, -1: 5, -2: 10, -3: 3, -4: 8}    # key signature -> major tonic
 
 
-def medley_gap(song, prev):
-    """The rest before a piece (after the previous one's last note has rung, at most 0.8 s)."""
-    b = song['beat']
-    while b > 1.3:                        # a slow beat (the Moonlight's bar-long one): count in halves
-        b /= 2
-    n = max(1, round(1.0 / b))
-    while min(prev['notes'][-1][1] * prev['unit'], 0.8) + n * b - 0.34 < 1.0:    # the ride needs a second
+def key_of(song):
+    """(root midi in the bass, minor?) from the drone and the key signature."""
+    root = midi(song['drone'][0])
+    while root > 50:
+        root -= 12
+    while root < 38:
+        root += 12
+    return root, (root - MAJOR_OF[song['keysig']]) % 12 == 9
+
+
+def pulse_of(song):
+    """(seconds per beat of the vamp, beats in a bar, pickup in seconds before the first downbeat)."""
+    num, den = song['timesig'] or ((4, 4) if song['key'] == 'toc' else (2, 4))
+    bar = song['bar_units'] * song['unit'] if song['bar_units'] else num * song['beat']
+    beats = 4 if (num, den) == (12, 8) else 2 if (num, den) == (2, 2) else num
+    return bar / beats, beats, song['pickup_units'] * song['unit']
+
+
+def vamp_rest(song, prev):
+    """The time from the previous piece's last note having rung to this one's first note: whole beats, less
+    the part of the pickup that falls inside a beat, so the vamp starts on a beat."""
+    p, _, pick = pulse_of(song)
+    off = pick % p
+    ring = min(prev['notes'][-1][1] * prev['unit'], 0.8)
+    need = MACH_NEED.get(song['key']) if song['key'] in MACHINE else 1.34 - ring    # (a tube: a second's ride)
+    n = 1
+    while n * p - off < need - 1e-6:
         n += 1
-    return n * b
+    return n * p - off
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
     s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key], year_label=YEAR_LABEL.get(key, str(year)))
     if key in MACHINE:
         s.update(machine=MACHINE[key])
-    if SONGS:
-        s.update(interlude=medley_gap(s, SONGS[-1]))
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
 SONGS[1]['title'] = 'Toccata and Fugue in D minor'      # "Toccata in D minor" alone is also BWV 913
@@ -167,6 +191,8 @@ for s_ in SONGS:
     s_['neon'] = NEON_OF.get(s_['key'])
     s_['frame_zoom'] = FRAME_ZOOM.get(s_['key'], 1.0)
     s_['tube_depth'] = TUBE_DEPTH.get(s_['key'], 0.42)
+for prev_, s_ in zip(SONGS[:-1], SONGS[1:]):
+    s_['interlude'] = vamp_rest(s_, prev_)
 FINAL_NOTE = 'A4'
 ERA = {
     'baroque': dict(wall=(0.84, 0.76, 0.62), fix=(0.30, 0.17, 0.08), fix_metal=0.2, neon=['amber', 'red', 'amber', 'white']),

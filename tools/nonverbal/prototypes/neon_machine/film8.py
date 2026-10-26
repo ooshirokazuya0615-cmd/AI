@@ -1276,21 +1276,16 @@ for s_, m_ in GAPMACH.items():
                            revolve=revolve, glass=M_GLASS, clear=M_CLEAR, WALL_Y=WALL_Y,
                            neon=NEON[ERAS[SONGS[s_]['era']]['neon'][0]], chase=PIECE_COL[SONGS[s_]['key']])
     GD.build(m_, HELP)
-    # the chase lamps along the last rail play a rising line that lands a step below the next piece's first
-    # note, so the machine leads the ear into the music (a glockenspiel, in the bell's range)
-    chase = sorted((x for x in m_.hits if x['kind'] == 'chase'), key=lambda x: x['t'])
-    if chase:
-        target = [h for h in C if h['s'] == s_ and h['mech'] != 'bigdrum'][0]['midi']
-        while target < 84:
-            target += 12
-        steps = [2, 2, 1, 2, 2, 2, 1]                       # a major scale, walked down from the target
-        m_note = target - 2
-        line = []
-        for k_ in range(len(chase)):
-            line.append(m_note)
-            m_note -= steps[k_ % len(steps)]
-        for x, mi in zip(chase, reversed(line)):
-            x['midi'] = mi
+    # the machine runs over the next piece's vamp (songs7), so what it sounds is in that key: bells, bars and
+    # pins take the nearest note of its tonic chord; the chase lamps only light (a scale there held the music up)
+    root_, minor_ = S.key_of(SONGS[s_])
+    chord_ = {root_ % 12, (root_ + (3 if minor_ else 4)) % 12, (root_ + 7) % 12}
+    for x in m_.hits:
+        if x['kind'] == 'chase':
+            x['midi'] = None
+        elif x['kind'] in ('glock', 'bell', 'peg') and x.get('midi'):
+            x['midi'] = min((x['midi'] + d_ for d_ in range(-2, 3) if (x['midi'] + d_) % 12 in chord_),
+                            key=lambda m: (abs(m - x['midi']), -m))
 
 # ---------------------------------------------------------------- 4c. signature moments inside the pieces
 # Each piece gets one thing of its own, always driven by the notes the marble plays:

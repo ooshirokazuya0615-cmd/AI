@@ -401,6 +401,35 @@ def main(out):
             else:
                 for m in (S.midi(r), S.midi(f5)):
                     place(mix, pad(m, t1 - t0), t0, 0.05)
+    # between pieces the next one's vamp plays in its key, tempo and metre while the marble crosses
+    # (songs7.vamp_rest): a bass note on the strong beats, the tonic chord lightly on the others ("oom-pah"),
+    # or for the pieces that open alone and dark (the Toccata, the Fifth, the Moonlight) one low pedal note
+    if hasattr(S, 'pulse_of') and sampler.available():
+        for s, song in enumerate(S.SONGS):
+            if s == 0 or not song.get('interlude'):
+                continue
+            t_first = min(h['t'] for h in C if h['s'] == s)
+            vs = t_first - song['interlude']
+            p_, beats_, pick_ = S.pulse_of(song)
+            root_, minor_ = S.key_of(song)
+            chord_ = [55 + (root_ + d_ - 55) % 12 for d_ in (0, 3 if minor_ else 4, 7)]
+            if song['key'] in ('toc', 'b5', 'moon'):
+                L_ = t_first - vs + 1.2
+                for k_, m_ in enumerate((root_ - 12 if root_ - 12 >= 28 else root_, root_)):
+                    place(mix, sampler.piano(m_, 0.42, L_, take=k_), vs, 0.16, -0.2)
+                continue
+            j = 0
+            while vs + j * p_ < t_first - 0.05:
+                tb = vs + j * p_
+                b_ = int(round((tb - (t_first + pick_)) / p_)) % beats_
+                cresc = 0.85 + 0.15 * (tb - vs) / max(1e-6, t_first - vs)
+                if b_ == 0 or (beats_ == 4 and b_ == 2):
+                    m_ = root_ if b_ == 0 else (root_ + 7 if root_ + 7 <= 50 else root_ - 5)
+                    place(mix, sampler.piano(m_, 0.55 * cresc, p_ * 1.6, take=j), tb, 0.15, -0.2)
+                else:
+                    for k_, m_ in enumerate(chord_):
+                        place(mix, sampler.piano(m_, 0.40 * cresc, p_ * 0.55, take=j + k_), tb, 0.06, -0.05)
+                j += 1
     for g in ([] if os.environ.get('EVENTS_IN') else GAPS):     # the score film has its own tube events
         if g['kind'] == 'rail':
             place(mix, roll(g['t_sw'] - g['t_rail0']), g['t_rail0'], 0.035)
