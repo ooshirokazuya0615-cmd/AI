@@ -52,20 +52,20 @@ COMPOSER.update({p_['key']: p_['composer_name'] for p_ in NEW_PIECES})
 YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 YEAR_LABEL.update({p_['key']: p_['year_label'] for p_ in NEW_PIECES if p_.get('year_label')})
 # the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
-# rests for it (after the last note has rung)
-# the machines grow through the film: one mechanism in the baroque, two later on, three for the last two
-MACHINE = {'toc': ['stairs'], 'minuet': ['bells'], 'spring': ['dominoes'], 'hall': ['stairs', 'bells'],
-           'tm': ['dominoes', 'bells'], 'ekn': ['loop', 'jump'], 'k545': ['xylo'],
-           'moon': ['spiral'], 'b5': ['plinko', 'tilt'], 'fe': ['spiral', 'helix'], 'march': ['dominoes', 'jump'],
-           'otj': ['jump', 'xylo'],
-           'noct': ['helix'], 'wed': ['bells', 'loop'], 'brin': ['tilt', 'xylo'], 'danube': ['spiral', 'loop'],
-           'lull': ['plinko'], 'carmen': ['jump', 'dominoes', 'bells'], 'mk': ['helix', 'loop', 'dominoes']}
-# lengths set from each machine's own pace with its rails at about 8-9 degrees (measured with MACH_PACE=1)
-# (set from MACH_PACE=1 so each machine runs at about 10 degrees: brisk, and always on time; film8 stops the
-#  build if a machine would arrive after the music needs it)
-INTERLUDE = {'toc': 4.5, 'tm': 7.3, 'ekn': 6.6, 'b5': 8.5, 'fe': 8.4, 'otj': 8.0, 'mk': 9.6,
-             'minuet': 5.0, 'spring': 5.5, 'hall': 7.0, 'k545': 5.0, 'moon': 5.5, 'march': 8.4,
-             'noct': 5.5, 'wed': 7.0, 'brin': 7.0, 'danube': 7.9, 'lull': 5.5, 'carmen': 10.2}
+# rests for it (after the last note has rung). One mechanism at nine of the turns, a bare rail at the others
+# (a quick roll to the next page), so the film keeps moving; the last machine, into the finale, has two
+MACHINE = {'toc': ['stairs'], 'minuet': [], 'spring': [], 'hall': [],
+           'tm': ['bells'], 'ekn': [], 'k545': ['xylo'],
+           'moon': [], 'b5': ['plinko'], 'fe': [], 'march': [],
+           'otj': ['jump'],
+           'noct': ['helix'], 'wed': [], 'brin': [], 'danube': ['loop'],
+           'lull': [], 'carmen': ['dominoes'], 'mk': ['helix', 'loop']}
+# lengths set from each machine's own pace (measured with MACH_PACE=1 MACH_ONLY=1); film8 stops the build if a
+# machine would arrive after the music needs it
+INTERLUDE = {'toc': 4.5, 'tm': 5.0, 'k545': 5.0, 'b5': 5.8, 'otj': 6.0, 'noct': 5.0, 'danube': 5.0,
+             'carmen': 6.0, 'mk': 6.5,
+             'minuet': 3.2, 'spring': 3.2, 'hall': 3.8, 'ekn': 3.6, 'moon': 3.2, 'fe': 3.2, 'march': 3.2,
+             'wed': 3.8, 'brin': 3.8, 'lull': 3.2}
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])

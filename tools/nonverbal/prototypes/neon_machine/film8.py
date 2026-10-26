@@ -541,7 +541,7 @@ for s, song in enumerate(SONGS):
     px = 0.0
     if s > 0:
         drop_ = 0.0
-        if song.get('machine'):                # room for the machine that carries the marble here
+        if 'machine' in song:                  # room for the machine (or bare rail) that carries the marble here
             x_l = HEAD[[h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]['i']][0].x
             px = max(0.0, x_l + 0.14 - (X_LEFT + 0.58) - GD.width_need(song['machine']) - SPAN_MAX)
             drop_ = max(MACH_DROP, GD.height_need(song['machine'], x_l + 0.14 - (X_LEFT + px + 0.58)) - 0.10)
@@ -655,14 +655,16 @@ for g in GAPS:
     if mk_.late > 0.02 and not os.environ.get('ALLOW_LATE'):
         raise SystemExit(f"the machine into {SONGS[s]['key']} arrives {mk_.late:.2f} s after the music needs it: "
                          'give it a longer interlude or a shorter path')
-    if os.environ.get('MACH_PACE'):              # the interlude each machine needs at a lively 7-9 degrees
+    if os.environ.get('MACH_PACE'):              # the interlude each machine needs at a brisk 9-13 degrees
         need = []
-        for deg in (7, 8, 9):
+        for deg in (9, 11, 13):
             m8 = GD._simulate(mk_.kinds, SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], HEAD[L_['i']][2]['z'],
                               HEAD[F_['i']][2]['z'], R, HEAD_Y, math.radians(deg))
             need.append(round(m8.t_arrive - L_['t'] + GD.T_KICK + 0.05 + GD.T_HOP_OUT - min(L_['dur'], 0.8), 2)
                         if m8 else None)
-        print(f"  pace {SONGS[s]['key']}: interlude at 7/8/9 deg = {need}", flush=True)
+        print(f"  pace {SONGS[s]['key']}: interlude at 9/11/13 deg = {need}", flush=True)
+if os.environ.get('MACH_ONLY'):                 # quick check of the machines' timing, without building the scene
+    sys.exit(0)
 
 
 # the opening, one thing at a time and close enough to read (as the most watched marble-music films open: one

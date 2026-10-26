@@ -1,8 +1,9 @@
 """Draw the on-screen layer over rendered frames: the guess-the-song quiz and the timeline of years.
 
-  each piece: a quiz card for its first notes: "?", a 3-2-1 countdown and three choices (the other two are
-              famous pieces of the same era that are not in the film, so nothing later is given away);
-              then the right one lights up with its composer and year
+  each piece: a quiz card for its first notes: "Which piece?", a gold bar that drains while you think, and
+              three big choices (the other two are famous pieces of the same era that are not in the film,
+              so nothing later is given away); then the right one turns gold in place, with its composer
+              and year under it
   bottom:     a timeline 1650-1900; a glowing marker travels to the year of the piece now playing
   end:        a closing question for the comments (the title is engraved on the first page, in the scene)
 
@@ -37,7 +38,7 @@ def era_of(year):
     """The period as the year plate names it (Classical from 1750, Romantic from 1820), so its colour, its
     label and the dots always agree (the Fifth, 1808, is Classical: blue, like its label)."""
     return 'baroque' if year < 1750 else 'classical' if year < 1820 else 'romantic'
-GUESS = 3.0          # seconds from the first note to the answer (three dots drain, one a second)
+GUESS = 3.0          # seconds from the first note to the answer (the gold bar drains)
 SHOW = 3.0           # seconds the answer stays
 LEAD = 1.2           # the question is up this long before the first note (from the second piece on)
 # the three choices for each piece: (decoys..., with the answer at index ANSWER_AT); all public domain
@@ -119,6 +120,73 @@ def film_finish(im, f):
     g = np.random.default_rng(f).normal(0, 0.012, (H, W, 1)).astype(np.float32)
     x = np.clip(x + g * (0.6 + 0.4 * x), 0, 1)
     return Image.fromarray((x * 255).astype(np.uint8)).convert('RGBA')
+
+
+# the quiz rows: the longest titles in a shorter common form, so the type can be big enough for a phone
+QUIZ_NAME = {'Toccata and Fugue in D minor': 'Toccata & Fugue in D minor', 'Hallelujah Chorus (Messiah)': 'Hallelujah Chorus',
+             'Piano Sonata No. 16 (K. 545)': 'Piano Sonata K. 545', 'In the Hall of the Mountain King': 'Hall of the Mountain King',
+             'Arrival of the Queen of Sheba': 'Queen of Sheba', 'Winter, The Four Seasons': 'Winter (The Four Seasons)'}
+
+
+def quiz_card(d, W, H, idx, n, names, right, u, alpha, sub=None, note=None):
+    """The guess card, top right: "Which piece?", a gold bar that drains while you think, three big rows.
+    At the answer the same card stays put: the right row turns gold with a tick and its composer and year
+    appear under it, the other two fade (nothing jumps, so the eye stays on the answer)."""
+    if alpha <= 0:
+        return
+    k = W / 1920
+    f_head, f_row, f_sub = font(SANS_B, int(34 * k)), font(CHOICE_B, int(56 * k)), font(SANS, int(36 * k))
+    f_note, f_badge = font(SANS_B, int(32 * k)), font(SANS_B, int(30 * k))
+    tw = lambda t, f: d.textbbox((0, 0), t, font=f)[2]
+    pad, badge, gap = int(30 * k), int(50 * k), int(22 * k)
+    row_h, head_h = int(56 * k * 1.42), int(34 * k * 1.9)
+    inner = max([tw(nm, f_row) for nm in names] + [0]) + badge + gap
+    inner = max(inner, tw('WHICH PIECE?', f_head) + tw(f'{n} of {n}', f_head) + int(60 * k),
+                tw(sub or '', f_sub) + badge + gap, tw(note or '', f_note))
+    answered = u >= GUESS
+    h_ = pad + head_h + 3 * row_h + (int(36 * k * 1.5) if answered and sub else 0) + \
+        (int(32 * k * 1.6) + int(6 * k) if answered and note else 0) + pad
+    x1, y0 = int(W * 0.97), int(H * 0.035)
+    x0 = x1 - inner - 2 * pad
+    A = lambda v: int(v * alpha)
+    d.rounded_rectangle((x0, y0, x1, y0 + h_), radius=int(8 * k), fill=(12, 11, 16, A(196)),
+                        outline=(*GOLD, A(170)), width=max(1, int(2 * k)))
+    y = y0 + pad
+    d.text((x0 + pad, y), 'WHICH PIECE?', font=f_head, fill=(255, 214, 140, A(255)))
+    cnt = f'{idx + 1} of {n}'                     # ("6 of 20", not "6/20": over a staff a slash reads as a time signature)
+    d.text((x1 - pad - tw(cnt, f_head), y), cnt, font=f_head, fill=(255, 255, 255, A(190)))
+    bar_y = y + int(34 * k * 1.35)                # the time to think: a gold line that drains, left to right
+    left = 1.0 if u < 0 else max(0.0, 1.0 - u / GUESS)
+    d.rounded_rectangle((x0 + pad, bar_y, x1 - pad, bar_y + max(2, int(5 * k))), radius=int(3 * k), fill=(255, 255, 255, A(40)))
+    if left > 0:
+        d.rounded_rectangle((x0 + pad, bar_y, x0 + pad + int((inner) * left), bar_y + max(2, int(5 * k))),
+                            radius=int(3 * k), fill=(*GOLD, A(230)))
+    y += head_h
+    v = u - GUESS
+    for j, nm in enumerate(names):
+        hit = answered and j == right
+        dim = 1.0 if not answered else (1.0 if hit else 1.0 - 0.7 * smooth(v / 0.3))
+        cy = y + row_h // 2
+        bx = x0 + pad + badge // 2
+        if hit:                                   # the right one: a gold disc with a tick, gold type
+            d.ellipse((bx - badge // 2, cy - badge // 2, bx + badge // 2, cy + badge // 2), fill=(255, 214, 140, A(255)))
+            d.text((bx - tw('✓', f_badge) // 2, cy - int(30 * k * 0.62)), '✓', font=f_badge, fill=(20, 16, 10, A(255)))
+            col_ = (255, 214, 140)
+        else:
+            d.ellipse((bx - badge // 2, cy - badge // 2, bx + badge // 2, cy + badge // 2),
+                      outline=(255, 255, 255, A(200 * dim)), width=max(1, int(2 * k)))
+            L = 'ABC'[j]
+            d.text((bx - tw(L, f_badge) // 2, cy - int(30 * k * 0.62)), L, font=f_badge, fill=(255, 255, 255, A(235 * dim)))
+            col_ = (244, 244, 248)
+        d.text((x0 + pad + badge + gap, cy - int(56 * k * 0.62)), nm, font=f_row, fill=(*col_, A(255 * dim)))
+        y += row_h
+        if hit and sub:                           # the composer and the year, under the right answer (the rows
+            #                                       below it move down to make room)
+            d.text((x0 + pad + badge + gap, y - int(6 * k)), sub, font=f_sub, fill=(255, 214, 140, A(235 * smooth((v - 0.15) / 0.3))))
+            y += int(36 * k * 1.5)
+    if answered and note:
+        y += int(6 * k)
+        d.text((x0 + pad, y), note, font=f_note, fill=(255, 255, 255, A(240 * smooth((v - 0.6) / 0.4))))
 
 
 def main():
@@ -228,26 +296,15 @@ def main():
             right = opts.index(None)
             # every choice in the same form (a title only), so the layout never gives the answer away
             names = [song['title'] if o is None else o.split('  (')[0] for o in opts]
-            col = ERA_COL[era_of(song['year'])]
+            names = [QUIZ_NAME.get(nm, nm) for nm in names]
             a_ = smooth((u + lead) / fade_in) * (1 - smooth((u - end + 0.4) / 0.4))
-            if u < GUESS:
-                n_left = 3 - int(max(0.0, u) / (GUESS / 3))                 # 3, 2, 1 dots
-                # "6 of 8", not "6/8": over a staff a slash reads as a time signature
-                lines = [(f'{idx + 1} of {len(starts)}     ' + '●' * n_left + '○' * (3 - n_left), CHOICE_B, 40, (255, 255, 255))]
-                lines += [(f'{"ABC"[k]}   {names[k]}', CHOICE, 44, (240, 240, 244)) for k in range(3)]
-            else:
-                v = u - GUESS
-                lines = [(f'✓  {"ABC"[right]}   {song["title"]}', CHOICE_B, 48, col),    # (DejaVu has the tick)
-                         (f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", SANS_B, 40, col,
-                          smooth((v - 0.15) / 0.3))]
-                if idx in (0, len(starts) - 1):            # the first answer and the last: keep them to the end
-                    lines.append(('Keep count: your rank is at the end', SANS_B, 34, (255, 255, 255), smooth((v - 0.6) / 0.4)))
-                elif idx == len(starts) // 2 - 1:          # halfway: a moment to take stock
-                    lines.append((f'{idx + 1} of {len(starts)}  —  how many so far?', SANS_B, 34, (255, 255, 255),
-                                  smooth((v - 0.6) / 0.4)))
-            pop = 1.0 + (0.12 * math.sin(math.pi * min(1.0, (u - GUESS) / 0.35)) if u >= GUESS else 0.0)  # the reveal pops
-            card(d, W, H, W // 2, int(H * 0.04), lines, a_, pop, left=True, right_edge=int(W * 0.97),
-                 centre_first=u >= GUESS)                                   # top right, clear of the marble
+            note = None
+            if idx in (0, len(starts) - 1):                # the first answer and the last: keep them to the end
+                note = 'Keep count: your rank is at the end'
+            elif idx == len(starts) // 2 - 1:              # halfway: a moment to take stock
+                note = f'{idx + 1} of {len(starts)}  —  how many so far?'
+            quiz_card(d, W, H, idx, len(starts), names, right, u, a_,
+                      sub=f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", note=note)
         # ---- the opening promise, for viewers who meet it muted in the feed
         if t < t_first + 0.3:                           # (in as the light comes up, out with the first note)
             a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))

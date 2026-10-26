@@ -100,12 +100,12 @@ def roll_time(L, v0, a0):
 
 
 def width_need(kinds):
-    return W_T1 + sum(WIDTH[k] for k in kinds) + W_LINK * (len(kinds) - 1) + W_LAST_MIN + 0.1
+    return W_T1 + sum(WIDTH[k] for k in kinds) + W_LINK * max(0, len(kinds) - 1) + W_LAST_MIN + 0.1   # ([]: a bare rail)
 
 
 def height_need(kinds, span_x):
     """Height (marble centre, top rail to spring) a chain needs, with its rails at about 8 degrees."""
-    rails = W_T1 + W_LINK * (len(kinds) - 1) + max(W_LAST_MIN, span_x - width_need(kinds) + W_LAST_MIN)
+    rails = W_T1 + W_LINK * max(0, len(kinds) - 1) + max(W_LAST_MIN, span_x - width_need(kinds) + W_LAST_MIN)
     return sum(HEIGHT[k] for k in kinds) + rails * math.tan(math.radians(8)) + 0.22
 
 
