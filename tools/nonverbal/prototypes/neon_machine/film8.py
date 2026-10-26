@@ -2156,12 +2156,13 @@ def reveal_time(z):
 
 
 # the last image: the whole wall, every page lit, the marble's path drawn on it; the wall left of centre and
-# the closing card in the open gallery to its right
+# the closing card in the open gallery to its right (a tall column of pages: its right edge just short of
+# the middle, so wall and card sit together; a wide wall keeps its centre at 29% of the frame)
 _wx0, _wx1 = X_LEFT - 0.4, max(max(r_['x1'] for r_ in ROWS), DRUM.x) + 0.6
 _wz0, _wz1 = DRUM.z - 0.7, ROWS[0]['z'] + 4 * LS + 1.15
 WIDE_H = (_wz1 - _wz0) * 1.06
 WIDE_D = WIDE_H / (2 * 10.125 / 50.0)
-WIDE_C = Vector(((_wx0 + _wx1) / 2 + 0.21 * WIDE_H * 16 / 9, HEAD_Y, (_wz0 + _wz1) / 2))
+WIDE_C = Vector((min((_wx0 + _wx1) / 2 + 0.21 * WIDE_H * 16 / 9, _wx1 + 0.03 * WIDE_H * 16 / 9), HEAD_Y, (_wz0 + _wz1) / 2))
 WIDE_OFF = Vector((0.0, -WIDE_D, 0.0))
 
 
