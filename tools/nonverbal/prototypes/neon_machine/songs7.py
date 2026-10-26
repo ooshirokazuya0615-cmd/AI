@@ -51,27 +51,31 @@ COMPOSER.update({p_['key']: p_['composer_name'] for p_ in NEW_PIECES})
 # BWV 565's date and even its authorship are debated)
 YEAR_LABEL = {'canon': 'c. 1680', 'toc': 'c. 1704'}
 YEAR_LABEL.update({p_['key']: p_['year_label'] for p_ in NEW_PIECES if p_.get('year_label')})
-# the Pythagora-switch machine that carries the marble into each piece (gadgets.py), and how long the music
-# rests for it (after the last note has rung). One mechanism at nine of the turns, a bare rail at the others
-# (a quick roll to the next page), so the film keeps moving; the last machine, into the finale, has two
-MACHINE = {'toc': ['stairs'], 'minuet': [], 'spring': [], 'hall': [],
-           'tm': ['bells'], 'ekn': [], 'k545': ['xylo'],
-           'moon': [], 'b5': ['plinko'], 'fe': [], 'march': [],
-           'otj': ['jump'],
-           'noct': ['helix'], 'wed': [], 'brin': [], 'danube': ['loop'],
-           'lull': [], 'carmen': ['dominoes'], 'mk': ['helix', 'loop']}
-# lengths set from each machine's own pace (measured with MACH_PACE=1 MACH_ONLY=1); film8 stops the build if a
-# machine would arrive after the music needs it
-INTERLUDE = {'toc': 4.5, 'tm': 5.0, 'k545': 5.0, 'b5': 5.8, 'otj': 6.0, 'noct': 5.0, 'danube': 5.0,
-             'carmen': 6.0, 'mk': 6.5,
-             'minuet': 3.2, 'spring': 3.2, 'hall': 3.8, 'ekn': 3.6, 'moon': 3.2, 'fe': 3.2, 'march': 3.2,
-             'wed': 3.8, 'brin': 3.8, 'lull': 3.2}
+# between pieces the marble takes a glass tube to the next page, as at a line break, and the next piece
+# comes in like the next number of a medley: the last note rings (at most 0.8 s, then it rings on under the
+# new piece), and the new piece starts about a second later on its own beat (a whole number of its beats,
+# and never less than a second's ride through the tube). No machines between pieces: they held the music up
+# (gadgets.py and MACHINE still work, for a film that wants them)
+MACHINE = {}
+
+
+def medley_gap(song, prev):
+    """The rest before a piece (after the previous one's last note has rung, at most 0.8 s)."""
+    b = song['beat']
+    while b > 1.3:                        # a slow beat (the Moonlight's bar-long one): count in halves
+        b /= 2
+    n = max(1, round(1.0 / b))
+    while min(prev['notes'][-1][1] * prev['unit'], 0.8) + n * b - 0.34 < 1.0:    # the ride needs a second
+        n += 1
+    return n * b
 SONGS = []
 for (key, year, era), gap in zip(ORDER, GAPS_IN):
     s = dict(mk if key == 'mk' else by[key])
     s.update(year=year, era=era, gap_in=gap, composer_name=COMPOSER[key], year_label=YEAR_LABEL.get(key, str(year)))
     if key in MACHINE:
-        s.update(machine=MACHINE[key], interlude=INTERLUDE[key])
+        s.update(machine=MACHINE[key])
+    if SONGS:
+        s.update(interlude=medley_gap(s, SONGS[-1]))
     SONGS.append(s)
 SONGS[0]['title'] = 'Canon in D'
 SONGS[1]['title'] = 'Toccata and Fugue in D minor'      # "Toccata in D minor" alone is also BWV 913

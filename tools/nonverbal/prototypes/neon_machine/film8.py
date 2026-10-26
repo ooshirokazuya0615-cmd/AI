@@ -548,6 +548,11 @@ for s, song in enumerate(SONGS):
         row_z -= ROW_H * 1.25 + drop_          # a new page starts lower
     PAGE_X[s] = px
     row = dict(s=s, z=row_z, t0=hs[0]['t'], x0=X_LEFT + px + CLEF_W + 0.35, notes=[], first=True, px=px)
+    if s > 0 and 'machine' not in song:          # no machine: a glass tube to the new page, as at a line break,
+        last_ = [h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]     # the medley runs straight on
+        RETURNS[last_['i']] = dict(t0=last_['t'] + 0.18, t1=hs[0]['t'] - 0.16, row_from=ROWS[-1], row_to=row,
+                                   at_bar=True, width=ROWS[-1]['x1'] - ROWS[-1]['x0'], page=True)
+        row['after_return'] = True
     ROWS.append(row)
     sec_rows[s] = [row]
     nunits = song.get('nunits') or [u for _, u in song['notes']]
@@ -643,6 +648,8 @@ for i, ret in RETURNS.items():
 GAPMACH = {}
 for g in GAPS:
     s = g['s']
+    if 'machine' not in SONGS[s]:                # (a tube to the next page instead)
+        continue
     L_ = [h for h in C if h['s'] == s - 1 and h['mech'] != 'bigdrum'][-1]
     F_ = [h for h in C if h['s'] == s and h['mech'] != 'bigdrum'][0]
     mk_ = GD.plan(SONGS[s].get('machine', ['stairs']), SONGS[s]['era'], CON[L_['i']], L_['t'], CON[F_['i']], F_['t'],
@@ -970,9 +977,9 @@ for s, song in enumerate(SONGS):
         nc = NEON[ERAS[era]['neon'][0]]
         trim_m = mat(f'trim{s}', (0.80, 0.60, 0.30), 0.3, metal=1.0, emit=nc, emit_s=0.0)
         cyl((W_X0, WALL_Y - 0.016, z_top), (W_X1, WALL_Y - 0.016, z_top), 0.016, trim_m, 12)
-        if s in GAPMACH:                        # the new page's border flares as the marble arrives
-            tF = GAPMACH[s].F['t']
-            emit_keys(trim_m, ((tF - 0.02, 0.0), (tF + 0.06, 9.0), (tF + 0.9, 0.0)))
+        # the new page's border flares as the marble arrives (from a machine or out of the tube)
+        tF = GAPMACH[s].F['t'] if s in GAPMACH else sec_rows[s][0]['notes'][0]['t']
+        emit_keys(trim_m, ((tF - 0.02, 0.0), (tF + 0.06, 9.0), (tF + 0.9, 0.0)))
     ink = ink_mat(page_of(song))
     for row in sec_rows[s]:
         x0s, x1s = X_LEFT + row['px'] + 0.05, row['x1']
