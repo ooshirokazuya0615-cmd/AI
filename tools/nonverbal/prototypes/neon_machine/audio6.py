@@ -413,10 +413,14 @@ def main(out):
             p_, beats_, pick_ = S.pulse_of(song)
             root_, minor_ = S.key_of(song)
             chord_ = [55 + (root_ + d_ - 55) % 12 for d_ in (0, 3 if minor_ else 4, 7)]
-            if song['key'] in ('toc', 'b5', 'moon'):
-                L_ = t_first - vs + 1.2
-                for k_, m_ in enumerate((root_ - 12 if root_ - 12 >= 28 else root_, root_)):
-                    place(mix, sampler.piano(m_, 0.42, L_, take=k_), vs, 0.16, -0.2)
+            if song['key'] in ('toc', 'b5', 'moon'):     # struck again on each bar, growing, so it carries
+                bar_, j = p_ * beats_, 0
+                while vs + j * bar_ < t_first - 0.05:
+                    tb = vs + j * bar_
+                    cresc = 0.8 + 0.2 * (tb - vs) / max(1e-6, t_first - vs)
+                    for k_, m_ in enumerate((root_ - 12 if root_ - 12 >= 28 else root_, root_)):
+                        place(mix, sampler.piano(m_, 0.50 * cresc, t_first - tb + 1.0, take=j + k_), tb, 0.20, -0.2)
+                    j += 1
                 continue
             j = 0
             while vs + j * p_ < t_first - 0.05:
@@ -425,10 +429,10 @@ def main(out):
                 cresc = 0.85 + 0.15 * (tb - vs) / max(1e-6, t_first - vs)
                 if b_ == 0 or (beats_ == 4 and b_ == 2):
                     m_ = root_ if b_ == 0 else (root_ + 7 if root_ + 7 <= 50 else root_ - 5)
-                    place(mix, sampler.piano(m_, 0.55 * cresc, p_ * 1.6, take=j), tb, 0.15, -0.2)
+                    place(mix, sampler.piano(m_, 0.55 * cresc, p_ * 1.6, take=j), tb, 0.22, -0.2)
                 else:
                     for k_, m_ in enumerate(chord_):
-                        place(mix, sampler.piano(m_, 0.40 * cresc, p_ * 0.55, take=j + k_), tb, 0.06, -0.05)
+                        place(mix, sampler.piano(m_, 0.40 * cresc, p_ * 0.55, take=j + k_), tb, 0.09, -0.05)
                 j += 1
     for g in ([] if os.environ.get('EVENTS_IN') else GAPS):     # the score film has its own tube events
         if g['kind'] == 'rail':
