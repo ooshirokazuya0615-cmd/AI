@@ -670,31 +670,39 @@ for g in GAPS:
             need.append(round(m8.t_arrive - L_['t'] + GD.T_KICK + 0.05 + GD.T_HOP_OUT - min(L_['dur'], 0.8), 2)
                         if m8 else None)
         print(f"  pace {SONGS[s]['key']}: interlude at 9/11/13 deg = {need}", flush=True)
-if os.environ.get('MACH_ONLY'):                 # quick check of the machines' timing, without building the scene
-    sys.exit(0)
 
-
-# the opening, one thing at a time and close enough to read (as the most watched marble-music films open: one
-# clear subject and a start you can see): the Canon's ground bass leads in alone (songs7.INTRO_BEATS) in a
-# room lit by one candle. The marble waits behind a brass gate at the top of a long ledge, empty glass. A spark
+# the opening, one thing at a time and close enough to read, then a slow machine before the music: in a room
+# lit by one candle the marble waits behind a brass gate at the top of a short ledge, empty glass. A spark
 # leaps from the candle into it and it catches: a flame of its own lights up inside the glass, and the room's
-# light comes up with it. The marble presses on the gate, the gate swings open, and it rolls down from rest,
-# gathering speed, onto the first note as the melody enters.
+# light comes up with it. The marble presses on the gate, the gate swings open, and it rolls off gently into
+# a Pythagora switch (songs7.OPEN_MACHINE: bells that chime in D, then a run of dominoes); the Canon's ground
+# bass comes in under it, and the melody enters as the spring drops the marble on the first note.
 BEAT0 = SONGS[0]['beat']
 T_HOP0 = 0.18
-T_GATE = C[0]['t'] - 3 * BEAT0
-T_IGNITE = T_GATE - BEAT0                        # the spark lands on the beat before the gate opens...
-T_SPARK = T_IGNITE - BEAT0                       # ...and leaves the candle on the beat before that
+T_SPARK = S.OPEN_SPARK                           # the spark leaves the candle...
+T_IGNITE = T_SPARK + BEAT0                       # ...lands a beat later and the flame catches...
+T_GATE = T_IGNITE + BEAT0                        # ...and the gate opens on the next
 LEDGE_LEN = 0.48
 LIGHT_UP = T_IGNITE + 0.8                        # the room's light comes up with the flame
-LEDGE_ACC = 2 * LEDGE_LEN / (C[0]['t'] - T_HOP0 - T_GATE) ** 2      # rolling from rest: reaches the end on time
-LEDGE_TH = math.asin(LEDGE_ACC / (5 / 7 * 9.81))
-LEDGE_V = LEDGE_ACC * (C[0]['t'] - T_HOP0 - T_GATE)
-LEDGE_END = CON[0] + Vector((-0.10, 0, 0.06))
+LEDGE_TH = math.radians(4.0)                     # a gentle slope: it sets off slowly
+LEDGE_ACC = 5 / 7 * 9.81 * math.sin(LEDGE_TH)
+T_LEDGE = T_GATE + math.sqrt(2 * LEDGE_LEN / LEDGE_ACC)
+LEDGE_V = LEDGE_ACC * (T_LEDGE - T_GATE)
+OPEN_W = GD.width_need(S.OPEN_MACHINE)
+# the machine runs left above the first line and drops the marble on its first note (as at every turn)
+LEDGE_END = Vector((CON[0].x - 0.32 + OPEN_W - 0.20, CON[0].y,
+                    ROWS[0]['z'] + 0.80 + GD.height_need(S.OPEN_MACHINE, OPEN_W) + 0.45))
 LEDGE_START = LEDGE_END + Vector((-LEDGE_LEN * math.cos(LEDGE_TH), 0, LEDGE_LEN * math.sin(LEDGE_TH)))
-print(f'opening: spark {T_SPARK:.2f} s, lit {T_IGNITE:.2f} s, gate {T_GATE:.2f} s, first note {C[0]["t"]:.2f} s, '
-      f'ledge {math.degrees(LEDGE_TH):.1f} deg, '
-      f'leaves at {LEDGE_V:.2f} m/s', flush=True)
+mo_ = GD.plan(S.OPEN_MACHINE, SONGS[0]['era'], LEDGE_END, T_LEDGE, CON[0], C[0]['t'], LEDGE_END.z, ROWS[0]['z'], R, HEAD_Y)
+mo_.L, mo_.F, mo_.swing = None, C[0], -1.0
+GAPMACH = {0: mo_, **GAPMACH}
+print(f'opening: spark {T_SPARK:.2f} s, lit {T_IGNITE:.2f} s, gate {T_GATE:.2f} s, off the ledge {T_LEDGE:.2f} s, '
+      f'first note {C[0]["t"]:.2f} s; machine {mo_.kind}, rail angle {math.degrees(mo_.theta):.1f} deg, '
+      f'spring waits {mo_.wait:.2f} s' + (f', LATE by {mo_.late:.2f} s' if mo_.late > 0 else ''), flush=True)
+if mo_.late > 0.02 and not os.environ.get('ALLOW_LATE'):
+    raise SystemExit(f'the opening machine arrives {mo_.late:.2f} s after the first note: start the bass later')
+if os.environ.get('MACH_ONLY'):                 # quick check of the machines' timing, without building the scene
+    sys.exit(0)
 
 
 def ease(k):
@@ -799,13 +807,13 @@ def rescue_view(t):
 
 def ball_pos(t):
     if t <= C[0]['t']:
-        # the opening: it waits behind the gate, rolls down the ledge from rest, and drops onto the first note
+        # the opening: it waits behind the gate, rolls down the ledge from rest, then into the opening machine
         if t <= T_GATE:                         # it presses on the gate once, then waits for it to open
             u_ = (t - (T_GATE - 0.40)) / 0.16
             return LEDGE_START + Vector((0.006 * math.sin(math.pi * u_) if 0.0 < u_ < 1.0 else 0.0, 0, 0))
-        if t <= C[0]['t'] - T_HOP0:
+        if t <= T_LEDGE:
             return LEDGE_START.lerp(LEDGE_END, 0.5 * LEDGE_ACC * (t - T_GATE) ** 2 / LEDGE_LEN)
-        return ballistic(LEDGE_END, C[0]['t'] - T_HOP0, CON[0], C[0]['t'], t)
+        return GAPMACH[0].pos(t)                 # through the opening machine onto the first note
     for h0, h1 in zip(C[:-1], C[1:]):
         if h0['t'] <= t <= h1['t']:
             p0, p1 = CON[h0['i']], CON[h1['i']]
@@ -1131,8 +1139,24 @@ for t_, a_ in ((0.0, 0.0), (T_GATE - 0.36, 0.0), (T_GATE - 0.30, -0.08), (T_GATE
                (T_GATE + 0.09, -1.48), (T_GATE + 0.17, -1.30), (T_GATE + 0.25, -1.38)):
     gate.rotation_euler = (0, a_, 0)                 # rattles as the marble presses, then swings up and away
     gate.keyframe_insert('rotation_euler', frame=fr(t_))
-# the spark: from the candle's flame (its practical lamp, section 3b) in an arc to the marble, on the beat
-CANDLE = Vector((X_LEFT + ROWS[0]['px'] - 0.34, 0.50, ROWS[0]['z'] + 0.52 + 0.05))
+# the spark: from a candle on the wall beside the gate, in an arc to the marble, on the beat
+CANDLE = Vector((LEDGE_START.x - 0.55, 0.50, LEDGE_START.z + 0.06))          # (its flame)
+_cp = CANDLE - Vector((0, 0, 0.045))
+cyl((_cp.x, WALL_Y, _cp.z - 0.10), (_cp.x, _cp.y, _cp.z - 0.10), 0.008, M_LEDGE, 10)          # wall arm
+cyl(_cp + Vector((0, 0, -0.12)), _cp + Vector((0, 0, -0.10)), 0.035, M_LEDGE, 24)               # drip tray
+cyl(_cp + Vector((0, 0, -0.10)), _cp + Vector((0, 0, 0.02)), 0.014, mat('wax0', (0.92, 0.86, 0.72), 0.6), 16)
+_cf = sphere(CANDLE, 0.012, mat('flame0', (1.0, 0.7, 0.3), 0.5, emit=(1.0, 0.62, 0.25), emit_s=14), scale=(0.7, 0.7, 1.6), segs=12)
+_cl = bpy.data.lights.new('candle0', 'POINT')
+_cl.color, _cl.shadow_soft_size = (1.0, 0.68, 0.35), 0.02
+_clo = bpy.data.objects.new('candle0', _cl)
+sc.collection.objects.link(_clo)
+_clo.location = CANDLE + Vector((0, -0.02, 0.005))
+for _k in range(int(T_END / 0.16) + 1):              # it flickers, as the candles on the lines do
+    _e = 6.0 * rng.uniform(0.82, 1.08)
+    _cl.energy = _e
+    _cl.keyframe_insert('energy', frame=fr(_k * 0.16))
+    _cf.scale = (0.7, 0.7, 1.6 * _e / 6.0)
+    _cf.keyframe_insert('scale', frame=fr(_k * 0.16))
 SPARK_TOP = max(CANDLE.z, LEDGE_START.z) + 0.16
 M_SPARK = mat('spark0', (1.0, 0.8, 0.4), 0.3, emit=(1.0, 0.72, 0.30), emit_s=40)
 
@@ -1151,7 +1175,7 @@ for j_, sz_ in enumerate((0.009, 0.006, 0.0045, 0.0035)):     # the spark and a 
         o_.location = spark_at((f_ - 1) / FPS - 0.035 * j_)
         o_.keyframe_insert('location', frame=f_)
 burst(LEDGE_START, T_IGNITE, (0.5, 0.75, 1.0), n=10, speed=0.7, life=0.45)      # it catches with a shower of sparks
-TITLE_X, TITLE_Z = X_LEFT + 1.30, ROWS[0]['z'] + 4 * LS + 1.25   # clear above the opening view, not cut by its top edge
+TITLE_X, TITLE_Z = X_LEFT + 1.30, LEDGE_START.z + 0.95   # above the opening machine; read on the way up at the end
 text_obj('One Flame', Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z)), 0.19, ink_mat(SONGS[0]['era']),
          font='/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf')
 text_obj(f"{len(SONGS)} pieces  ·  {SONGS[0]['year']} – {SONGS[-1]['year']}", Vector((TITLE_X, WALL_Y - 0.006, TITLE_Z - 0.16)),
@@ -2011,13 +2035,37 @@ _POS = {h['i']: k for k, h in enumerate(C)}
 RET_PAIRS = [(C[_POS[i]], C[_POS[i] + 1], r['row_from'], r['row_to'], r['t0']) for i, r in RETURNS.items()]
 
 
+def machine_view(m_, t_last, h1, tt):
+    """The camera through a machine: first the whole of it (what is it going to do?), then the marble, then
+    the next piece's first-note framing, reached before the first note."""
+    x0_, x1_, z0_, z1_ = m_.box               # first, the whole machine: what is it going to do?
+    wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
+    zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
+    # the pull-back starts as the marble leaves (the last hit, or the opening's ledge), holds, then follows
+    w = smooth((tt - (t_last + 0.2)) / 1.6) * (1 - smooth((tt - (t_last + 2.0)) / 0.8))
+    w *= 1 - m_.closeness(tt)                 # a close-up (the loop, the rim) wins over the wide view
+    zf_ = m_.zoom(tt, MACH_ZOOM)
+    att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
+    el_, yw_ = m_.elev(tt) * (1 - w), m_.yaw(tt)
+    # and it arrives settled: the next piece's first-note framing (a little wider and higher, to
+    # take the marble's drop in) is reached before the first note plays
+    ka = smooth((tt - (h1['t'] - 1.5)) / 1.1)
+    pb, zb = row_point(HEAD[h1['i']][2], h1['t'])
+    p_, z_ = att.lerp(pb + Vector((0, 0, 0.12)), ka), zz + (zb * 1.2 - zz) * ka
+    # ...but never so far ahead that the marble leaves the frame: keep it in the middle 70%
+    bp_ = m_.pos(tt)
+    hw_, hh_ = 0.35 * VIEW_H * 16 / 9 * z_, 0.35 * VIEW_H * z_
+    p_ = Vector((min(max(p_.x, bp_.x - hw_), bp_.x + hw_), p_.y, min(max(p_.z, bp_.z - hh_), bp_.z + hh_)))
+    return (p_, z_, (el_ * (1 - ka), yw_ * (1 - ka)))
+
+
 def frame_point(tt):
     """Where the camera wants to look at time tt: on a row, the music's position and the middle of the
     notes in view. While the ball is in a tube (a carriage return, or the way to the next page), the camera
     eases from the end of one row to the start of the next, pulling back a little on the way, so it is
     settled before the next note."""
-    if tt <= C[0]['t']:
-        return (*row_point(ROWS[0], C[0]['t']), (0.0, 0.0))
+    if tt <= C[0]['t']:                          # the opening machine, onto the first note
+        return machine_view(GAPMACH[0], T_LEDGE, C[0], tt)
     for h0, h1, r0, r1, t_ret in RET_PAIRS:
         # a carriage return: from the row's last bars the view opens to hold the row end and the next row's
         # start together, so the ride through the tube crosses the frame, then closes in on the new row
@@ -2037,26 +2085,7 @@ def frame_point(tt):
             if RESCUE and h0 is RESCUE['h0']:
                 return rescue_view(tt)
             if h0['s'] != h1['s'] and h1['s'] in GAPMACH:       # a machine: follow the marble through it
-                m_ = GAPMACH[h1['s']]
-                x0_, x1_, z0_, z1_ = m_.box               # first, the whole machine: what is it going to do?
-                wide = Vector(((x0_ + x1_) / 2, HEAD_Y, (z0_ + z1_) / 2))
-                zw = min(3.2, max(1.4, (x1_ - x0_ + 0.5) / (VIEW_H * 16 / 9), (z1_ - z0_ + 0.45) / VIEW_H))
-                # the pull-back starts on the piece's last hit (not before), holds, then follows the marble
-                w = smooth((tt - (h0['t'] + 0.2)) / 1.6) * (1 - smooth((tt - (h0['t'] + 2.0)) / 0.8))
-                w *= 1 - m_.closeness(tt)                 # a close-up (the loop, the rim) wins over the wide view
-                zf_ = m_.zoom(tt, MACH_ZOOM)
-                att, zz = m_.attention(tt).lerp(wide, w), zf_ + (zw - zf_) * w
-                el_, yw_ = m_.elev(tt) * (1 - w), m_.yaw(tt)
-                # and it arrives settled: the next piece's first-note framing (a little wider and higher, to
-                # take the marble's drop in) is reached before the first note plays
-                ka = smooth((tt - (h1['t'] - 1.5)) / 1.1)
-                pb, zb = row_point(HEAD[h1['i']][2], h1['t'])
-                p_, z_ = att.lerp(pb + Vector((0, 0, 0.12)), ka), zz + (zb * 1.2 - zz) * ka
-                # ...but never so far ahead that the marble leaves the frame: keep it in the middle 70%
-                bp_ = m_.pos(tt)
-                hw_, hh_ = 0.35 * VIEW_H * 16 / 9 * z_, 0.35 * VIEW_H * z_
-                p_ = Vector((min(max(p_.x, bp_.x - hw_), bp_.x + hw_), p_.y, min(max(p_.z, bp_.z - hh_), bp_.z + hh_)))
-                return (p_, z_, (el_ * (1 - ka), yw_ * (1 - ka)))
+                return machine_view(GAPMACH[h1['s']], h0['t'], h1, tt)
             r0 = HEAD[h0['i']][2]
             r1 = HEAD[h1['i']][2] if h1['i'] in HEAD else r0
             if r1 is r0:
@@ -2209,7 +2238,7 @@ for k_ in range(len(SONGS)):
 _ox0, _ox1 = CANDLE.x - 0.24, LEDGE_START.x + 0.42
 OPEN_C = Vector(((_ox0 + _ox1) / 2, HEAD_Y, (CANDLE.z + LEDGE_START.z) / 2 + 0.03))
 OPEN_Z = (_ox1 - _ox0) / (VIEW_H * 16 / 9)       # the candle and the marble, close
-OPEN_T1 = C[0]['t'] + 0.35
+OPEN_T1 = T_LEDGE + 0.9                         # by then the camera is with the opening machine
 OPEN_YAW = 0.12
 
 
@@ -2217,7 +2246,7 @@ def cam_at(t):
     tg, zf, (el, yw) = target(t)
     if t < OPEN_T1:
         # the candle and the marble held close (a slow drift in) while the spark flies and the flame catches,
-        # then the camera follows the marble down the ledge and arrives on the first note just after it plays
+        # then the camera opens out to the opening machine as the marble rolls off the ledge into it
         d_ = smooth(min(1.0, t / (T_GATE - 0.1)))
         c0, z0 = OPEN_C + Vector((0.06 * d_, 0, -0.02 * d_)), OPEN_Z * (1.08 - 0.08 * d_)
         k = smooth((t - (T_GATE - 0.25)) / (OPEN_T1 - (T_GATE - 0.25)))
@@ -2401,7 +2430,7 @@ if os.environ.get('DEBUG_PIPES') == 'keys':       # which action drives each pip
 import json  # noqa: E402
 ev_path = os.environ.get('EVENTS_OUT')
 if ev_path:
-    json.dump(dict(intro=dict(first=C[0]['t'], gate=T_GATE, spark=T_SPARK, ignite=T_IGNITE, roll=[T_GATE, C[0]['t'] - T_HOP0, LEDGE_V]),
+    json.dump(dict(intro=dict(first=C[0]['t'], gate=T_GATE, spark=T_SPARK, ignite=T_IGNITE, roll=[T_GATE, T_LEDGE, LEDGE_V]),
                    returns=[dict(t0=r['t0'], t1=r['t1']) for r in RETURNS.values()],
                    gaps=[], taps=TAPS, mhits=[x for m_ in GAPMACH.values() for x in m_.hits] + RESCUE_HITS + SIG_HITS,
                    mrolls=[x for m_ in GAPMACH.values() for x in m_.rolls]), open(ev_path, 'w'))

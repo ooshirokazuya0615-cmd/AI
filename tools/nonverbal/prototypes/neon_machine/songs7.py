@@ -54,14 +54,16 @@ YEAR_LABEL.update({p_['key']: p_['year_label'] for p_ in NEW_PIECES if p_.get('y
 # between pieces: the music never stops. The last note rings (at most 0.8 s, then it rings on under what
 # follows) and the next piece's own accompaniment comes in at once, a vamp in its key, tempo and metre (the
 # way one number of a medley hands over to the next), while the marble crosses to the new page; the melody
-# starts where the marble lands. At nine turns it crosses through a Pythagora-switch machine (one mechanism;
-# two into the finale), whose pitched parts sound in the new piece's key; at the other ten it takes a glass
-# tube, as at a line break. A machine's vamp is a whole number of beats long enough for it (film8 stops the
+# starts where the marble lands. At ten turns it crosses through a Pythagora-switch machine (one mechanism),
+# whose pitched parts sound in the new piece's key; at the other nine it takes a glass tube, as at a line
+# break. A machine's vamp is a whole number of beats long enough for it (film8 stops the
 # build if a machine would arrive late); a tube's is the shortest that leaves a second's ride.
-MACHINE = {'toc': ['stairs'], 'tm': ['bells'], 'k545': ['xylo'], 'b5': ['plinko'], 'otj': ['jump'],
-           'noct': ['helix'], 'danube': ['loop'], 'carmen': ['dominoes'], 'mk': ['helix', 'loop']}
-MACH_NEED = {'toc': 4.4, 'tm': 4.4, 'k545': 4.4, 'b5': 5.85, 'otj': 5.65, 'noct': 4.5, 'danube': 4.75,
-             'carmen': 5.5, 'mk': 6.05}       # seconds each machine needs, rails at about 12-14 degrees (MACH_PACE)
+MACHINE = {'minuet': ['stairs'], 'hall': ['bells'], 'ekn': ['loop'], 'moon': ['helix'], 'fe': ['xylo'],
+           'otj': ['jump'], 'wed': ['stairs'], 'danube': ['loop'], 'carmen': ['tilt'], 'mk': ['plinko']}
+# (every other turn, after the opening's own machine: a machine, then a tube, then a machine..., and into the
+# finale a machine again; the quicker mechanisms, so no turn waits long)
+MACH_NEED = {'minuet': 4.5, 'hall': 5.15, 'ekn': 4.8, 'moon': 4.7, 'fe': 3.8, 'otj': 5.75, 'wed': 4.85,
+             'danube': 5.1, 'carmen': 5.0, 'mk': 5.15}   # seconds each needs, rails at 11-13 degrees (MACH_PACE)
 MAJOR_OF = {0: 0, 1: 7, 2: 2, 3: 9, 4: 4, 5: 11, -1: 5, -2: 10, -3: 3, -4: 8}    # key signature -> major tonic
 
 
@@ -79,7 +81,7 @@ def pulse_of(song):
     """(seconds per beat of the vamp, beats in a bar, pickup in seconds before the first downbeat)."""
     num, den = song['timesig'] or ((4, 4) if song['key'] == 'toc' else (2, 4))
     bar = song['bar_units'] * song['unit'] if song['bar_units'] else num * song['beat']
-    beats = 4 if (num, den) == (12, 8) else 2 if (num, den) == (2, 2) else num
+    beats = 4 if (num, den) in ((12, 8), (2, 2)) else num        # (the Moonlight counted in quarters)
     return bar / beats, beats, song['pickup_units'] * song['unit']
 
 
@@ -148,10 +150,15 @@ for p_ in NEW_PIECES:
 #   canon: the ground bass; tm: the left hand of the theme; fe: the left-hand arpeggios under the long notes;
 #   otj: the bass part (moved to C);
 #   unison pieces (the orchestra/organ plays the line in octaves): the melody an octave lower
-# the film is led in by the Canon's ground bass alone: its last six notes (B F# G D G A, INTRO_BEATS) cadence
-# onto the D where the melody enters, so the music is there from the first frame, under the opening's story
+# the opening: a slow machine first, then the music. A spark from the candle lights the marble, the gate
+# opens and it rolls gently into a Pythagora switch (OPEN_MACHINE: bells in D, then dominoes); the Canon's
+# ground bass comes in under it, once through (D A B F# G D G A, INTRO_BEATS), and cadences onto the D where
+# the melody enters, as the marble lands on the first note
+OPEN_MACHINE = ['bells', 'dominoes']
+OPEN_SPARK = 1.0                  # the spark leaves the candle (s)
+OPEN_BASS = 6.0                   # the ground bass comes in (s)
 GROUND = [('D3', 4), ('A2', 4), ('B2', 4), ('F#2', 4), ('G2', 4), ('D2', 4), ('G2', 4), ('A2', 4)]
-INTRO_BEATS = 6
+INTRO_BEATS = 8
 ACCOMP = {
     'canon': dict(bass=GROUND[-INTRO_BEATS:] + GROUND * 2 + [('D2', 16)],
                   lead=4 * INTRO_BEATS),         # (units before the first melody note: four to a beat)
@@ -200,9 +207,9 @@ ERA = {
     'beethoven': dict(wall=(0.34, 0.36, 0.42), fix=(0.55, 0.56, 0.6), fix_metal=0.9, neon=['cyan', 'magenta', 'violet', 'lime']),
     'romantic': dict(wall=(0.30, 0.06, 0.08), fix=(0.62, 0.48, 0.22), fix_metal=1.0, neon=['red', 'amber', 'magenta', 'white']),
 }
-# the opening before the first note (3.6 s): the ground bass alone, softly; a spark from the candle lights the
-# marble, the gate opens and the marble rolls down onto the first note as the melody enters (film8)
-base.START = 0.26 + INTRO_BEATS * SONGS[0]['beat']
+# the opening before the first note (about 9 s): the spark, the flame, the gate, the slow machine, and the
+# ground bass under its second half; the melody enters as the marble lands (film8)
+base.START = OPEN_BASS + INTRO_BEATS * SONGS[0]['beat']
 START, OUTRO = base.START, base.OUTRO + 4.0   # longer outro: the camera rises back through all the pages
 
 

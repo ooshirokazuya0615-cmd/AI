@@ -576,14 +576,14 @@ def main(out):
                 tone = sampler.piano(S.midi('D4'), 0.28, 4.5, take=3) if PIANO else s_piano(S.midi('D4'), 4.5)
                 place(mix, tone, t_o + 0.78 * k_o + 0.25, 0.4, 0.15)
     it = E.get('intro') if ev and os.path.exists(ev) else None
-    if it:          # the bass alone rises softly from the first frame; with the melody the music grows to its
-        tt_ = np.arange(len(mix)) / SR                  # full level over the first phrase
-        s0_ = S.SONGS[0]
+    if it:          # the opening machine is heard softly (its bells in D), the bass comes in under it and grows;
+        tt_ = np.arange(len(mix)) / SR                  # with the melody the music grows to its full level
+        s0_ = S.SONGS[0]                                # over the first phrase
         tb_ = it['first'] - s0_['accomp'].get('lead', 0) * s0_['unit']
         k0_ = np.clip((tt_ - tb_) / max(0.1, it['first'] - tb_), 0, 1)
         k_ = np.clip((tt_ - it['first']) / 5.0, 0, 1)
-        mix *= np.where(tt_ < it['first'], 0.20 + 0.30 * k0_ * k0_ * (3 - 2 * k0_),
-                        0.5 + 0.5 * k_ * k_ * (3 - 2 * k_))[:, None]
+        mix *= np.where(tt_ < it['first'], 0.34 + 0.22 * k0_ * k0_ * (3 - 2 * k0_),
+                        0.56 + 0.44 * k_ * k_ * (3 - 2 * k_))[:, None]
     st = halls(mix, C)[: int(SR * T)]
     fq = np.fft.rfftfreq(len(st), 1 / SR)
     hp = 1 / np.sqrt(1 + (25.0 / np.maximum(fq, 1e-3)) ** 4)          # 25 Hz high-pass: no rumble or offset
