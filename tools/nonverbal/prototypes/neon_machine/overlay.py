@@ -306,8 +306,9 @@ def main():
             quiz_card(d, W, H, idx, len(starts), names, right, u, a_,
                       sub=f"{song['composer_name']}  ·  {song.get('year_label', song['year'])}", note=note)
         # ---- the opening promise, for viewers who meet it muted in the feed
-        if t < t_first + 0.3:                           # (in as the light comes up, out with the first note)
-            a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_first - 0.25)) / 0.45))
+        t_off = min(t_first, 6.0)                       # (in as the light comes up, out as the opening machine
+        if t < t_off + 0.3:                             #  gets going, or with the first note if that is sooner)
+            a_ = smooth((t - 0.9) / 0.4) * (1 - smooth((t - (t_off - 0.25)) / 0.45))
             if a_ > 0:
                 xc_, ys_ = W * 0.50, (H * 0.075, H * 0.150)    # top centre: clear of the candle and the marble
                 lines_ = ((f'{len(starts)} famous pieces', font(SANS_B, int(H * 0.050)), (255, 250, 240)),
