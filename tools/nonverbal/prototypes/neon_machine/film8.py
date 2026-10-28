@@ -2405,7 +2405,7 @@ set_look(GALLERY, TF + 2.6)                       # no follow-spot for the wide 
 set_look(GALLERY, REVEAL_T1)
 set_look((GALLERY[0], GALLERY[1], ((0.30, 0.30, 0.33), 0.07)), WIDE_T1)   # the wall glows in a darker gallery
 sc.view_settings.look = 'AgX - Medium High Contrast'
-sc.view_settings.exposure = -0.3
+sc.view_settings.exposure = float(os.environ.get('THUMB_EXPOSURE', -0.3))   # (a thumbnail may ask for more light)
 sc.cycles.use_adaptive_sampling = True
 sc.cycles.adaptive_threshold = 0.03
 sc.use_nodes = True
@@ -2446,6 +2446,8 @@ if os.environ.get('EVENTS_ONLY'):
 # depth and a soft shadow, or neon). THUMB_TEXT is a JSON list of {"frame", "text" (\n for lines), "u", "v"
 # (where in the frame, -1..1 from the centre), "h" (line height as a fraction of the frame), "style":
 # "emboss" or "neon", "color"}; each shows on its own frame only
+if os.environ.get('THUMB_TEXT'):                 # (marble and words both sharp)
+    cam.data.dof.use_dof = False
 for it_ in json.loads(os.environ.get('THUMB_TEXT', '[]')):
     sc.frame_set(int(it_['frame']))
     M_ = cam.matrix_world.copy()
@@ -2458,7 +2460,7 @@ for it_ in json.loads(os.environ.get('THUMB_TEXT', '[]')):
     size_ = it_.get('h', 0.12) * 2 * s_ * tan_v / 0.78               # (a font's size is about 1.3 cap heights)
     neon_ = it_.get('style') == 'neon'
     col_ = tuple(it_.get('color', (1.0, 0.32, 0.78) if neon_ else (0.10, 0.065, 0.04)))
-    m_ = (mat('thumbneon', col_, 0.3, emit=col_, emit_s=6.0) if neon_ else mat('thumbink', col_, 0.55))
+    m_ = (mat('thumbneon', col_, 0.3, emit=col_, emit_s=it_.get('glow', 2.2)) if neon_ else mat('thumbink', col_, 0.55))
     cu_ = bpy.data.curves.new('thumbtxt', 'FONT')
     cu_.body = it_['text']
     cu_.font = bpy.data.fonts.load(it_.get('font') or ('/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf' if neon_
@@ -2477,7 +2479,7 @@ for it_ in json.loads(os.environ.get('THUMB_TEXT', '[]')):
         o_.keyframe_insert('hide_render', frame=f_)
     if neon_:                                    # it lights the wall round it, as a neon sign does
         nl_ = bpy.data.lights.new('thumbneon', 'AREA')
-        nl_.color, nl_.energy, nl_.size = col_, 60.0 * size_ / 0.15, 4 * size_
+        nl_.color, nl_.energy, nl_.size = col_, 14.0 * size_ / 0.15, 4 * size_
         no_ = bpy.data.objects.new('thumbneon', nl_)
         no_.location = P_ + Vector((0, -0.25, 0))
         no_.rotation_euler = (math.radians(90), 0, 0)           # facing the wall
