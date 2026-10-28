@@ -2442,6 +2442,49 @@ print('rescue', (RESCUE['h0']['t'], RESCUE['h1']['t'], tuple(round(v, 2) for v i
 print('zoom max', round(max(local_frame(r, h['t'])[1] for r in ROWS for h in r['notes']), 2), 'taps', len(TAPS), flush=True)
 if os.environ.get('EVENTS_ONLY'):
     sys.exit(0)
+# thumbnails: words standing on the wall in the scene, as the marble-music thumbnails do it (letters with
+# depth and a soft shadow, or neon). THUMB_TEXT is a JSON list of {"frame", "text" (\n for lines), "u", "v"
+# (where in the frame, -1..1 from the centre), "h" (line height as a fraction of the frame), "style":
+# "emboss" or "neon", "color"}; each shows on its own frame only
+for it_ in json.loads(os.environ.get('THUMB_TEXT', '[]')):
+    sc.frame_set(int(it_['frame']))
+    M_ = cam.matrix_world.copy()
+    tan_h = math.tan(cam.data.angle / 2)
+    tan_v = tan_h * H / W
+    yp_ = WALL_Y - 0.03
+    d_ = (M_.to_3x3() @ Vector((it_['u'] * tan_h, it_['v'] * tan_v, -1.0))).normalized()
+    s_ = (yp_ - M_.translation.y) / d_.y
+    P_ = M_.translation + d_ * s_
+    size_ = it_.get('h', 0.12) * 2 * s_ * tan_v / 0.78               # (a font's size is about 1.3 cap heights)
+    neon_ = it_.get('style') == 'neon'
+    col_ = tuple(it_.get('color', (1.0, 0.32, 0.78) if neon_ else (0.10, 0.065, 0.04)))
+    m_ = (mat('thumbneon', col_, 0.3, emit=col_, emit_s=6.0) if neon_ else mat('thumbink', col_, 0.55))
+    cu_ = bpy.data.curves.new('thumbtxt', 'FONT')
+    cu_.body = it_['text']
+    cu_.font = bpy.data.fonts.load(it_.get('font') or ('/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf' if neon_
+                                   else '/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf'), check_existing=True)
+    cu_.size, cu_.align_x, cu_.align_y = size_, 'CENTER', 'CENTER'
+    cu_.space_line = 0.9
+    cu_.extrude, cu_.bevel_depth = 0.02 * size_ / 0.15, 0.003 * size_ / 0.15
+    o_ = bpy.data.objects.new('thumbtxt', cu_)
+    o_.location, o_.rotation_euler = P_, (math.radians(90), 0, 0)
+    sc.collection.objects.link(o_)
+    o_.data.materials.append(m_)
+    tt_ = (int(it_['frame']) - 1) / FPS
+    o_.hide_render = True
+    for f_, h_ in ((int(it_['frame']) - 1, True), (int(it_['frame']), False), (int(it_['frame']) + 1, True)):
+        o_.hide_render = h_
+        o_.keyframe_insert('hide_render', frame=f_)
+    if neon_:                                    # it lights the wall round it, as a neon sign does
+        nl_ = bpy.data.lights.new('thumbneon', 'AREA')
+        nl_.color, nl_.energy, nl_.size = col_, 60.0 * size_ / 0.15, 4 * size_
+        no_ = bpy.data.objects.new('thumbneon', nl_)
+        no_.location = P_ + Vector((0, -0.25, 0))
+        no_.rotation_euler = (math.radians(90), 0, 0)           # facing the wall
+        sc.collection.objects.link(no_)
+        for f_, e_ in ((int(it_['frame']) - 1, 0.0), (int(it_['frame']), nl_.energy), (int(it_['frame']) + 1, 0.0)):
+            nl_.energy = e_
+            nl_.keyframe_insert('energy', frame=f_)
 if a.stills:
     for fs in a.stills.split(','):
         sc.frame_set(int(fs))
