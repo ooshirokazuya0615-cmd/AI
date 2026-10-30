@@ -1,0 +1,38 @@
+{
+ "babble_sad_default_f0_270Hz": {
+  "voiced_kept": 0.935,
+  "pitch_match_1st": 0.556,
+  "octave_err": 0.314,
+  "contour_corr": 0.448
+ },
+ "babble_sad_fix_base400_tilt0.1": {
+  "voiced_kept": 0.962,
+  "pitch_match_1st": 0.686,
+  "octave_err": 0.191,
+  "contour_corr": 0.561
+ },
+ "creature_sad_default": {
+  "voiced_kept": 0.516,
+  "pitch_match_1st": 0.432,
+  "octave_err": 0.011,
+  "contour_corr": 0.731
+ },
+ "creature_sad_fix_base680": {
+  "voiced_kept": 0.814,
+  "pitch_match_1st": 0.711,
+  "octave_err": 0.025,
+  "contour_corr": 0.676
+ },
+ "iron_angry_default_f0_147": {
+  "voiced_kept": 0.811,
+  "pitch_match_1st": 0.42,
+  "octave_err": 0.036,
+  "contour_corr": 0.107
+ },
+ "iron_angry_fix_base220": {
+  "voiced_kept": 0.894,
+  "pitch_match_1st": 0.791,
+  "octave_err": 0.0,
+  "contour_corr": 0.772
+ }
+}
