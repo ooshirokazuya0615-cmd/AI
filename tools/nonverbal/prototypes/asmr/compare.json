@@ -1,0 +1,58 @@
+{
+ "crunch": {
+  "dry": {
+   "n_onsets": 26,
+   "ev_rate": 52.0,
+   "rise_ms_med": 0.542,
+   "rise_ms_p10": 0.233,
+   "crest_db": 24.2,
+   "centroid_hz": 4435,
+   "rolloff95_hz": 9430,
+   "bands_pct": [
+    0.0,
+    1.8,
+    66.8,
+    27.8,
+    3.6
+   ],
+   "flatness": 0.245,
+   "t60_ms": 68.7,
+   "edt_ms": 203.6,
+   "lufs_I": -34.5,
+   "true_peak_dbfs": -5.8,
+   "plr_db": 28.7
+  },
+  "recorded": {
+   "n_onsets": 26,
+   "ev_rate": 19.8,
+   "rise_ms_med": 0.615,
+   "rise_ms_p10": 0.271,
+   "crest_db": 27.6,
+   "centroid_hz": 4062,
+   "rolloff95_hz": 8517,
+   "bands_pct": [
+    0.0,
+    2.0,
+    72.5,
+    23.6,
+    2.0
+   ],
+   "flatness": 0.161,
+   "t60_ms": 338.5,
+   "edt_ms": 383.2
+  },
+  "info": {
+   "avalanches_per_phase": [
+    150,
+    72,
+    65,
+    31,
+    28,
+    151,
+    71,
+    42
+   ]
+  },
+  "render_x_realtime": 13.2
+ }
+}

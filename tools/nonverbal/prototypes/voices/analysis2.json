@@ -1,0 +1,232 @@
+{
+ "ablation_loo_accuracy": {
+  "babble": {
+   "all": {
+    "full": 0.917,
+    "phone": 0.979
+   },
+   "pitch_only(f0 level,range,end slope)": {
+    "full": 0.75,
+    "phone": 0.833
+   },
+   "no_level(all but rms)": {
+    "full": 0.917,
+    "phone": 0.979
+   },
+   "timbre_only(centroid,roughness,periodicity)": {
+    "full": 0.917,
+    "phone": 0.896
+   },
+   "tempo+level_only(rate,rms)": {
+    "full": 1.0,
+    "phone": 1.0
+   }
+  },
+  "suikin": {
+   "all": {
+    "full": 0.979,
+    "phone": 1.0
+   },
+   "pitch_only(f0 level,range,end slope)": {
+    "full": 0.729,
+    "phone": 0.75
+   },
+   "no_level(all but rms)": {
+    "full": 0.938,
+    "phone": 0.938
+   },
+   "timbre_only(centroid,roughness,periodicity)": {
+    "full": 0.896,
+    "phone": 0.875
+   },
+   "tempo+level_only(rate,rms)": {
+    "full": 0.896,
+    "phone": 0.896
+   }
+  },
+  "robot": {
+   "all": {
+    "full": 0.979,
+    "phone": 1.0
+   },
+   "pitch_only(f0 level,range,end slope)": {
+    "full": 0.938,
+    "phone": 0.938
+   },
+   "no_level(all but rms)": {
+    "full": 0.979,
+    "phone": 1.0
+   },
+   "timbre_only(centroid,roughness,periodicity)": {
+    "full": 1.0,
+    "phone": 1.0
+   },
+   "tempo+level_only(rate,rms)": {
+    "full": 0.938,
+    "phone": 0.958
+   }
+  },
+  "creature": {
+   "all": {
+    "full": 1.0,
+    "phone": 0.979
+   },
+   "pitch_only(f0 level,range,end slope)": {
+    "full": 0.771,
+    "phone": 0.646
+   },
+   "no_level(all but rms)": {
+    "full": 1.0,
+    "phone": 0.979
+   },
+   "timbre_only(centroid,roughness,periodicity)": {
+    "full": 0.875,
+    "phone": 0.917
+   },
+   "tempo+level_only(rate,rms)": {
+    "full": 0.938,
+    "phone": 0.938
+   }
+  },
+  "iron": {
+   "all": {
+    "full": 1.0,
+    "phone": 1.0
+   },
+   "pitch_only(f0 level,range,end slope)": {
+    "full": 0.792,
+    "phone": 0.917
+   },
+   "no_level(all but rms)": {
+    "full": 1.0,
+    "phone": 1.0
+   },
+   "timbre_only(centroid,roughness,periodicity)": {
+    "full": 0.979,
+    "phone": 0.979
+   },
+   "tempo+level_only(rate,rms)": {
+    "full": 0.833,
+    "phone": 0.938
+   }
+  }
+ },
+ "cross_voice_transfer_accuracy": {
+  "full": {
+   "babble": {
+    "suikin": 0.708,
+    "robot": 0.938,
+    "creature": 0.917,
+    "iron": 0.667
+   },
+   "suikin": {
+    "babble": 0.812,
+    "robot": 0.896,
+    "creature": 0.708,
+    "iron": 0.562
+   },
+   "robot": {
+    "babble": 0.75,
+    "suikin": 0.688,
+    "creature": 0.792,
+    "iron": 0.812
+   },
+   "creature": {
+    "babble": 0.646,
+    "suikin": 0.792,
+    "robot": 0.688,
+    "iron": 0.812
+   },
+   "iron": {
+    "babble": 0.562,
+    "suikin": 0.479,
+    "robot": 0.854,
+    "creature": 0.875
+   }
+  },
+  "phone": {
+   "babble": {
+    "suikin": 0.479,
+    "robot": 0.458,
+    "creature": 0.625,
+    "iron": 0.667
+   },
+   "suikin": {
+    "babble": 0.646,
+    "robot": 0.896,
+    "creature": 0.708,
+    "iron": 0.542
+   },
+   "robot": {
+    "babble": 0.542,
+    "suikin": 0.667,
+    "creature": 0.75,
+    "iron": 0.75
+   },
+   "creature": {
+    "babble": 0.708,
+    "suikin": 0.75,
+    "robot": 0.729,
+    "iron": 0.896
+   },
+   "iron": {
+    "babble": 0.583,
+    "suikin": 0.396,
+    "robot": 0.792,
+    "creature": 0.688
+   }
+  }
+ },
+ "happy_vs_angry_cohens_d": {
+  "babble": {
+   "f0_med_st": 10.68,
+   "f0_range_st": -0.8,
+   "slope_end": 0.55,
+   "rate": -3.38,
+   "rms_db": -2.88,
+   "log2_centroid": -0.54,
+   "roughness": -1.51,
+   "periodicity": 3.34
+  },
+  "suikin": {
+   "f0_med_st": 3.9,
+   "f0_range_st": 0.27,
+   "slope_end": -0.73,
+   "rate": 1.06,
+   "rms_db": -12.76,
+   "log2_centroid": 0.4,
+   "roughness": -2.56,
+   "periodicity": 1.96
+  },
+  "robot": {
+   "f0_med_st": 11.73,
+   "f0_range_st": -1.29,
+   "slope_end": 1.02,
+   "rate": -3.22,
+   "rms_db": 0.18,
+   "log2_centroid": 13.84,
+   "roughness": -1.62,
+   "periodicity": 10.12
+  },
+  "creature": {
+   "f0_med_st": 48.44,
+   "f0_range_st": 3.63,
+   "slope_end": 0.1,
+   "rate": -0.2,
+   "rms_db": 3.2,
+   "log2_centroid": -21.57,
+   "roughness": -8.98,
+   "periodicity": 5.94
+  },
+  "iron": {
+   "f0_med_st": 1.46,
+   "f0_range_st": 0.81,
+   "slope_end": -0.89,
+   "rate": 3.2,
+   "rms_db": -6.13,
+   "log2_centroid": -6.82,
+   "roughness": -3.87,
+   "periodicity": 10.67
+  }
+ }
+}

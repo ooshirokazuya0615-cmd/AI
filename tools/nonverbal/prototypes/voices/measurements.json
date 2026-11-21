@@ -1,0 +1,1401 @@
+{
+ "per_file": {
+  "babble_happy": {
+   "file": "wav/babble_happy.wav",
+   "dur_s": 2.18,
+   "n_syl_planned": 11,
+   "planned_rate_syl_s": 5.78,
+   "peak_dbfs": -6.3,
+   "rms_active_dbfs": -19.4,
+   "periodicity": 0.951,
+   "voiced_frac": 0.749,
+   "f0_median_hz": 558.7,
+   "f0_p10_hz": 461.7,
+   "f0_p90_hz": 714.9,
+   "f0_range_st": 7.57,
+   "f0_sd_st": 2.72,
+   "slope_all_st_s": -0.2,
+   "slope_end_st_s": 13.5,
+   "contour_hz_50ms": "_ 748 759 _ 476 516 535 565 605 618 _ 462 487 491 605 644 641 437 479 509 516 563 619 637 446 473 487 556 599 611 _ 445 476 506 532 590 697 756 _2",
+   "measured_rate_peaks_s": 5.85,
+   "roughness_30_150": 0.051,
+   "centroid_hz": 1021,
+   "rolloff85_hz": 1242,
+   "frac_above_450": 0.96,
+   "frac_300_5k": 0.999,
+   "frac_above_1k": 0.536,
+   "phone450": {
+    "energy_kept_db": -0.3,
+    "rms_active_dbfs": -19.7,
+    "periodicity": 0.955,
+    "centroid_hz": 1055,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 559.2,
+    "f0_range_st": 7.54
+   }
+  },
+  "babble_sad": {
+   "file": "wav/babble_sad.wav",
+   "dur_s": 4.52,
+   "n_syl_planned": 6,
+   "planned_rate_syl_s": 1.65,
+   "peak_dbfs": -23.9,
+   "rms_active_dbfs": -37.2,
+   "periodicity": 0.846,
+   "voiced_frac": 0.582,
+   "f0_median_hz": 229.5,
+   "f0_p10_hz": 131.3,
+   "f0_p90_hz": 262.1,
+   "f0_range_st": 11.96,
+   "f0_sd_st": 4.9,
+   "slope_all_st_s": 0.2,
+   "slope_end_st_s": -8.5,
+   "contour_hz_50ms": "303 300 291 278 270 269 _ 257 258 131 131 127 82 123 244 241 _ 261 262 131 255 248 250 246 238 116 _6 249 245 241 243 244 242 233 229 231 229 225 _6 237 237 231 227 229 229 224 215 213 _ 233 229 225 227 227 221 212 208 206 199 188 179 175 174 _14",
+   "measured_rate_peaks_s": 1.66,
+   "roughness_30_150": 0.094,
+   "centroid_hz": 613,
+   "rolloff85_hz": 1008,
+   "frac_above_450": 0.497,
+   "frac_300_5k": 0.685,
+   "frac_above_1k": 0.199,
+   "phone450": {
+    "energy_kept_db": -2.8,
+    "rms_active_dbfs": -39.7,
+    "periodicity": 0.803,
+    "centroid_hz": 897,
+    "voiced_kept": 0.957,
+    "pitch_match_1st": 0.735,
+    "octave_err": 0.206,
+    "contour_corr": 0.655,
+    "f0_median_hz": 241.3,
+    "f0_range_st": 20.67
+   }
+  },
+  "babble_angry": {
+   "file": "wav/babble_angry.wav",
+   "dur_s": 1.77,
+   "n_syl_planned": 10,
+   "planned_rate_syl_s": 6.62,
+   "peak_dbfs": -3.1,
+   "rms_active_dbfs": -17.2,
+   "periodicity": 0.892,
+   "voiced_frac": 0.806,
+   "f0_median_hz": 381.4,
+   "f0_p10_hz": 197.5,
+   "f0_p90_hz": 451.6,
+   "f0_range_st": 14.34,
+   "f0_sd_st": 5.78,
+   "slope_all_st_s": -1.6,
+   "slope_end_st_s": 12.9,
+   "contour_hz_50ms": "461 437 398 487 232 408 476 223 400 436 399 363 436 399 359 177 170 318 424 391 370 343 353 320 306 436 397 368 410 351 319 _1",
+   "measured_rate_peaks_s": 6.62,
+   "roughness_30_150": 0.162,
+   "centroid_hz": 981,
+   "rolloff85_hz": 1430,
+   "frac_above_450": 0.769,
+   "frac_300_5k": 0.998,
+   "frac_above_1k": 0.423,
+   "phone450": {
+    "energy_kept_db": -0.8,
+    "rms_active_dbfs": -17.3,
+    "periodicity": 0.879,
+    "centroid_hz": 1090,
+    "voiced_kept": 0.977,
+    "pitch_match_1st": 0.907,
+    "octave_err": 0.07,
+    "contour_corr": 0.876,
+    "f0_median_hz": 384.0,
+    "f0_range_st": 17.15
+   }
+  },
+  "babble_surprised": {
+   "file": "wav/babble_surprised.wav",
+   "dur_s": 1.54,
+   "n_syl_planned": 4,
+   "planned_rate_syl_s": 3.68,
+   "peak_dbfs": -5.5,
+   "rms_active_dbfs": -19.4,
+   "periodicity": 0.839,
+   "voiced_frac": 0.53,
+   "f0_median_hz": 473.8,
+   "f0_p10_hz": 424.3,
+   "f0_p90_hz": 674.8,
+   "f0_range_st": 8.03,
+   "f0_sd_st": 2.86,
+   "slope_all_st_s": -4.6,
+   "slope_end_st_s": -2.3,
+   "contour_hz_50ms": "_4 455 529 612 659 682 688 _2 400 428 470 486 445 473 487 _3 429 461 474 474 _1",
+   "measured_rate_peaks_s": 4.14,
+   "roughness_30_150": 0.061,
+   "centroid_hz": 1217,
+   "rolloff85_hz": 1688,
+   "frac_above_450": 0.87,
+   "frac_300_5k": 0.994,
+   "frac_above_1k": 0.471,
+   "phone450": {
+    "energy_kept_db": -0.7,
+    "rms_active_dbfs": -20.2,
+    "periodicity": 0.842,
+    "centroid_hz": 1319,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 0.986,
+    "octave_err": 0.014,
+    "contour_corr": 0.885,
+    "f0_median_hz": 474.2,
+    "f0_range_st": 7.83
+   }
+  },
+  "suikin_happy": {
+   "file": "wav/suikin_happy.wav",
+   "dur_s": 2.21,
+   "n_syl_planned": 10,
+   "planned_rate_syl_s": 5.15,
+   "peak_dbfs": -9.6,
+   "rms_active_dbfs": -21.8,
+   "periodicity": 0.911,
+   "voiced_frac": 0.98,
+   "f0_median_hz": 1141.3,
+   "f0_p10_hz": 1003.4,
+   "f0_p90_hz": 1302.4,
+   "f0_range_st": 4.52,
+   "f0_sd_st": 8.98,
+   "slope_all_st_s": -3.4,
+   "slope_end_st_s": -11.6,
+   "contour_hz_50ms": "1193 1201 1187 1176 1015 1027 1037 1015 1180 1200 1202 1150 1028 1017 1023 1034 1215 1125 1125 1005 1022 1053 1093 1336 1363 1365 1317 1294 1017 1016 1029 248 762 1196 1205 1065 1174 1306 197 641 196",
+   "measured_rate_peaks_s": 4.45,
+   "roughness_30_150": 0.09,
+   "centroid_hz": 1356,
+   "rolloff85_hz": 1359,
+   "frac_above_450": 1.0,
+   "frac_300_5k": 0.991,
+   "frac_above_1k": 0.881,
+   "phone450": {
+    "energy_kept_db": -0.0,
+    "rms_active_dbfs": -21.8,
+    "periodicity": 0.911,
+    "centroid_hz": 1342,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 1140.6,
+    "f0_range_st": 4.51
+   }
+  },
+  "suikin_sad": {
+   "file": "wav/suikin_sad.wav",
+   "dur_s": 4.27,
+   "n_syl_planned": 5,
+   "planned_rate_syl_s": 1.49,
+   "peak_dbfs": -24.0,
+   "rms_active_dbfs": -31.9,
+   "periodicity": 0.973,
+   "voiced_frac": 0.966,
+   "f0_median_hz": 587.3,
+   "f0_p10_hz": 471.3,
+   "f0_p90_hz": 704.1,
+   "f0_range_st": 6.95,
+   "f0_sd_st": 3.38,
+   "slope_all_st_s": -2.0,
+   "slope_end_st_s": 4.0,
+   "contour_hz_50ms": "713 695 701 703 690 678 684 699 699 699 699 716 706 691 683 691 697 680 676 901 828 775 739 600 593 596 586 573 578 585 582 593 594 592 595 592 596 590 595 589 577 574 582 583 811 752 662 607 591 588 533 529 528 513 504 507 508 495 476 470 470 457 438 421 417 411 546 546 547 547 560 576 576 548 515 538 537 521 478 494 511 _1",
+   "measured_rate_peaks_s": 2.01,
+   "roughness_30_150": 0.004,
+   "centroid_hz": 578,
+   "rolloff85_hz": 703,
+   "frac_above_450": 0.94,
+   "frac_300_5k": 1.0,
+   "frac_above_1k": 0.012,
+   "phone450": {
+    "energy_kept_db": -1.0,
+    "rms_active_dbfs": -32.8,
+    "periodicity": 0.976,
+    "centroid_hz": 595,
+    "voiced_kept": 0.997,
+    "pitch_match_1st": 0.992,
+    "octave_err": 0.0,
+    "contour_corr": 0.914,
+    "f0_median_hz": 587.4,
+    "f0_range_st": 6.92
+   }
+  },
+  "suikin_angry": {
+   "file": "wav/suikin_angry.wav",
+   "dur_s": 1.68,
+   "n_syl_planned": 8,
+   "planned_rate_syl_s": 5.66,
+   "peak_dbfs": -3.1,
+   "rms_active_dbfs": -16.3,
+   "periodicity": 0.897,
+   "voiced_frac": 0.927,
+   "f0_median_hz": 794.8,
+   "f0_p10_hz": 758.9,
+   "f0_p90_hz": 927.6,
+   "f0_range_st": 3.48,
+   "f0_sd_st": 7.45,
+   "slope_all_st_s": -3.3,
+   "slope_end_st_s": -14.7,
+   "contour_hz_50ms": "951 923 936 870 791 772 813 814 929 913 923 807 786 788 807 794 787 796 799 778 764 796 791 771 761 788 796 455 787 785",
+   "measured_rate_peaks_s": 4.01,
+   "roughness_30_150": 0.358,
+   "centroid_hz": 1382,
+   "rolloff85_hz": 1523,
+   "frac_above_450": 1.0,
+   "frac_300_5k": 0.96,
+   "frac_above_1k": 0.169,
+   "phone450": {
+    "energy_kept_db": -0.1,
+    "rms_active_dbfs": -16.4,
+    "periodicity": 0.905,
+    "centroid_hz": 1203,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 0.978,
+    "octave_err": 0.0,
+    "contour_corr": 0.801,
+    "f0_median_hz": 795.0,
+    "f0_range_st": 3.4
+   }
+  },
+  "suikin_surprised": {
+   "file": "wav/suikin_surprised.wav",
+   "dur_s": 1.59,
+   "n_syl_planned": 4,
+   "planned_rate_syl_s": 3.52,
+   "peak_dbfs": -6.7,
+   "rms_active_dbfs": -19.8,
+   "periodicity": 0.893,
+   "voiced_frac": 0.928,
+   "f0_median_hz": 882.1,
+   "f0_p10_hz": 483.1,
+   "f0_p90_hz": 1003.7,
+   "f0_range_st": 12.66,
+   "f0_sd_st": 8.38,
+   "slope_all_st_s": 7.3,
+   "slope_end_st_s": -23.1,
+   "contour_hz_50ms": "483 118 117 838 942 674 793 848 805 784 784 893 901 898 870 869 949 994 1005 962 965 963 927 1011 1080 126 838 922",
+   "measured_rate_peaks_s": 3.6,
+   "roughness_30_150": 0.088,
+   "centroid_hz": 1414,
+   "rolloff85_hz": 1805,
+   "frac_above_450": 0.999,
+   "frac_300_5k": 0.985,
+   "frac_above_1k": 0.554,
+   "phone450": {
+    "energy_kept_db": -0.0,
+    "rms_active_dbfs": -19.8,
+    "periodicity": 0.896,
+    "centroid_hz": 1389,
+    "voiced_kept": 0.992,
+    "pitch_match_1st": 0.992,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 882.1,
+    "f0_range_st": 12.59
+   }
+  },
+  "robot_happy": {
+   "file": "wav/robot_happy.wav",
+   "dur_s": 1.64,
+   "n_syl_planned": 7,
+   "planned_rate_syl_s": 5.11,
+   "peak_dbfs": -7.0,
+   "rms_active_dbfs": -13.6,
+   "periodicity": 0.96,
+   "voiced_frac": 0.747,
+   "f0_median_hz": 2019.3,
+   "f0_p10_hz": 1168.3,
+   "f0_p90_hz": 2667.2,
+   "f0_range_st": 14.29,
+   "f0_sd_st": 7.08,
+   "slope_all_st_s": 4.5,
+   "slope_end_st_s": 24.3,
+   "contour_hz_50ms": "2371 994 1822 1727 1875 2019 2097 2173 2482 2749 2856 1730 1907 2050 2125 2119 1197 2530 1477 1482 1572 1408 _ 2257 2978 1944 2116 2189 _1",
+   "measured_rate_peaks_s": 5.07,
+   "roughness_30_150": 0.336,
+   "centroid_hz": 2383,
+   "rolloff85_hz": 3281,
+   "frac_above_450": 1.0,
+   "frac_300_5k": 0.99,
+   "frac_above_1k": 0.999,
+   "phone450": {
+    "energy_kept_db": -0.1,
+    "rms_active_dbfs": -13.6,
+    "periodicity": 0.961,
+    "centroid_hz": 2357,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 2019.4,
+    "f0_range_st": 14.3
+   }
+  },
+  "robot_sad": {
+   "file": "wav/robot_sad.wav",
+   "dur_s": 3.0,
+   "n_syl_planned": 3,
+   "planned_rate_syl_s": 1.42,
+   "peak_dbfs": -15.8,
+   "rms_active_dbfs": -25.4,
+   "periodicity": 0.985,
+   "voiced_frac": 0.81,
+   "f0_median_hz": 405.6,
+   "f0_p10_hz": 279.5,
+   "f0_p90_hz": 518.7,
+   "f0_range_st": 10.7,
+   "f0_sd_st": 4.1,
+   "slope_all_st_s": -1.3,
+   "slope_end_st_s": -13.7,
+   "contour_hz_50ms": "543 529 486 465 456 434 _ 458 463 456 431 424 430 417 388 382 383 367 355 _5 444 446 426 403 405 402 380 355 349 342 315 297 290 282 256 237 232 223 214 _2 619 609 574 514 487 481 459 422 385 376 369 344",
+   "measured_rate_peaks_s": 1.06,
+   "roughness_30_150": 0.088,
+   "centroid_hz": 577,
+   "rolloff85_hz": 844,
+   "frac_above_450": 0.465,
+   "frac_300_5k": 0.946,
+   "frac_above_1k": 0.086,
+   "phone450": {
+    "energy_kept_db": -2.8,
+    "rms_active_dbfs": -28.1,
+    "periodicity": 0.981,
+    "centroid_hz": 736,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 405.7,
+    "f0_range_st": 10.73
+   }
+  },
+  "robot_angry": {
+   "file": "wav/robot_angry.wav",
+   "dur_s": 1.12,
+   "n_syl_planned": 6,
+   "planned_rate_syl_s": 7.12,
+   "peak_dbfs": -3.6,
+   "rms_active_dbfs": -13.4,
+   "periodicity": 0.775,
+   "voiced_frac": 0.645,
+   "f0_median_hz": 153.6,
+   "f0_p10_hz": 150.9,
+   "f0_p90_hz": 1001.1,
+   "f0_range_st": 32.76,
+   "f0_sd_st": 15.18,
+   "slope_all_st_s": -6.3,
+   "slope_end_st_s": -175.0,
+   "contour_hz_50ms": "75 152 1026 953 776 _ 151 153 _ 151 153 1010 857 685 151 152 154 _2",
+   "measured_rate_peaks_s": 7.03,
+   "roughness_30_150": 0.441,
+   "centroid_hz": 1136,
+   "rolloff85_hz": 1359,
+   "frac_above_450": 0.883,
+   "frac_300_5k": 0.902,
+   "frac_above_1k": 0.446,
+   "phone450": {
+    "energy_kept_db": -0.6,
+    "rms_active_dbfs": -14.0,
+    "periodicity": 0.777,
+    "centroid_hz": 1233,
+    "voiced_kept": 0.983,
+    "pitch_match_1st": 0.983,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 153.7,
+    "f0_range_st": 32.76
+   }
+  },
+  "robot_surprised": {
+   "file": "wav/robot_surprised.wav",
+   "dur_s": 1.16,
+   "n_syl_planned": 2,
+   "planned_rate_syl_s": 2.94,
+   "peak_dbfs": -4.9,
+   "rms_active_dbfs": -12.4,
+   "periodicity": 0.894,
+   "voiced_frac": 0.719,
+   "f0_median_hz": 2286.9,
+   "f0_p10_hz": 940.9,
+   "f0_p90_hz": 3233.9,
+   "f0_range_st": 21.38,
+   "f0_sd_st": 7.83,
+   "slope_all_st_s": 6.4,
+   "slope_end_st_s": 31.7,
+   "contour_hz_50ms": "2403 2405 1808 2053 791 1097 1059 2694 3206 3256 3200 _2 1541 1832 2074 2300 2364 _1",
+   "measured_rate_peaks_s": 3.4,
+   "roughness_30_150": 0.066,
+   "centroid_hz": 2124,
+   "rolloff85_hz": 3211,
+   "frac_above_450": 1.0,
+   "frac_300_5k": 0.991,
+   "frac_above_1k": 0.839,
+   "phone450": {
+    "energy_kept_db": -0.0,
+    "rms_active_dbfs": -12.5,
+    "periodicity": 0.895,
+    "centroid_hz": 2099,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 2286.9,
+    "f0_range_st": 21.38
+   }
+  },
+  "creature_happy": {
+   "file": "wav/creature_happy.wav",
+   "dur_s": 2.06,
+   "n_syl_planned": 11,
+   "planned_rate_syl_s": 6.21,
+   "peak_dbfs": -8.5,
+   "rms_active_dbfs": -20.1,
+   "periodicity": 0.724,
+   "voiced_frac": 0.565,
+   "f0_median_hz": 497.3,
+   "f0_p10_hz": 177.9,
+   "f0_p90_hz": 1044.6,
+   "f0_range_st": 30.66,
+   "f0_sd_st": 11.0,
+   "slope_all_st_s": -7.5,
+   "slope_end_st_s": -35.3,
+   "contour_hz_50ms": "496 1104 1102 738 158 266 473 1036 1042 731 759 822 499 535 194 548 282 285 981 241 539 _ 260 438 457 457 504 558 565 263 263 172 _ 540 264 _2",
+   "measured_rate_peaks_s": 6.27,
+   "roughness_30_150": 0.075,
+   "centroid_hz": 1173,
+   "rolloff85_hz": 1500,
+   "frac_above_450": 0.998,
+   "frac_300_5k": 1.0,
+   "frac_above_1k": 0.855,
+   "phone450": {
+    "energy_kept_db": -0.0,
+    "rms_active_dbfs": -20.1,
+    "periodicity": 0.752,
+    "centroid_hz": 1176,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 0.924,
+    "octave_err": 0.0,
+    "contour_corr": 0.94,
+    "f0_median_hz": 500.4,
+    "f0_range_st": 29.24
+   }
+  },
+  "creature_sad": {
+   "file": "wav/creature_sad.wav",
+   "dur_s": 3.69,
+   "n_syl_planned": 5,
+   "planned_rate_syl_s": 1.79,
+   "peak_dbfs": -22.1,
+   "rms_active_dbfs": -37.3,
+   "periodicity": 0.611,
+   "voiced_frac": 0.263,
+   "f0_median_hz": 276.7,
+   "f0_p10_hz": 83.5,
+   "f0_p90_hz": 459.6,
+   "f0_range_st": 29.52,
+   "f0_sd_st": 11.72,
+   "slope_all_st_s": -5.9,
+   "slope_end_st_s": 29.2,
+   "contour_hz_50ms": "495 _2 468 460 460 453 462 _3 442 106 423 _ 255 _ 189 _4 402 _21 174 349 353 352 208 108 80 91 149 93 263 265 _6 794 _4 166 _3",
+   "measured_rate_peaks_s": 2.06,
+   "roughness_30_150": 0.295,
+   "centroid_hz": 884,
+   "rolloff85_hz": 1195,
+   "frac_above_450": 0.873,
+   "frac_300_5k": 0.992,
+   "frac_above_1k": 0.285,
+   "phone450": {
+    "energy_kept_db": -0.6,
+    "rms_active_dbfs": -37.8,
+    "periodicity": 0.555,
+    "centroid_hz": 956,
+    "voiced_kept": 0.516,
+    "pitch_match_1st": 0.323,
+    "octave_err": 0.065,
+    "contour_corr": 0.487,
+    "f0_median_hz": 434.5,
+    "f0_range_st": 37.57
+   }
+  },
+  "creature_angry": {
+   "file": "wav/creature_angry.wav",
+   "dur_s": 1.45,
+   "n_syl_planned": 8,
+   "planned_rate_syl_s": 6.82,
+   "peak_dbfs": -11.1,
+   "rms_active_dbfs": -27.7,
+   "periodicity": 0.476,
+   "voiced_frac": 0.135,
+   "f0_median_hz": 79.6,
+   "f0_p10_hz": 74.8,
+   "f0_p90_hz": 161.9,
+   "f0_range_st": 13.37,
+   "f0_sd_st": 11.22,
+   "slope_all_st_s": 12.3,
+   "slope_end_st_s": 108.3,
+   "contour_hz_50ms": "_2 148 158 78 _2 73 _ 162 _2 72 81 79 77 _7 1065 _1",
+   "measured_rate_peaks_s": 5.93,
+   "roughness_30_150": 0.445,
+   "centroid_hz": 2874,
+   "rolloff85_hz": 7102,
+   "frac_above_450": 0.825,
+   "frac_300_5k": 0.669,
+   "frac_above_1k": 0.398,
+   "phone450": {
+    "energy_kept_db": -1.5,
+    "rms_active_dbfs": -28.8,
+    "periodicity": 0.485,
+    "centroid_hz": 2191,
+    "voiced_kept": 0.824,
+    "pitch_match_1st": 0.706,
+    "octave_err": 0.118,
+    "contour_corr": 0.937,
+    "f0_median_hz": 154.6,
+    "f0_range_st": 43.1
+   }
+  },
+  "creature_surprised": {
+   "file": "wav/creature_surprised.wav",
+   "dur_s": 1.36,
+   "n_syl_planned": 3,
+   "planned_rate_syl_s": 3.25,
+   "peak_dbfs": -3.1,
+   "rms_active_dbfs": -14.8,
+   "periodicity": 0.639,
+   "voiced_frac": 0.291,
+   "f0_median_hz": 976.7,
+   "f0_p10_hz": 482.6,
+   "f0_p90_hz": 1178.3,
+   "f0_range_st": 15.46,
+   "f0_sd_st": 10.32,
+   "slope_all_st_s": -6.6,
+   "slope_end_st_s": 144.6,
+   "contour_hz_50ms": "_2 1676 634 756 964 1068 1153 1163 1171 _10 699 932 _2",
+   "measured_rate_peaks_s": 3.76,
+   "roughness_30_150": 0.212,
+   "centroid_hz": 1169,
+   "rolloff85_hz": 1477,
+   "frac_above_450": 0.998,
+   "frac_300_5k": 0.999,
+   "frac_above_1k": 0.692,
+   "phone450": {
+    "energy_kept_db": -0.0,
+    "rms_active_dbfs": -14.8,
+    "periodicity": 0.646,
+    "centroid_hz": 1170,
+    "voiced_kept": 1.0,
+    "pitch_match_1st": 1.0,
+    "octave_err": 0.0,
+    "contour_corr": 1.0,
+    "f0_median_hz": 965.1,
+    "f0_range_st": 15.22
+   }
+  },
+  "iron_happy": {
+   "file": "wav/iron_happy.wav",
+   "dur_s": 2.13,
+   "n_syl_planned": 10,
+   "planned_rate_syl_s": 5.46,
+   "peak_dbfs": -5.8,
+   "rms_active_dbfs": -20.9,
+   "periodicity": 0.761,
+   "voiced_frac": 0.807,
+   "f0_median_hz": 145.3,
+   "f0_p10_hz": 101.7,
+   "f0_p90_hz": 282.4,
+   "f0_range_st": 17.68,
+   "f0_sd_st": 6.77,
+   "slope_all_st_s": 0.1,
+   "slope_end_st_s": 41.1,
+   "contour_hz_50ms": "245 139 144 101 212 219 100 145 262 274 102 230 251 247 141 141 257 267 142 104 211 102 256 139 289 143 285 104 142 142 143 101 142 144 235 248 197 284 282",
+   "measured_rate_peaks_s": 4.71,
+   "roughness_30_150": 0.072,
+   "centroid_hz": 671,
+   "rolloff85_hz": 820,
+   "frac_above_450": 0.791,
+   "frac_300_5k": 0.926,
+   "frac_above_1k": 0.084,
+   "phone450": {
+    "energy_kept_db": -1.5,
+    "rms_active_dbfs": -21.3,
+    "periodicity": 0.746,
+    "centroid_hz": 754,
+    "voiced_kept": 0.942,
+    "pitch_match_1st": 0.561,
+    "octave_err": 0.097,
+    "contour_corr": 0.271,
+    "f0_median_hz": 246.2,
+    "f0_range_st": 21.56
+   }
+  },
+  "iron_sad": {
+   "file": "wav/iron_sad.wav",
+   "dur_s": 3.55,
+   "n_syl_planned": 4,
+   "planned_rate_syl_s": 1.52,
+   "peak_dbfs": -17.2,
+   "rms_active_dbfs": -30.2,
+   "periodicity": 0.808,
+   "voiced_frac": 0.764,
+   "f0_median_hz": 107.4,
+   "f0_p10_hz": 81.7,
+   "f0_p90_hz": 227.6,
+   "f0_range_st": 17.74,
+   "f0_sd_st": 7.28,
+   "slope_all_st_s": -1.3,
+   "slope_end_st_s": 24.9,
+   "contour_hz_50ms": "280 120 117 113 110 108 245 243 248 113 112 108 106 106 105 102 97 160 233 227 227 227 221 217 249 103 103 104 102 99 97 98 97 221 217 214 214 212 233 92 93 93 90 87 87 86 82 79 76 74 72 221 209 205 205 205 _6 149 _5",
+   "measured_rate_peaks_s": 1.53,
+   "roughness_30_150": 0.762,
+   "centroid_hz": 542,
+   "rolloff85_hz": 703,
+   "frac_above_450": 0.705,
+   "frac_300_5k": 0.922,
+   "frac_above_1k": 0.005,
+   "phone450": {
+    "energy_kept_db": -1.7,
+    "rms_active_dbfs": -31.6,
+    "periodicity": 0.815,
+    "centroid_hz": 613,
+    "voiced_kept": 0.958,
+    "pitch_match_1st": 0.614,
+    "octave_err": 0.0,
+    "contour_corr": 0.947,
+    "f0_median_hz": 107.9,
+    "f0_range_st": 35.24
+   }
+  },
+  "iron_angry": {
+   "file": "wav/iron_angry.wav",
+   "dur_s": 1.36,
+   "n_syl_planned": 7,
+   "planned_rate_syl_s": 6.4,
+   "peak_dbfs": -3.5,
+   "rms_active_dbfs": -18.3,
+   "periodicity": 0.593,
+   "voiced_frac": 0.432,
+   "f0_median_hz": 159.9,
+   "f0_p10_hz": 103.2,
+   "f0_p90_hz": 395.8,
+   "f0_range_st": 23.27,
+   "f0_sd_st": 7.42,
+   "slope_all_st_s": -5.7,
+   "slope_end_st_s": -16.7,
+   "contour_hz_50ms": "220 103 142 _2 396 169 162 398 _ 138 139 197 192 399 400 _ 142 142 _ 160 232 144 144",
+   "measured_rate_peaks_s": 5.11,
+   "roughness_30_150": 0.228,
+   "centroid_hz": 1006,
+   "rolloff85_hz": 1570,
+   "frac_above_450": 0.79,
+   "frac_300_5k": 0.93,
+   "frac_above_1k": 0.217,
+   "phone450": {
+    "energy_kept_db": -1.3,
+    "rms_active_dbfs": -19.4,
+    "periodicity": 0.565,
+    "centroid_hz": 1131,
+    "voiced_kept": 0.941,
+    "pitch_match_1st": 0.608,
+    "octave_err": 0.02,
+    "contour_corr": 0.373,
+    "f0_median_hz": 301.7,
+    "f0_range_st": 16.45
+   }
+  },
+  "iron_surprised": {
+   "file": "wav/iron_surprised.wav",
+   "dur_s": 1.11,
+   "n_syl_planned": 2,
+   "planned_rate_syl_s": 3.12,
+   "peak_dbfs": -3.4,
+   "rms_active_dbfs": -15.3,
+   "periodicity": 0.67,
+   "voiced_frac": 0.538,
+   "f0_median_hz": 206.6,
+   "f0_p10_hz": 110.0,
+   "f0_p90_hz": 2997.1,
+   "f0_range_st": 57.21,
+   "f0_sd_st": 21.97,
+   "slope_all_st_s": -14.8,
+   "slope_end_st_s": -100.0,
+   "contour_hz_50ms": "_4 167 219 119 129 107 74 2752 3191 1189 176 194 211 183 110",
+   "measured_rate_peaks_s": 3.47,
+   "roughness_30_150": 0.433,
+   "centroid_hz": 1431,
+   "rolloff85_hz": 2602,
+   "frac_above_450": 0.971,
+   "frac_300_5k": 0.983,
+   "frac_above_1k": 0.459,
+   "phone450": {
+    "energy_kept_db": -0.3,
+    "rms_active_dbfs": -15.3,
+    "periodicity": 0.68,
+    "centroid_hz": 1478,
+    "voiced_kept": 0.98,
+    "pitch_match_1st": 0.816,
+    "octave_err": 0.0,
+    "contour_corr": 0.943,
+    "f0_median_hz": 215.8,
+    "f0_range_st": 51.83
+   }
+  }
+ },
+ "discriminability": {
+  "babble": {
+   "labels": [
+    "angry",
+    "happy",
+    "sad",
+    "surprised"
+   ],
+   "acc_full": 0.917,
+   "acc_phone": 0.979,
+   "acc_train_full_test_phone": 0.917,
+   "conf_full": [
+    [
+     9,
+     3,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     1,
+     0,
+     0,
+     11
+    ]
+   ],
+   "conf_phone": [
+    [
+     11,
+     1,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_cross": [
+    [
+     8,
+     2,
+     0,
+     2
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "feature_means_full": {
+    "happy": {
+     "f0_med_st": 8.6,
+     "f0_range_st": 5.9,
+     "slope_end": 9.06,
+     "rate": 5.8,
+     "rms_db": -20.87,
+     "log2_centroid": 9.92,
+     "roughness": 0.08,
+     "periodicity": 0.95
+    },
+    "sad": {
+     "f0_med_st": -7.13,
+     "f0_range_st": 12.09,
+     "slope_end": -2.32,
+     "rate": 1.67,
+     "rms_db": -37.39,
+     "log2_centroid": 9.07,
+     "roughness": 0.12,
+     "periodicity": 0.84
+    },
+    "angry": {
+     "f0_med_st": 2.28,
+     "f0_range_st": 8.05,
+     "slope_end": 2.18,
+     "rate": 6.62,
+     "rms_db": -16.73,
+     "log2_centroid": 9.99,
+     "roughness": 0.16,
+     "periodicity": 0.89
+    },
+    "surprised": {
+     "f0_med_st": 6.66,
+     "f0_range_st": 9.04,
+     "slope_end": 8.84,
+     "rate": 4.05,
+     "rms_db": -20.25,
+     "log2_centroid": 10.16,
+     "roughness": 0.06,
+     "periodicity": 0.82
+    }
+   }
+  },
+  "suikin": {
+   "labels": [
+    "angry",
+    "happy",
+    "sad",
+    "surprised"
+   ],
+   "acc_full": 0.979,
+   "acc_phone": 1.0,
+   "acc_train_full_test_phone": 0.958,
+   "conf_full": [
+    [
+     11,
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_phone": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_cross": [
+    [
+     10,
+     2,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "feature_means_full": {
+    "happy": {
+     "f0_med_st": 5.56,
+     "f0_range_st": 25.01,
+     "slope_end": -27.08,
+     "rate": 5.07,
+     "rms_db": -22.01,
+     "log2_centroid": 10.48,
+     "roughness": 0.12,
+     "periodicity": 0.91
+    },
+    "sad": {
+     "f0_med_st": -5.64,
+     "f0_range_st": 6.79,
+     "slope_end": 4.81,
+     "rate": 2.23,
+     "rms_db": -32.71,
+     "log2_centroid": 9.16,
+     "roughness": 0.0,
+     "periodicity": 0.97
+    },
+    "angry": {
+     "f0_med_st": 1.69,
+     "f0_range_st": 22.5,
+     "slope_end": 1.51,
+     "rate": 4.26,
+     "rms_db": -16.15,
+     "log2_centroid": 10.45,
+     "roughness": 0.31,
+     "periodicity": 0.88
+    },
+    "surprised": {
+     "f0_med_st": 1.2,
+     "f0_range_st": 18.35,
+     "slope_end": -12.8,
+     "rate": 3.09,
+     "rms_db": -20.37,
+     "log2_centroid": 10.56,
+     "roughness": 0.05,
+     "periodicity": 0.88
+    }
+   }
+  },
+  "robot": {
+   "labels": [
+    "angry",
+    "happy",
+    "sad",
+    "surprised"
+   ],
+   "acc_full": 0.979,
+   "acc_phone": 1.0,
+   "acc_train_full_test_phone": 0.979,
+   "conf_full": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     11,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_phone": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_cross": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     11,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "feature_means_full": {
+    "happy": {
+     "f0_med_st": 8.24,
+     "f0_range_st": 15.57,
+     "slope_end": 14.24,
+     "rate": 5.54,
+     "rms_db": -14.11,
+     "log2_centroid": 11.13,
+     "roughness": 0.25,
+     "periodicity": 0.96
+    },
+    "sad": {
+     "f0_med_st": -19.2,
+     "f0_range_st": 10.39,
+     "slope_end": -11.26,
+     "rate": 1.21,
+     "rms_db": -26.12,
+     "log2_centroid": 9.18,
+     "roughness": 0.05,
+     "periodicity": 0.98
+    },
+    "angry": {
+     "f0_med_st": -34.83,
+     "f0_range_st": 26.86,
+     "slope_end": -37.83,
+     "rate": 6.31,
+     "rms_db": -14.19,
+     "log2_centroid": 10.11,
+     "roughness": 0.5,
+     "periodicity": 0.78
+    },
+    "surprised": {
+     "f0_med_st": 10.28,
+     "f0_range_st": 23.31,
+     "slope_end": 32.86,
+     "rate": 4.54,
+     "rms_db": -12.58,
+     "log2_centroid": 11.05,
+     "roughness": 0.07,
+     "periodicity": 0.89
+    }
+   }
+  },
+  "creature": {
+   "labels": [
+    "angry",
+    "happy",
+    "sad",
+    "surprised"
+   ],
+   "acc_full": 1.0,
+   "acc_phone": 0.979,
+   "acc_train_full_test_phone": 0.979,
+   "conf_full": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_phone": [
+    [
+     11,
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_cross": [
+    [
+     11,
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "feature_means_full": {
+    "happy": {
+     "f0_med_st": -1.68,
+     "f0_range_st": 31.53,
+     "slope_end": 18.76,
+     "rate": 6.07,
+     "rms_db": -19.19,
+     "log2_centroid": 10.09,
+     "roughness": 0.12,
+     "periodicity": 0.69
+    },
+    "sad": {
+     "f0_med_st": -11.06,
+     "f0_range_st": 28.38,
+     "slope_end": 34.77,
+     "rate": 2.33,
+     "rms_db": -36.29,
+     "log2_centroid": 9.72,
+     "roughness": 0.4,
+     "periodicity": 0.64
+    },
+    "angry": {
+     "f0_med_st": -34.02,
+     "f0_range_st": 13.2,
+     "slope_end": 13.09,
+     "rate": 6.2,
+     "rms_db": -27.04,
+     "log2_centroid": 11.54,
+     "roughness": 0.5,
+     "periodicity": 0.49
+    },
+    "surprised": {
+     "f0_med_st": 3.11,
+     "f0_range_st": 26.07,
+     "slope_end": 92.5,
+     "rate": 3.51,
+     "rms_db": -19.37,
+     "log2_centroid": 10.26,
+     "roughness": 0.23,
+     "periodicity": 0.63
+    }
+   }
+  },
+  "iron": {
+   "labels": [
+    "angry",
+    "happy",
+    "sad",
+    "surprised"
+   ],
+   "acc_full": 1.0,
+   "acc_phone": 1.0,
+   "acc_train_full_test_phone": 0.979,
+   "conf_full": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_phone": [
+    [
+     12,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "conf_cross": [
+    [
+     11,
+     1,
+     0,
+     0
+    ],
+    [
+     0,
+     12,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     12,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     12
+    ]
+   ],
+   "feature_means_full": {
+    "happy": {
+     "f0_med_st": 4.96,
+     "f0_range_st": 19.16,
+     "slope_end": 0.47,
+     "rate": 5.43,
+     "rms_db": -21.58,
+     "log2_centroid": 9.51,
+     "roughness": 0.09,
+     "periodicity": 0.75
+    },
+    "sad": {
+     "f0_med_st": -4.81,
+     "f0_range_st": 17.32,
+     "slope_end": 25.18,
+     "rate": 1.62,
+     "rms_db": -30.35,
+     "log2_centroid": 9.11,
+     "roughness": 0.44,
+     "periodicity": 0.81
+    },
+    "angry": {
+     "f0_med_st": 0.56,
+     "f0_range_st": 15.46,
+     "slope_end": 43.15,
+     "rate": 3.96,
+     "rms_db": -17.23,
+     "log2_centroid": 9.93,
+     "roughness": 0.31,
+     "periodicity": 0.58
+    },
+    "surprised": {
+     "f0_med_st": 7.16,
+     "f0_range_st": 51.3,
+     "slope_end": 38.21,
+     "rate": 3.58,
+     "rms_db": -15.72,
+     "log2_centroid": 10.38,
+     "roughness": 0.38,
+     "periodicity": 0.73
+    }
+   }
+  }
+ }
+}
